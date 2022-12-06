@@ -7,6 +7,8 @@ function IngredientInput(props) {
       <input
         className="ingredient-input"
         id="ingredient-input"
+        name="ingredient"
+        onChange={props.handleChange}
         placeholder="e.g. 1/2 cup of broccoli"
         type="text"
       />

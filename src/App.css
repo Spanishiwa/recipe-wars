@@ -20,5 +20,6 @@ footer {
 }
 
 .logo-edamam {
+  display: block;
   height: 50px;
 }
