@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# RECIPE WARS
+
+Look up the nutritional content of your favorite ingredient or recipe (multiple ingredients). Just copy and paste the ingredient or list of ingredients!
 
 Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Favicons sourced from [freeiconspng](https://www.freeiconspng.com/).
 

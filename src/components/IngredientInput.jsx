@@ -12,7 +12,12 @@ function IngredientInput(props) {
         placeholder="e.g. 1/2 cup of broccoli"
         type="text"
       />
-      <button className="ingredient-save" id="ingredient-save" type="submit">
+      <button
+        className="ingredient-save"
+        id="ingredient-save"
+        // onClick={props.handleClick}
+        type="button"
+      >
         Save Ingredient
       </button>
     </React.Fragment>
