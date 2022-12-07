@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import IngredientInput from "./IngredientInput";
-import { CONFIG, MOCK_RES } from "./../config";
 import "./RecipeForm.css";
+import { CONFIG, MOCK_RES } from "./../config";
+import IngredientInput from "./IngredientInput";
+import ImageInput from "./ImageInput";
 
 function RecipeForm() {
   const [values, setValues] = useState({
     ingredient: "",
     ingredients: "",
-    calories: 0
+    calories: 0,
+    imgSrc: ""
   });
 
   const handleChange = (e) => {
@@ -72,12 +74,30 @@ function RecipeForm() {
   // });
   // };
 
+  const handleImage = (e) => {
+    // clean up unused Blob
+    if (values.imgSrc) URL.revokeObjectURL(values.imgSrc);
+    const [file] = e.target.files;
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      imgSrc: URL.createObjectURL(file)
+    }));
+  };
+
+  let imgUpload;
+  if (values.imgSrc) {
+    imgUpload = <img className="img-upload" src={values.imgSrc} />;
+  }
+
   return (
     <form className="recipe-form">
       <title>Recipe Analyzer</title>
       <IngredientInput
         /*handleClick={handleClick}*/ handleChange={handleChange}
       />
+      <ImageInput handleImage={handleImage} />
+      <img className="img-upload" src={values.imgSrc} />
       <span>Ingredient input is {values.ingredient}</span>
       <span>Calorie response is {values.calories}</span>
     </form>
