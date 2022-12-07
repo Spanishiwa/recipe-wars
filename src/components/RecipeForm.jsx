@@ -4,6 +4,7 @@ import "./RecipeForm.css";
 import { CONFIG, MOCK_RES } from "./../config";
 import IngredientInput from "./IngredientInput";
 import ImageInput from "./ImageInput";
+import RecipeTextarea from "./RecipeTextarea";
 
 function RecipeForm() {
   const [values, setValues] = useState({
@@ -77,17 +78,22 @@ function RecipeForm() {
   const handleImage = (e) => {
     // clean up unused Blob
     if (values.imgSrc) URL.revokeObjectURL(values.imgSrc);
-    const [file] = e.target.files;
-
+    const imgFile = e.target.files[0];
     setValues((prevValues) => ({
       ...prevValues,
-      imgSrc: URL.createObjectURL(file)
+      imgSrc: URL.createObjectURL(imgFile)
     }));
   };
 
   let imgUpload;
   if (values.imgSrc) {
-    imgUpload = <img className="img-upload" src={values.imgSrc} />;
+    imgUpload = (
+      <img
+        alt="user uploaded ingredient"
+        className="img-upload"
+        src={values.imgSrc}
+      />
+    );
   }
 
   return (
@@ -97,7 +103,8 @@ function RecipeForm() {
         /*handleClick={handleClick}*/ handleChange={handleChange}
       />
       <ImageInput handleImage={handleImage} />
-      <img className="img-upload" src={values.imgSrc} />
+      {imgUpload}
+      <RecipeTextarea />
       <span>Ingredient input is {values.ingredient}</span>
       <span>Calorie response is {values.calories}</span>
     </form>

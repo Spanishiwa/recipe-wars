@@ -3,6 +3,7 @@ form.recipe-form {
   justify-content: center;
 }
 
-.ingredient-input {
+.ingredient-input,
+.recipe-textarea {
   padding: 5px;
 }
