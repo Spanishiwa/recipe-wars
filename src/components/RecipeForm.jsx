@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
-import "./RecipeForm.css";
 import { CONFIG, MOCK_RES } from "./../config";
 import IngredientInput from "./IngredientInput";
 import ImageInput from "./ImageInput";
-import RecipeTextarea from "./RecipeTextarea";
+import IngredientsTextarea from "./IngredientsTextarea";
+import { Box, Card, FormControl, Typography } from "@mui/material";
 
 function RecipeForm() {
   const [values, setValues] = useState({
@@ -97,17 +96,23 @@ function RecipeForm() {
   }
 
   return (
-    <form className="recipe-form">
-      <title>Recipe Analyzer</title>
-      <IngredientInput
-        /*handleClick={handleClick}*/ handleChange={handleChange}
-      />
-      <ImageInput handleImage={handleImage} />
-      {imgUpload}
-      <RecipeTextarea />
-      <span>Ingredient input is {values.ingredient}</span>
-      <span>Calorie response is {values.calories}</span>
-    </form>
+    <Card component="section" sx={{ p: 2 }}>
+      <Typography component="h1" variant="h4" mb={4}>
+        Recipe Wars Analyzer Form
+      </Typography>
+      <form className="recipe-form">
+        <FormControl sx={{ display: "flex", gap: 2 }}>
+          <IngredientInput
+            /*handleClick={handleClick}*/ handleChange={handleChange}
+          />
+          <IngredientsTextarea />
+          <ImageInput handleImage={handleImage} />
+          {imgUpload}
+          <Box component="span">Ingredient input is {values.ingredient}</Box>
+          <Box component="span">Calorie response is {values.calories}</Box>
+        </FormControl>
+      </form>
+    </Card>
   );
 }
 

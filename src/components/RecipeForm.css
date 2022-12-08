@@ -1,9 +1,0 @@
-form.recipe-form {
-  display: flex;
-  justify-content: center;
-}
-
-.ingredient-input,
-.recipe-textarea {
-  padding: 5px;
-}

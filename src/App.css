@@ -3,11 +3,15 @@ body,
 #root,
 .app {
   height: 100%;
+  --outline-color: #76cc00;
+  /* --background-color: #efefef; */
+  --padding: 16px;
+  /* --fontColor: #616e7c; */
 }
 
 .app {
-  --outline-color: #76cc00;
   background-image: url("assets/skelatal_weave.png");
+  background-color: var(--background-color);
 }
 
 .app :focus-visible {
