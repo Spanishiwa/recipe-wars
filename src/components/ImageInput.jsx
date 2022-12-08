@@ -1,7 +1,7 @@
 import { InputLabel, Input, Box } from "@mui/material";
 import React from "react";
 
-function ImageInput(props) {
+const ImageInput = (props) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", mb: 2 }}>
       {/* <InputLabel htmlFor="image-input" variant="outlined">
@@ -18,6 +18,6 @@ function ImageInput(props) {
       />
     </Box>
   );
-}
+};
 
 export default ImageInput;

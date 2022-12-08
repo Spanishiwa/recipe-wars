@@ -7,8 +7,9 @@ import {
   InputAdornment
 } from "@mui/material";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import { PostAdd } from "@mui/icons-material";
 
-function IngredientInput(props) {
+const IngredientInput = (props) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
@@ -18,18 +19,16 @@ function IngredientInput(props) {
         InputLabelProps={{
           shrink: true
         }}
-        // endAdornment={
-        //   <InputAdornment position="end">
-        //     <IconButton aria-label="toggle password visibility" edge="end">
-        //       <LibraryAddIcon />
-        //     </IconButton>
-        //   </InputAdornment>
-        // }
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton aria-label="Add ingredient" edge="end">
-                <LibraryAddIcon />
+              <IconButton
+                aria-label="Save ingredient"
+                edge="end"
+                // onClick={props.handleClick}
+                title="Save ingredient to ingredients list"
+              >
+                <PostAdd variant="outlined" />
               </IconButton>
             </InputAdornment>
           )
@@ -42,19 +41,8 @@ function IngredientInput(props) {
         type="text"
         variant="outlined"
       />
-      {/* <Button
-        color="primary"
-        className="ingredient-save"
-        // onClick={props.handleClick}
-        title="Save ingredient to ingredients list"
-        type="button"
-        variant="outlined"
-        startIcon={<LibraryAddIcon />}
-      >
-        Save Ingredient
-      </Button> */}
     </Box>
   );
-}
+};
 
 export default IngredientInput;

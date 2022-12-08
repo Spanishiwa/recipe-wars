@@ -5,7 +5,7 @@ import ImageInput from "./ImageInput";
 import IngredientsTextarea from "./IngredientsTextarea";
 import { Box, Card, FormControl, Typography } from "@mui/material";
 
-function RecipeForm() {
+const RecipeForm = () => {
   const [values, setValues] = useState({
     ingredient: "",
     ingredients: "",
@@ -114,6 +114,6 @@ function RecipeForm() {
       </form>
     </Card>
   );
-}
+};
 
 export default RecipeForm;
