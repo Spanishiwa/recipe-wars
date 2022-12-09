@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Recipe_Icon from "../assets/recipe_icon.png";
 import React from "react";
-import Bg_Pattern from "../assets/concrete_texture.png";
+import Bg_Pattern from "../assets/Beige_Paper.png";
 import { GitHub, Help, Mail } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 
@@ -79,12 +79,15 @@ const NavBar = () => {
 
             <Button
               component="a"
+              href="https://github.com/Spanishiwa/recipe-wars"
+              rel="noopener"
               sx={navButtonStyles}
-              title="Github source code"
+              target="_blank"
+              title="GitHub repository"
               variant="outlined"
             >
               <GitHub />
-              Github
+              GitHub
             </Button>
           </Stack>
         </Toolbar>

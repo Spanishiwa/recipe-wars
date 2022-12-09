@@ -2,7 +2,7 @@
 
 Look up the nutritional content of your favorite ingredient or recipe (multiple ingredients). Just copy and paste the ingredient or list of ingredients!
 
-Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Favicons sourced from [freeiconspng](https://www.freeiconspng.com/).
+Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Favicons and logos sourced from [freeiconspng](https://www.freeiconspng.com/).
 
 ## Available Scripts
 
