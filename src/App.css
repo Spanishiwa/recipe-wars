@@ -12,6 +12,7 @@ body,
 .app {
   background-image: url("assets/skelatal_weave.png");
   background-color: var(--background-color);
+  background-repeat: repeat;
 }
 
 .app :focus-visible {

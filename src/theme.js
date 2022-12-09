@@ -12,7 +12,7 @@ const theme = createTheme({
       dark: "#323F4B"
     },
     secondary: {
-      main: "#E6CBCA"
+      main: "#f2f4f8"
       // dark: "#FF7100",
       // light: "#FFB402"
     }
