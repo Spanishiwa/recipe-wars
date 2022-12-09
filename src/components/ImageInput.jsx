@@ -1,4 +1,4 @@
-import { InputLabel, Input, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 
 const ImageInput = (props) => {

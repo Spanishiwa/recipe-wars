@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Box,
-  TextField,
-  IconButton,
-  InputAdornment
-} from "@mui/material";
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
