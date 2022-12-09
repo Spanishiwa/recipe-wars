@@ -1,21 +1,26 @@
-import "./App.css";
+import Bg_Pattern from "./assets/Back_Pattern.png";
 import Footer from "./components/Footer";
 import RecipeForm from "./components/RecipeForm";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import NavBar from "./components/NavBar";
 import RecipeCard from "./components/RecipeCard";
 
 function App() {
+  const appSx = {
+    backgroundColor: "background.default",
+    backgroundImage: `url(${Bg_Pattern})`,
+    backgroundRepeat: "repeat"
+  };
+
   return (
-    <div className="app">
+    <Box className="app" sx={appSx}>
       <NavBar />
-      <header className="app-header"></header>
       <Container component="main" maxWidth="lg" sx={{ display: "flex", py: 2 }}>
         <RecipeForm />
         <RecipeCard />
       </Container>
       <Footer />
-    </div>
+    </Box>
   );
 }
 
