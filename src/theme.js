@@ -10,7 +10,7 @@ const darkTheme = createTheme({
 
 const palette = {
   light: {
-    primary: { main: "#77c800", light: "#F5F7FA" },
+    primary: { main: "#66bb6a", light: "#F5F7FA" },
     secondary: { main: "#323F4B" },
     text: { primary: "#616E7C", dark: "#323F4B" }
   }
@@ -20,7 +20,13 @@ const getDesignTokens = (mode) => ({
   palette: {
     mode,
     ...(mode === "dark"
-      ? darkTheme.palette
+      ? {
+          ...darkTheme.palette,
+          common: { white: "#66bb6a" },
+          primary: { main: "#66bb6a" },
+          text: { primary: "#66bb6a" },
+          action: { active: "#66bb6a" }
+        }
       : {
           primary: {
             main: palette.light.primary.main,
@@ -32,6 +38,9 @@ const getDesignTokens = (mode) => ({
           text: {
             primary: palette.light.text.primary,
             dark: palette.light.text.dark
+          },
+          background: {
+            default: "#F5F7FA"
           }
         })
   }

@@ -2,7 +2,8 @@ import { Box } from "@mui/system";
 import React from "react";
 import Edamam_Badge_Transparent from "../assets/Edamam_Badge_Transparent.svg";
 import Bg_Pattern_Dark from "../assets/Binding_Dark.png";
-import Bg_Pattern_Light from "../assets/Beige_Paper.png";
+// import Bg_Pattern_Light from "../assets/Beige_Paper.png";
+import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import { Link, useTheme } from "@mui/material";
 
 function Footer() {
@@ -23,6 +24,7 @@ function Footer() {
     sx: {
       display: "flex",
       ...footerSx,
+      justifyContent: { xs: "center", sm: "left" },
       padding: 2
     }
   };

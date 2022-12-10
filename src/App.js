@@ -1,4 +1,5 @@
 import Bg_Pattern from "./assets/Back_Pattern.png";
+import Bg_Pattern_Light from "./assets/Beige_Paper.png";
 import Footer from "./components/Footer";
 import RecipeForm from "./components/RecipeForm";
 import { Box, Container } from "@mui/material";
@@ -8,7 +9,7 @@ import RecipeCard from "./components/RecipeCard";
 function App() {
   const appSx = {
     backgroundColor: "background.default",
-    backgroundImage: `url(${Bg_Pattern})`,
+    backgroundImage: `url(${Bg_Pattern_Light})`,
     backgroundRepeat: "repeat"
   };
 

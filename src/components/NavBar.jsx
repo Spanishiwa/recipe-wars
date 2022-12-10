@@ -15,7 +15,6 @@ import Bg_Pattern_Light from "../assets/Beige_Paper.png";
 import Bg_Pattern_Dark from "../assets/Binding_Dark.png";
 import { GitHub, Help, LightMode, Mail, Nightlight } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
-import Theme from "../theme";
 
 const NavBar = () => {
   const colorMode = useContext(ColorModeContext);
@@ -25,7 +24,7 @@ const NavBar = () => {
     mode === "light" ? { "&:hover": { background: "rgb(83, 140, 0)" } } : {};
 
   const navButtonStyles = {
-    color: mode === "light" ? "secondary.main" : "primary.main",
+    color: mode === "light" ? "secondary.main" : "text.primary",
     display: "flex",
     flex: "1 1 0px",
     flexDirection: "column",
@@ -33,11 +32,21 @@ const NavBar = () => {
     ...hoverSx
   };
 
+  const colorModeIcon = mode === "light" ? <Nightlight /> : <LightMode />;
+
   return (
     <React.Fragment>
       <AppBar position="fixed" sx={{ backgroundImage: `url(${bgPattern})` }}>
-        <Toolbar>
-          <Box display="flex" flexGrow={1} gap={2}>
+        <Toolbar
+          sx={{
+            flexDirection: "row",
+            justifyContent: { xs: "center" },
+            margin: { lg: "auto" },
+            maxWidth: "lg",
+            width: { lg: "100%" }
+          }}
+        >
+          <Box display={{ xs: "none", sm: "flex" }} flexGrow={1} gap={2}>
             <Link
               color="inherit"
               display="flex"
@@ -53,7 +62,7 @@ const NavBar = () => {
                 width="48"
               />
               <Typography
-                color={mode === "light" ? "text.dark" : "primary.main"}
+                color={mode === "light" ? "text.dark" : "text.primary"}
                 component="h1"
                 fontWeight="500"
                 variant="h5"
@@ -72,8 +81,7 @@ const NavBar = () => {
               sx={navButtonStyles}
               title="Toggle color theme"
             >
-              {/* <LightMode></LightMode> */}
-              <Nightlight></Nightlight>
+              {colorModeIcon}
               THEME
             </Button>
             <Button component="a" sx={navButtonStyles} title="Contact Us Page">
