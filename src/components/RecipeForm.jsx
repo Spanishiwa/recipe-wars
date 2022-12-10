@@ -96,7 +96,7 @@ const RecipeForm = () => {
   }
 
   return (
-    <Card component="section" sx={{ p: 2 }}>
+    <Card component="section" sx={{ maxWidth: "500px", p: 2 }}>
       <Typography component="h1" variant="h4" mb={4}>
         Recipe Wars Analyzer Form
       </Typography>

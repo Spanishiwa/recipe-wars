@@ -12,7 +12,7 @@ import ColorModeContext from "./ColorModeContext";
 import Recipe_Icon from "../assets/recipe_icon.png";
 import React, { useContext } from "react";
 import Bg_Pattern_Light from "../assets/Beige_Paper.png";
-import Bg_Pattern_Dark from "../assets/Binding_Dark.png";
+import Bg_Pattern_Dark from "../assets/Maze_Black.png";
 import { GitHub, Help, LightMode, Mail, Nightlight } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 
@@ -24,7 +24,7 @@ const NavBar = () => {
     mode === "light" ? { "&:hover": { background: "rgb(83, 140, 0)" } } : {};
 
   const navButtonStyles = {
-    color: mode === "light" ? "secondary.main" : "text.primary",
+    color: mode === "light" ? "secondary.main" : "primary.main",
     display: "flex",
     flex: "1 1 0px",
     flexDirection: "column",
@@ -62,7 +62,7 @@ const NavBar = () => {
                 width="48"
               />
               <Typography
-                color={mode === "light" ? "text.dark" : "text.primary"}
+                color={mode === "light" ? "text.dark" : "primary.main"}
                 component="h1"
                 fontWeight="500"
                 variant="h5"
@@ -74,7 +74,10 @@ const NavBar = () => {
           <Stack
             divider={<Divider flexItem orientation="vertical" />}
             direction="row"
-            sx={{ alignItems: "center" }}
+            sx={{
+              alignItems: "center",
+              flex: { xs: "1 1 auto", sm: "0.1 1 auto" }
+            }}
           >
             <Button
               onClick={colorMode.toggleColorMode}

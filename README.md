@@ -1,12 +1,11 @@
 # RECIPE WARS
 
-Look up the nutritional content of your favorite ingredient or recipe (multiple ingredients). Just copy and paste the ingredient or list of ingredients! Toggle color themes with the THEME nav bar button.
+Look up the nutritional content of your favorite ingredient or recipe (multiple ingredients). Just copy and paste the ingredient or list of ingredients! Toggle color themes with the theme nav bar button.
 
-Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Favicons and logos sourced from [freeiconspng](https://www.freeiconspng.com/).
+Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons and logos sourced from [freeiconspng](https://www.freeiconspng.com/).
 
 TODO:
 Contact, FAQ pages
-Mobile responsiveness
 Recipe Input confirmation
 Recipe preview
 Example recipes/stock photos

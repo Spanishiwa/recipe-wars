@@ -1,15 +1,19 @@
-import Bg_Pattern from "./assets/Back_Pattern.png";
+import React from "react";
+import Bg_Pattern_Dark from "./assets/Graphcoders_Lil_Fiber.png";
 import Bg_Pattern_Light from "./assets/Beige_Paper.png";
 import Footer from "./components/Footer";
 import RecipeForm from "./components/RecipeForm";
-import { Box, Container } from "@mui/material";
+import { Box, Container, useTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
 import RecipeCard from "./components/RecipeCard";
 
 function App() {
+  const mode = useTheme().palette.mode;
+  const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
+
   const appSx = {
     backgroundColor: "background.default",
-    backgroundImage: `url(${Bg_Pattern_Light})`,
+    backgroundImage: `url(${bgPattern})`,
     backgroundRepeat: "repeat"
   };
 

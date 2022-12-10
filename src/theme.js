@@ -22,9 +22,12 @@ const getDesignTokens = (mode) => ({
     ...(mode === "dark"
       ? {
           ...darkTheme.palette,
-          common: { white: "#66bb6a" },
+          // common: { white: "#66bb6a" },
           primary: { main: "#66bb6a" },
-          text: { primary: "#66bb6a" },
+          text: {
+            primary: "rgba(255,255,255,0.7)",
+            secondary: "rgba(255,255,255,0.7)"
+          },
           action: { active: "#66bb6a" }
         }
       : {
