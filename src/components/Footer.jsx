@@ -24,19 +24,30 @@ function Footer() {
     sx: {
       display: "flex",
       ...footerSx,
+
       justifyContent: { xs: "center", sm: "left" },
-      padding: 2
+      padding: {
+        xs: "16px",
+        sm: "16px 16px 16px 12px",
+        lg: "16px"
+      }
     }
   };
 
   return (
     <Box {...footerAttributes}>
-      <Box maxWidth="lg" px={3} sx={{ m: "auto", width: "100%" }}>
+      <Box
+        sx={{
+          margin: { lg: "auto" },
+          maxWidth: "lg",
+          width: { xs: "auto", lg: "100%" }
+        }}
+      >
         <Link
           component="a"
           href="https://developer.edamam.com/attribution"
           rel="noopener"
-          sx={{ margin: "auto" }}
+          sx={{ display: "inline-block", margin: "auto" }}
           target="_blank"
           title="Edamam API logo and attribution"
         >

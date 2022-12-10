@@ -1,47 +1,79 @@
 import React from "react";
 import {
+  Box,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
+  Collapse,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  styled,
   Typography
 } from "@mui/material";
-import StockBeefImage from "../assets/Italian_Beef.jpeg";
-import ImageModal from "./ImageModal.jsx";
+import { RecipeImage } from "./RecipeImage";
+import { Expand, Favorite, Share } from "@mui/icons-material";
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest
+  })
+}));
 
 const RecipeCard = () => {
-  const [open, setOpen] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   return (
-    <Card component="section" sx={{ maxWidth: "500px" }}>
+    <Card component="section" sx={{}}>
       <CardHeader title="Italian beef with hot gardiniera sandwich" />
-      <CardMedia
-        alt="Portillo's Italian beef with hot giardiniera"
-        component="img"
-        height="194"
-        image={StockBeefImage}
-        onClick={handleClickOpen}
-        sx={{ cursor: "pointer" }}
-        title="Portillo's Italian beef with hot giardiniera"
-      />
-      <ImageModal
-        handleClose={handleClose}
-        imgSrc={StockBeefImage}
-        open={open}
-        title="Portillo's Italian beef with hot giardiniera"
-      ></ImageModal>
-      <CardContent sx={{ p: 2 }}>
-        <Typography component="p" variant="b1">
-          Italian beef is made using cuts of beef from the sirloin rear or the
-          top/bottom round wet-roasted in broth with garlic, oregano and spices
-          until cooked throughout
-        </Typography>
+      <CardContent sx={{ display: "flex", p: "0px 0px 16px 16px" }}>
+        <Box sx={{ flex: "35%" }}>
+          <Typography component="p" variant="b1">
+            Ingredients (18)
+          </Typography>
+          <List>
+            <ListItem>
+              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
+              <ListItemIcon></ListItemIcon>
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem>
+              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
+              <ListItemIcon></ListItemIcon>
+            </ListItem>
+          </List>
+          <Typography component="p" variant="b1"></Typography>
+        </Box>
+        <Box sx={{ flex: "65%" }}>
+          <RecipeImage />
+          <CardActions disableSpacing>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <Expand />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            testing testing
+          </Collapse>
+        </Box>
       </CardContent>
     </Card>
   );

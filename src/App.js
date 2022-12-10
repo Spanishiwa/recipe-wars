@@ -21,7 +21,7 @@ function App() {
     <Box className="app" sx={appSx}>
       <NavBar />
       <Container component="main" maxWidth="lg" sx={{ display: "flex", py: 2 }}>
-        <RecipeForm />
+        {/* <RecipeForm /> */}
         <RecipeCard />
       </Container>
       <Footer />
