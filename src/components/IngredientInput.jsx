@@ -19,6 +19,7 @@ const IngredientInput = (props) => {
                 aria-label="Save ingredient"
                 edge="end"
                 // onClick={props.handleClick}
+                sx={{ "&:hover": { color: "primary.main" } }}
                 title="Save ingredient to ingredients list"
               >
                 <PostAdd variant="outlined" />
