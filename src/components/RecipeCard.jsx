@@ -19,6 +19,8 @@ import {
 } from "@mui/material";
 import { RecipeImage } from "./RecipeImage";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import ReceiptLong from "@mui/icons-material/ReceiptLong";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,10 +32,10 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest
   })
 }));
-
-const ingredientsSx = (expand) => {
+const ingredientsSx = (expand, style) => {
   return expand
     ? {
+        borderTop: { xs: style, md: "unset" },
         maxHeight: "auto",
         overflowY: "auto"
       }
@@ -55,6 +57,14 @@ const RecipeCard = () => {
     mode === "light"
       ? "thin solid rgba(0, 0, 0, 0.12)"
       : "thin solid rgba(255, 255, 255, 0.12)";
+
+  const cardActionsStyle = {
+    borderTop: cardActionBorderStyle,
+    borderBottom: cardActionBorderStyle,
+    flexFlow: "row-reverse",
+    justifyContent: "left"
+  };
+
   return (
     <Card component="section" sx={{}}>
       <CardHeader
@@ -72,11 +82,14 @@ const RecipeCard = () => {
         <Box
           sx={{
             flex: "35%",
-            padding: "0px 16px 16px 16px",
-            ...ingredientsSx(expanded)
+            padding: { xs: "16px", sm: "16px", md: "0px 16px 16px 16px" },
+            ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
         >
           <Typography component="p" variant="b1">
+            <ReceiptLong
+              sx={{ m: "0px 8px 0px 16px", verticalAlign: "middle" }}
+            />
             Ingredients (18)
           </Typography>
           <List sx={{}}>
@@ -150,14 +163,16 @@ const RecipeCard = () => {
           <RecipeImage />
           <CardActions
             disableSpacing
-            style={{
+            sx={{
               borderTop: cardActionBorderStyle,
+              borderBottom: { xs: cardActionBorderStyle, md: "unset" },
               flexFlow: "row-reverse",
               justifyContent: "left"
             }}
           >
             {" "}
-            Recipe Cooking Instructions
+            Recipe Instructions{" "}
+            <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
@@ -171,7 +186,18 @@ const RecipeCard = () => {
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <Typography component="p" variant="b2"></Typography>
-            <Typography component="p" p={"0px 16px 16px 16px"} variant="b2">
+            <Typography
+              component="p"
+              p={2}
+              sx={{
+                borderTop: { xs: "unset", md: cardActionBorderStyle },
+                flexFlow: "row-reverse",
+                justifyContent: "left",
+                maxHeight: "1200px",
+                overflowY: "scroll"
+              }}
+              variant="b2"
+            >
               Let the meat rest at room temperature for 15 minutes (this is a
               good time to measure your other spices and seasonings). Season the
               beef all over with kosher salt. Heat a large skillet or Dutch oven

@@ -17,6 +17,14 @@ export const RecipeImage = () => {
     setOpen(false);
   };
 
+  const svgContainerSx = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    pb: "16px",
+    rowGap: "16px"
+  };
+
   return (
     <Fragment>
       <Box component="figure" m={0}>
@@ -30,15 +38,7 @@ export const RecipeImage = () => {
           title="Portillo's Italian beef sandwich with hot giardiniera"
         />
         <Typography component="figcaption" p={2} variant="b2">
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-around",
-              pb: "16px",
-              rowGap: "16px"
-            }}
-          >
+          <Box sx={{ ...svgContainerSx }}>
             <CalorieSvg calories="690" />
             <CarbohydrateSvg grams="63" />
             <ProteinSvg grams="34" />

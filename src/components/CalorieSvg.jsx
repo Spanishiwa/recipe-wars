@@ -16,7 +16,7 @@ export const CalorieSvg = (props) => {
       >
         <Calorie></Calorie>
       </SvgIcon>{" "}
-      690 kCal
+      {calories} kCal
     </Typography>
   );
 };

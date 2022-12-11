@@ -16,7 +16,7 @@ export const CarbohydrateSvg = (props) => {
       >
         <Carbohydrate></Carbohydrate>
       </SvgIcon>{" "}
-      63g carbs
+      {grams}g carbs
     </Typography>
   );
 };

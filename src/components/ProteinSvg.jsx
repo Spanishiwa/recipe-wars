@@ -16,7 +16,7 @@ export const ProteinSvg = (props) => {
       >
         <Protein></Protein>
       </SvgIcon>{" "}
-      34g protein
+      {grams}g protein
     </Typography>
   );
 };

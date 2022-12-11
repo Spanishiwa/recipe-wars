@@ -6,6 +6,7 @@ import RecipeForm from "./components/RecipeForm";
 import { Box, Container, useTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
 import RecipeCard from "./components/RecipeCard";
+import MuiStepper from "./components/MuiStepper";
 
 function App() {
   const mode = useTheme().palette.mode;
@@ -22,7 +23,8 @@ function App() {
       <NavBar />
       <Container component="main" maxWidth="lg" sx={{ display: "flex", py: 2 }}>
         {/* <RecipeForm /> */}
-        <RecipeCard />
+        {/* <RecipeCard /> */}
+        <MuiStepper></MuiStepper>
       </Container>
       <Footer />
     </Box>
