@@ -7,7 +7,7 @@ import { CarbohydrateSvg } from "./CarbohydrateSvg";
 import { ProteinSvg } from "./ProteinSvg";
 import { FatSvg } from "./FatSvg";
 
-export const RecipeImage = () => {
+export const RecipeImage = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -25,36 +25,40 @@ export const RecipeImage = () => {
     rowGap: "16px"
   };
 
+  const { title, description, imgSrc, ingredients, servings, calories } = props;
+  const { PROCNT, CHOCDF, FAT } = props.totalNutrients;
+
   return (
     <Fragment>
       <Box component="figure" m={0}>
         <CardMedia
-          alt="Portillo's Italian beef sandwich with hot giardiniera"
+          alt={title}
           component="img"
           height="194"
-          image={StockBeefImage}
+          image={imgSrc}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
-          title="Portillo's Italian beef sandwich with hot giardiniera"
+          title={title}
         />
         <Typography component="figcaption" p={2} variant="b2">
           <Box sx={{ ...svgContainerSx }}>
-            <CalorieSvg calories="690" />
-            <CarbohydrateSvg grams="63" />
-            <ProteinSvg grams="34" />
-            <FatSvg grams="33" />
+            <CalorieSvg calories={calories} />
+            <CarbohydrateSvg quantity={CHOCDF.quantity} />
+            <ProteinSvg quantity={PROCNT.quantity} />
+            <FatSvg quantity={FAT.quantity} />
           </Box>
-          Italian beef is made using cuts of beef from the sirloin rear or the
-          top/bottom round wet-roasted in broth with garlic, oregano and spices
-          until cooked throughout.
+          <Typography component="p" pb={2} variant="b2">
+            Serves {servings}
+          </Typography>
+          {description}
         </Typography>
       </Box>
       <Typography component="p" variant="h6"></Typography>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={StockBeefImage}
+        imgSrc={imgSrc}
         open={open}
-        title="Portillo's Italian beef sandwich with hot giardiniera"
+        title={title}
       />
     </Fragment>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import { ReactComponent as Carbohydrate } from "../assets/Carbohydrate.svg";
 
 export const CarbohydrateSvg = (props) => {
-  const { sx, grams } = props;
+  const { sx, quantity } = props;
   return (
     <Typography
       component="span"
@@ -12,11 +12,11 @@ export const CarbohydrateSvg = (props) => {
     >
       <SvgIcon
         sx={{ mr: 1, verticalAlign: "middle" }}
-        titleAccess={`${grams} grams of carbohydrates`}
+        titleAccess={`${quantity} grams of carbohydrates`}
       >
         <Carbohydrate></Carbohydrate>
       </SvgIcon>{" "}
-      {grams}g carbs
+      {quantity}g carbs
     </Typography>
   );
 };

@@ -12,6 +12,7 @@ import { Card } from "@mui/material";
 import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 import { bgcolor } from "@mui/system";
+import RecipeForm from "./RecipeForm";
 
 const steps = [
   {
@@ -74,7 +75,12 @@ export default function TextMobileStepper() {
         <Typography>{steps[activeStep].label}</Typography>
       </Paper> */}
       <Box sx={{ maxWidth: 320, width: "100%" }}>
-        <RecipeCard></RecipeCard>
+        {activeStep == 0 ? (
+          <RecipeCard></RecipeCard>
+        ) : (
+          <RecipeForm></RecipeForm>
+        )}
+        {/* <RecipeCard></RecipeCard> */}
       </Box>
       <Box>
         <MobileStepper

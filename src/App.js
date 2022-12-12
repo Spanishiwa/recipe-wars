@@ -7,6 +7,8 @@ import { Box, Container, useTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
 import RecipeCard from "./components/RecipeCard";
 import MuiStepper from "./components/MuiStepper";
+import { areArraysEqual } from "@mui/base";
+import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
 
 function App() {
   const mode = useTheme().palette.mode;
@@ -24,7 +26,8 @@ function App() {
       <Container component="main" maxWidth="lg" sx={{ display: "flex", py: 2 }}>
         {/* <RecipeForm /> */}
         {/* <RecipeCard /> */}
-        <MuiStepper></MuiStepper>
+        {/* <MuiStepper /> */}
+        <RecipeCardSkeleton />
       </Container>
       <Footer />
     </Box>
