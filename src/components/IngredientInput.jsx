@@ -28,7 +28,7 @@ const IngredientInput = (props) => {
           )
         }}
         name="ingredient-input"
-        onChange={props.handleChange}
+        onKeyDown={props.handleKeyDown}
         placeholder="e.g. 1/2 cup of broccoli"
         sx={{ flex: 1 }}
         title="Enter an ingredient and quantity here"

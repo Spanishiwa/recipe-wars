@@ -26,8 +26,8 @@ function App() {
       <Container component="main" maxWidth="lg" sx={{ display: "flex", py: 2 }}>
         {/* <RecipeForm /> */}
         {/* <RecipeCard /> */}
-        {/* <MuiStepper /> */}
-        <RecipeCardSkeleton />
+        <MuiStepper />
+        {/* <RecipeCardSkeleton /> */}
       </Container>
       <Footer />
     </Box>

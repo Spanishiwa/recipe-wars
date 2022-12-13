@@ -22,6 +22,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import ReceiptLong from "@mui/icons-material/ReceiptLong";
 import { ITALIAN_BEEF } from "../config";
+import { IngredientsList } from "./IngredientsList";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -92,62 +93,7 @@ export const RecipeCardSkeleton = () => {
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
         >
-          <Typography component="p" variant="b1">
-            <ReceiptLong
-              sx={{ m: "0px 8px 0px 16px", verticalAlign: "middle" }}
-            />
-            Ingredients (# will be calculated)
-          </Typography>
-          <List sx={{}}>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-              ></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-          </List>
+          <IngredientsList {...ingredients} />
           <Typography component="p" variant="b1"></Typography>
         </Box>
         <Box sx={{ flex: "65%" }}>

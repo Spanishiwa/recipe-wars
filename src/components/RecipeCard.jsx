@@ -21,6 +21,7 @@ import { RecipeImage } from "./RecipeImage";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import ReceiptLong from "@mui/icons-material/ReceiptLong";
+import { ITALIAN_BEEF } from "../config";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -163,7 +164,7 @@ const RecipeCard = () => {
           <Typography component="p" variant="b1"></Typography>
         </Box>
         <Box sx={{ flex: "65%" }}>
-          <RecipeImage />
+          <RecipeImage {...ITALIAN_BEEF} />
           <CardActions
             disableSpacing
             sx={{

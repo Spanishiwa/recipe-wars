@@ -76,9 +76,9 @@ export default function TextMobileStepper() {
       </Paper> */}
       <Box sx={{ maxWidth: 320, width: "100%" }}>
         {activeStep == 0 ? (
-          <RecipeCard></RecipeCard>
-        ) : (
           <RecipeForm></RecipeForm>
+        ) : (
+          <RecipeCard></RecipeCard>
         )}
         {/* <RecipeCard></RecipeCard> */}
       </Box>
