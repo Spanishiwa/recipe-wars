@@ -12,7 +12,7 @@ import IngredientInput from "./IngredientInput";
 import IngredientInputDisabled from "./IngredientInputDisabled";
 
 export const IngredientsList = (props) => {
-  const { ingredients } = props;
+  const { handleDelete, ingredients } = props;
   return (
     <Fragment>
       <Typography component="p" variant="b1">
@@ -20,9 +20,12 @@ export const IngredientsList = (props) => {
         Ingredients ({ingredients.length})
       </Typography>
       <List sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        {ingredients.map((ingredient, i) => (
+        {ingredients.map((ingredient) => (
           <ListItem key={ingredient.id} sx={{ p: "0px" }}>
-            <IngredientInputDisabled ingredient={ingredient} />
+            <IngredientInputDisabled
+              handleDelete={handleDelete}
+              ingredient={ingredient}
+            />
           </ListItem>
         ))}
       </List>

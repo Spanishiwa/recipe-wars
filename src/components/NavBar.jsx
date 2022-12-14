@@ -25,6 +25,7 @@ const NavBar = () => {
 
   const navButtonStyles = {
     color: mode === "light" ? "secondary.main" : "primary.main",
+    cursor: "pointer",
     display: "flex",
     flex: "1 1 0px",
     flexDirection: "column",

@@ -6,6 +6,7 @@ import { Box } from "@mui/system";
 import React from "react";
 
 const IngredientInputDisabled = (props) => {
+  const { handleDelete, id, ingredient, parsed } = props;
   // props.ingredient[0]
   // {id: '68265', text: 'one tablespoon lime zest', parsed: '1 tablespoon lime zest', calories: 2, protein: '0.09g protein', …}
   return (
@@ -13,7 +14,7 @@ const IngredientInputDisabled = (props) => {
       <TextField
         className="ingredient-input"
         // label="Ingredient and quantity"
-        id={props.ingredient.id}
+        id={ingredient.id}
         InputLabelProps={{
           shrink: true
         }}
@@ -24,48 +25,50 @@ const IngredientInputDisabled = (props) => {
                 aria-label="Edit parsed ingredient"
                 edge="end"
                 // onClick={props.handleClick}
+                name={ingredient.id}
                 sx={{ "&:hover": { color: "primary.main" } }}
                 title="Save ingredient to ingredients list"
               >
-                <EditIcon variant="standard" />
+                <EditIcon name={ingredient.id} variant="standard" />
               </IconButton>
               <IconButton
                 aria-label="Submit parsed ingredient"
                 edge="end"
                 // onClick={props.handleClick}
+                name={ingredient.id}
                 sx={{ "&:hover": { color: "primary.main" } }}
                 title="Save ingredient to ingredients list"
               >
-                <AddTaskIcon variant="standard" />
+                <AddTaskIcon name={ingredient.id} variant="standard" />
               </IconButton>
             </InputAdornment>
           ),
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
-                aria-label="Save ingredient"
+                aria-label="Delete ingredient"
+                onClick={handleDelete}
                 edge="end"
-                // onClick={props.handleClick}
+                name={ingredient.id}
                 sx={{ "&:hover": { color: "primary.main" } }}
-                title="Save ingredient to ingredients list"
+                title="Delete ingredient from ingredients list"
               >
-                <DeleteIcon variant="outlined" />
+                <DeleteIcon name={ingredient.id} variant="outlined" />
               </IconButton>
             </InputAdornment>
           )
         }}
-        name="ingredient-input"
+        name={ingredient.id}
         p={0}
-        placeholder={props.ingredient.parsed}
+        placeholder={ingredient.parsed}
         sx={{ flex: 1 }}
         title="ingredient parsed through Edamam API"
         type="text"
         disabled
         color="success"
         variant="standard"
-        value={props.ingredient.parsed}
+        value={ingredient.parsed}
       />
-      {props.ingredients}
     </Box>
   );
 };

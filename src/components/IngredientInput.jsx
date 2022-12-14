@@ -9,7 +9,7 @@ import {
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
-  const { handleChange, handleKeyDown, handleSubmit, text } = props;
+  const { handleChange, handleKeyDown, handleSubmit, value } = props;
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
@@ -44,7 +44,7 @@ const IngredientInput = (props) => {
         sx={{ flex: 1 }}
         title="Enter an ingredient and quantity here"
         type="text"
-        value={text}
+        value={value}
         variant="outlined"
       />
     </Box>
