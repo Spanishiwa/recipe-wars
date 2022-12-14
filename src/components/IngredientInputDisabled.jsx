@@ -13,7 +13,7 @@ const IngredientInputDisabled = (props) => {
       <TextField
         className="ingredient-input"
         // label="Ingredient and quantity"
-        id={props.ingredient[0].id}
+        id={props.ingredient.id}
         InputLabelProps={{
           shrink: true
         }}
@@ -56,14 +56,14 @@ const IngredientInputDisabled = (props) => {
         }}
         name="ingredient-input"
         p={0}
-        placeholder={props.ingredient[0].parsed}
+        placeholder={props.ingredient.parsed}
         sx={{ flex: 1 }}
         title="ingredient parsed through Edamam API"
         type="text"
         disabled
         color="success"
         variant="standard"
-        value={props.ingredient[0].parsed}
+        value={props.ingredient.parsed}
       />
       {props.ingredients}
     </Box>

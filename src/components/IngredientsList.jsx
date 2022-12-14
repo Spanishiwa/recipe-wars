@@ -20,13 +20,14 @@ export const IngredientsList = (props) => {
         Ingredients ({ingredients.length})
       </Typography>
       <List sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        <ListItem sx={{ p: "0px" }}>
-          {/* <ListItemText
-            primary={`${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`}
-          ></ListItemText> */}
-          <IngredientInputDisabled ingredient={ingredients} />
-          {/* <ListItemIcon></ListItemIcon> */}
-        </ListItem>
+        {ingredients.map((ingredient, i) => (
+          <ListItem sx={{ p: "0px" }}>
+            <IngredientInputDisabled
+              key={ingredient.id}
+              ingredient={ingredient}
+            />
+          </ListItem>
+        ))}
       </List>
     </Fragment>
   );
