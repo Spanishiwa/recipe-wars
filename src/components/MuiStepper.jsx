@@ -13,6 +13,7 @@ import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 import { bgcolor } from "@mui/system";
 import RecipeForm from "./RecipeForm";
+import { RecipeCardSkeleton } from "./RecipeCardSkeleton";
 
 const steps = [
   {
@@ -35,7 +36,15 @@ const steps = [
   }
 ];
 
-export default function TextMobileStepper() {
+export default function TextMobileStepper(props) {
+  const {
+    handleSubmit,
+    handleChange,
+    handleDelete,
+    handleKeyDown,
+    handleImage,
+    values
+  } = props;
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
@@ -60,7 +69,7 @@ export default function TextMobileStepper() {
         };
 
   return (
-    <Card sx={{ maxWidth: 320, flexGrow: 1 }}>
+    <Card sx={{ flexGrow: 1, maxWidth: { xs: 320, sm: 600, md: 800 } }}>
       {/* <Paper
         square
         elevation={0}
@@ -74,11 +83,19 @@ export default function TextMobileStepper() {
       >
         <Typography>{steps[activeStep].label}</Typography>
       </Paper> */}
-      <Box sx={{ maxWidth: 320, width: "100%" }}>
+      <Box sx={{ maxWidth: { xs: 320, sm: 600, md: 800 }, width: "100%" }}>
         {activeStep == 0 ? (
-          <RecipeForm></RecipeForm>
+          <RecipeForm
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleDelete={handleDelete}
+            handleKeyDown={handleKeyDown}
+            handleImage={handleImage}
+            values={values}
+          ></RecipeForm>
         ) : (
           <RecipeCard></RecipeCard>
+          // <RecipeCardSkeleton></RecipeCardSkeleton>
         )}
         {/* <RecipeCard></RecipeCard> */}
       </Box>

@@ -22,6 +22,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import ReceiptLong from "@mui/icons-material/ReceiptLong";
 import { ITALIAN_BEEF } from "../config";
+import { IngredientsList } from "./IngredientsList";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -47,6 +48,7 @@ const ingredientsSx = (expand, style) => {
 };
 
 const RecipeCard = () => {
+  const { ingredients, title } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -71,10 +73,7 @@ const RecipeCard = () => {
       component="section"
       sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}
     >
-      <CardHeader
-        sx={{ padding: "16px 16px 0px 16px" }}
-        title="Italian beef with hot gardiniera sandwich"
-      />
+      <CardHeader sx={{ padding: "16px 16px 0px 16px" }} title={title} />
       <CardContent
         sx={{
           display: "flex",
@@ -90,77 +89,10 @@ const RecipeCard = () => {
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
         >
-          <Typography component="p" variant="b1">
-            <ReceiptLong
-              sx={{ m: "0px 8px 0px 16px", verticalAlign: "middle" }}
-            />
-            Ingredients (18)
-          </Typography>
-          <List sx={{}}>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem>
-              <ListItemText primary="1/2 cup heavy cream"></ListItemText>
-              <ListItemIcon></ListItemIcon>
-            </ListItem>
-          </List>
+          <IngredientsList
+            // handleDelete={handleDelete}
+            ingredients={ingredients}
+          />
           <Typography component="p" variant="b1"></Typography>
         </Box>
         <Box sx={{ flex: "65%" }}>
@@ -175,8 +107,7 @@ const RecipeCard = () => {
             }}
           >
             {" "}
-            Recipe Instructions{" "}
-            <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
+            Recipe <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}

@@ -68,7 +68,7 @@ export const RecipeCardSkeleton = () => {
   };
 
   const { title, description, ingredients, src, serving } = ITALIAN_BEEF;
-
+  console.log(ITALIAN_BEEF);
   return (
     <Card
       component="section"
@@ -93,7 +93,7 @@ export const RecipeCardSkeleton = () => {
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
         >
-          <IngredientsList {...ingredients} />
+          <IngredientsList ingredients={ingredients} />
           <Typography component="p" variant="b1"></Typography>
         </Box>
         <Box sx={{ flex: "65%" }}>
@@ -108,8 +108,7 @@ export const RecipeCardSkeleton = () => {
             }}
           >
             {" "}
-            Recipe Instructions{" "}
-            <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
+            Recipe <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
