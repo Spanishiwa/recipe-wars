@@ -21,11 +21,8 @@ export const IngredientsList = (props) => {
       </Typography>
       <List sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
         {ingredients.map((ingredient, i) => (
-          <ListItem sx={{ p: "0px" }}>
-            <IngredientInputDisabled
-              key={ingredient.id}
-              ingredient={ingredient}
-            />
+          <ListItem key={ingredient.id} sx={{ p: "0px" }}>
+            <IngredientInputDisabled ingredient={ingredient} />
           </ListItem>
         ))}
       </List>

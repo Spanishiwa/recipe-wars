@@ -14,7 +14,7 @@ const RecipeForm = () => {
 
   const handleChange = (e) => {
     const inputValue = e.currentTarget.value;
-    const inputName = e.currentTarget.getAttribute("name");
+    const inputName = e.currentTarget.name;
 
     const ingredient = values.filter(
       (ingredient) => ingredient.id == inputName
@@ -38,16 +38,22 @@ const RecipeForm = () => {
   };
 
   const handleSubmit = (e) => {
-    // need to validate empty submits
-    console.log(`
-    e.target.value is: ${e.target.value}. and e.target.id is: ${e.target.name}
-    `);
-    const ingredientInput = values.filter(
-      (ingredient) => ingredient.id == e.currentTarget.getAttribute("name")
+    // need to validate empty submits later
+    const ingredient = values.filter(
+      (ingredient) => ingredient.id == e.currentTarget.name
     )[0];
-    // fetchAPI(ingredientInput);
 
-    console.log(e.target);
+    fetchAPI(ingredient);
+
+    // reset
+    // setValues((prevValues) =>
+    //   prevValues.map((prevIngredient) =>
+    //     prevIngredient.id === ingredient.id
+    //       ? { ...prevIngredient, text: "" }
+    //       : prevIngredient
+    //   )
+    // );
+
     // fetchAPI();
   };
 
@@ -81,6 +87,7 @@ const RecipeForm = () => {
         const fat = `${totalNutrients.FAT.quantity}${totalNutrients.FAT.unit} fat`;
         const input = ingredients[0].text;
         const parsed = `${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`;
+        const err = ingredients[0].parsed[0].status;
         const flatIngredient = {
           id: uri.slice(-5),
           text: input,
@@ -88,17 +95,11 @@ const RecipeForm = () => {
           calories: calories,
           protein: protein,
           carbohydrate: carbohydrate,
-          fat: fat
+          fat: fat,
+          err: err
         };
-        debugger;
 
-        setValues((prevValues) =>
-          prevValues.map((prevIngredient) =>
-            prevIngredient.id === ingredient.id
-              ? { ...prevIngredient, [ingredient.id]: ingredient.text }
-              : prevIngredient
-          )
-        );
+        setValues((prevValues) => [...prevValues, flatIngredient]);
       })
       .catch((err) => {
         console.log(`The error code is ${err}`);

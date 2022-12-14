@@ -25,8 +25,8 @@ const IngredientInput = (props) => {
             <InputAdornment position="end" name="ingredient-input">
               <IconButton
                 aria-label="Save ingredient"
-                name="ingredient-input"
                 edge="end"
+                name="ingredient-input"
                 onClick={handleSubmit}
                 onKeyDown={handleKeyDown}
                 sx={{ "&:hover": { color: "primary.main" } }}
