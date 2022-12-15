@@ -3,20 +3,24 @@ import React from "react";
 import { ReactComponent as Protein } from "../assets/Protein.svg";
 
 export const ProteinSvg = (props) => {
-  const { sx, quantity } = props;
+  const { sx, protein } = props;
   return (
     <Typography
       component="span"
-      sx={{ ...sx, flex: "50%", maxWidth: "125px" }}
+      sx={{
+        ...sx,
+        flex: { xs: "50%", sm: "auto" },
+        maxWidth: { xs: "125px", sm: "inherit" }
+      }}
       variant="b2"
     >
       <SvgIcon
-        sx={{ mr: 1, verticalAlign: "middle" }}
-        titleAccess={`${quantity} grams of protein`}
+        sx={{ verticalAlign: "middle" }}
+        titleAccess={`${protein} grams of protein`}
       >
         <Protein></Protein>
       </SvgIcon>{" "}
-      {quantity}g protein
+      {protein}g protein
     </Typography>
   );
 };

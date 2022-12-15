@@ -7,11 +7,15 @@ export const CalorieSvg = (props) => {
   return (
     <Typography
       component="span"
-      sx={{ ...sx, flex: "50%", maxWidth: "125px" }}
+      sx={{
+        ...sx,
+        flex: { xs: "50%", sm: "auto" },
+        maxWidth: { xs: "125px", sm: "inherit" }
+      }}
       variant="b2"
     >
       <SvgIcon
-        sx={{ mr: 1, verticalAlign: "middle" }}
+        sx={{ verticalAlign: "middle" }}
         titleAccess={`${calories} total calories (kCal)`}
       >
         <Calorie></Calorie>

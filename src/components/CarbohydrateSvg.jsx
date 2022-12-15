@@ -3,20 +3,24 @@ import React from "react";
 import { ReactComponent as Carbohydrate } from "../assets/Carbohydrate.svg";
 
 export const CarbohydrateSvg = (props) => {
-  const { sx, quantity } = props;
+  const { sx, carbohydrate } = props;
   return (
     <Typography
       component="span"
-      sx={{ ...sx, flex: "50%", maxWidth: "125px" }}
+      sx={{
+        ...sx,
+        flex: { xs: "50%", sm: "auto" },
+        maxWidth: { xs: "125px", sm: "inherit" }
+      }}
       variant="b2"
     >
       <SvgIcon
-        sx={{ mr: 1, verticalAlign: "middle" }}
-        titleAccess={`${quantity} grams of carbohydrates`}
+        sx={{ verticalAlign: "middle" }}
+        titleAccess={`${carbohydrate} grams of carbohydrates`}
       >
         <Carbohydrate></Carbohydrate>
       </SvgIcon>{" "}
-      {quantity}g carbs
+      {carbohydrate}g carbs
     </Typography>
   );
 };

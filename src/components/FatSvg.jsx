@@ -3,18 +3,22 @@ import React from "react";
 import { ReactComponent as Fat } from "../assets/Fat.svg";
 import EggOutlinedIcon from "@mui/icons-material/EggOutlined";
 export const FatSvg = (props) => {
-  const { sx, quantity } = props;
+  const { sx, fat } = props;
   return (
     <Typography
       component="span"
-      sx={{ ...sx, flex: "50%", maxWidth: "125px" }}
+      sx={{
+        ...sx,
+        flex: { xs: "50%", sm: "auto" },
+        maxWidth: { xs: "125px", sm: "inherit" }
+      }}
       variant="b2"
     >
       <EggOutlinedIcon
-        sx={{ mr: 1, verticalAlign: "middle" }}
-        titleAccess={`${quantity} grams of fat`}
+        sx={{ verticalAlign: "middle" }}
+        titleAccess={`${fat}`}
       ></EggOutlinedIcon>{" "}
-      {quantity}g fat
+      {fat}g protein
     </Typography>
   );
 };

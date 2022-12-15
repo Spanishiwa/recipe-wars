@@ -94,7 +94,7 @@ export default function TextMobileStepper(props) {
             values={values}
           ></RecipeForm>
         ) : (
-          <RecipeCard></RecipeCard>
+          <RecipeCard values={values}></RecipeCard>
           // <RecipeCardSkeleton></RecipeCardSkeleton>
         )}
         {/* <RecipeCard></RecipeCard> */}
