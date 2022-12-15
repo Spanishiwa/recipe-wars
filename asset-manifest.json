@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/recipe-wars/static/css/main.8689701d.css",
+    "main.js": "/recipe-wars/static/js/main.0a9b5e63.js",
+    "static/js/787.a596de65.chunk.js": "/recipe-wars/static/js/787.a596de65.chunk.js",
+    "static/media/recipe_icon.png": "/recipe-wars/static/media/recipe_icon.f5391a98839af524fb72.png",
+    "static/media/Italian_Beef.jpeg": "/recipe-wars/static/media/Italian_Beef.54848b51231e4bba1319.jpeg",
+    "static/media/Beige_Paper.png": "/recipe-wars/static/media/Beige_Paper.ea4127ea011aae24782c.png",
+    "static/media/Debut_Dark.png": "/recipe-wars/static/media/Debut_Dark.57c5360409c52e44faa3.png",
+    "static/media/Carbohydrate.svg": "/recipe-wars/static/media/Carbohydrate.7a6c5b1bdfb63918f335af7100a50a70.svg",
+    "static/media/Calorie.svg": "/recipe-wars/static/media/Calorie.854d7af15ca2feaa4706809fc6302889.svg",
+    "static/media/Edamam_Badge_Transparent.svg": "/recipe-wars/static/media/Edamam_Badge_Transparent.ac5beb418eea50b75e77b8331145e92e.svg",
+    "static/media/Protein.svg": "/recipe-wars/static/media/Protein.15d9199bb842b377e14ab9573e0c2318.svg",
+    "static/media/Fat.svg": "/recipe-wars/static/media/Fat.d2d5302a72f34c2fc295466f337a415e.svg",
+    "index.html": "/recipe-wars/index.html",
+    "main.8689701d.css.map": "/recipe-wars/static/css/main.8689701d.css.map",
+    "main.0a9b5e63.js.map": "/recipe-wars/static/js/main.0a9b5e63.js.map",
+    "787.a596de65.chunk.js.map": "/recipe-wars/static/js/787.a596de65.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8689701d.css",
+    "static/js/main.0a9b5e63.js"
+  ]
+}
