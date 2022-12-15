@@ -24,14 +24,12 @@ export const RecipeImage = (props) => {
     pb: "16px",
     rowGap: "16px"
   };
-  const { title, description, imgSrc, ingredients, servings } = props;
+
+  const { ingredients, values } = props;
   // const { title, description, ingredients, servings } = props;
-  console.log(props);
-  // const imgSrc = props.test.values.filter(
-  //   (ingredient) => ingredient.id == "image-input"
-  // )[0].imgSrc;
+
   const sumNutrients = (values) => {
-    // const ingredients = values.filter((ingredient) => ingredient.parsed);
+    const ingredients = values.filter((ingredient) => ingredient.parsed);
     const sum = values.reduce(
       (accum, ingredient, idx) => {
         if (idx == values.length - 1) {
@@ -68,6 +66,15 @@ export const RecipeImage = (props) => {
 
   const { calories, protein, carbohydrate, fat } = sumNutrients(ingredients);
 
+  const getState = (state, stateId) => {
+    return state.filter((ingredient) => ingredient.id == stateId)[0];
+  };
+
+  const title = getState(values, "title-input").text;
+  const description = getState(values, "description-textarea").text;
+  const servings = getState(values, "servings-input").text;
+
+  const imgState = getState(values, "image-input");
   return (
     <Fragment>
       <Box component="figure" m={0}>
@@ -75,7 +82,7 @@ export const RecipeImage = (props) => {
           alt={title}
           component="img"
           height="194"
-          image={imgSrc}
+          image={imgState.imgSrc}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
           title={title}
@@ -96,7 +103,7 @@ export const RecipeImage = (props) => {
       <Typography component="p" variant="h6"></Typography>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imgSrc}
+        imgSrc={imgState.imgSrc}
         open={open}
         title={title}
       />

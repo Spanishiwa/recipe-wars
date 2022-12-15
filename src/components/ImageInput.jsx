@@ -12,15 +12,15 @@ import React, { useRef } from "react";
 
 const ImageInput = (props) => {
   const { imgName } = props;
+  const imgIcon = imgName ? <DownloadDone /> : <PhotoCamera />;
   return (
     <Box>
       <Button
         aria-label="upload picture"
         component="label"
         color="primary"
-        startIcon={<PhotoCamera />}
+        startIcon={imgIcon}
         sx={{ mr: 2, mb: { xs: 1, sm: 0 } }}
-        // startIcon={<DownloadDone />}
         title="Upload a recipe image here"
         variant="outlined"
       >
@@ -37,6 +37,7 @@ const ImageInput = (props) => {
       <Typography
         component="span"
         sx={{ verticalAlign: "middle" }}
+        title={`Successfully uploaded image name`}
         variant="subtitle1"
       >
         {imgName}

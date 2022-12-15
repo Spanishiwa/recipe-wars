@@ -14,7 +14,10 @@ import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
 function App() {
   const [values, setValues] = useState([
     { id: "ingredient-input", text: "" },
-    { id: "image-input", imgSrc: "" }
+    { id: "image-input", imgSrc: "" },
+    { id: "title-input", text: "Untitled recipe" },
+    { id: "description-textarea", text: "" },
+    { id: "servings-input", text: "1" }
   ]);
 
   const handleChange = (e) => {
@@ -118,12 +121,15 @@ function App() {
   };
 
   const handleImage = (e) => {
-    // clean up previous Blob
-    const imgState = values.filter((ingredient) => ingredient.imgSrc);
-    if (imgState) URL.revokeObjectURL(imgState.imgSrc);
-
     const name = e.target.name || e.currentTarget.name;
     const imgFile = e.target.files[0];
+    if (!imgFile) return;
+
+    // clean up previous Blob
+    const imgState = values.filter(
+      (ingredient) => ingredient.id == "image-input"
+    );
+    if (imgState[0].imgSrc) URL.revokeObjectURL(imgState.imgSrc);
 
     setValues((prevValues) =>
       prevValues.map((prevIngredient) =>

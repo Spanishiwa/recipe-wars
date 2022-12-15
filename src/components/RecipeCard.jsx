@@ -48,7 +48,7 @@ const ingredientsSx = (expand, style) => {
 };
 
 const RecipeCard = (props) => {
-  const { ingredients, title } = ITALIAN_BEEF;
+  const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
 
   console.log(props);
@@ -68,6 +68,10 @@ const RecipeCard = (props) => {
     flexFlow: "row-reverse",
     justifyContent: "left"
   };
+
+  const title = props.values.filter(
+    (ingredient) => ingredient.id == "title-input"
+  )[0].text;
 
   return (
     <Card
@@ -97,7 +101,7 @@ const RecipeCard = (props) => {
           <Typography component="p" variant="b1"></Typography>
         </Box>
         <Box sx={{ flex: "65%" }}>
-          <RecipeImage {...ITALIAN_BEEF} />
+          <RecipeImage values={props.values} {...ITALIAN_BEEF} />
           <CardActions
             disableSpacing
             sx={{

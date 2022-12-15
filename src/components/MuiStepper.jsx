@@ -77,7 +77,6 @@ export default function TextMobileStepper(props) {
         return <RecipeFormOptional {...props} />;
       case 2:
         return <RecipeCard {...props} />;
-
       default:
         return <RecipeForm {...props} />;
     }

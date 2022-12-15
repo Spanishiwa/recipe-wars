@@ -18,18 +18,6 @@ export const RecipeFormOptional = (props) => {
     (ingredient) => ingredient.id == "image-input"
   )[0];
 
-  let imgUpload;
-
-  if (imgState.imgSrc) {
-    imgUpload = (
-      <img
-        alt="user uploaded image"
-        className="img-upload"
-        name="image-input"
-        src={imgState.imgSrc}
-      />
-    );
-  }
   return (
     <Card component="section" sx={{ maxWidth: "500px", p: 2 }}>
       <Typography component="h1" variant="h4" mb={4}>
@@ -47,13 +35,12 @@ export const RecipeFormOptional = (props) => {
             InputLabelProps={{
               shrink: true
             }}
-            //   onChange={handleChange}
-            //   onKeyDown={handleKeyDown}
+            onChange={handleChange}
             placeholder="e.g. Abuela's dirty beans syrniki"
             sx={{ flex: 1 }}
             title="enter a concise, cogent, and exciting title"
             type="text"
-            //   value={value}
+            // value={value}
             variant="outlined"
           />
           <TextField
@@ -63,6 +50,7 @@ export const RecipeFormOptional = (props) => {
             id="description-textarea"
             multiline
             name="description-textarea"
+            onChange={handleChange}
             placeholder="Elaborate on the recipe title by covering key points to know about the recipe such as specific cuts of meat, speciality cooking devices like sous vide machines, or anything else special the dish or its history."
             rows="4"
             sx={{ flex: "1 1 auto" }}
@@ -79,8 +67,9 @@ export const RecipeFormOptional = (props) => {
             <TextField
               id="servings-input"
               label="Servings per recipe"
-              inputProps={{ min: "1" }}
+              inputProps={{ min: "1", sx: { textAlign: "center" } }}
               name="servings-input"
+              onChange={handleChange}
               type="number"
               sx={{ maxWidth: "145px" }}
               InputLabelProps={{
@@ -91,7 +80,6 @@ export const RecipeFormOptional = (props) => {
           <Box>
             <ImageInput handleImage={handleImage} imgName={imgState.imgName} />
           </Box>
-          {imgUpload}
         </FormControl>
       </form>
     </Card>
