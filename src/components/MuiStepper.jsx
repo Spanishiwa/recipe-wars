@@ -14,6 +14,7 @@ import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 import { bgcolor } from "@mui/system";
 import RecipeForm from "./RecipeForm";
 import { RecipeCardSkeleton } from "./RecipeCardSkeleton";
+import { RecipeFormOptional } from "../RecipeFormOptional";
 
 const steps = [
   {
@@ -68,6 +69,20 @@ export default function TextMobileStepper(props) {
           backgroundImage: `url(${Bg_Pattern_Dark})`
         };
 
+  const stepView = (step) => {
+    switch (step) {
+      case 0:
+        return <RecipeForm {...props} />;
+      case 1:
+        return <RecipeFormOptional {...props} />;
+      case 2:
+        return <RecipeCard {...props} />;
+
+      default:
+        return <RecipeForm {...props} />;
+    }
+  };
+
   return (
     <Card sx={{ flexGrow: 1, maxWidth: { xs: 320, sm: 600, md: 800 } }}>
       {/* <Paper
@@ -84,20 +99,7 @@ export default function TextMobileStepper(props) {
         <Typography>{steps[activeStep].label}</Typography>
       </Paper> */}
       <Box sx={{ maxWidth: { xs: 320, sm: 600, md: 800 }, width: "100%" }}>
-        {activeStep == 0 ? (
-          <RecipeForm
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            handleDelete={handleDelete}
-            handleKeyDown={handleKeyDown}
-            handleImage={handleImage}
-            values={values}
-          ></RecipeForm>
-        ) : (
-          <RecipeCard values={values}></RecipeCard>
-          // <RecipeCardSkeleton></RecipeCardSkeleton>
-        )}
-        {/* <RecipeCard></RecipeCard> */}
+        {stepView(activeStep)}
       </Box>
       <Box>
         <MobileStepper

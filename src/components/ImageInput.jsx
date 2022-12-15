@@ -1,21 +1,46 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { AddTask, DownloadDone, PhotoCamera } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputLabel,
+  TextField,
+  Typography
+} from "@mui/material";
+import React, { useRef } from "react";
 
 const ImageInput = (props) => {
+  const { imgName } = props;
   return (
-    <Box sx={{ display: "flex", flexDirection: "row", mb: 2 }}>
-      {/* <InputLabel htmlFor="image-input" variant="outlined">
-        Upload an image
-      </InputLabel> */}
-      <input
-        accept="image/*"
-        className="image-input"
-        id="image-input"
-        name="image-input"
-        onChange={props.handleImage}
+    <Box>
+      <Button
+        aria-label="upload picture"
+        component="label"
+        color="primary"
+        startIcon={<PhotoCamera />}
+        sx={{ mr: 2, mb: { xs: 1, sm: 0 } }}
+        // startIcon={<DownloadDone />}
         title="Upload a recipe image here"
-        type="file"
-      />
+        variant="outlined"
+      >
+        Choose file
+        <input
+          accept="image/*"
+          onChange={props.handleImage}
+          hidden
+          id="image-input"
+          name="image-input"
+          type="file"
+        />
+      </Button>
+      <Typography
+        component="span"
+        sx={{ verticalAlign: "middle" }}
+        variant="subtitle1"
+      >
+        {imgName}
+      </Typography>
     </Box>
   );
 };

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  TextField,
-  IconButton,
-  InputAdornment,
-  FormControl
-} from "@mui/material";
+import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {

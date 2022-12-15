@@ -47,10 +47,11 @@ const ingredientsSx = (expand, style) => {
       };
 };
 
-const RecipeCard = () => {
+const RecipeCard = (props) => {
   const { ingredients, title } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
 
+  console.log(props);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };

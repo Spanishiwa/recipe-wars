@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import Bg_Pattern_Dark from "./assets/Graphcoders_Lil_Fiber.png";
 import Bg_Pattern_Light from "./assets/Beige_Paper.png";
 import Footer from "./components/Footer";
@@ -12,7 +12,10 @@ import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
 import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
 
 function App() {
-  const [values, setValues] = useState([{ id: "ingredient-input", text: "" }]);
+  const [values, setValues] = useState([
+    { id: "ingredient-input", text: "" },
+    { id: "image-input", imgSrc: "" }
+  ]);
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
@@ -115,13 +118,24 @@ function App() {
   };
 
   const handleImage = (e) => {
-    // clean up unused Blob
-    if (values.imgSrc) URL.revokeObjectURL(values.imgSrc);
+    // clean up previous Blob
+    const imgState = values.filter((ingredient) => ingredient.imgSrc);
+    if (imgState) URL.revokeObjectURL(imgState.imgSrc);
+
+    const name = e.target.name || e.currentTarget.name;
     const imgFile = e.target.files[0];
-    setValues((prevValues) => ({
-      ...prevValues,
-      imgSrc: URL.createObjectURL(imgFile)
-    }));
+
+    setValues((prevValues) =>
+      prevValues.map((prevIngredient) =>
+        prevIngredient.id == name
+          ? {
+              ...prevIngredient,
+              imgSrc: URL.createObjectURL(imgFile),
+              imgName: imgFile.name
+            }
+          : prevIngredient
+      )
+    );
   };
 
   // const handleSubmit = (e) => {
@@ -132,17 +146,6 @@ function App() {
   //     ingredients: { ...prevValues.ingredients, inputIngredient }
   //   }));
   // };
-
-  let imgUpload;
-  if (values.imgSrc) {
-    imgUpload = (
-      <img
-        alt="user uploaded ingredient"
-        className="img-upload"
-        src={values.imgSrc}
-      />
-    );
-  }
 
   const setResetIngredientText = (name) => {
     setValues((prevValues) => [
@@ -161,23 +164,29 @@ function App() {
   };
 
   return (
-    <Box className="app" sx={appSx}>
-      <NavBar />
-      <Container component="main" maxWidth="lg" sx={{ display: "flex", py: 2 }}>
-        {/* <RecipeForm /> */}
-        {/* <RecipeCard /> */}
-        <MuiStepper
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleDelete={handleDelete}
-          handleKeyDown={handleKeyDown}
-          handleImage={handleImage}
-          values={values}
-        />
-        {/* <RecipeCardSkeleton /> */}
-      </Container>
+    <Fragment>
+      <Box className="app" sx={appSx}>
+        <NavBar />
+        <Container
+          component="main"
+          maxWidth="lg"
+          sx={{ display: "flex", py: 2 }}
+        >
+          {/* <RecipeForm /> */}
+          {/* <RecipeCard /> */}
+          <MuiStepper
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleDelete={handleDelete}
+            handleKeyDown={handleKeyDown}
+            handleImage={handleImage}
+            values={values}
+          />
+          {/* <RecipeCardSkeleton /> */}
+        </Container>
+      </Box>
       <Footer />
-    </Box>
+    </Fragment>
   );
 }
 export default App;

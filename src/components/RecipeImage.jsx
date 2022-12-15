@@ -24,10 +24,12 @@ export const RecipeImage = (props) => {
     pb: "16px",
     rowGap: "16px"
   };
-
   const { title, description, imgSrc, ingredients, servings } = props;
-  const { PROCNT, CHOCDF } = props.totalNutrients;
-
+  // const { title, description, ingredients, servings } = props;
+  console.log(props);
+  // const imgSrc = props.test.values.filter(
+  //   (ingredient) => ingredient.id == "image-input"
+  // )[0].imgSrc;
   const sumNutrients = (values) => {
     // const ingredients = values.filter((ingredient) => ingredient.parsed);
     const sum = values.reduce(
@@ -65,7 +67,7 @@ export const RecipeImage = (props) => {
   };
 
   const { calories, protein, carbohydrate, fat } = sumNutrients(ingredients);
-  console.log(sumNutrients(ingredients));
+
   return (
     <Fragment>
       <Box component="figure" m={0}>
