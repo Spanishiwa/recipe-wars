@@ -23,8 +23,8 @@ const RecipeForm = (props) => {
   )[0].text;
 
   return (
-    <Card component="section" sx={{ maxWidth: "500px", p: 2 }}>
-      <Typography component="h1" variant="h4" mb={4}>
+    <Box component="section" sx={{ maxWidth: "500px", p: 2 }}>
+      <Typography component="h1" variant="h5" mb={3}>
         Recipe ingredients list
       </Typography>
       <form id="recipe-form">
@@ -46,7 +46,7 @@ const RecipeForm = (props) => {
           <Box component="span">Calorie response is {values.calories}</Box> */}
         </FormControl>
       </form>
-    </Card>
+    </Box>
   );
 };
 

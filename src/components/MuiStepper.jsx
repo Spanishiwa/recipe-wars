@@ -18,22 +18,21 @@ import { RecipeFormOptional } from "../RecipeFormOptional";
 
 const steps = [
   {
-    label: "Select campaign settings",
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`
+    label: "List of recipe ingredients",
+    description: `Enter all the ingredients and their quantities until your ingredients
+    recipe list is complete. Specifically only enter the ingredient and quantity. Adding
+    descriptions like finely chopped, steamed, blanched, etc will cause the parser to fail. `
   },
   {
-    label: "Create an ad group",
-    description:
-      "An ad group contains one or more ads which target a shared set of keywords."
+    label: "Customize your recipe",
+    description: `Add all of the details necessary to transform your ingredients list into the final
+      cooked product. A good title, description, and image showing the final product will
+      help. And of course, a detailed step by step recipe instructions section.`
   },
   {
-    label: "Create an ad",
-    description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`
+    label: "Calculate the nutrients",
+    description: `Check the nutrient profile of your recipe by total or per serving. Edit
+    and substitute any ingredients and construct the perfect recipe.`
   }
 ];
 

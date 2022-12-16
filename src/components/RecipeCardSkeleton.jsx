@@ -43,7 +43,7 @@ const ingredientsSx = (expand, style) => {
       }
     : {
         maxHeight: "300px",
-        overflowY: "scroll"
+        overflowY: "auto"
       };
 };
 
@@ -118,7 +118,7 @@ export const RecipeCardSkeleton = () => {
                 color: "primary.main",
                 margin: "0"
               }}
-              title="reveal recipe details"
+              title="Reveal recipe details"
             >
               <ExpandMoreIcon />
             </ExpandMore>
@@ -133,7 +133,7 @@ export const RecipeCardSkeleton = () => {
                 flexFlow: "row-reverse",
                 justifyContent: "left",
                 maxHeight: "1200px",
-                overflowY: "scroll"
+                overflowY: "auto"
               }}
               variant="b2"
             >

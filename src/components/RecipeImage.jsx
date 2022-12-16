@@ -42,39 +42,33 @@ export const RecipeImage = (props) => {
 
   const { ingredients, values, handleToggle } = props;
   const sumNutrients = (values) => {
-    const ingredients = values.filter((ingredient) => ingredient.parsed);
-    const sum = ingredients.reduce(
-      (accum, ingredient, idx) => {
+    const ingredients = values.filter((ingr) => ingr.parsed);
+    return ingredients.reduce(
+      (accum, ingr, idx) => {
         if (idx == values.length - 1) {
           accum.calories = (
-            parseFloat(accum.calories) + parseFloat(ingredient.calories)
+            parseFloat(accum.calories) + parseFloat(ingr.calories)
           ).toFixed(0);
           accum.carbohydrate = (
-            parseFloat(accum.carbohydrate) + parseFloat(ingredient.carbohydrate)
+            parseFloat(accum.carbohydrate) + parseFloat(ingr.carbohydrate)
           ).toFixed(0);
           accum.protein = (
-            parseFloat(accum.protein) + parseFloat(ingredient.protein)
+            parseFloat(accum.protein) + parseFloat(ingr.protein)
           ).toFixed(0);
-          accum.fat = (
-            parseFloat(accum.fat) + parseFloat(ingredient.fat)
-          ).toFixed(0);
+          accum.fat = (parseFloat(accum.fat) + parseFloat(ingr.fat)).toFixed(0);
         } else {
           accum.calories =
-            parseFloat(accum.calories) + parseFloat(ingredient.calories);
+            parseFloat(accum.calories) + parseFloat(ingr.calories);
           accum.carbohydrate =
-            parseFloat(accum.carbohydrate) +
-            parseFloat(ingredient.carbohydrate);
-          accum.protein =
-            parseFloat(accum.protein) + parseFloat(ingredient.protein);
-          accum.fat = parseFloat(accum.fat) + parseFloat(ingredient.fat);
+            parseFloat(accum.carbohydrate) + parseFloat(ingr.carbohydrate);
+          accum.protein = parseFloat(accum.protein) + parseFloat(ingr.protein);
+          accum.fat = parseFloat(accum.fat) + parseFloat(ingr.fat);
         }
 
         return accum;
       },
-      { calories: 0, protein: 0, carbohydrate: 0, fat: 0 }
+      { calories: 0, carbohydrate: 0, protein: 0, fat: 0 }
     );
-
-    return sum;
   };
 
   const inputValues = (state) => {
@@ -174,7 +168,6 @@ export const RecipeImage = (props) => {
           {descriptionText}
         </Typography>
       </Box>
-      <Typography component="p" variant="h6"></Typography>
       <ImageModal
         handleClose={handleClose}
         imgSrc={imageImgSrc}

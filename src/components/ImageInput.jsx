@@ -20,7 +20,7 @@ const ImageInput = (props) => {
         component="label"
         color="primary"
         startIcon={imgIcon}
-        sx={{ mr: 2, mb: { xs: 1, sm: 0 } }}
+        sx={{ mr: 2, mb: { xs: 2, sm: 0 } }}
         title="Upload a recipe image here"
         variant="outlined"
       >

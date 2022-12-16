@@ -51,7 +51,7 @@ const NavBar = () => {
             <Link
               color="inherit"
               display="flex"
-              href="/"
+              href="/recipe-wars"
               sx={{ alignItems: "center", gap: 2 }}
               title="Homepage"
               underline="none"

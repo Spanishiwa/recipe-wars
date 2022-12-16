@@ -16,7 +16,7 @@ export const IngredientsList = (props) => {
   return (
     <Fragment>
       <Typography component="p" variant="b1">
-        <ReceiptLong sx={{ m: "0px 8px 0px 16px", verticalAlign: "middle" }} />
+        <ReceiptLong sx={{ mr: 1, verticalAlign: "middle" }} />
         Ingredients ({ingredients.length})
       </Typography>
       <List sx={{ display: "flex", flexDirection: "column", gap: 4 }}>

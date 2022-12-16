@@ -43,7 +43,7 @@ const ingredientsSx = (expand, style) => {
       }
     : {
         maxHeight: "300px",
-        overflowY: "scroll"
+        overflowY: "auto"
       };
 };
 
@@ -137,7 +137,7 @@ const RecipeCard = (props) => {
               aria-expanded={expanded}
               aria-label="show more"
               sx={{ color: "primary.main", margin: "0" }}
-              title="reveal recipe details"
+              title="Reveal recipe details"
             >
               <ExpandMoreIcon />
             </ExpandMore>
@@ -152,7 +152,7 @@ const RecipeCard = (props) => {
                 flexFlow: "row-reverse",
                 justifyContent: "left",
                 maxHeight: "1200px",
-                overflowY: "scroll"
+                overflowY: "auto"
               }}
               variant="b2"
             >

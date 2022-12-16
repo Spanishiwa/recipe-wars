@@ -14,7 +14,7 @@ import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
 function App() {
   const [values, setValues] = useState([
     { id: "ingredient-input", text: "" },
-    { id: "image-input", imgSrc: "" },
+    { id: "image-input", imgSrc: "", imgName: "" },
     { id: "title-input", text: "Untitled recipe" },
     { id: "description-textarea", text: "" },
     { id: "recipe-textarea", text: "" },
@@ -188,7 +188,7 @@ function App() {
         <Container
           component="main"
           maxWidth="lg"
-          sx={{ display: "flex", py: 2 }}
+          sx={{ display: "flex", justifyContent: "center", py: 2 }}
         >
           {/* <RecipeForm /> */}
           {/* <RecipeCard /> */}

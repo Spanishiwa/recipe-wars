@@ -13,14 +13,18 @@ export const ServingsSwitch = (props) => {
   return (
     <InputLabel
       name="servings-toggle"
-      sx={{ display: "flex", alignItems: "center" }}
-      title="display nutritional values per serving or by total amount"
+      sx={{ alignItems: "center", display: "flex" }}
+      title="Display nutritional values per serving or by total amount"
     >
       <Typography
         component="span"
         name="servings-toggle"
-        sx={{ cursor: "pointer", "&:hover": { color: "primary.main" } }}
-        title="display nutritional values by total amount"
+        sx={{
+          ...(!isPerServing && { color: "primary.main" }),
+          cursor: "pointer",
+          "&:hover": { color: "primary.main" }
+        }}
+        title="Display nutritional values by total amount"
         variant="caption"
       >
         <Typography
@@ -49,8 +53,12 @@ export const ServingsSwitch = (props) => {
       <Typography
         component="span"
         name="servings-toggle"
-        sx={{ cursor: "pointer", "&:hover": { color: "primary.main" } }}
-        title="display nutritional values per serving"
+        sx={{
+          ...(isPerServing && { color: "primary.main" }),
+          cursor: "pointer",
+          "&:hover": { color: "primary.main" }
+        }}
+        title="Display nutritional values per serving"
         variant="caption"
       >
         <Restaurant sx={{ verticalAlign: "middle" }}></Restaurant>

@@ -3,6 +3,9 @@ import React from "react";
 import ImageInput from "./components/ImageInput";
 import IngredientInput from "./components/IngredientInput";
 import { IngredientsList } from "./components/IngredientsList";
+import { RecipeNumberfield } from "./RecipeNumberfield";
+import { RecipeTextarea } from "./RecipeTextarea";
+import { RecipeTextfield } from "./RecipeTextfield";
 
 export const RecipeFormOptional = (props) => {
   const {
@@ -19,7 +22,7 @@ export const RecipeFormOptional = (props) => {
       (accum, inputState) => {
         switch (inputState.id) {
           case "image-input":
-            accum.imageImgSrc = inputState.imgSrc;
+            accum.imageImgName = inputState.imgName;
           case "title-input":
             accum.titleText = inputState.text;
           case "description-textarea":
@@ -33,7 +36,7 @@ export const RecipeFormOptional = (props) => {
         }
       },
       {
-        imageImgSrc: "",
+        imageImgName: "",
         titleText: "",
         descriptionText: "",
         recipeText: "",
@@ -42,48 +45,94 @@ export const RecipeFormOptional = (props) => {
     );
   };
 
-  const { imageImgSrc, titleText, descriptionText, recipeText, servingsText } =
+  const { imageImgName, titleText, descriptionText, recipeText, servingsText } =
     inputValues(values);
+
+  const ingredientsState = values.filter((ingredient) => ingredient.parsed);
+
+  const titleProps = {
+    handleChange: handleChange,
+    label: "Recipe title",
+    name: "servings-input",
+    placeholder: "e.g. Abuela's dirty beans syrniki",
+    title: `Enter a concise, cogent, and exciting title`,
+    value: titleText
+  };
+
+  const ingredientsTextareaProps = {
+    label: "Ingredients & quantities list",
+    name: "recipe-textarea",
+    placeholder: `Ingredients list with one ingredient and quantity per line e.g.
+1/2 cup heavy cream
+3 tablespoons butter
+1 pound chicken breast`,
+    title:
+      "Enter an ingredients list with one ingredient and quantity per line",
+    value: recipeText
+  };
+
+  const recipeDescriptionProps = {
+    handleChange: handleChange,
+    label: "Recipe description",
+    name: "description-textarea",
+    placeholder: `Elaborate on the recipe title by covering key points to know. Specific cuts of meat, cooking devices, or anything special about the dish.`,
+    rows: 5,
+    title: `Highlight interesting things about the recipe or elaborate on the recipe title`,
+    value: descriptionText
+  };
+
+  const recipeTextareaProps = {
+    handleChange: handleChange,
+    label: "Recipe instructions",
+    name: "recipe-textarea",
+    placeholder: `1. Write well formatted instructions with detailed steps to prepare the
+recipe.
+
+2. Make good use of numbering and white space for maximum cogency.`,
+    rows: 12,
+    title: `Describe in full detail the cooking and preparation process to reproduce your recipe`,
+    value: recipeText
+  };
+
+  const servingsProps = {
+    handleChange: handleChange,
+    label: "Servings per recipe",
+    name: "servings-input",
+    title: `How many portion sizes the recipe serves`,
+    value: servingsText
+  };
+
   return (
-    <Card component="section" sx={{ maxWidth: "500px", p: 2 }}>
-      <Typography component="h1" variant="h4" mb={4}>
-        Customize recipe{" "}
-        <Typography component="span" variant="h6">
-          (optional)
-        </Typography>
-      </Typography>
-      <form id="recipe-form-optional">
-        <FormControl sx={{ display: "flex", gap: 2 }}>
-          <TextField
-            label="Recipe title"
-            id="title-input"
-            name="title-input"
-            InputLabelProps={{
-              shrink: true
+    <Box
+      component="section"
+      sx={{ display: "flex", gap: 2, maxWidth: "md", p: 2 }}
+    >
+      <Box
+        component="form"
+        id="recipe-form-optional"
+        sx={{
+          display: "flex",
+          flex: { xs: "1 1 auto", md: "65%" },
+          flexDirection: "column"
+        }}
+      >
+        <Typography component="h1" variant="h5" mb={3}>
+          Customize recipe
+          <Typography
+            component="span"
+            variant="caption"
+            sx={{
+              display: { xs: "block", md: "inline" },
+              ml: { xs: "0px", md: "8px" },
+              verticalAlign: "middle"
             }}
-            onChange={handleChange}
-            placeholder="e.g. Abuela's dirty beans syrniki"
-            sx={{ flex: 1 }}
-            title="enter a concise, cogent, and exciting title"
-            type="text"
-            variant="outlined"
-            value={titleText}
-          />
-          <TextField
-            className="description-textarea"
-            InputLabelProps={{ shrink: true }}
-            label="Recipe description"
-            id="description-textarea"
-            multiline
-            name="description-textarea"
-            onChange={handleChange}
-            placeholder="Elaborate on the recipe title by covering key points to know about the recipe such as specific cuts of meat, speciality cooking devices like sous vide machines, or anything else special the dish or its history."
-            rows="4"
-            sx={{ flex: "1 1 auto" }}
-            title="Highlight interesting things about the recipe or elaborate on the recipe title"
-            variant="outlined"
-            value={descriptionText}
-          />
+          >
+            (optional)
+          </Typography>
+        </Typography>
+        <FormControl sx={{ display: "flex", gap: 4 }}>
+          <RecipeTextfield {...titleProps} />
+          <RecipeTextarea {...recipeDescriptionProps} />
           <Box
             sx={{
               alignItems: "center",
@@ -91,40 +140,23 @@ export const RecipeFormOptional = (props) => {
               justifyContent: "space-between"
             }}
           >
-            <TextField
-              id="servings-input"
-              label="Servings per recipe"
-              inputProps={{ min: "1", sx: { textAlign: "center" } }}
-              name="servings-input"
-              onChange={handleChange}
-              type="number"
-              sx={{ maxWidth: "145px" }}
-              InputLabelProps={{
-                shrink: true
-              }}
-              value={servingsText}
-            />
+            <RecipeNumberfield {...servingsProps} />
           </Box>
           <Box>
-            <ImageInput handleImage={handleImage} imgName={imageImgSrc} />
+            <ImageInput handleImage={handleImage} imgName={imageImgName} />
           </Box>
-          <TextField
-            className="recipe-textarea"
-            InputLabelProps={{ shrink: true }}
-            label="Recipe instructions"
-            id="recipe-textarea"
-            multiline
-            name="recipe-textarea"
-            onChange={handleChange}
-            placeholder=""
-            rows="4"
-            sx={{ flex: "1 1 auto" }}
-            title=""
-            variant="outlined"
-            value={recipeText}
-          />
+          <RecipeTextarea {...recipeTextareaProps} />
         </FormControl>
-      </form>
-    </Card>
+      </Box>
+      <Box
+        sx={{
+          display: { xs: "none", sm: "flex" },
+          flex: "35%",
+          flexDirection: "column"
+        }}
+      >
+        <IngredientsList ingredients={ingredientsState} />
+      </Box>
+    </Box>
   );
 };

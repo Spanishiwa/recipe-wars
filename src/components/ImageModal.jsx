@@ -59,7 +59,7 @@ export default function ImageModal(props) {
         maxWidth="md"
         onClose={handleClose}
         open={props.open}
-        title="close dialog modal"
+        title="Close dialog modal"
       >
         <BootstrapDialogTitle
           id="recipe-image-dialog-title"

@@ -62,7 +62,7 @@ const IngredientInputDisabled = (props) => {
         p={0}
         placeholder={ingredient.parsed}
         sx={{ flex: 1 }}
-        title="ingredient parsed through Edamam API"
+        title="Ingredient parsed through Edamam API"
         type="text"
         disabled
         color="success"
