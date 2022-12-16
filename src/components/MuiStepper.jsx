@@ -44,8 +44,10 @@ export default function TextMobileStepper(props) {
     handleDelete,
     handleKeyDown,
     handleImage,
+    handleToggle,
     values
   } = props;
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;

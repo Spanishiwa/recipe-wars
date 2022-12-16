@@ -25,7 +25,7 @@ const RecipeForm = (props) => {
   return (
     <Card component="section" sx={{ maxWidth: "500px", p: 2 }}>
       <Typography component="h1" variant="h4" mb={4}>
-        Recipe Wars Analyzer Form
+        Recipe ingredients list
       </Typography>
       <form id="recipe-form">
         <FormControl sx={{ display: "flex", gap: 2 }}>

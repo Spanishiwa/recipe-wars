@@ -17,7 +17,9 @@ function App() {
     { id: "image-input", imgSrc: "" },
     { id: "title-input", text: "Untitled recipe" },
     { id: "description-textarea", text: "" },
-    { id: "servings-input", text: "1" }
+    { id: "recipe-textarea", text: "" },
+    { id: "servings-input", text: "1" },
+    { id: "servings-toggle", isPerServing: false }
   ]);
 
   const handleChange = (e) => {
@@ -144,6 +146,16 @@ function App() {
     );
   };
 
+  const handleToggle = () => {
+    setValues((prevValues) =>
+      prevValues.map((inputState) =>
+        inputState.id == "servings-toggle"
+          ? { ...inputState, isPerServing: !inputState.isPerServing }
+          : inputState
+      )
+    );
+  };
+
   // const handleSubmit = (e) => {
   //   const inputIngredient = { [e.target.id]: e.target.value };
 
@@ -186,6 +198,7 @@ function App() {
             handleDelete={handleDelete}
             handleKeyDown={handleKeyDown}
             handleImage={handleImage}
+            handleToggle={handleToggle}
             values={values}
           />
           {/* <RecipeCardSkeleton /> */}

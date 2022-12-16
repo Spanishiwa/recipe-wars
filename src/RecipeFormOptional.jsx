@@ -14,10 +14,36 @@ export const RecipeFormOptional = (props) => {
     values
   } = props;
 
-  const imgState = values.filter(
-    (ingredient) => ingredient.id == "image-input"
-  )[0];
+  const inputValues = (state) => {
+    return state.reduce(
+      (accum, inputState) => {
+        switch (inputState.id) {
+          case "image-input":
+            accum.imageImgSrc = inputState.imgSrc;
+          case "title-input":
+            accum.titleText = inputState.text;
+          case "description-textarea":
+            accum.descriptionText = inputState.text;
+          case "recipe-textarea":
+            accum.recipeText = inputState.text;
+          case "servings-input":
+            accum.servingsText = inputState.text;
+          default:
+            return accum;
+        }
+      },
+      {
+        imageImgSrc: "",
+        titleText: "",
+        descriptionText: "",
+        recipeText: "",
+        servingsText: 1
+      }
+    );
+  };
 
+  const { imageImgSrc, titleText, descriptionText, recipeText, servingsText } =
+    inputValues(values);
   return (
     <Card component="section" sx={{ maxWidth: "500px", p: 2 }}>
       <Typography component="h1" variant="h4" mb={4}>
@@ -40,8 +66,8 @@ export const RecipeFormOptional = (props) => {
             sx={{ flex: 1 }}
             title="enter a concise, cogent, and exciting title"
             type="text"
-            // value={value}
             variant="outlined"
+            value={titleText}
           />
           <TextField
             className="description-textarea"
@@ -56,6 +82,7 @@ export const RecipeFormOptional = (props) => {
             sx={{ flex: "1 1 auto" }}
             title="Highlight interesting things about the recipe or elaborate on the recipe title"
             variant="outlined"
+            value={descriptionText}
           />
           <Box
             sx={{
@@ -75,11 +102,27 @@ export const RecipeFormOptional = (props) => {
               InputLabelProps={{
                 shrink: true
               }}
+              value={servingsText}
             />
           </Box>
           <Box>
-            <ImageInput handleImage={handleImage} imgName={imgState.imgName} />
+            <ImageInput handleImage={handleImage} imgName={imageImgSrc} />
           </Box>
+          <TextField
+            className="recipe-textarea"
+            InputLabelProps={{ shrink: true }}
+            label="Recipe instructions"
+            id="recipe-textarea"
+            multiline
+            name="recipe-textarea"
+            onChange={handleChange}
+            placeholder=""
+            rows="4"
+            sx={{ flex: "1 1 auto" }}
+            title=""
+            variant="outlined"
+            value={recipeText}
+          />
         </FormControl>
       </form>
     </Card>

@@ -50,8 +50,8 @@ const ingredientsSx = (expand, style) => {
 const RecipeCard = (props) => {
   const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
+  const { handleToggle, values } = props;
 
-  console.log(props);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -69,16 +69,30 @@ const RecipeCard = (props) => {
     justifyContent: "left"
   };
 
-  const title = props.values.filter(
-    (ingredient) => ingredient.id == "title-input"
-  )[0].text;
+  const inputValues = (state) => {
+    return state.reduce(
+      (accum, inputState) => {
+        switch (inputState.id) {
+          case "title-input":
+            accum.titleText = inputState.text;
+          case "recipe-textarea":
+            accum.recipeText = inputState.text;
+          default:
+            return accum;
+        }
+      },
+      { titleText: "", recipeText: "" }
+    );
+  };
+
+  const { titleText, recipeText } = inputValues(values);
 
   return (
     <Card
       component="section"
       sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}
     >
-      <CardHeader sx={{ padding: "16px 16px 0px 16px" }} title={title} />
+      <CardHeader sx={{ padding: "16px 16px 0px 16px" }} title={titleText} />
       <CardContent
         sx={{
           display: "flex",
@@ -101,7 +115,11 @@ const RecipeCard = (props) => {
           <Typography component="p" variant="b1"></Typography>
         </Box>
         <Box sx={{ flex: "65%" }}>
-          <RecipeImage values={props.values} {...ITALIAN_BEEF} />
+          <RecipeImage
+            handleToggle={handleToggle}
+            values={values}
+            {...ITALIAN_BEEF}
+          />
           <CardActions
             disableSpacing
             sx={{
@@ -138,35 +156,7 @@ const RecipeCard = (props) => {
               }}
               variant="b2"
             >
-              Let the meat rest at room temperature for 15 minutes (this is a
-              good time to measure your other spices and seasonings). Season the
-              beef all over with kosher salt. Heat a large skillet or Dutch oven
-              over medium-high. Once it is hot, sear the meat on all sides until
-              golden brown, moving it as little as possible so that it develops
-              a nice crust (this will take about 10 minutes). Transfer to the
-              slow cooker. Turn the heat to medium. Carefully splash in some of
-              the broth and with a wooden spoon, scrape up the brown bits on the
-              bottom of the pan (this is FLAVOR). Pour the liquid and any bits
-              into the slow cooker on top of the beef. In a small bowl, stir
-              together the seasoning ingredients: Italian seasoning, granulated
-              sugar, garlic powder, onion powder, salt, black pepper, and thyme.
-              Sprinkle on top of the beef. Add the pepperoncini peppers and
-              juice. Add the giardiniera (do not add any giardiniera juice).
-              Pour in the remaining broth. Cover the crockpot and cook on LOW
-              for 8 to 10 hours, or until meat shreds easily with a fork. Shred
-              the beef, then stir it together with the juices. Cover and cook on
-              low for 30 additional minutes. To serve, split the hoagie buns and
-              toast on a baking sheet in the oven at 350 degrees for 5 to 7
-              minutes (if desired). Fill with the shredded Italian beef (get
-              plenty of that yummy, messy juice!) and top with provolone,
-              pepperoncini, and Giardiniera as desired. Enjoy! NOTES: *You can
-              swap the homemade Italian seasoning mix in this recipe with a .7
-              ounce packet of Italian dressing mix. TO STORE: Refrigerate
-              Italian beef in an airtight storage container for up to 3 days. TO
-              REHEAT: Rewarm leftovers in a Dutch oven on the stovetop over
-              medium-low heat or in the microwave. TO FREEZE: Freeze beef in an
-              airtight freezer-safe storage container for up to 3 months. Let
-              thaw overnight in the refrigerator before reheating.
+              {recipeText}
             </Typography>
           </Collapse>
         </Box>

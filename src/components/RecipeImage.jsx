@@ -1,20 +1,35 @@
 import StockBeefImage from "../assets/Italian_Beef.jpeg";
-import { Box, CardMedia, Icon, SvgIcon, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CardMedia,
+  FormControlLabel,
+  FormGroup,
+  Icon,
+  SvgIcon,
+  Switch,
+  Typography
+} from "@mui/material";
 import React, { Fragment } from "react";
 import ImageModal from "./ImageModal";
 import { CalorieSvg } from "./CalorieSvg";
 import { CarbohydrateSvg } from "./CarbohydrateSvg";
 import { ProteinSvg } from "./ProteinSvg";
 import { FatSvg } from "./FatSvg";
+import { FoodBank, Label } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
+import { ServingsSwitch } from "../ServingsSwitch";
 
 export const RecipeImage = (props) => {
-  const [open, setOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    isOpen: false
+  });
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setState((prevState) => ({ ...prevState, isOpen: true }));
   };
   const handleClose = () => {
-    setOpen(false);
+    setState((prevState) => ({ ...prevState, isOpen: false }));
   };
 
   const svgContainerSx = {
@@ -25,12 +40,10 @@ export const RecipeImage = (props) => {
     rowGap: "16px"
   };
 
-  const { ingredients, values } = props;
-  // const { title, description, ingredients, servings } = props;
-
+  const { ingredients, values, handleToggle } = props;
   const sumNutrients = (values) => {
     const ingredients = values.filter((ingredient) => ingredient.parsed);
-    const sum = values.reduce(
+    const sum = ingredients.reduce(
       (accum, ingredient, idx) => {
         if (idx == values.length - 1) {
           accum.calories = (
@@ -64,48 +77,109 @@ export const RecipeImage = (props) => {
     return sum;
   };
 
-  const { calories, protein, carbohydrate, fat } = sumNutrients(ingredients);
-
-  const getState = (state, stateId) => {
-    return state.filter((ingredient) => ingredient.id == stateId)[0];
+  const inputValues = (state) => {
+    return state.reduce(
+      (accum, inputState) => {
+        switch (inputState.id) {
+          case "image-input":
+            accum.imageImgSrc = inputState.imgSrc;
+          case "title-input":
+            accum.titleText = inputState.text;
+          case "description-textarea":
+            accum.descriptionText = inputState.text;
+          case "servings-input":
+            accum.servingsText = inputState.text;
+          case "servings-toggle":
+            accum.servingsIsPerServing = inputState.isPerServing;
+          default:
+            return accum;
+        }
+      },
+      {
+        imageImgSrc: "",
+        titleText: "",
+        descriptionText: "",
+        servingsText: 1,
+        servingsIsPerServing: false
+      }
+    );
   };
 
-  const title = getState(values, "title-input").text;
-  const description = getState(values, "description-textarea").text;
-  const servings = getState(values, "servings-input").text;
+  const { calories, protein, carbohydrate, fat } = sumNutrients(ingredients);
 
-  const imgState = getState(values, "image-input");
+  const { isOpen } = state;
+  const {
+    imageImgSrc,
+    titleText,
+    descriptionText,
+    servingsText,
+    servingsIsPerServing
+  } = inputValues(values);
+
   return (
     <Fragment>
       <Box component="figure" m={0}>
         <CardMedia
-          alt={title}
+          alt={titleText}
           component="img"
           height="194"
-          image={imgState.imgSrc}
+          image={imageImgSrc}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
-          title={title}
+          title={titleText}
         />
         <Typography component="figcaption" p={2} variant="b2">
           <Box sx={{ ...svgContainerSx }}>
-            <CalorieSvg calories={calories} />
-            <CarbohydrateSvg carbohydrate={carbohydrate} />
-            <ProteinSvg protein={protein} />
-            <FatSvg fat={fat} />
+            <CalorieSvg
+              calories={
+                servingsIsPerServing
+                  ? (calories / servingsText).toFixed(0)
+                  : calories
+              }
+            />
+            <CarbohydrateSvg
+              carbohydrate={
+                servingsIsPerServing
+                  ? (carbohydrate / servingsText).toFixed(0)
+                  : carbohydrate
+              }
+            />
+            <ProteinSvg
+              protein={
+                servingsIsPerServing
+                  ? (protein / servingsText).toFixed(0)
+                  : protein
+              }
+            />
+            <FatSvg
+              fat={servingsIsPerServing ? (fat / servingsText).toFixed(0) : fat}
+            />
           </Box>
-          <Typography component="p" pb={2} variant="b2">
-            Serves {servings}
-          </Typography>
-          {description}
+          <Box
+            display="flex"
+            sx={{ justifyContent: "space-between", alignItems: "center" }}
+          >
+            <ServingsSwitch
+              handleToggle={handleToggle}
+              isPerServing={servingsIsPerServing}
+            />
+            <Typography
+              component="span"
+              sx={{ verticalAlign: "middle" }}
+              variant="b2"
+            >
+              Serves {servingsText}{" "}
+            </Typography>
+          </Box>
+          {descriptionText}
         </Typography>
       </Box>
       <Typography component="p" variant="h6"></Typography>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imgState.imgSrc}
-        open={open}
-        title={title}
+        imgSrc={imageImgSrc}
+        open={isOpen}
+        title={titleText}
       />
     </Fragment>
   );
