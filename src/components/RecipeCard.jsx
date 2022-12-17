@@ -42,7 +42,7 @@ const ingredientsSx = (expand, style) => {
         overflowY: "auto"
       }
     : {
-        maxHeight: "300px",
+        maxHeight: "400px",
         overflowY: "auto"
       };
 };
@@ -88,22 +88,19 @@ const RecipeCard = (props) => {
   const { titleText, recipeText } = inputValues(values);
 
   return (
-    <Card
-      component="section"
-      sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}
-    >
-      <CardHeader sx={{ padding: "16px 16px 0px 16px" }} title={titleText} />
+    <Box component="section" sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}>
       <CardContent
         sx={{
           display: "flex",
           flexFlow: { xs: "column-reverse", md: "row-reverse" },
-          p: "16px 0px 0px 0px",
+          gap: 2,
+          padding: "16px 0px 0px 0px",
           ".MuiCardContent-root&:last-child": { pb: 0 }
         }}
       >
         <Box
           sx={{
-            flex: "35%",
+            flex: "40%",
             padding: { xs: "16px", sm: "16px", md: "0px 16px 16px 16px" },
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
@@ -114,7 +111,14 @@ const RecipeCard = (props) => {
           />
           <Typography component="p" variant="b1"></Typography>
         </Box>
-        <Box sx={{ flex: "65%" }}>
+        <Box sx={{ flex: "60%" }}>
+          <Typography
+            component="h5"
+            sx={{ padding: "0px 0px 24px 16px" }}
+            variant="h5"
+          >
+            {titleText}
+          </Typography>
           <RecipeImage
             handleToggle={handleToggle}
             values={values}
@@ -130,7 +134,8 @@ const RecipeCard = (props) => {
             }}
           >
             {" "}
-            Recipe <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
+            Recipe instructions
+            <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
@@ -161,7 +166,7 @@ const RecipeCard = (props) => {
           </Collapse>
         </Box>
       </CardContent>
-    </Card>
+    </Box>
   );
 };
 

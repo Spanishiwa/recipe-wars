@@ -1,8 +1,8 @@
 import { Box, Card, FormControl, TextField, Typography } from "@mui/material";
 import React from "react";
-import ImageInput from "./components/ImageInput";
-import IngredientInput from "./components/IngredientInput";
-import { IngredientsList } from "./components/IngredientsList";
+import ImageInput from "./ImageInput";
+import IngredientInput from "./IngredientInput";
+import { IngredientsList } from "./IngredientsList";
 import { RecipeNumberfield } from "./RecipeNumberfield";
 import { RecipeTextarea } from "./RecipeTextarea";
 import { RecipeTextfield } from "./RecipeTextfield";
@@ -53,7 +53,7 @@ export const RecipeFormOptional = (props) => {
   const titleProps = {
     handleChange: handleChange,
     label: "Recipe title",
-    name: "servings-input",
+    name: "title-input",
     placeholder: "e.g. Abuela's dirty beans syrniki",
     title: `Enter a concise, cogent, and exciting title`,
     value: titleText
@@ -61,7 +61,7 @@ export const RecipeFormOptional = (props) => {
 
   const ingredientsTextareaProps = {
     label: "Ingredients & quantities list",
-    name: "recipe-textarea",
+    name: "ingredients-textarea",
     placeholder: `Ingredients list with one ingredient and quantity per line e.g.
 1/2 cup heavy cream
 3 tablespoons butter
@@ -103,16 +103,13 @@ recipe.
   };
 
   return (
-    <Box
-      component="section"
-      sx={{ display: "flex", gap: 2, maxWidth: "md", p: 2 }}
-    >
+    <Box component="section" sx={{ display: "flex", gap: 4, p: 2 }}>
       <Box
         component="form"
         id="recipe-form-optional"
         sx={{
           display: "flex",
-          flex: { xs: "1 1 auto", md: "65%" },
+          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "55%" },
           flexDirection: "column"
         }}
       >
@@ -151,7 +148,7 @@ recipe.
       <Box
         sx={{
           display: { xs: "none", sm: "flex" },
-          flex: "35%",
+          flex: { xs: "1 1 auto", md: "1 1 45%" },
           flexDirection: "column"
         }}
       >

@@ -18,7 +18,7 @@ import { ProteinSvg } from "./ProteinSvg";
 import { FatSvg } from "./FatSvg";
 import { FoodBank, Label } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-import { ServingsSwitch } from "../ServingsSwitch";
+import { ServingsSwitch } from "./ServingsSwitch";
 
 export const RecipeImage = (props) => {
   const [state, setState] = React.useState({
@@ -35,7 +35,7 @@ export const RecipeImage = (props) => {
   const svgContainerSx = {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     pb: "16px",
     rowGap: "16px"
   };
@@ -122,7 +122,11 @@ export const RecipeImage = (props) => {
           sx={{ cursor: "pointer" }}
           title={titleText}
         />
-        <Typography component="figcaption" p={2} variant="b2">
+        <Typography
+          component="figcaption"
+          sx={{ padding: "24px 16px" }}
+          variant="b2"
+        >
           <Box sx={{ ...svgContainerSx }}>
             <CalorieSvg
               calories={
@@ -151,7 +155,11 @@ export const RecipeImage = (props) => {
           </Box>
           <Box
             display="flex"
-            sx={{ justifyContent: "space-between", alignItems: "center" }}
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              pt: 2
+            }}
           >
             <ServingsSwitch
               handleToggle={handleToggle}

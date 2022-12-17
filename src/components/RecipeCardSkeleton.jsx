@@ -42,7 +42,7 @@ const ingredientsSx = (expand, style) => {
         overflowY: "auto"
       }
     : {
-        maxHeight: "300px",
+        maxHeight: "400px",
         overflowY: "auto"
       };
 };
@@ -88,7 +88,7 @@ export const RecipeCardSkeleton = () => {
       >
         <Box
           sx={{
-            flex: "35%",
+            flex: "40%",
             padding: { xs: "16px", sm: "16px", md: "0px 16px 16px 16px" },
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
@@ -96,7 +96,7 @@ export const RecipeCardSkeleton = () => {
           <IngredientsList ingredients={ingredients} />
           <Typography component="p" variant="b1"></Typography>
         </Box>
-        <Box sx={{ flex: "65%" }}>
+        <Box sx={{ flex: "60%" }}>
           <RecipeImage {...ITALIAN_BEEF} />
           <CardActions
             disableSpacing
@@ -108,7 +108,8 @@ export const RecipeCardSkeleton = () => {
             }}
           >
             {" "}
-            Recipe <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
+            Recipe instructions
+            <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
