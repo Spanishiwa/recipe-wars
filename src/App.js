@@ -104,7 +104,8 @@ function App() {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    const name = e.target.name || e.currentTarget.name;
+    const name =
+      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
     setValues((prevValues) => [
       ...prevValues.filter((prevIngredient) => prevIngredient.id != name)
@@ -112,7 +113,9 @@ function App() {
   };
 
   const handleEdit = (e) => {
+    e.stopPropagation();
     e.preventDefault();
+
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
@@ -120,10 +123,24 @@ function App() {
     if (ingredient) fetchAPI(ingredient[0].text, name);
   };
 
-  const handleKeySubmit = (e, cb) => {
+  const handleKeyDelete = (e) => {
     const key = e.which || e.keyCode || 0;
 
     if (key === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleDelete(e);
+    }
+  };
+
+  const handleKeySubmit = (e) => {
+    const key = e.which || e.keyCode || 0;
+
+    if (key === 13 && e.target.classList.contains("delete")) {
+      e.stopPropagation();
+      e.preventDefault();
+      handleDelete(e);
+    } else if (key === 13 && e.target.classList.contains("submit")) {
       e.stopPropagation();
       e.preventDefault();
       handleSubmit(e);
@@ -158,7 +175,10 @@ function App() {
     setValues((prevValues) =>
       prevValues.map((inputState) =>
         inputState.id == "servings-toggle"
-          ? { ...inputState, isPerServing: !inputState.isPerServing }
+          ? {
+              ...inputState,
+              isPerServing: !inputState.isPerServing
+            }
           : inputState
       )
     );
@@ -245,6 +265,7 @@ function App() {
             handleChange={handleChange}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
+            handleKeyDelete={handleKeyDelete}
             handleKeySubmit={handleKeySubmit}
             handleImage={handleImage}
             handleServingsToggle={handleServingsToggle}

@@ -41,6 +41,7 @@ export default function TextMobileStepper(props) {
     handleChange,
     handleDelete,
     handleEdit,
+    handleKeyDelete,
     handleKeySubmit,
     handleImage,
     handleServingsToggle,

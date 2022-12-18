@@ -13,6 +13,7 @@ export const RecipeFormOptional = (props) => {
     handleDelete,
     handleEdit,
     handleImage,
+    handleKeyDelete,
     handleKeySubmit,
     handleSubmit,
     handleToggleDisable,
@@ -157,6 +158,7 @@ recipe.
           handleChange={handleChange}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
+          handleKeyDelete={handleKeyDelete}
           handleKeySubmit={handleKeySubmit}
           handleToggleDisable={handleToggleDisable}
           ingredients={ingredientsState}

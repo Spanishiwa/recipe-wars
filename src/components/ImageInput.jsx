@@ -11,14 +11,24 @@ import {
 import React, { useRef } from "react";
 
 const ImageInput = (props) => {
-  const { imgName } = props;
+  const { imgName, handleImage } = props;
   const imgIcon = imgName ? <DownloadDone /> : <PhotoCamera />;
+  const inputRef = useRef(null);
+  const handleKeyEnter = (e) => {
+    const key = e.which || e.keyCode || 0;
+
+    if (key === 13) {
+      inputRef.current.click();
+    }
+  };
+
   return (
     <Box>
       <Button
         aria-label="upload picture"
         component="label"
         color="primary"
+        onKeyDown={handleKeyEnter}
         startIcon={imgIcon}
         sx={{ mr: 2, mb: { xs: 2, sm: 0 } }}
         title="Upload a recipe image here"
@@ -27,10 +37,11 @@ const ImageInput = (props) => {
         Choose file
         <input
           accept="image/*"
-          onChange={props.handleImage}
+          onChange={handleImage}
           hidden
           id="image-input"
           name="image-input"
+          ref={inputRef}
           type="file"
         />
       </Button>

@@ -10,9 +10,20 @@ import React from "react";
 export const ServingsSwitch = (props) => {
   const { handleServingsToggle, isPerServing } = props;
 
+  const handleKeyDown = (e) => {
+    const key = e.which || e.keyCode || 0;
+    console.log(key);
+    if (key == 13 || key == 37 || key == 39) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleServingsToggle();
+    }
+  };
+
   return (
     <InputLabel
       name="servings-toggle"
+      onKeyDown={handleKeyDown}
       sx={{ alignItems: "center", display: "flex" }}
       title="Display nutritional values per serving or by total amount"
     >
@@ -49,7 +60,7 @@ export const ServingsSwitch = (props) => {
           }
         }}
         checked={isPerServing}
-      ></Switch>
+      />
       <Typography
         component="span"
         name="servings-toggle"

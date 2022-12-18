@@ -23,7 +23,11 @@ const IngredientInput = (props) => {
                 name="ingredient-input"
                 onClick={handleSubmit}
                 onKeyDown={handleKeySubmit}
-                sx={{ "&:hover": { color: "primary.main" } }}
+                sx={{
+                  "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                    color: "primary.main"
+                  }
+                }}
                 title="Save ingredient to ingredients list"
               >
                 <PostAdd name="ingredient-input" variant="outlined" />
@@ -35,7 +39,12 @@ const IngredientInput = (props) => {
         onChange={handleChange}
         onKeyDown={handleKeySubmit}
         placeholder="e.g. 1/2 cup broccoli"
-        sx={{ flex: 1 }}
+        sx={{
+          flex: 1,
+          "& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root": {
+            color: "primary.main"
+          }
+        }}
         title="Enter an ingredient & quantity here"
         type="text"
         value={value}
