@@ -2,7 +2,16 @@ import { Box, TextField } from "@mui/material";
 import React from "react";
 
 export const RecipeTextarea = (props) => {
-  const { handleChange, label, name, placeholder, rows, title, value } = props;
+  const {
+    handleChange,
+    handleKeyDown,
+    label,
+    name,
+    placeholder,
+    rows,
+    title,
+    value
+  } = props;
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
@@ -14,6 +23,7 @@ export const RecipeTextarea = (props) => {
         multiline
         name={name}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
         rows={rows}
         sx={{ flex: "1 1 auto" }}

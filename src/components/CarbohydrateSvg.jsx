@@ -19,8 +19,14 @@ export const CarbohydrateSvg = (props) => {
         titleAccess={`${carbohydrate} grams of carbohydrates`}
       >
         <Carbohydrate></Carbohydrate>
-      </SvgIcon>{" "}
-      {carbohydrate}g carbs
+      </SvgIcon>
+      <Typography
+        component="span"
+        sx={{ pl: 1, verticalAlign: "middle" }}
+        variant="b1"
+      >
+        {carbohydrate}g carbs
+      </Typography>
     </Typography>
   );
 };

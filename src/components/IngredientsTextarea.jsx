@@ -8,7 +8,7 @@ const IngredientsTextarea = () => {
         className="ingredients-textarea"
         cols="50"
         InputLabelProps={{ shrink: true }}
-        label="Ingredients & quantities list"
+        label="Ingredients & quantities"
         id="ingredients-textarea"
         multiline
         name="ingredients-textarea"

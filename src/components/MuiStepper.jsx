@@ -38,12 +38,14 @@ const steps = [
 
 export default function TextMobileStepper(props) {
   const {
-    handleSubmit,
     handleChange,
     handleDelete,
+    handleEdit,
     handleKeyDown,
     handleImage,
-    handleToggle,
+    handleServingsToggle,
+    handleSubmit,
+    handleToggleDisable,
     values
   } = props;
 

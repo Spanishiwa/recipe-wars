@@ -19,8 +19,14 @@ export const ProteinSvg = (props) => {
         titleAccess={`${protein} grams of protein`}
       >
         <Protein></Protein>
-      </SvgIcon>{" "}
-      {protein}g protein
+      </SvgIcon>
+      <Typography
+        component="span"
+        sx={{ pl: 1, verticalAlign: "middle" }}
+        variant="b1"
+      >
+        {protein}g protein
+      </Typography>
     </Typography>
   );
 };

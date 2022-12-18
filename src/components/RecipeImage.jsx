@@ -35,12 +35,13 @@ export const RecipeImage = (props) => {
   const svgContainerSx = {
     display: "flex",
     flexWrap: "wrap",
+    columnGap: { xs: "6px", md: "8px" },
     justifyContent: "space-between",
     pb: "16px",
     rowGap: "16px"
   };
 
-  const { ingredients, values, handleToggle } = props;
+  const { ingredients, values, handleServingsToggle } = props;
   const sumNutrients = (values) => {
     const ingredients = values.filter((ingr) => ingr.parsed);
     return ingredients.reduce(
@@ -162,7 +163,7 @@ export const RecipeImage = (props) => {
             }}
           >
             <ServingsSwitch
-              handleToggle={handleToggle}
+              handleServingsToggle={handleServingsToggle}
               isPerServing={servingsIsPerServing}
             />
             <Typography

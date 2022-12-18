@@ -88,7 +88,7 @@ export const RecipeCardSkeleton = () => {
       >
         <Box
           sx={{
-            flex: "40%",
+            flex: "35%",
             padding: { xs: "16px", sm: "16px", md: "0px 16px 16px 16px" },
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
@@ -96,7 +96,7 @@ export const RecipeCardSkeleton = () => {
           <IngredientsList ingredients={ingredients} />
           <Typography component="p" variant="b1"></Typography>
         </Box>
-        <Box sx={{ flex: "60%" }}>
+        <Box sx={{ flex: "65%" }}>
           <RecipeImage {...ITALIAN_BEEF} />
           <CardActions
             disableSpacing

@@ -8,7 +8,7 @@ const IngredientInput = (props) => {
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
         className="ingredient-input"
-        label="Ingredient and quantity"
+        label="Ingredient & quantity"
         id="ingredient-input"
         name="ingredient-input"
         InputLabelProps={{
@@ -34,9 +34,9 @@ const IngredientInput = (props) => {
         name="ingredient-input"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder="e.g. 1/2 cup of broccoli"
+        placeholder="e.g. 1/2 cup broccoli"
         sx={{ flex: 1 }}
-        title="Enter an ingredient and quantity here"
+        title="Enter an ingredient & quantity here"
         type="text"
         value={value}
         variant="outlined"

@@ -17,8 +17,14 @@ export const FatSvg = (props) => {
       <EggOutlinedIcon
         sx={{ verticalAlign: "middle" }}
         titleAccess={`${fat}`}
-      ></EggOutlinedIcon>{" "}
-      {fat}g protein
+      ></EggOutlinedIcon>
+      <Typography
+        component="span"
+        sx={{ pl: 1, verticalAlign: "middle" }}
+        variant="b1"
+      >
+        {fat}g protein
+      </Typography>
     </Typography>
   );
 };

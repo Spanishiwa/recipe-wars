@@ -10,10 +10,12 @@ import { RecipeTextfield } from "./RecipeTextfield";
 export const RecipeFormOptional = (props) => {
   const {
     handleChange,
+    handleDelete,
+    handleEdit,
     handleImage,
     handleKeyDown,
     handleSubmit,
-    ingredientInputVal,
+    handleToggleDisable,
     values
   } = props;
 
@@ -62,12 +64,11 @@ export const RecipeFormOptional = (props) => {
   const ingredientsTextareaProps = {
     label: "Ingredients & quantities list",
     name: "ingredients-textarea",
-    placeholder: `Ingredients list with one ingredient and quantity per line e.g.
+    placeholder: `Ingredients list with one ingredient & quantity per line e.g.
 1/2 cup heavy cream
 3 tablespoons butter
 1 pound chicken breast`,
-    title:
-      "Enter an ingredients list with one ingredient and quantity per line",
+    title: "Enter an ingredients list with one ingredient & quantity per line",
     value: recipeText
   };
 
@@ -103,13 +104,13 @@ recipe.
   };
 
   return (
-    <Box component="section" sx={{ display: "flex", gap: 4, p: 2 }}>
+    <Box component="section" sx={{ display: "flex", gap: 2, p: 2 }}>
       <Box
         component="form"
         id="recipe-form-optional"
         sx={{
           display: "flex",
-          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "55%" },
+          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "65%" },
           flexDirection: "column"
         }}
       >
@@ -148,11 +149,18 @@ recipe.
       <Box
         sx={{
           display: { xs: "none", sm: "flex" },
-          flex: { xs: "1 1 auto", md: "1 1 45%" },
+          flex: { xs: "1 1 auto", md: "1 1 35%" },
           flexDirection: "column"
         }}
       >
-        <IngredientsList ingredients={ingredientsState} />
+        <IngredientsList
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleKeyDown={handleKeyDown}
+          handleToggleDisable={handleToggleDisable}
+          ingredients={ingredientsState}
+        />
       </Box>
     </Box>
   );

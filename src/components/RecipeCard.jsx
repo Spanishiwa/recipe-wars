@@ -50,7 +50,7 @@ const ingredientsSx = (expand, style) => {
 const RecipeCard = (props) => {
   const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
-  const { handleToggle, values } = props;
+  const { handleServingsToggle, values } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -100,7 +100,7 @@ const RecipeCard = (props) => {
       >
         <Box
           sx={{
-            flex: "40%",
+            flex: "35%",
             padding: { xs: "16px", sm: "16px", md: "0px 16px 16px 16px" },
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
@@ -111,7 +111,7 @@ const RecipeCard = (props) => {
           />
           <Typography component="p" variant="b1"></Typography>
         </Box>
-        <Box sx={{ flex: "60%" }}>
+        <Box sx={{ flex: "65%" }}>
           <Typography
             component="h5"
             sx={{ padding: "0px 0px 24px 16px" }}
@@ -120,7 +120,7 @@ const RecipeCard = (props) => {
             {titleText}
           </Typography>
           <RecipeImage
-            handleToggle={handleToggle}
+            handleServingsToggle={handleServingsToggle}
             values={values}
             {...ITALIAN_BEEF}
           />

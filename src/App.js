@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Bg_Pattern_Dark from "./assets/Graphcoders_Lil_Fiber.png";
 import Bg_Pattern_Light from "./assets/Beige_Paper.png";
 import Footer from "./components/Footer";
@@ -13,7 +13,8 @@ import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
 
 function App() {
   const [values, setValues] = useState([
-    { id: "ingredient-input", text: "" },
+    { id: "ingredient-input", text: "", isDisabled: false },
+    { id: "ingredients-textarea", text: "" },
     { id: "image-input", imgSrc: "", imgName: "" },
     { id: "title-input", text: "Untitled recipe" },
     { id: "description-textarea", text: "" },
@@ -21,6 +22,61 @@ function App() {
     { id: "servings-input", text: "1" },
     { id: "servings-toggle", isPerServing: false }
   ]);
+
+  const fetchAPI = (text, name) => {
+    const { accessIngredient, accessRecipe, appId, appKey, params } = CONFIG;
+    // const encodedIngredient = encodeURIComponent(ingredient);
+    // let ingredientUrl =
+    // accessIngredient + appId + appKey + params + encodedIngredient;
+    const recipeUrl = accessRecipe + appId + appKey;
+    const recipePayload = {
+      title: "Untitled Recipe",
+      ingr: [text]
+    };
+
+    fetch(recipeUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(recipePayload)
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(`data is ${data} and text is ${text} and name is ${name}`);
+        const { calories, ingredients, totalNutrients, uri } = data;
+
+        const protein = `${totalNutrients.PROCNT.quantity}${totalNutrients.PROCNT.unit} protein`;
+        const carbohydrate = `${totalNutrients.CHOCDF.quantity}${totalNutrients.CHOCDF.unit} carbs`;
+        const fat = `${totalNutrients.FAT.quantity}${totalNutrients.FAT.unit} fat`;
+        const input = ingredients[0].text;
+        const parsed = `${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`;
+        const err = ingredients[0].parsed[0].status;
+        const flatIngredient = {
+          id: name || uri.slice(-5),
+          text: parsed,
+          parsed: parsed,
+          calories: calories,
+          protein: protein,
+          carbohydrate: carbohydrate,
+          fat: fat,
+          err: err,
+          isDisabled: true,
+          userText: input
+        };
+
+        setValues((prevInputs) => [
+          ...prevInputs.filter((prevInput) => prevInput.id != name),
+          flatIngredient
+        ]);
+        // setValues((prevValues) => [...prevValues, flatIngredient]);
+      })
+      .catch((err) => {
+        console.log(`The error code is ${err}`);
+      });
+  };
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
@@ -48,6 +104,21 @@ function App() {
     ]);
   };
 
+  const handleEdit = (e) => {
+    e.preventDefault();
+    const name =
+      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
+
+    const ingredient = values.filter((ingredient) => ingredient.id == name);
+    if (ingredient) fetchAPI(ingredient[0].text, name);
+
+    // setValues((prevValues) =>
+    //   prevValues.map((prevIngredient) =>
+    //     prevIngredient.id == name ? { id: name, text: "" } : prevIngredient
+    //   )
+    // );
+  };
+
   const handleKeyDown = (e) => {
     const key = e.which || e.keyCode || 0;
 
@@ -55,71 +126,6 @@ function App() {
       e.preventDefault();
       handleSubmit(e);
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const name = e.target.name || e.currentTarget.name;
-    // code works - ration API calls for testing
-    // const ingredient = values.filter(
-    //   (ingredient) => ingredient.id == e.target.name
-    // );
-    // if (ingredient) fetchAPI(ingredient[0].text);
-
-    setValues((prevValues) =>
-      prevValues.map((prevIngredient) =>
-        prevIngredient.id == name ? { id: name, text: "" } : prevIngredient
-      )
-    );
-  };
-
-  const fetchAPI = (text) => {
-    const { accessIngredient, accessRecipe, appId, appKey, params } = CONFIG;
-    // const encodedIngredient = encodeURIComponent(ingredient);
-    // let ingredientUrl =
-    // accessIngredient + appId + appKey + params + encodedIngredient;
-    const recipeUrl = accessRecipe + appId + appKey;
-    const recipePayload = {
-      title: "Untitled Recipe",
-      ingr: [text]
-    };
-
-    fetch(recipeUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(recipePayload)
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(`data is ${data}`);
-        const { calories, ingredients, totalNutrients, uri } = data;
-
-        const protein = `${totalNutrients.PROCNT.quantity}${totalNutrients.PROCNT.unit} protein`;
-        const carbohydrate = `${totalNutrients.CHOCDF.quantity}${totalNutrients.CHOCDF.unit} carbs`;
-        const fat = `${totalNutrients.FAT.quantity}${totalNutrients.FAT.unit} fat`;
-        const input = ingredients[0].text;
-        const parsed = `${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`;
-        const err = ingredients[0].parsed[0].status;
-        const flatIngredient = {
-          id: uri.slice(-5),
-          text: input,
-          parsed: parsed,
-          calories: calories,
-          protein: protein,
-          carbohydrate: carbohydrate,
-          fat: fat,
-          err: err
-        };
-
-        setValues((prevValues) => [...prevValues, flatIngredient]);
-      })
-      .catch((err) => {
-        console.log(`The error code is ${err}`);
-      });
   };
 
   const handleImage = (e) => {
@@ -146,12 +152,40 @@ function App() {
     );
   };
 
-  const handleToggle = () => {
+  const handleServingsToggle = () => {
     setValues((prevValues) =>
       prevValues.map((inputState) =>
         inputState.id == "servings-toggle"
           ? { ...inputState, isPerServing: !inputState.isPerServing }
           : inputState
+      )
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const name =
+      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
+    // code works - ration API calls for testing
+    const ingredient = values.filter((ingredient) => ingredient.id == name);
+
+    if (ingredient) fetchAPI(ingredient[0].text);
+
+    setValues((prevValues) =>
+      prevValues.map((prevIngredient) =>
+        prevIngredient.id == name ? { id: name, text: "" } : prevIngredient
+      )
+    );
+  };
+
+  const handleToggleDisable = (e) => {
+    e.preventDefault();
+    const name =
+      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
+
+    setValues((prevStates) =>
+      prevStates.map((prevState) =>
+        prevState.id == name ? { ...prevState, isDisabled: false } : prevState
       )
     );
   };
@@ -174,12 +208,25 @@ function App() {
 
   const mode = useTheme().palette.mode;
   const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
-
+  const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
   const appSx = {
     backgroundColor: "background.default",
     backgroundImage: `url(${bgPattern})`,
     backgroundRepeat: "repeat"
   };
+
+  useEffect(() => {
+    // fix rubber banding scroll
+    document.body.style.backgroundColor = bgColor;
+    document.body.style.backgroundImage = `url(${bgPattern})`;
+    document.body.style.backgroundRepeat = "repeat";
+
+    return () => {
+      document.body.style.backgroundColor = null;
+      document.body.style.backgroundImage = null;
+      document.body.style.backgroundRepeat = null;
+    };
+  }, [mode]);
 
   return (
     <Fragment>
@@ -194,11 +241,13 @@ function App() {
           {/* <RecipeCard /> */}
           <MuiStepper
             handleChange={handleChange}
-            handleSubmit={handleSubmit}
             handleDelete={handleDelete}
+            handleEdit={handleEdit}
             handleKeyDown={handleKeyDown}
             handleImage={handleImage}
-            handleToggle={handleToggle}
+            handleServingsToggle={handleServingsToggle}
+            handleSubmit={handleSubmit}
+            handleToggleDisable={handleToggleDisable}
             values={values}
           />
           {/* <RecipeCardSkeleton /> */}

@@ -8,7 +8,7 @@ import { InputLabel, Switch, Typography } from "@mui/material";
 import React from "react";
 
 export const ServingsSwitch = (props) => {
-  const { handleToggle, isPerServing } = props;
+  const { handleServingsToggle, isPerServing } = props;
 
   return (
     <InputLabel
@@ -42,7 +42,7 @@ export const ServingsSwitch = (props) => {
       </Typography>
       <Switch
         name="servings-toggle"
-        onChange={handleToggle}
+        onChange={handleServingsToggle}
         sx={{
           ".MuiButtonBase-root.MuiSwitch-switchBase.MuiSwitch-colorPrimary": {
             color: "primary.main"

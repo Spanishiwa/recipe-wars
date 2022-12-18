@@ -1,5 +1,6 @@
 import { ReceiptLong } from "@mui/icons-material";
 import {
+  Divider,
   List,
   ListItem,
   ListItemIcon,
@@ -13,7 +14,14 @@ import IngredientInput from "./IngredientInput";
 import IngredientInputDisabled from "./IngredientInputDisabled";
 
 export const IngredientsList = (props) => {
-  const { handleDelete, ingredients } = props;
+  const {
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleKeyDown,
+    handleToggleDisable,
+    ingredients
+  } = props;
 
   const mode = useTheme().palette.mode;
   const ingredientsBorderStyle =
@@ -36,19 +44,23 @@ export const IngredientsList = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: 4,
+          gap: 2,
           pt: 2
         }}
       >
         {ingredients.map((ingredient) => (
-          <ListItem key={ingredient.id} sx={{ p: "0px" }}>
+          <ListItem disableGutters key={ingredient.id} sx={{ pr: 1 }}>
             <IngredientInputDisabled
+              handleChange={handleChange}
               handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              handleKeyDown={handleKeyDown}
+              handleToggleDisable={handleToggleDisable}
               ingredient={ingredient}
             />
+            {/* <Divider /> */}
           </ListItem>
         ))}
-        sdakljdasldjak
       </List>
     </Fragment>
   );

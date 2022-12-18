@@ -19,8 +19,14 @@ export const CalorieSvg = (props) => {
         titleAccess={`${calories} total calories (kCal)`}
       >
         <Calorie></Calorie>
-      </SvgIcon>{" "}
-      {calories} kCal
+      </SvgIcon>
+      <Typography
+        component="span"
+        sx={{ pl: 1, verticalAlign: "middle" }}
+        variant="b1"
+      >
+        {calories} kCal
+      </Typography>
     </Typography>
   );
 };

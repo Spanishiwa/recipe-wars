@@ -15,23 +15,47 @@ import {
 import { IngredientsList } from "./IngredientsList";
 import { ITALIAN_BEEF } from "../config";
 import { Close, Done } from "@mui/icons-material";
-import { InputExamples } from "../InputExamples";
+import { InputExamples } from "./InputExamples";
+import { RecipeTextarea } from "./RecipeTextarea";
 
 const RecipeForm = (props) => {
   const {
-    handleSubmit,
     handleChange,
     handleDelete,
+    handleEdit,
     handleKeyDown,
     handleImage,
+    handleSubmit,
+    handleToggleDisable,
     values
   } = props;
 
   const ingredients = values.filter((ingredient) => ingredient.parsed);
-  const ingredientInputVal = values.filter(
-    (ingredient) => ingredient.id == "ingredient-input"
-  )[0].text;
+  // const ingredientInputVal = values.filter(
+  //   (ingredient) => ingredient.id == "ingredient-input"
+  // )[0].text;
 
+  // const ingredientsTextareaValue = values.filter(
+  //   (ingredient) => ingredient.id == "ingredients-textarea"
+  // )[0].value;
+
+  const inputValues = (state) => {
+    return state.reduce(
+      (accum, inputState) => {
+        switch (inputState.id) {
+          case "ingredient-input":
+            accum.ingredientInputText = inputState.text;
+          case "ingredients-textarea":
+            accum.ingredientsTextareaText = inputState.text;
+          default:
+            return accum;
+        }
+      },
+      { ingredientInputText: "", ingredientsTextareaText: "" }
+    );
+  };
+
+  const { ingredientInputText, ingredientsTextareaText } = inputValues(values);
   const inputExamples = {
     examples: [
       "12 ounces flour",
@@ -51,13 +75,26 @@ const RecipeForm = (props) => {
     ]
   };
 
+  const ingredientsTextareaProps = {
+    handleChange: handleChange,
+    label: "Ingredients & quantities",
+    name: "ingredients-textarea",
+    placeholder: `Ingredients list with one ingredient & quantity per line e.g.
+1/2 cup heavy cream
+3 tablespoons butter
+1 pound chicken breast`,
+    rows: 10,
+    title: `Enter an ingredients grocery list with one ingredient & quantity per line`,
+    value: ingredientsTextareaText
+  };
+
   return (
     <Box
       component="section"
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", sm: "row" },
-        gap: 4,
+        flexDirection: { xs: "column", sm: "column", md: "row" },
+        gap: 2,
         p: 2
       }}
     >
@@ -66,12 +103,12 @@ const RecipeForm = (props) => {
         id="recipe-form"
         sx={{
           display: "flex",
-          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "60%" },
+          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "65%" },
           flexDirection: "column",
           rowGap: 2
         }}
       >
-        <Typography component="h1" variant="h5" mb={2}>
+        <Typography component="h1" variant="h5" mb={1}>
           Recipe nutrition analyzer
         </Typography>
         <Typography component="p" variant="b1">
@@ -85,13 +122,12 @@ const RecipeForm = (props) => {
           <List
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
+              flexDirection: { xs: "column", sm: "row" },
               flexFlow: "wrap",
               pt: 0
             }}
           >
             {inputExamples.examples.map((inputExample, idx) => {
-              // const desktopOrder = [1, 4, 2, 5, 3, 6];
               return (
                 <InputExamples
                   CustomIcon={idx % 2 == 0 ? Done : Close}
@@ -99,8 +135,7 @@ const RecipeForm = (props) => {
                   inputExample={inputExample}
                   key={inputExample}
                   inputExamplesSx={{
-                    flex: { xs: "100%", md: "50%" },
-                    maxWidth: { xs: "100%", md: "50%" }
+                    maxWidth: { xs: "100%", sm: "50%" }
                   }}
                   title={inputExamples.titles[idx]}
                 />
@@ -113,24 +148,24 @@ const RecipeForm = (props) => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             handleKeyDown={handleKeyDown}
-            value={ingredientInputVal}
+            value={ingredientInputText}
           />
-          {/* <IngredientsTextarea /> */}
-          {/* <ImageInput handleImage={handleImage} />
-          {imgUpload}
-          <Box component="span">Ingredient input is {values.ingredient}</Box>
-        <Box component="span">Calorie response is {values.calories}</Box> */}
+          <RecipeTextarea {...ingredientsTextareaProps} />
         </FormControl>
       </Box>
       <Box
         sx={{
           display: "flex",
-          flex: { xs: "1 1 auto", md: "1 1 40%" },
+          flex: { xs: "1 1 auto", xs: "1 1 auto", md: "1 1 35%" },
           flexDirection: "column"
         }}
       >
         <IngredientsList
+          handleChange={handleChange}
           handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleKeyDown={handleKeyDown}
+          handleToggleDisable={handleToggleDisable}
           ingredients={ingredients}
         />
       </Box>
