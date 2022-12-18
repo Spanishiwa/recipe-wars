@@ -17,6 +17,8 @@ const IngredientInputDisabled = (props) => {
     ingredient,
     parsed
   } = props;
+
+  const standardProp = ingredient.isDisabled ? { disableUnderline: true } : {};
   // props.ingredient[0]
   // {id: '68265', text: 'one tablespoon lime zest', parsed: '1 tablespoon lime zest', calories: 2, protein: '0.09g protein', …}
   return (
@@ -37,7 +39,7 @@ const IngredientInputDisabled = (props) => {
           shrink: true
         }}
         InputProps={{
-          disableUnderline: ingredient.isDisabled ? true : false,
+          ...standardProp,
           startAdornment: (
             <InputAdornment name={ingredient.id} position="start">
               <IconButton

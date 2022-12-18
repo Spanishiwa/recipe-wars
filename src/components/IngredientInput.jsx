@@ -3,12 +3,15 @@ import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
-  const { handleChange, handleKeySubmit, handleSubmit, value } = props;
+  const { error, handleChange, handleKeySubmit, handleSubmit, status, value } =
+    props;
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
-        className="ingredient-input"
+        className="ingredient-input submit"
         label="Ingredient & quantity"
+        error={error}
+        helperText={status}
         id="ingredient-input"
         name="ingredient-input"
         InputLabelProps={{
@@ -19,6 +22,7 @@ const IngredientInput = (props) => {
             <InputAdornment position="end" name="ingredient-input">
               <IconButton
                 aria-label="Save ingredient"
+                className="submit"
                 edge="end"
                 name="ingredient-input"
                 onClick={handleSubmit}

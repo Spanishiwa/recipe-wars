@@ -13,7 +13,13 @@ import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
 
 function App() {
   const [values, setValues] = useState([
-    { id: "ingredient-input", text: "", isDisabled: false },
+    {
+      id: "ingredient-input",
+      text: "",
+      isDisabled: false,
+      error: false,
+      status: ""
+    },
     { id: "ingredients-textarea", text: "" },
     { id: "image-input", imgSrc: "", imgName: "" },
     { id: "title-input", text: "Untitled recipe" },
@@ -23,7 +29,7 @@ function App() {
     { id: "servings-toggle", isPerServing: false }
   ]);
 
-  const fetchAPI = (text, name) => {
+  const fetchAPI = (text, name, id) => {
     const { accessIngredient, accessRecipe, appId, appKey, params } = CONFIG;
     // const encodedIngredient = encodeURIComponent(ingredient);
     // let ingredientUrl =
@@ -53,7 +59,7 @@ function App() {
         const fat = `${totalNutrients.FAT.quantity}${totalNutrients.FAT.unit} fat`;
         const input = ingredients[0].text;
         const parsed = `${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`;
-        const err = ingredients[0].parsed[0].status;
+        const payloadStatus = ingredients[0].parsed[0].status;
         const flatIngredient = {
           id: name || uri.slice(-5),
           text: parsed,
@@ -62,18 +68,34 @@ function App() {
           protein: protein,
           carbohydrate: carbohydrate,
           fat: fat,
-          err: err,
+          status: payloadStatus,
           isDisabled: true,
+          error: false,
           userText: input
         };
 
         if (name) {
+          // updating input
           setValues((prevInputs) =>
             prevInputs.map((prevInput) =>
               prevInput.id == name ? flatIngredient : prevInput
             )
           );
         } else {
+          // clearing input generator / error / status
+          setValues((prevValues) =>
+            prevValues.map((prevIngredient) =>
+              prevIngredient.id == id
+                ? {
+                    ...prevIngredient,
+                    text: "",
+                    error: false,
+                    status: payloadStatus
+                  }
+                : prevIngredient
+            )
+          );
+          // appending new input
           setValues((prevInputs) => [
             ...prevInputs.filter((prevInput) => prevInput.id != name),
             flatIngredient
@@ -81,7 +103,14 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(`The error code is ${err}`);
+        setValues((prevInputs) =>
+          prevInputs.map((prevInput) =>
+            prevInput.id == id
+              ? { ...prevInput, error: true, status: err.error }
+              : prevInput
+          )
+        );
+        debugger;
       });
   };
 
@@ -120,7 +149,7 @@ function App() {
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
     const ingredient = values.filter((ingredient) => ingredient.id == name);
-    if (ingredient) fetchAPI(ingredient[0].text, name);
+    if (ingredient) fetchAPI(ingredient[0].text, name, name);
   };
 
   const handleKeyDelete = (e) => {
@@ -135,12 +164,18 @@ function App() {
 
   const handleKeySubmit = (e) => {
     const key = e.which || e.keyCode || 0;
+    const isDelete =
+      e.target.classList.contains("delete") ||
+      e.currentTarget.classList.contains("delete");
+    const isSubmit =
+      e.target.classList.contains("submit") ||
+      e.currentTarget.classList.contains("submit");
 
-    if (key === 13 && e.target.classList.contains("delete")) {
+    if (key === 13 && isDelete) {
       e.stopPropagation();
       e.preventDefault();
       handleDelete(e);
-    } else if (key === 13 && e.target.classList.contains("submit")) {
+    } else if (key === 13 && isSubmit) {
       e.stopPropagation();
       e.preventDefault();
       handleSubmit(e);
@@ -191,13 +226,7 @@ function App() {
     // code works - ration API calls for testing
     const ingredient = values.filter((ingredient) => ingredient.id == name);
 
-    if (ingredient) fetchAPI(ingredient[0].text);
-
-    setValues((prevValues) =>
-      prevValues.map((prevIngredient) =>
-        prevIngredient.id == name ? { id: name, text: "" } : prevIngredient
-      )
-    );
+    if (ingredient) fetchAPI(ingredient[0].text, null, name);
   };
 
   const handleToggleDisable = (e) => {
@@ -221,12 +250,12 @@ function App() {
   //   }));
   // };
 
-  const setResetIngredientText = (name) => {
-    setValues((prevValues) => [
-      ...prevValues.filter((prevIngredient) => prevIngredient.id != name),
-      { id: name, text: "" }
-    ]);
-  };
+  // const setResetIngredientText = (name) => {
+  //   setValues((prevValues) => [
+  //     ...prevValues.filter((prevIngredient) => prevIngredient.id != name),
+  //     { id: name, text: "" }
+  //   ]);
+  // };
 
   const mode = useTheme().palette.mode;
   const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;

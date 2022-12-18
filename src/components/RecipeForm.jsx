@@ -20,6 +20,7 @@ import { RecipeTextarea } from "./RecipeTextarea";
 
 const RecipeForm = (props) => {
   const {
+    error,
     handleChange,
     handleDelete,
     handleEdit,
@@ -27,35 +28,36 @@ const RecipeForm = (props) => {
     handleImage,
     handleSubmit,
     handleToggleDisable,
+    status,
     values
   } = props;
 
   const ingredients = values.filter((ingredient) => ingredient.parsed);
-  // const ingredientInputVal = values.filter(
-  //   (ingredient) => ingredient.id == "ingredient-input"
-  // )[0].text;
+  const ingredientInputVal = values.filter(
+    (ingredient) => ingredient.id == "ingredient-input"
+  )[0];
 
-  // const ingredientsTextareaValue = values.filter(
-  //   (ingredient) => ingredient.id == "ingredients-textarea"
-  // )[0].value;
+  const ingredientsTextareaValue = values.filter(
+    (ingredient) => ingredient.id == "ingredients-textarea"
+  )[0];
 
-  const inputValues = (state) => {
-    return state.reduce(
-      (accum, inputState) => {
-        switch (inputState.id) {
-          case "ingredient-input":
-            accum.ingredientInputText = inputState.text;
-          case "ingredients-textarea":
-            accum.ingredientsTextareaText = inputState.text;
-          default:
-            return accum;
-        }
-      },
-      { ingredientInputText: "", ingredientsTextareaText: "" }
-    );
-  };
+  // const inputValues = (state) => {
+  //   return state.reduce(
+  //     (accum, inputState) => {
+  //       switch (inputState.id) {
+  //         case "ingredient-input":
+  //           accum.ingredientInputText = inputState.text;
+  //         case "ingredients-textarea":
+  //           accum.ingredientsTextareaText = inputState.text;
+  //         default:
+  //           return accum;
+  //       }
+  //     },
+  //     { ingredientInputText: "", ingredientsTextareaText: "" }
+  //   );
+  // };
 
-  const { ingredientInputText, ingredientsTextareaText } = inputValues(values);
+  // const { ingredientInputText, ingredientsTextareaText } = inputValues(values);
   const inputExamples = {
     examples: [
       "12 ounces flour",
@@ -85,7 +87,7 @@ const RecipeForm = (props) => {
 1 pound chicken breast`,
     rows: 10,
     title: `Enter an ingredients grocery list with one ingredient & quantity per line`,
-    value: ingredientsTextareaText
+    value: ingredientsTextareaValue.value
   };
 
   return (
@@ -101,6 +103,7 @@ const RecipeForm = (props) => {
       <Box
         component="form"
         id="recipe-form"
+        onSubmit={(e) => e.preventDefault()}
         sx={{
           display: "flex",
           flex: { xs: "1 1 auto", sm: "1 1 auto", md: "65%" },
@@ -145,10 +148,12 @@ const RecipeForm = (props) => {
         </Box>
         <FormControl sx={{ display: "flex", gap: 4, my: 2 }}>
           <IngredientInput
+            error={ingredientInputVal.error}
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             handleKeySubmit={handleKeySubmit}
-            value={ingredientInputText}
+            status={ingredientInputVal.status}
+            value={ingredientInputVal.text}
           />
           <RecipeTextarea {...ingredientsTextareaProps} />
         </FormControl>
