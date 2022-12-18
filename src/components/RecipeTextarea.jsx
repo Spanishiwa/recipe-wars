@@ -4,7 +4,7 @@ import React from "react";
 export const RecipeTextarea = (props) => {
   const {
     handleChange,
-    handleKeyDown,
+    handleKeySubmit,
     label,
     name,
     placeholder,
@@ -23,7 +23,7 @@ export const RecipeTextarea = (props) => {
         multiline
         name={name}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleKeySubmit}
         placeholder={placeholder}
         rows={rows}
         sx={{ flex: "1 1 auto" }}

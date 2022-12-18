@@ -67,11 +67,18 @@ function App() {
           userText: input
         };
 
-        setValues((prevInputs) => [
-          ...prevInputs.filter((prevInput) => prevInput.id != name),
-          flatIngredient
-        ]);
-        // setValues((prevValues) => [...prevValues, flatIngredient]);
+        if (name) {
+          setValues((prevInputs) =>
+            prevInputs.map((prevInput) =>
+              prevInput.id == name ? flatIngredient : prevInput
+            )
+          );
+        } else {
+          setValues((prevInputs) => [
+            ...prevInputs.filter((prevInput) => prevInput.id != name),
+            flatIngredient
+          ]);
+        }
       })
       .catch((err) => {
         console.log(`The error code is ${err}`);
@@ -111,18 +118,13 @@ function App() {
 
     const ingredient = values.filter((ingredient) => ingredient.id == name);
     if (ingredient) fetchAPI(ingredient[0].text, name);
-
-    // setValues((prevValues) =>
-    //   prevValues.map((prevIngredient) =>
-    //     prevIngredient.id == name ? { id: name, text: "" } : prevIngredient
-    //   )
-    // );
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeySubmit = (e, cb) => {
     const key = e.which || e.keyCode || 0;
 
     if (key === 13) {
+      e.stopPropagation();
       e.preventDefault();
       handleSubmit(e);
     }
@@ -243,7 +245,7 @@ function App() {
             handleChange={handleChange}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
-            handleKeyDown={handleKeyDown}
+            handleKeySubmit={handleKeySubmit}
             handleImage={handleImage}
             handleServingsToggle={handleServingsToggle}
             handleSubmit={handleSubmit}

@@ -23,7 +23,7 @@ const RecipeForm = (props) => {
     handleChange,
     handleDelete,
     handleEdit,
-    handleKeyDown,
+    handleKeySubmit,
     handleImage,
     handleSubmit,
     handleToggleDisable,
@@ -147,7 +147,7 @@ const RecipeForm = (props) => {
           <IngredientInput
             handleSubmit={handleSubmit}
             handleChange={handleChange}
-            handleKeyDown={handleKeyDown}
+            handleKeySubmit={handleKeySubmit}
             value={ingredientInputText}
           />
           <RecipeTextarea {...ingredientsTextareaProps} />
@@ -164,7 +164,7 @@ const RecipeForm = (props) => {
           handleChange={handleChange}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleKeyDown={handleKeyDown}
+          handleKeySubmit={handleKeySubmit}
           handleToggleDisable={handleToggleDisable}
           ingredients={ingredients}
         />

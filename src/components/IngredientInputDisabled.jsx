@@ -10,7 +10,7 @@ const IngredientInputDisabled = (props) => {
     handleChange,
     handleDelete,
     handleEdit,
-    handleKeyDown,
+    handleKeySubmit,
     handleToggleDisable,
     id,
     ingredient,
@@ -20,6 +20,7 @@ const IngredientInputDisabled = (props) => {
   // {id: '68265', text: 'one tablespoon lime zest', parsed: '1 tablespoon lime zest', calories: 2, protein: '0.09g protein', …}
   return (
     <Box
+      name={ingredient.id}
       sx={{
         display: "flex",
         flexDirection: "row",
@@ -36,17 +37,15 @@ const IngredientInputDisabled = (props) => {
         InputProps={{
           disableUnderline: true,
           startAdornment: (
-            <InputAdornment position="start">
+            <InputAdornment name={ingredient.id} position="start">
               <IconButton
                 aria-label="Edit parsed ingredient"
                 className="edit"
                 edge="end"
-                // onClick={props.handleClick}
                 name={ingredient.id}
                 sx={{
                   color: "text.primary",
-                  "&:hover": { color: "primary.main" },
-                  pl: 0
+                  "&:hover": { color: "primary.main" }
                 }}
                 onClick={handleToggleDisable}
                 title="Edit ingredient"
@@ -61,8 +60,7 @@ const IngredientInputDisabled = (props) => {
                 onClick={handleEdit}
                 sx={{
                   color: "text.primary",
-                  "&:hover": { color: "primary.main" },
-                  pl: 0
+                  "&:hover": { color: "primary.main" }
                 }}
                 title="Save your edits to the ingredients list"
               >
@@ -71,7 +69,7 @@ const IngredientInputDisabled = (props) => {
             </InputAdornment>
           ),
           endAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment name={ingredient.id} position="end">
               <IconButton
                 aria-label="Delete ingredient"
                 className="delete"
@@ -92,7 +90,7 @@ const IngredientInputDisabled = (props) => {
         }}
         name={ingredient.id}
         onChange={handleChange}
-        onKeyDown={ingredient.isDisabled ? undefined : handleKeyDown}
+        onKeyDown={ingredient.isDisabled ? undefined : handleKeySubmit}
         p={0}
         placeholder={ingredient.text}
         sx={{

@@ -18,7 +18,7 @@ export const IngredientsList = (props) => {
     handleChange,
     handleDelete,
     handleEdit,
-    handleKeyDown,
+    handleKeySubmit,
     handleToggleDisable,
     ingredients
   } = props;
@@ -54,7 +54,7 @@ export const IngredientsList = (props) => {
               handleChange={handleChange}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
-              handleKeyDown={handleKeyDown}
+              handleKeySubmit={handleKeySubmit}
               handleToggleDisable={handleToggleDisable}
               ingredient={ingredient}
             />

@@ -3,7 +3,7 @@ import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
-  const { handleChange, handleKeyDown, handleSubmit, value } = props;
+  const { handleChange, handleKeySubmit, handleSubmit, value } = props;
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
@@ -22,7 +22,7 @@ const IngredientInput = (props) => {
                 edge="end"
                 name="ingredient-input"
                 onClick={handleSubmit}
-                onKeyDown={handleKeyDown}
+                onKeyDown={handleKeySubmit}
                 sx={{ "&:hover": { color: "primary.main" } }}
                 title="Save ingredient to ingredients list"
               >
@@ -33,7 +33,7 @@ const IngredientInput = (props) => {
         }}
         name="ingredient-input"
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleKeySubmit}
         placeholder="e.g. 1/2 cup broccoli"
         sx={{ flex: 1 }}
         title="Enter an ingredient & quantity here"
