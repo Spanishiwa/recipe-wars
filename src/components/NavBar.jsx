@@ -13,7 +13,14 @@ import Recipe_Icon from "../assets/recipe_icon.png";
 import React, { useContext } from "react";
 import Bg_Pattern_Light from "../assets/Beige_Paper.png";
 import Bg_Pattern_Dark from "../assets/Maze_Black.png";
-import { GitHub, Help, LightMode, Mail, Nightlight } from "@mui/icons-material";
+import {
+  GitHub,
+  Help,
+  LightMode,
+  LocalDining,
+  Mail,
+  Nightlight
+} from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 
 const NavBar = () => {
@@ -88,9 +95,9 @@ const NavBar = () => {
               {colorModeIcon}
               THEME
             </Button>
-            <Button component="a" sx={navButtonStyles} title="Contact Us Page">
-              <Mail />
-              Contact
+            <Button component="a" sx={navButtonStyles} title="Start Page">
+              <LocalDining />
+              START
             </Button>
             <Button
               component="a"

@@ -48,9 +48,18 @@ const ingredientsSx = (expand, style) => {
 };
 
 const RecipeCard = (props) => {
-  const { ingredients } = ITALIAN_BEEF;
+  // const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
-  const { handleBlur, handleServingsToggle, values } = props;
+  const {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleKeySubmit,
+    handleToggleDisable,
+    handleServingsToggle,
+    values
+  } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -86,7 +95,7 @@ const RecipeCard = (props) => {
   };
 
   const { titleText, recipeText } = inputValues(values);
-
+  const ingredients = values.filter((ingr) => ingr.parsed);
   return (
     <Box component="section" sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}>
       <CardContent
@@ -107,7 +116,11 @@ const RecipeCard = (props) => {
         >
           <IngredientsList
             handleBlur={handleBlur}
-            // handleDelete={handleDelete}
+            handleChange={handleChange}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            handleKeySubmit={handleKeySubmit}
+            handleToggleDisable={handleToggleDisable}
             ingredients={ingredients}
           />
           <Typography component="p" variant="b1"></Typography>
@@ -123,7 +136,6 @@ const RecipeCard = (props) => {
           <RecipeImage
             handleServingsToggle={handleServingsToggle}
             values={values}
-            {...ITALIAN_BEEF}
           />
           <CardActions
             disableSpacing
@@ -158,7 +170,8 @@ const RecipeCard = (props) => {
                 flexFlow: "row-reverse",
                 justifyContent: "left",
                 maxHeight: "1200px",
-                overflowY: "auto"
+                overflowY: "auto",
+                whiteSpace: "pre-wrap"
               }}
               variant="b2"
             >

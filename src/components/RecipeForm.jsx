@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   FormControl,
+  Icon,
   List,
   ListItem,
   ListItemIcon,
@@ -15,7 +16,14 @@ import {
 } from "@mui/material";
 import { IngredientsList } from "./IngredientsList";
 import { ITALIAN_BEEF } from "../config";
-import { Close, Delete, Done, PostAdd } from "@mui/icons-material";
+import {
+  Close,
+  Delete,
+  Done,
+  DoneAll,
+  DynamicFeed,
+  PostAdd
+} from "@mui/icons-material";
 import { InputExamples } from "./InputExamples";
 import { RecipeTextarea } from "./RecipeTextarea";
 
@@ -160,6 +168,13 @@ const RecipeForm = (props) => {
             status={ingredientInputVal.status}
             value={ingredientInputVal.text}
           />
+          <Typography>
+            <DynamicFeed
+              sx={{ verticalAlign: "middle", padding: "8px 8px 8px 0px" }}
+            />
+            Post multiple ingredients at a time below, but only enter one per
+            line.
+          </Typography>
           <RecipeTextarea {...ingredientsTextareaProps} />
           <Button
             className="submit"

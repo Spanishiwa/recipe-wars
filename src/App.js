@@ -10,6 +10,7 @@ import MuiStepper from "./components/MuiStepper";
 import { areArraysEqual } from "@mui/base";
 import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
 import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
+import { MuiAccordion } from "./components/MuiAccordion";
 
 function App() {
   const [values, setValues] = useState([
@@ -20,7 +21,7 @@ function App() {
       error: false,
       status: " "
     },
-    { id: "ingredients-textarea", text: "", helperText: " " },
+    { id: "ingredients-textarea", text: "", status: " " },
     { id: "image-input", imgSrc: "", imgName: "" },
     { id: "title-input", text: "Untitled recipe" },
     { id: "description-textarea", text: "" },
@@ -41,8 +42,8 @@ function App() {
         text: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
         parsed: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
         calories: nutrients.ENERC_KCAL.quantity,
-        protein: `${nutrients.PROCNT.quantity}${nutrients.PROCNT.unit} protein`,
         carbohydrate: `${nutrients.CHOCDF.quantity}${nutrients.CHOCDF.unit} carbs`,
+        protein: `${nutrients.PROCNT.quantity}${nutrients.PROCNT.unit} protein`,
         fat: `${nutrients.FAT.quantity}${nutrients.FAT.unit} fat`,
         status: " ",
         isDisabled: true,
@@ -321,9 +322,7 @@ function App() {
           maxWidth="lg"
           sx={{ display: "flex", justifyContent: "center", py: 2 }}
         >
-          {/* <RecipeForm /> */}
-          {/* <RecipeCard /> */}
-          <MuiStepper
+          {/* <MuiStepper
             handleBlur={handleBlur}
             handleChange={handleChange}
             handleDelete={handleDelete}
@@ -335,8 +334,8 @@ function App() {
             handleSubmit={handleSubmit}
             handleToggleDisable={handleToggleDisable}
             values={values}
-          />
-          {/* <RecipeCardSkeleton /> */}
+          /> */}
+          <MuiAccordion />
         </Container>
       </Box>
       <Footer />

@@ -45,26 +45,12 @@ export const RecipeImage = (props) => {
   const sumNutrients = (values) => {
     const ingredients = values.filter((ingr) => ingr.parsed);
     return ingredients.reduce(
-      (accum, ingr, idx) => {
-        if (idx == values.length - 1) {
-          accum.calories = (
-            parseFloat(accum.calories) + parseFloat(ingr.calories)
-          ).toFixed(0);
-          accum.carbohydrate = (
-            parseFloat(accum.carbohydrate) + parseFloat(ingr.carbohydrate)
-          ).toFixed(0);
-          accum.protein = (
-            parseFloat(accum.protein) + parseFloat(ingr.protein)
-          ).toFixed(0);
-          accum.fat = (parseFloat(accum.fat) + parseFloat(ingr.fat)).toFixed(0);
-        } else {
-          accum.calories =
-            parseFloat(accum.calories) + parseFloat(ingr.calories);
-          accum.carbohydrate =
-            parseFloat(accum.carbohydrate) + parseFloat(ingr.carbohydrate);
-          accum.protein = parseFloat(accum.protein) + parseFloat(ingr.protein);
-          accum.fat = parseFloat(accum.fat) + parseFloat(ingr.fat);
-        }
+      (accum, ingr) => {
+        accum.calories = parseFloat(accum.calories) + parseFloat(ingr.calories);
+        accum.carbohydrate =
+          parseFloat(accum.carbohydrate) + parseFloat(ingr.carbohydrate);
+        accum.protein = parseFloat(accum.protein) + parseFloat(ingr.protein);
+        accum.fat = parseFloat(accum.fat) + parseFloat(ingr.fat);
 
         return accum;
       },
@@ -100,7 +86,7 @@ export const RecipeImage = (props) => {
     );
   };
 
-  const { calories, protein, carbohydrate, fat } = sumNutrients(ingredients);
+  const { calories, carbohydrate, protein, fat } = sumNutrients(values);
 
   const { isOpen } = state;
   const {
@@ -125,33 +111,30 @@ export const RecipeImage = (props) => {
         />
         <Typography
           component="figcaption"
-          sx={{ padding: "24px 16px" }}
+          sx={{ padding: "24px 16px", whiteSpace: "pre-wrap" }}
           variant="b2"
         >
           <Box sx={{ ...svgContainerSx }}>
             <CalorieSvg
-              calories={
-                servingsIsPerServing
-                  ? (calories / servingsText).toFixed(0)
-                  : calories
-              }
+              calories={(servingsIsPerServing
+                ? calories / servingsText
+                : calories
+              ).toFixed(0)}
             />
             <CarbohydrateSvg
-              carbohydrate={
-                servingsIsPerServing
-                  ? (carbohydrate / servingsText).toFixed(0)
-                  : carbohydrate
-              }
+              carbohydrate={(servingsIsPerServing
+                ? carbohydrate / servingsText
+                : carbohydrate
+              ).toFixed(0)}
             />
             <ProteinSvg
-              protein={
-                servingsIsPerServing
-                  ? (protein / servingsText).toFixed(0)
-                  : protein
-              }
+              protein={(servingsIsPerServing
+                ? protein / servingsText
+                : protein
+              ).toFixed(0)}
             />
             <FatSvg
-              fat={servingsIsPerServing ? (fat / servingsText).toFixed(0) : fat}
+              fat={(servingsIsPerServing ? fat / servingsText : fat).toFixed(0)}
             />
           </Box>
           <Box
@@ -159,7 +142,7 @@ export const RecipeImage = (props) => {
             sx={{
               alignItems: "center",
               justifyContent: "space-between",
-              pt: 2
+              py: 2
             }}
           >
             <ServingsSwitch
@@ -171,7 +154,7 @@ export const RecipeImage = (props) => {
               sx={{ verticalAlign: "middle" }}
               variant="b2"
             >
-              Serves {servingsText}{" "}
+              Serves {servingsText}
             </Typography>
           </Box>
           {descriptionText}

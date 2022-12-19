@@ -23,7 +23,7 @@ export const FatSvg = (props) => {
         sx={{ pl: 1, verticalAlign: "middle" }}
         variant="b1"
       >
-        {fat}g protein
+        {fat}g fat
       </Typography>
     </Typography>
   );
