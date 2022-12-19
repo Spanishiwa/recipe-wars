@@ -5,6 +5,7 @@ import ImageInput from "./ImageInput";
 import IngredientsTextarea from "./IngredientsTextarea";
 import {
   Box,
+  Button,
   Card,
   FormControl,
   List,
@@ -14,13 +15,13 @@ import {
 } from "@mui/material";
 import { IngredientsList } from "./IngredientsList";
 import { ITALIAN_BEEF } from "../config";
-import { Close, Done } from "@mui/icons-material";
+import { Close, Delete, Done, PostAdd } from "@mui/icons-material";
 import { InputExamples } from "./InputExamples";
 import { RecipeTextarea } from "./RecipeTextarea";
 
 const RecipeForm = (props) => {
   const {
-    error,
+    handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
@@ -37,7 +38,7 @@ const RecipeForm = (props) => {
     (ingredient) => ingredient.id == "ingredient-input"
   )[0];
 
-  const ingredientsTextareaValue = values.filter(
+  const ingredientsTextareaState = values.filter(
     (ingredient) => ingredient.id == "ingredients-textarea"
   )[0];
 
@@ -78,7 +79,9 @@ const RecipeForm = (props) => {
   };
 
   const ingredientsTextareaProps = {
+    error: ingredientsTextareaState.error,
     handleChange: handleChange,
+    handleBlur: handleBlur,
     label: "Ingredients & quantities",
     name: "ingredients-textarea",
     placeholder: `Ingredients list with one ingredient & quantity per line e.g.
@@ -86,8 +89,9 @@ const RecipeForm = (props) => {
 3 tablespoons butter
 1 pound chicken breast`,
     rows: 10,
+    status: ingredientsTextareaState.status,
     title: `Enter an ingredients grocery list with one ingredient & quantity per line`,
-    value: ingredientsTextareaValue.value
+    value: ingredientsTextareaState.text
   };
 
   return (
@@ -149,13 +153,26 @@ const RecipeForm = (props) => {
         <FormControl sx={{ display: "flex", gap: 4, my: 2 }}>
           <IngredientInput
             error={ingredientInputVal.error}
-            handleSubmit={handleSubmit}
+            handleBlur={handleBlur}
             handleChange={handleChange}
             handleKeySubmit={handleKeySubmit}
+            handleSubmit={handleSubmit}
             status={ingredientInputVal.status}
             value={ingredientInputVal.text}
           />
           <RecipeTextarea {...ingredientsTextareaProps} />
+          <Button
+            className="submit"
+            name="ingredients-textarea"
+            onKeyDown={handleKeySubmit}
+            onClick={handleSubmit}
+            startIcon={<PostAdd />}
+            sx={{ maxWidth: "190px" }}
+            type="submit"
+            variant="outlined"
+          >
+            POST INGREDIENTS
+          </Button>
         </FormControl>
       </Box>
       <Box
@@ -166,6 +183,7 @@ const RecipeForm = (props) => {
         }}
       >
         <IngredientsList
+          handleBlur={handleBlur}
           handleChange={handleChange}
           handleDelete={handleDelete}
           handleEdit={handleEdit}

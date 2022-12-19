@@ -15,6 +15,7 @@ import IngredientInputDisabled from "./IngredientInputDisabled";
 
 export const IngredientsList = (props) => {
   const {
+    handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
@@ -45,13 +46,18 @@ export const IngredientsList = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: 2,
           pt: 2
         }}
       >
         {ingredients.map((ingredient) => (
-          <ListItem disableGutters key={ingredient.id} sx={{ pr: 1 }}>
+          <ListItem
+            disableGutters
+            key={ingredient.id}
+            sx={{ padding: "16px 8px 0px 0px" }}
+          >
             <IngredientInputDisabled
+              error={ingredient.error}
+              handleBlur={handleBlur}
               handleChange={handleChange}
               handleDelete={handleDelete}
               handleEdit={handleEdit}

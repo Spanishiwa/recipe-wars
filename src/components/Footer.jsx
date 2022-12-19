@@ -4,7 +4,8 @@ import Edamam_Badge_Transparent from "../assets/Edamam_Badge_Transparent.svg";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 // import Bg_Pattern_Light from "../assets/Beige_Paper.png";
 import Bg_Pattern_Light from "../assets/Back_Pattern.png";
-import { Link, useTheme } from "@mui/material";
+import { Link, Typography, useTheme } from "@mui/material";
+import { GitHub, Help, LocalDining } from "@mui/icons-material";
 
 function Footer() {
   const mode = useTheme().palette.mode;
@@ -38,6 +39,10 @@ function Footer() {
     <Box {...footerAttributes}>
       <Box
         sx={{
+          alignItems: "center",
+          display: "flex",
+          flex: "1 1 auto",
+          justifyContent: "space-between",
           margin: { lg: "auto" },
           maxWidth: "lg",
           width: { xs: "auto", lg: "100%" }
@@ -47,7 +52,7 @@ function Footer() {
           component="a"
           href="https://developer.edamam.com/attribution"
           rel="noopener"
-          sx={{ display: "inline-block", margin: "auto" }}
+          sx={{ display: "inline-block" }}
           target="_blank"
           title="Edamam API logo and attribution"
         >
@@ -59,6 +64,56 @@ function Footer() {
             sx={{ display: "block", height: "50px" }}
           />
         </Link>
+        <Box sx={{ display: { xs: "none", sm: "flex" } }} gap={4}>
+          {/* <Link
+            component="a"
+            href="/recipe-wars"
+            rel="noopener"
+            target="_blank"
+            title="Homepage"
+          >
+            HOME
+          </Link> */}
+          <Link
+            component="a"
+            href="/recipe-wars"
+            rel="noopener"
+            target="_blank"
+            title="Recipe showcase page"
+            variant="b1"
+          >
+            <LocalDining sx={{ verticalAlign: "middle" }} />
+            <Typography component="span" sx={{ ml: 1 }} variant="b1">
+              START
+            </Typography>
+          </Link>
+          <Link
+            component="a"
+            href="/recipe-wars"
+            rel="noopener"
+            target="_blank"
+            title="Frequently Asked Questions page"
+            variant="b1"
+          >
+            <Help sx={{ verticalAlign: "middle" }} />
+            <Typography component="span" sx={{ ml: 1 }} variant="b1">
+              FAQ
+            </Typography>
+          </Link>
+          <Link
+            component="a"
+            href="https://github.com/Spanishiwa/recipe-wars"
+            rel="noopener"
+            target="_blank"
+            title="GitHub source code"
+            variant="b1"
+          >
+            <GitHub sx={{ verticalAlign: "middle" }} />
+            <Typography component="span" sx={{ ml: 1 }} variant="b1">
+              GITHUB
+            </Typography>
+          </Link>
+        </Box>
       </Box>
     </Box>
   );

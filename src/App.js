@@ -18,9 +18,9 @@ function App() {
       text: "",
       isDisabled: false,
       error: false,
-      status: ""
+      status: " "
     },
-    { id: "ingredients-textarea", text: "" },
+    { id: "ingredients-textarea", text: "", helperText: " " },
     { id: "image-input", imgSrc: "", imgName: "" },
     { id: "title-input", text: "Untitled recipe" },
     { id: "description-textarea", text: "" },
@@ -28,6 +28,32 @@ function App() {
     { id: "servings-input", text: "1" },
     { id: "servings-toggle", isPerServing: false }
   ]);
+
+  const flattenPayload = (data, name) => {
+    let flatIngredientsPayload = [];
+
+    data.ingredients.map((ingredient) => {
+      const validId = ingredient.text.replace(/[^a-zA-Z]+/g, "").slice(-15);
+      const { nutrients } = ingredient.parsed[0];
+
+      const flatIngredient = {
+        id: name || validId,
+        text: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
+        parsed: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
+        calories: nutrients.ENERC_KCAL.quantity,
+        protein: `${nutrients.PROCNT.quantity}${nutrients.PROCNT.unit} protein`,
+        carbohydrate: `${nutrients.CHOCDF.quantity}${nutrients.CHOCDF.unit} carbs`,
+        fat: `${nutrients.FAT.quantity}${nutrients.FAT.unit} fat`,
+        status: " ",
+        isDisabled: true,
+        error: false
+      };
+
+      flatIngredientsPayload.push(flatIngredient);
+    });
+
+    return flatIngredientsPayload;
+  };
 
   const fetchAPI = (text, name, id) => {
     const { accessIngredient, accessRecipe, appId, appKey, params } = CONFIG;
@@ -37,7 +63,7 @@ function App() {
     const recipeUrl = accessRecipe + appId + appKey;
     const recipePayload = {
       title: "Untitled Recipe",
-      ingr: [text]
+      ingr: text.split("\n")
     };
 
     fetch(recipeUrl, {
@@ -48,37 +74,19 @@ function App() {
       body: JSON.stringify(recipePayload)
     })
       .then((res) => {
+        if (!res.ok) {
+          throw Error(`${res.status} poor input failed to update`);
+        }
         return res.json();
       })
       .then((data) => {
-        console.log(`data is ${data} and text is ${text} and name is ${name}`);
-        const { calories, ingredients, totalNutrients, uri } = data;
+        const flatIngredientsPayload = flattenPayload(data, name);
 
-        const protein = `${totalNutrients.PROCNT.quantity}${totalNutrients.PROCNT.unit} protein`;
-        const carbohydrate = `${totalNutrients.CHOCDF.quantity}${totalNutrients.CHOCDF.unit} carbs`;
-        const fat = `${totalNutrients.FAT.quantity}${totalNutrients.FAT.unit} fat`;
-        const input = ingredients[0].text;
-        const parsed = `${ingredients[0].parsed[0].quantity} ${ingredients[0].parsed[0].measure} ${ingredients[0].parsed[0].foodMatch}`;
-        const payloadStatus = ingredients[0].parsed[0].status;
-        const flatIngredient = {
-          id: name || uri.slice(-5),
-          text: parsed,
-          parsed: parsed,
-          calories: calories,
-          protein: protein,
-          carbohydrate: carbohydrate,
-          fat: fat,
-          status: payloadStatus,
-          isDisabled: true,
-          error: false,
-          userText: input
-        };
-
-        if (name) {
+        if (!id.includes("-")) {
           // updating input
           setValues((prevInputs) =>
             prevInputs.map((prevInput) =>
-              prevInput.id == name ? flatIngredient : prevInput
+              prevInput.id == id ? flatIngredientsPayload[0] : prevInput
             )
           );
         } else {
@@ -90,7 +98,7 @@ function App() {
                     ...prevIngredient,
                     text: "",
                     error: false,
-                    status: payloadStatus
+                    status: "200: Successfully posted"
                   }
                 : prevIngredient
             )
@@ -98,20 +106,45 @@ function App() {
           // appending new input
           setValues((prevInputs) => [
             ...prevInputs.filter((prevInput) => prevInput.id != name),
-            flatIngredient
+            ...flatIngredientsPayload
           ]);
         }
       })
       .catch((err) => {
+        console.log(
+          `err.error ${err.error} and err.message ${err.message} and err ${err}`
+        );
+        debugger;
         setValues((prevInputs) =>
           prevInputs.map((prevInput) =>
             prevInput.id == id
-              ? { ...prevInput, error: true, status: err.error }
+              ? {
+                  ...prevInput,
+                  error: true,
+                  status: err.message,
+                  text: prevInput.parsed
+                }
               : prevInput
           )
         );
-        debugger;
       });
+  };
+
+  const handleBlur = (e) => {
+    const name =
+      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
+
+    setValues((prevValues) =>
+      prevValues.map((prevIngredient) =>
+        prevIngredient.id == name
+          ? {
+              ...prevIngredient,
+              error: false,
+              status: " "
+            }
+          : prevIngredient
+      )
+    );
   };
 
   const handleChange = (e) => {
@@ -291,6 +324,7 @@ function App() {
           {/* <RecipeForm /> */}
           {/* <RecipeCard /> */}
           <MuiStepper
+            handleBlur={handleBlur}
             handleChange={handleChange}
             handleDelete={handleDelete}
             handleEdit={handleEdit}

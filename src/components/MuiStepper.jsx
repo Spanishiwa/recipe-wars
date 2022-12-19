@@ -38,6 +38,7 @@ const steps = [
 
 export default function TextMobileStepper(props) {
   const {
+    handleBlur,
     handleChange,
     handleDelete,
     handleEdit,

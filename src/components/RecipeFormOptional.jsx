@@ -9,6 +9,7 @@ import { RecipeTextfield } from "./RecipeTextfield";
 
 export const RecipeFormOptional = (props) => {
   const {
+    handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
@@ -155,6 +156,7 @@ recipe.
         }}
       >
         <IngredientsList
+          handleBlur={handleBlur}
           handleChange={handleChange}
           handleDelete={handleDelete}
           handleEdit={handleEdit}

@@ -50,7 +50,7 @@ const ingredientsSx = (expand, style) => {
 const RecipeCard = (props) => {
   const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
-  const { handleServingsToggle, values } = props;
+  const { handleBlur, handleServingsToggle, values } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -106,6 +106,7 @@ const RecipeCard = (props) => {
           }}
         >
           <IngredientsList
+            handleBlur={handleBlur}
             // handleDelete={handleDelete}
             ingredients={ingredients}
           />

@@ -4,9 +4,11 @@ import AddTaskIcon from "@mui/icons-material/AddTask";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { Done } from "@mui/icons-material";
 
 const IngredientInputDisabled = (props) => {
   const {
+    handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
@@ -31,8 +33,10 @@ const IngredientInputDisabled = (props) => {
       }}
     >
       <TextField
-        className="parsed"
+        className={`parsed ${ingredient.isDisabled ? "" : "submit"}`}
         disabled={ingredient.isDisabled}
+        error={ingredient.error}
+        helperText={ingredient.status}
         label={ingredient.isDisabled ? "" : "Ingredient & quantity"}
         id={ingredient.id}
         InputLabelProps={{
@@ -73,7 +77,7 @@ const IngredientInputDisabled = (props) => {
                 }}
                 title="Save your edits to the ingredients list"
               >
-                <AddTaskIcon name={ingredient.id} variant="standard" />
+                <Done name={ingredient.id} variant="standard" />
               </IconButton>
             </InputAdornment>
           ),
@@ -106,6 +110,7 @@ const IngredientInputDisabled = (props) => {
           )
         }}
         name={ingredient.id}
+        onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={ingredient.isDisabled ? undefined : handleKeySubmit}
         p={0}
