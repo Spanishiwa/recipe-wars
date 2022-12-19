@@ -1,3 +1,4 @@
+import React from "react";
 import { LocalDining } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
@@ -13,7 +14,7 @@ import {
   useTheme
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 export const MuiAccordion = () => {
   const mode = useTheme().palette.mode;
@@ -166,11 +167,11 @@ export const MuiAccordion = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Recipe wars is built with ReactJS using controlled form inputs and
-            leverages Material UI's v5 styling library. All images, icons, and
-            APIs are sourced from free to use services like Edamam's Open API.
-            All of the code, except for the API keys, is available to be viewed
-            on GitHub.
+            Recipe wars is built with ReactJS v18 using controlled form inputs,
+            React-Router-Dom v6 for routing, and leverages Material UI's v5
+            styling library. All images, icons, and APIs are sourced from free
+            to use services like Edamam's Open API. All of the code, except for
+            the API keys, is available to be viewed on GitHub.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -178,9 +179,10 @@ export const MuiAccordion = () => {
         <Button
           aria-label="START PAGE"
           color="primary"
-          component="a"
+          component={RouterLink}
           size="medium"
           title="Start Page"
+          to="/recipe-wars"
           variant="contained"
         >
           <LocalDining sx={{ mr: 1 }} />

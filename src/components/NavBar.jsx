@@ -101,6 +101,7 @@ const NavBar = () => {
               component={RouterLink}
               sx={navButtonStyles}
               title="Start Page"
+              to="/recipe-wars"
             >
               <LocalDining />
               START

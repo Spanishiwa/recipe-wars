@@ -51,23 +51,6 @@ const RecipeForm = (props) => {
     (ingredient) => ingredient.id == "ingredients-textarea"
   )[0];
 
-  // const inputValues = (state) => {
-  //   return state.reduce(
-  //     (accum, inputState) => {
-  //       switch (inputState.id) {
-  //         case "ingredient-input":
-  //           accum.ingredientInputText = inputState.text;
-  //         case "ingredients-textarea":
-  //           accum.ingredientsTextareaText = inputState.text;
-  //         default:
-  //           return accum;
-  //       }
-  //     },
-  //     { ingredientInputText: "", ingredientsTextareaText: "" }
-  //   );
-  // };
-
-  // const { ingredientInputText, ingredientsTextareaText } = inputValues(values);
   const inputExamples = {
     examples: [
       "12 ounces flour",

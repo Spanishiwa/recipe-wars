@@ -77,7 +77,7 @@ function Footer() {
           </Link> */}
           <Link
             component={RouterLink}
-            to="/"
+            to="/recipe-wars"
             rel="noopener"
             title="Recipe showcase page"
             variant="b1"
@@ -89,9 +89,8 @@ function Footer() {
           </Link>
           <Link
             component={RouterLink}
-            href="/faq"
+            to="/faq"
             rel="noopener"
-            target="_blank"
             title="Frequently Asked Questions page"
             variant="b1"
           >
