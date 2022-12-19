@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/recipe-wars/static/css/main.b44841b3.css",
-    "main.js": "/recipe-wars/static/js/main.909a9b33.js",
+    "main.js": "/recipe-wars/static/js/main.d97fd9b2.js",
     "static/js/787.a596de65.chunk.js": "/recipe-wars/static/js/787.a596de65.chunk.js",
     "static/media/recipe_icon.png": "/recipe-wars/static/media/recipe_icon.f5391a98839af524fb72.png",
     "static/media/Italian_Beef.jpeg": "/recipe-wars/static/media/Italian_Beef.54848b51231e4bba1319.jpeg",
@@ -14,11 +14,11 @@
     "static/media/Fat.svg": "/recipe-wars/static/media/Fat.d2d5302a72f34c2fc295466f337a415e.svg",
     "index.html": "/recipe-wars/index.html",
     "main.b44841b3.css.map": "/recipe-wars/static/css/main.b44841b3.css.map",
-    "main.909a9b33.js.map": "/recipe-wars/static/js/main.909a9b33.js.map",
+    "main.d97fd9b2.js.map": "/recipe-wars/static/js/main.d97fd9b2.js.map",
     "787.a596de65.chunk.js.map": "/recipe-wars/static/js/787.a596de65.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b44841b3.css",
-    "static/js/main.909a9b33.js"
+    "static/js/main.d97fd9b2.js"
   ]
 }
