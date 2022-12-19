@@ -22,6 +22,7 @@ import {
   Nightlight
 } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
+import { Link as RouterLink } from "react-router-dom";
 
 const NavBar = () => {
   const colorMode = useContext(ColorModeContext);
@@ -57,8 +58,9 @@ const NavBar = () => {
           <Box display={{ xs: "none", sm: "flex" }} flexGrow={1} gap={2}>
             <Link
               color="inherit"
+              component={RouterLink}
               display="flex"
-              href="/recipe-wars"
+              to="/recipe-wars"
               sx={{ alignItems: "center", gap: 2 }}
               title="Homepage"
               underline="none"
@@ -95,14 +97,19 @@ const NavBar = () => {
               {colorModeIcon}
               THEME
             </Button>
-            <Button component="a" sx={navButtonStyles} title="Start Page">
+            <Button
+              component={RouterLink}
+              sx={navButtonStyles}
+              title="Start Page"
+            >
               <LocalDining />
               START
             </Button>
             <Button
-              component="a"
+              component={RouterLink}
               sx={navButtonStyles}
               title="Frequently Asked Questions"
+              to="/faq"
             >
               <Help />
               FAQ

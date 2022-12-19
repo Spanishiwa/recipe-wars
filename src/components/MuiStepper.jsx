@@ -88,7 +88,7 @@ export default function TextMobileStepper(props) {
   };
 
   return (
-    <Card sx={{ flexGrow: 1, maxWidth: { xs: 900 } }}>
+    <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 900 } }}>
       {/* <Paper
         square
         elevation={0}

@@ -1,3 +1,4 @@
+import { Tune } from "@mui/icons-material";
 import { Box, Card, FormControl, TextField, Typography } from "@mui/material";
 import React from "react";
 import ImageInput from "./ImageInput";
@@ -75,16 +76,19 @@ export const RecipeFormOptional = (props) => {
   };
 
   const recipeDescriptionProps = {
+    error: false,
     handleChange: handleChange,
     label: "Recipe description",
     name: "description-textarea",
     placeholder: `Elaborate on the recipe title by covering key points to know. Specific cuts of meat, cooking devices, or anything special about the dish.`,
     rows: 5,
+    status: "",
     title: `Highlight interesting things about the recipe or elaborate on the recipe title`,
     value: descriptionText
   };
 
   const recipeTextareaProps = {
+    error: false,
     handleChange: handleChange,
     label: "Recipe instructions",
     name: "recipe-textarea",
@@ -92,7 +96,8 @@ export const RecipeFormOptional = (props) => {
 recipe.
 
 2. Make good use of numbering and white space for maximum cogency.`,
-    rows: 12,
+    rows: 19,
+    status: "",
     title: `Describe in full detail the cooking and preparation process to reproduce your recipe`,
     value: recipeText
   };
@@ -117,6 +122,7 @@ recipe.
         }}
       >
         <Typography component="h1" variant="h5" mb={3}>
+          <Tune sx={{ padding: "0px 8px 0px 0px", verticalAlign: "middle" }} />
           Customize recipe
           <Typography
             component="span"

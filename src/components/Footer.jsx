@@ -6,6 +6,7 @@ import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import { Link, Typography, useTheme } from "@mui/material";
 import { GitHub, Help, LocalDining } from "@mui/icons-material";
+import { Link as RouterLink } from "react-router-dom";
 
 function Footer() {
   const mode = useTheme().palette.mode;
@@ -75,10 +76,9 @@ function Footer() {
             HOME
           </Link> */}
           <Link
-            component="a"
-            href="/recipe-wars"
+            component={RouterLink}
+            to="/"
             rel="noopener"
-            target="_blank"
             title="Recipe showcase page"
             variant="b1"
           >
@@ -88,8 +88,8 @@ function Footer() {
             </Typography>
           </Link>
           <Link
-            component="a"
-            href="/recipe-wars"
+            component={RouterLink}
+            href="/faq"
             rel="noopener"
             target="_blank"
             title="Frequently Asked Questions page"

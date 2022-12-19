@@ -12,6 +12,37 @@ const IngredientInput = (props) => {
     status,
     value
   } = props;
+  const errorSx = error
+    ? {
+        "& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "error.main"
+        },
+        "& .MuiInputLabel-root.Mui-error": {
+          color: "error.main"
+        },
+        "& .MuiFormHelperText-root.Mui-error": {
+          color: "error.main"
+        }
+      }
+    : {};
+  const statusSx =
+    status.length > 1
+      ? {
+          "& .MuiInputBase-root .MuiOutlinedInput-notchedOutline": {
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: "primary.main"
+          },
+          "& .MuiInputLabel-root": {
+            color: "primary.main"
+          },
+          "& .MuiFormHelperText-root": {
+            color: "primary.main"
+          }
+        }
+      : {};
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <TextField
@@ -55,7 +86,9 @@ const IngredientInput = (props) => {
           flex: 1,
           "& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root": {
             color: "primary.main"
-          }
+          },
+          ...errorSx,
+          ...statusSx
         }}
         title="Enter an ingredient & quantity here"
         type="text"

@@ -29,7 +29,7 @@ export const MuiAccordion = () => {
 
   const expandedSx = {
     "& .MuiAccordionDetails-root": {
-      backgroundImage: `url(${bgPattern}) !important`,
+      backgroundImage: `url(${bgPattern})`,
       backgroundColor: bgColor,
       backgroundRepeat: "repeat"
     }
@@ -60,10 +60,9 @@ export const MuiAccordion = () => {
         <AccordionDetails>
           <Typography>
             Recipe wars allows users to create their own online recipe,
-            determine its nutritional content, and even substitute ingredients
+            determine its nutritional content, and then substitute ingredients
             to personalize a recipe to their needs. Recipe wars leverages the
-            Edamam API to determine the nutritional content of ingredients which
-            can be entered one at a time or as a list.
+            Edamam API to determine the nutritional content of ingredients.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -78,13 +77,14 @@ export const MuiAccordion = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            A controlled form built in React posts each of the ingredients a
-            user posts to his ingredients list which is matched to entries in
-            Edamam's database through HTTP requests. Edamam sends back the
-            nutritional content of each ingredient like calories, carbohydrates,
-            proteins, and fats which I display along with other details gathered
-            from user input like a recipe image, title, description, and
-            detailed recipe.
+            A controlled form built in React submits each of the ingredients
+            that a user adds to his ingredients list. HTTP post requests send
+            the ingredients list which is matched to entries in Edamam's
+            database. Edamam sends back the nutritional content of each
+            ingredient like calories, carbohydrates, proteins, and fats.
+            Nutritional content is displayed alongside other personalizations
+            gathered from user input like recipe image, title, description, and
+            instructions.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -102,13 +102,13 @@ export const MuiAccordion = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Try posting less ingredients at a time or submitting them one at a
-            time. Unfortunately, Edamam does not tell me which ingredients in
-            the list are failing to parse so I am unable to provide more
-            descriptive error messages without parsing each ingredient
-            individually. I am using a free API subscription so it is not
-            feasible for me to show errors like that. Fortunately, I don't clear
-            the user input on failed posts.
+            Unfortunately, Edamam does not post which ingredients in a list are
+            failing to parse so I am unable to provide more descriptive error
+            messages without parsing each ingredient individually. Edamam's free
+            API subscription is limited in the number of requests that I can
+            make, so it is not feasible to display more descriptive errors.
+            Fortunately, I don't clear the user input on failed posts, so try
+            posting less ingredients at a time or submitting them one at a time.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -129,10 +129,10 @@ export const MuiAccordion = () => {
             Edamam's API parses user input and returns the closest match in
             their database, but sometimes the match is different than the user
             input. The database doesn't have every food item and parsing user
-            input is difficult, so keep editing your list or try making a
-            substition. The query searches for a quantity, unit of measurement,
-            and ingredient, so keep your input as concise as possible to find
-            the best ingredient match.
+            input is difficult, so keep double checking your list or try making
+            a substition. The query searches for a quantity, unit of
+            measurement, and ingredient, so keep your input as concise as
+            possible to find the best ingredient match.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -166,11 +166,11 @@ export const MuiAccordion = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Recipe wars is built with react using controlled form inputs and it
-            leverages Material UI's v5 styling library. Everything you see is
-            sourced from free to use services like Edamam's Open API. All of the
-            code, except for the API keys, is available to be viewed on my
-            GitHub.
+            Recipe wars is built with ReactJS using controlled form inputs and
+            leverages Material UI's v5 styling library. All images, icons, and
+            APIs are sourced from free to use services like Edamam's Open API.
+            All of the code, except for the API keys, is available to be viewed
+            on GitHub.
           </Typography>
         </AccordionDetails>
       </Accordion>

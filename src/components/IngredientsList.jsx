@@ -36,7 +36,11 @@ export const IngredientsList = (props) => {
       <Typography
         component="p"
         pb={3}
-        sx={{ borderBottom: ingredientsBorderStyle, fontWeight: 400 }}
+        sx={{
+          borderBottom: ingredientsBorderStyle,
+          fontWeight: 400,
+          paddingTop: { xs: "16px", sm: "0px" }
+        }}
         variant="h6"
       >
         <ReceiptLong sx={{ mr: 1, verticalAlign: "middle" }} />

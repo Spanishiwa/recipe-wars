@@ -22,6 +22,7 @@ import {
   Done,
   DoneAll,
   DynamicFeed,
+  ManageSearch,
   PostAdd
 } from "@mui/icons-material";
 import { InputExamples } from "./InputExamples";
@@ -124,7 +125,15 @@ const RecipeForm = (props) => {
         }}
       >
         <Typography component="h1" variant="h5" mb={1}>
-          Recipe nutrition analyzer
+          <ManageSearch
+            fontSize="large"
+            sx={{ padding: "0px 8px 8px 0px", verticalAlign: "middle" }}
+          />
+          Recipe Nutrition
+          <Typography component="p" variant="body1">
+            Look up the nutritional content of your favorite dishes. Compare
+            recipes and substitute ingredients to fit your goals.
+          </Typography>
         </Typography>
         <Typography component="p" variant="b1">
           Enter your recipe ingredients below "grocery list" style - an

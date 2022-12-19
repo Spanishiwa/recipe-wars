@@ -7,10 +7,10 @@ import { Box, Container, useTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
 import RecipeCard from "./components/RecipeCard";
 import MuiStepper from "./components/MuiStepper";
-import { areArraysEqual } from "@mui/base";
 import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
 import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
 import { MuiAccordion } from "./components/MuiAccordion";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [values, setValues] = useState([
@@ -21,11 +21,11 @@ function App() {
       error: false,
       status: " "
     },
-    { id: "ingredients-textarea", text: "", status: " " },
+    { id: "ingredients-textarea", text: "", status: " ", error: false },
     { id: "image-input", imgSrc: "", imgName: "" },
     { id: "title-input", text: "Untitled recipe" },
-    { id: "description-textarea", text: "" },
-    { id: "recipe-textarea", text: "" },
+    { id: "description-textarea", text: "", status: " ", error: false },
+    { id: "recipe-textarea", text: "", status: " ", error: false },
     { id: "servings-input", text: "1" },
     { id: "servings-toggle", isPerServing: false }
   ]);
@@ -275,29 +275,17 @@ function App() {
     );
   };
 
-  // const handleSubmit = (e) => {
-  //   const inputIngredient = { [e.target.id]: e.target.value };
-
-  //   setValues((prevValues) => ({
-  //     ...prevValues,
-  //     ingredients: { ...prevValues.ingredients, inputIngredient }
-  //   }));
-  // };
-
-  // const setResetIngredientText = (name) => {
-  //   setValues((prevValues) => [
-  //     ...prevValues.filter((prevIngredient) => prevIngredient.id != name),
-  //     { id: name, text: "" }
-  //   ]);
-  // };
-
   const mode = useTheme().palette.mode;
   const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
   const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
   const appSx = {
     backgroundColor: "background.default",
     backgroundImage: `url(${bgPattern})`,
-    backgroundRepeat: "repeat"
+    backgroundRepeat: "repeat",
+    display: "flex",
+    height: "100%",
+    justifyContent: "center",
+    width: "100%"
   };
 
   useEffect(() => {
@@ -311,17 +299,42 @@ function App() {
       document.body.style.backgroundImage = null;
       document.body.style.backgroundRepeat = null;
     };
-  }, [mode]);
+  }, [mode, bgColor, bgPattern]);
+
+  const handlersAndState = {
+    handleBlur: handleBlur,
+    handleChange: handleChange,
+    handleDelete: handleDelete,
+    handleEdit: handleEdit,
+    handleKeyDelete: handleKeyDelete,
+    handleKeySubmit: handleKeySubmit,
+    handleImage: handleImage,
+    handleServingsToggle: handleServingsToggle,
+    handleSubmit: handleSubmit,
+    handleToggleDisable: handleToggleDisable,
+    values: values
+  };
 
   return (
     <Fragment>
-      <Box className="app" sx={appSx}>
-        <NavBar />
-        <Container
-          component="main"
-          maxWidth="lg"
-          sx={{ display: "flex", justifyContent: "center", py: 2 }}
-        >
+      <NavBar />
+      <Container
+        component="main"
+        maxWidth="lg"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          padding: { xs: "32px 0px", sm: "32px 16px" }
+        }}
+      >
+        <Box className="app" sx={appSx}>
+          <Routes>
+            <Route
+              path="/recipe-wars"
+              element={<MuiStepper {...handlersAndState} />}
+            ></Route>
+            <Route path="/faq" element={<MuiAccordion />}></Route>
+          </Routes>
           {/* <MuiStepper
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -335,9 +348,9 @@ function App() {
             handleToggleDisable={handleToggleDisable}
             values={values}
           /> */}
-          <MuiAccordion />
-        </Container>
-      </Box>
+          {/* <MuiAccordion /> */}
+        </Box>
+      </Container>
       <Footer />
     </Fragment>
   );
