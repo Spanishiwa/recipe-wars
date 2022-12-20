@@ -37,7 +37,11 @@ export const MuiAccordion = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container
+      className="faq"
+      maxWidth="lg"
+      sx={{ "&.MuiContainer-root.faq": { padding: "0px" } }}
+    >
       <Card sx={{ padding: 2, mb: 2 }}>
         <Typography component="h4" color="text.primary" variant="h6">
           Frequently Asked Questions

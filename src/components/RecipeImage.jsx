@@ -104,7 +104,7 @@ export const RecipeImage = (props) => {
           alt={titleText}
           component="img"
           height="194"
-          image={imageImgSrc}
+          image={imageImgSrc || process.env.PUBLIC_URL + "/Default_Food.jpeg"}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
           title={titleText}
@@ -162,7 +162,7 @@ export const RecipeImage = (props) => {
       </Box>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imageImgSrc}
+        imgSrc={imageImgSrc || process.env.PUBLIC_URL + "/Default_Food.jpeg"}
         open={isOpen}
         title={titleText}
       />
