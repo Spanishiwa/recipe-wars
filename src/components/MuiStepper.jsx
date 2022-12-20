@@ -11,10 +11,11 @@ import RecipeCard from "./RecipeCard";
 import { Card } from "@mui/material";
 import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
-import { bgcolor } from "@mui/system";
 import RecipeForm from "./RecipeForm";
 import { RecipeCardSkeleton } from "./RecipeCardSkeleton";
 import { RecipeFormOptional } from "./RecipeFormOptional";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const steps = [
   {
@@ -36,6 +37,10 @@ const steps = [
   }
 ];
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function TextMobileStepper(props) {
   const {
     handleBlur,
@@ -55,8 +60,29 @@ export default function TextMobileStepper(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
 
+  const [open, setOpen] = React.useState(false);
+  const isValidIngredientsList = values.filter(
+    (inputState) => inputState.parsed
+  )[0];
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (isValidIngredientsList) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      handleClick();
+    }
   };
 
   const handleBack = () => {
@@ -88,21 +114,13 @@ export default function TextMobileStepper(props) {
   };
 
   return (
-    <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 900 } }}>
-      {/* <Paper
-        square
-        elevation={0}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          height: 50,
-          pl: 2,
-          bgcolor: "background.default"
-        }}
-      >
-        <Typography>{steps[activeStep].label}</Typography>
-      </Paper> */}
+    <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 1200 } }}>
       <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            Your ingredients list is empty
+          </Alert>
+        </Snackbar>
         {stepView(activeStep)}
       </Box>
       <Box mt={2}>
@@ -117,6 +135,9 @@ export default function TextMobileStepper(props) {
               size="small"
               onClick={handleNext}
               disabled={activeStep === maxSteps - 1}
+              sx={{
+                visibility: activeStep == maxSteps - 1 ? "hidden" : "visible"
+              }}
             >
               Next
               {theme.direction === "rtl" ? (
@@ -131,6 +152,7 @@ export default function TextMobileStepper(props) {
               size="small"
               onClick={handleBack}
               disabled={activeStep === 0}
+              sx={{ visibility: activeStep == 0 ? "hidden" : "visible" }}
             >
               {theme.direction === "rtl" ? (
                 <KeyboardArrowRight />

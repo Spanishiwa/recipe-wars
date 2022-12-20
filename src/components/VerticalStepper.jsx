@@ -48,7 +48,7 @@ export const VerticalStepper = () => {
   };
 
   return (
-    <Card sx={{ maxWidth: "900px" }}>
+    <Card sx={{ maxWidth: "1200px" }}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>

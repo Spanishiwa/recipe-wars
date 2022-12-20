@@ -64,7 +64,7 @@ function App() {
     const recipeUrl = accessRecipe + appId + appKey;
     const recipePayload = {
       title: "Untitled Recipe",
-      ingr: text.split("\n")
+      ingr: text.split("\n").filter((s) => s.length)
     };
 
     fetch(recipeUrl, {
@@ -112,10 +112,6 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(
-          `err.error ${err.error} and err.message ${err.message} and err ${err}`
-        );
-        debugger;
         setValues((prevInputs) =>
           prevInputs.map((prevInput) =>
             prevInput.id == id

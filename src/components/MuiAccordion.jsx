@@ -183,7 +183,7 @@ export const MuiAccordion = () => {
           size="medium"
           title="Start Page"
           to="/recipe-wars"
-          variant="contained"
+          variant="outlined"
         >
           <LocalDining sx={{ mr: 1 }} />
           GET STARTED
