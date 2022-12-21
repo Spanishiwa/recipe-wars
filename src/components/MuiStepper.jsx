@@ -116,7 +116,7 @@ export default function TextMobileStepper(props) {
   return (
     <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 1200 } }}>
       <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
-        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
             Your ingredients list is empty
           </Alert>

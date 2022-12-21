@@ -9,8 +9,9 @@ import RecipeCard from "./components/RecipeCard";
 import MuiStepper from "./components/MuiStepper";
 import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
 import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
-import { MuiAccordion } from "./components/MuiAccordion";
+import { Faq } from "./components/Faq";
 import { Route, Routes } from "react-router-dom";
+import { Start } from "./components/Start";
 
 function App() {
   const [values, setValues] = useState([
@@ -27,7 +28,8 @@ function App() {
     { id: "description-textarea", text: "", status: " ", error: false },
     { id: "recipe-textarea", text: "", status: " ", error: false },
     { id: "servings-input", text: "1" },
-    { id: "servings-toggle", isPerServing: false }
+    { id: "servings-toggle", isPerServing: true },
+    { id: "isRequesting", isRequesting: false }
   ]);
 
   const flattenPayload = (data, name) => {
@@ -57,15 +59,24 @@ function App() {
   };
 
   const fetchAPI = (text, name, id) => {
-    const { accessIngredient, accessRecipe, appId, appKey, params } = CONFIG;
-    // const encodedIngredient = encodeURIComponent(ingredient);
-    // let ingredientUrl =
-    // accessIngredient + appId + appKey + params + encodedIngredient;
+    const { accessRecipe, appId, appKey, params } = CONFIG;
     const recipeUrl = accessRecipe + appId + appKey;
     const recipePayload = {
       title: "Untitled Recipe",
       ingr: text.split("\n").filter((s) => s.length)
     };
+    debugger;
+    if (values.filter((state) => state.id === "isRequesting")[0].isRequesting) {
+      return;
+    } else {
+      setValues((prevStates) =>
+        prevStates.map((prevState) =>
+          prevState.id === "isRequesting"
+            ? { ...prevState, isRequesting: true }
+            : prevState
+        )
+      );
+    }
 
     fetch(recipeUrl, {
       method: "POST",
@@ -87,7 +98,11 @@ function App() {
           // updating input
           setValues((prevInputs) =>
             prevInputs.map((prevInput) =>
-              prevInput.id == id ? flatIngredientsPayload[0] : prevInput
+              prevInput.id == id
+                ? flatIngredientsPayload[0]
+                : prevInput.id == "isRequesting"
+                ? { ...prevInput, isRequesting: false }
+                : prevInput
             )
           );
         } else {
@@ -99,14 +114,22 @@ function App() {
                     ...prevIngredient,
                     text: "",
                     error: false,
-                    status: "200: Successfully posted"
+                    status: "Successfully posted"
                   }
+                : prevIngredient.id == "isRequesting"
+                ? { ...prevIngredient, isRequesting: false }
                 : prevIngredient
             )
           );
           // appending new input
           setValues((prevInputs) => [
-            ...prevInputs.filter((prevInput) => prevInput.id != name),
+            ...prevInputs.map((prevInput) =>
+              prevInput.id == "isRequesting"
+                ? { ...prevInput, isRequesting: false }
+                : prevInput.id != name
+                ? prevInput
+                : null
+            ),
             ...flatIngredientsPayload
           ]);
         }
@@ -121,6 +144,8 @@ function App() {
                   status: err.message,
                   text: prevInput.parsed
                 }
+              : prevInput.id == "isRequesting"
+              ? { ...prevInput, isRequesting: false }
               : prevInput
           )
         );
@@ -329,22 +354,9 @@ function App() {
               path="/recipe-wars"
               element={<MuiStepper {...handlersAndState} />}
             ></Route>
-            <Route path="/faq" element={<MuiAccordion />}></Route>
+            <Route path="/faq" element={<Faq />}></Route>
+            <Route path="/start" element={<Start />}></Route>
           </Routes>
-          {/* <MuiStepper
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            handleKeyDelete={handleKeyDelete}
-            handleKeySubmit={handleKeySubmit}
-            handleImage={handleImage}
-            handleServingsToggle={handleServingsToggle}
-            handleSubmit={handleSubmit}
-            handleToggleDisable={handleToggleDisable}
-            values={values}
-          /> */}
-          {/* <MuiAccordion /> */}
         </Box>
       </Container>
       <Footer />

@@ -27,7 +27,6 @@ function Footer() {
       display: "flex",
       ...footerSx,
 
-      justifyContent: { xs: "center", sm: "left" },
       padding: {
         xs: "16px",
         sm: "16px 16px 16px 12px",
@@ -40,33 +39,44 @@ function Footer() {
     <Box {...footerAttributes}>
       <Box
         sx={{
-          alignItems: "center",
           display: "flex",
           flex: "1 1 auto",
-          justifyContent: "space-between",
-          margin: { lg: "auto" },
-          maxWidth: "lg",
-          width: { xs: "auto", lg: "100%" }
+          margin: "auto",
+          maxWidth: "1200px",
+          padding: { sm: "0px 24px 0px 0px" }
         }}
       >
-        <Link
-          component="a"
-          href="https://developer.edamam.com/attribution"
-          rel="noopener"
-          sx={{ display: "inline-block" }}
-          target="_blank"
-          title="Edamam API logo and attribution"
+        <Box
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            flex: "1 1 auto",
+            justifyContent: { xs: "center", sm: "space-between" },
+            margin: { lg: "auto" },
+            maxWidth: "lg",
+            width: { xs: "auto", lg: "100%" }
+          }}
         >
-          <Box
-            alt="Powered by Edamam"
-            component="img"
-            className="logo-edamam"
-            src={Edamam_Badge_Transparent}
-            sx={{ display: "block", height: "50px" }}
-          />
-        </Link>
-        <Box sx={{ display: { xs: "none", sm: "flex" } }} gap={4}>
-          {/* <Link
+          <Link
+            component="a"
+            href="https://developer.edamam.com/attribution"
+            rel="noopener"
+            sx={{
+              display: "inline-block"
+            }}
+            target="_blank"
+            title="Edamam API logo and attribution"
+          >
+            <Box
+              alt="Powered by Edamam"
+              component="img"
+              className="logo-edamam"
+              src={Edamam_Badge_Transparent}
+              sx={{ display: "block", height: "50px" }}
+            />
+          </Link>
+          <Box sx={{ display: { xs: "none", sm: "flex" } }} gap={4}>
+            {/* <Link
             component="a"
             href="/recipe-wars"
             rel="noopener"
@@ -75,43 +85,45 @@ function Footer() {
           >
             HOME
           </Link> */}
-          <Link
-            component={RouterLink}
-            to="/recipe-wars"
-            rel="noopener"
-            title="Recipe showcase page"
-            variant="b1"
-          >
-            <LocalDining sx={{ verticalAlign: "middle" }} />
-            <Typography component="span" sx={{ ml: 1 }} variant="b1">
-              START
-            </Typography>
-          </Link>
-          <Link
-            component={RouterLink}
-            to="/faq"
-            rel="noopener"
-            title="Frequently Asked Questions page"
-            variant="b1"
-          >
-            <Help sx={{ verticalAlign: "middle" }} />
-            <Typography component="span" sx={{ ml: 1 }} variant="b1">
-              FAQ
-            </Typography>
-          </Link>
-          <Link
-            component="a"
-            href="https://github.com/Spanishiwa/recipe-wars"
-            rel="noopener"
-            target="_blank"
-            title="GitHub source code"
-            variant="b1"
-          >
-            <GitHub sx={{ verticalAlign: "middle" }} />
-            <Typography component="span" sx={{ ml: 1 }} variant="b1">
-              GITHUB
-            </Typography>
-          </Link>
+            <Link
+              component={RouterLink}
+              to="/recipe-wars"
+              rel="noopener"
+              title="Recipe showcase page"
+              variant="b1"
+            >
+              <LocalDining sx={{ verticalAlign: "middle" }} />
+              <Typography component="span" sx={{ ml: 1 }} variant="b1">
+                START
+              </Typography>
+            </Link>
+            <Link
+              component={RouterLink}
+              to="/faq"
+              rel="noopener"
+              title="Frequently Asked Questions page"
+              variant="b1"
+            >
+              <Help sx={{ verticalAlign: "middle" }} />
+              <Typography component="span" sx={{ ml: 1 }} variant="b1">
+                FAQ
+              </Typography>
+            </Link>
+            <Link
+              component="a"
+              href="https://github.com/Spanishiwa/recipe-wars"
+              rel="noopener"
+              sx={{ paddingRight: "8px" }}
+              target="_blank"
+              title="GitHub source code"
+              variant="b1"
+            >
+              <GitHub sx={{ verticalAlign: "middle" }} />
+              <Typography component="span" sx={{ ml: 1 }} variant="b1">
+                GITHUB
+              </Typography>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -16,7 +16,7 @@ import {
 import { Container } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
-export const MuiAccordion = () => {
+export const Faq = () => {
   const mode = useTheme().palette.mode;
   const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
   const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
@@ -82,7 +82,7 @@ export const MuiAccordion = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            A controlled form built in React submits each of the ingredients
+            A controlled form built in ReactJS submits each of the ingredients
             that a user adds to his ingredients list. HTTP post requests send
             the ingredients list which is matched to entries in Edamam's
             database. Edamam sends back the nutritional content of each

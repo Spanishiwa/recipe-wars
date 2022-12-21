@@ -19,7 +19,7 @@ import { FatSvg } from "./FatSvg";
 import { FoodBank, Label } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { ServingsSwitch } from "./ServingsSwitch";
-
+import DefaultImg from "../assets/Default_Img.jpeg";
 export const RecipeImage = (props) => {
   const [state, setState] = React.useState({
     isOpen: false
@@ -104,7 +104,7 @@ export const RecipeImage = (props) => {
           alt={titleText}
           component="img"
           height="194"
-          image={imageImgSrc || process.env.PUBLIC_URL + "/Default_Food.jpeg"}
+          image={imageImgSrc || DefaultImg}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
           title={titleText}
@@ -162,7 +162,7 @@ export const RecipeImage = (props) => {
       </Box>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imageImgSrc || process.env.PUBLIC_URL + "/Default_Food.jpeg"}
+        imgSrc={imageImgSrc || DefaultImg}
         open={isOpen}
         title={titleText}
       />

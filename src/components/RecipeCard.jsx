@@ -47,7 +47,7 @@ const ingredientsSx = (expand, style) => {
       };
 };
 
-const RecipeCard = (props) => {
+export const RecipeCard = (props) => {
   // const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
   const {

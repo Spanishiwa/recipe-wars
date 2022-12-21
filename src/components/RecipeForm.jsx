@@ -160,7 +160,7 @@ const RecipeForm = (props) => {
             status={ingredientInputVal.status}
             value={ingredientInputVal.text}
           />
-          <Typography>
+          <Typography sx={{ paddingLeft: "32px", textIndent: "-32px" }}>
             <DynamicFeed
               sx={{ verticalAlign: "middle", padding: "8px 8px 8px 0px" }}
             />
