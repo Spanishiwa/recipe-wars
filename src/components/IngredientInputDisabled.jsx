@@ -1,6 +1,5 @@
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddTaskIcon from "@mui/icons-material/AddTask";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
@@ -14,20 +13,15 @@ const IngredientInputDisabled = (props) => {
     handleEdit,
     handleKeyDelete,
     handleKeySubmit,
-    handleToggleDisable,
-    id,
-    ingredient,
-    parsed
+    handleToggleDisable
   } = props;
 
-  const standardVariantSx = ingredient.isDisabled
-    ? { disableUnderline: true }
-    : {};
-  // props.ingredient[0]
-  // {id: '68265', text: 'one tablespoon lime zest', parsed: '1 tablespoon lime zest', calories: 2, protein: '0.09g protein', …}
+  const { error, id, isDisabled, status, text } = props.ingredient;
+
+  const standardVariantSx = isDisabled ? { disableUnderline: true } : {};
   return (
     <Box
-      name={ingredient.id}
+      name={id}
       sx={{
         display: "flex",
         flexDirection: "row",
@@ -35,24 +29,24 @@ const IngredientInputDisabled = (props) => {
       }}
     >
       <TextField
-        className={`parsed ${ingredient.isDisabled ? "" : "submit"}`}
-        disabled={ingredient.isDisabled}
-        error={ingredient.error}
-        helperText={ingredient.status}
-        label={ingredient.isDisabled ? "" : "Ingredient & quantity"}
-        id={ingredient.id}
+        className={`parsed ${isDisabled ? "" : "submit"}`}
+        disabled={isDisabled}
+        error={error}
+        helperText={status}
+        label={isDisabled ? "" : "Ingredient & quantity"}
+        id={id}
         InputLabelProps={{
           shrink: true
         }}
         InputProps={{
           ...standardVariantSx,
           startAdornment: (
-            <InputAdornment name={ingredient.id} position="start">
+            <InputAdornment name={id} position="start">
               <IconButton
                 aria-label="Edit parsed ingredient"
                 className="edit"
                 edge="end"
-                name={ingredient.id}
+                name={id}
                 sx={{
                   color: "text.primary",
                   "&:hover, &.Mui-focusVisible, &.Mui-active": {
@@ -62,13 +56,13 @@ const IngredientInputDisabled = (props) => {
                 onClick={handleToggleDisable}
                 title="Edit ingredient"
               >
-                <EditIcon name={ingredient.id} variant="standard" />
+                <EditIcon name={id} variant="standard" />
               </IconButton>
               <IconButton
                 aria-label="Submit parsed ingredient"
                 className="submit"
                 edge="end"
-                name={ingredient.id}
+                name={id}
                 onClick={handleEdit}
                 onKeyDown={handleKeySubmit}
                 sx={{
@@ -79,13 +73,13 @@ const IngredientInputDisabled = (props) => {
                 }}
                 title="Save your edits to the ingredients list"
               >
-                <Done name={ingredient.id} variant="standard" />
+                <Done name={id} variant="standard" />
               </IconButton>
             </InputAdornment>
           ),
           endAdornment: (
             <InputAdornment
-              name={ingredient.id}
+              name={id}
               onKeyDown={handleKeyDelete}
               position="end"
             >
@@ -93,7 +87,7 @@ const IngredientInputDisabled = (props) => {
                 aria-label="Delete ingredient"
                 className="delete"
                 edge="end"
-                name={ingredient.id}
+                name={id}
                 onClick={handleDelete}
                 onKeyDown={handleKeyDelete}
                 sx={{
@@ -103,7 +97,7 @@ const IngredientInputDisabled = (props) => {
                 title="Delete ingredient from ingredients list"
               >
                 <DeleteIcon
-                  name={ingredient.id}
+                  name={id}
                   onKeyDown={handleKeyDelete}
                   variant="outlined"
                 />
@@ -111,12 +105,12 @@ const IngredientInputDisabled = (props) => {
             </InputAdornment>
           )
         }}
-        name={ingredient.id}
+        name={id}
         onBlur={handleBlur}
         onChange={handleChange}
-        onKeyDown={ingredient.isDisabled ? undefined : handleKeySubmit}
+        onKeyDown={isDisabled ? undefined : handleKeySubmit}
         p={0}
-        placeholder={ingredient.text}
+        placeholder={text}
         sx={{
           flex: "1 1 auto",
           "& .MuiInputBase-root.Mui-disabled .submit": { display: "none" },
@@ -129,8 +123,8 @@ const IngredientInputDisabled = (props) => {
         }}
         title="Ingredient parsed through Edamam API"
         type="text"
-        value={ingredient.text}
-        variant={ingredient.isDisabled ? "standard" : "outlined"}
+        value={text}
+        variant={isDisabled ? "standard" : "outlined"}
       />
     </Box>
   );

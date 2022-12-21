@@ -1,18 +1,10 @@
 import React from "react";
 import {
   Box,
-  Card,
   CardActions,
   CardContent,
-  CardHeader,
-  CardMedia,
   Collapse,
-  Divider,
   IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   styled,
   Typography,
   useTheme
@@ -20,8 +12,6 @@ import {
 import { RecipeImage } from "./RecipeImage";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
-import ReceiptLong from "@mui/icons-material/ReceiptLong";
-import { ITALIAN_BEEF } from "../config";
 import { IngredientsList } from "./IngredientsList";
 
 const ExpandMore = styled((props) => {
@@ -48,7 +38,6 @@ const ingredientsSx = (expand, style) => {
 };
 
 export const RecipeCard = (props) => {
-  // const { ingredients } = ITALIAN_BEEF;
   const [expanded, setExpanded] = React.useState(false);
   const {
     handleBlur,
@@ -76,13 +65,6 @@ export const RecipeCard = (props) => {
     mode === "light"
       ? "thin solid rgba(0, 0, 0, 0.12)"
       : "thin solid rgba(255, 255, 255, 0.12)";
-
-  const cardActionsStyle = {
-    borderTop: cardActionBorderStyle,
-    borderBottom: cardActionBorderStyle,
-    flexFlow: "row-reverse",
-    justifyContent: "left"
-  };
 
   const inputValues = (state) => {
     return state.reduce(

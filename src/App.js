@@ -2,19 +2,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import Bg_Pattern_Dark from "./assets/Graphcoders_Lil_Fiber.png";
 import Bg_Pattern_Light from "./assets/Beige_Paper.png";
 import Footer from "./components/Footer";
-import RecipeForm from "./components/RecipeForm";
 import { Box, Container, useTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
-import RecipeCard from "./components/RecipeCard";
 import MuiStepper from "./components/MuiStepper";
-import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
-import {
-  CHEESY_CORN,
-  CONFIG,
-  ITALIAN_BEEF,
-  KEY_LIME_PIE,
-  MOCK_RES
-} from "./config";
+import { CHEESY_CORN, CONFIG, ITALIAN_BEEF, KEY_LIME_PIE } from "./config";
 import { Faq } from "./components/Faq";
 import { Route, Routes } from "react-router-dom";
 import { Showcase } from "./components/Showcase";
@@ -34,7 +25,14 @@ function App() {
     { id: "description-textarea", text: "", status: " ", error: false },
     { id: "recipe-textarea", text: "", status: " ", error: false },
     { id: "servings-input", text: "1" },
-    { id: "servings-toggle", isPerServing: true },
+    {
+      id: "servings-toggle",
+      isPerServing: true,
+      custom: true,
+      KeyLimePie: true,
+      CheesyCorn: true,
+      ItalianBeef: true
+    },
     { id: "isRequesting", isRequesting: false },
     ...KEY_LIME_PIE.ingredients,
     ...CHEESY_CORN.ingredients,
@@ -42,16 +40,14 @@ function App() {
   ]);
 
   const flattenPayload = (data, name) => {
-    let flatIngredientsPayload = [];
-
-    data.ingredients.map((ingredient) => {
+    return data.ingredients.map((ingredient) => {
       const recipeName = ingredient.recipeName || "custom";
       const validId = (recipeName + ingredient.text)
         .replace(/[^a-zA-Z]+/g, "")
         .slice(-50);
       const { nutrients } = ingredient.parsed[0];
 
-      const flatIngredient = {
+      return {
         id: name || validId,
         text: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
         parsed: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
@@ -64,15 +60,11 @@ function App() {
         error: false,
         recipeName: recipeName
       };
-
-      flatIngredientsPayload.push(flatIngredient);
     });
-
-    return flatIngredientsPayload;
   };
 
   const fetchAPI = (text, name, id) => {
-    const { accessRecipe, appId, appKey, params } = CONFIG;
+    const { accessRecipe, appId, appKey } = CONFIG;
     const recipeUrl = accessRecipe + appId + appKey;
     const recipePayload = {
       title: "Untitled Recipe",
@@ -116,7 +108,7 @@ function App() {
                     ...flatIngredientsPayload[0],
                     recipeName: prevInput.recipeName
                   }
-                : prevInput.id == "isRequesting"
+                : prevInput.id === "isRequesting"
                 ? { ...prevInput, isRequesting: false }
                 : prevInput
             )
@@ -132,7 +124,7 @@ function App() {
                     error: false,
                     status: "Successfully posted"
                   }
-                : prevIngredient.id == "isRequesting"
+                : prevIngredient.id === "isRequesting"
                 ? { ...prevIngredient, isRequesting: false }
                 : prevIngredient
             )
@@ -140,7 +132,7 @@ function App() {
           // appending new input
           setValues((prevInputs) => [
             ...prevInputs.map((prevInput) =>
-              prevInput.id == "isRequesting"
+              prevInput.id === "isRequesting"
                 ? { ...prevInput, isRequesting: false }
                 : prevInput.id != name
                 ? prevInput
@@ -160,7 +152,7 @@ function App() {
                   status: err.message,
                   text: prevInput.parsed
                 }
-              : prevInput.id == "isRequesting"
+              : prevInput.id === "isRequesting"
               ? { ...prevInput, isRequesting: false }
               : prevInput
           )
@@ -277,17 +269,35 @@ function App() {
     );
   };
 
-  const handleServingsToggle = () => {
-    setValues((prevValues) =>
-      prevValues.map((inputState) =>
-        inputState.id == "servings-toggle"
-          ? {
-              ...inputState,
-              isPerServing: !inputState.isPerServing
-            }
-          : inputState
-      )
-    );
+  const handleServingsToggle = (e) => {
+    const recipeName =
+      e.target.getAttribute("data-recipe-name") ||
+      e.currentTarget.getAttribute("data-recipe-name");
+
+    if (recipeName == "custom") {
+      setValues((prevValues) =>
+        prevValues.map((inputState) =>
+          inputState.id == "servings-toggle"
+            ? {
+                ...inputState,
+                isPerServing: !inputState.isPerServing,
+                custom: !inputState.custom
+              }
+            : inputState
+        )
+      );
+    } else {
+      setValues((prevValues) =>
+        prevValues.map((inputState) =>
+          inputState.id == "servings-toggle"
+            ? {
+                ...inputState,
+                [recipeName]: !inputState[recipeName]
+              }
+            : inputState
+        )
+      );
+    }
   };
 
   const handleSubmit = (e) => {

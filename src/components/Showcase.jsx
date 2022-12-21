@@ -1,6 +1,5 @@
 import { Box, Card } from "@mui/material";
 import React from "react";
-import { RecipeCardSkeleton } from "./RecipeCardSkeleton";
 import { RecipeCard } from "./RecipeCard";
 import { VerticalStepper } from "./VerticalStepper";
 import { ITALIAN_BEEF, KEY_LIME_PIE, CHEESY_CORN } from "../config";

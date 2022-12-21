@@ -1,16 +1,6 @@
 import { ReceiptLong } from "@mui/icons-material";
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography,
-  useTheme
-} from "@mui/material";
+import { List, ListItem, Typography, useTheme } from "@mui/material";
 import React, { Fragment } from "react";
-import IngredientInput from "./IngredientInput";
 import IngredientInputDisabled from "./IngredientInputDisabled";
 
 export const IngredientsList = (props) => {

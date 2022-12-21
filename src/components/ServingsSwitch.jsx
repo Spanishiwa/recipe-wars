@@ -8,7 +8,7 @@ import { InputLabel, Switch, Typography } from "@mui/material";
 import React from "react";
 
 export const ServingsSwitch = (props) => {
-  const { handleServingsToggle, isPerServing } = props;
+  const { handleServingsToggle, isPerServing, recipeName } = props;
 
   const handleKeyDown = (e) => {
     const key = e.which || e.keyCode || 0;
@@ -22,6 +22,7 @@ export const ServingsSwitch = (props) => {
 
   return (
     <InputLabel
+      className={recipeName}
       name="servings-toggle"
       onKeyDown={handleKeyDown}
       sx={{ alignItems: "center", display: "flex" }}
@@ -52,6 +53,8 @@ export const ServingsSwitch = (props) => {
         <FlatwareRounded sx={{ verticalAlign: "middle" }}></FlatwareRounded>
       </Typography>
       <Switch
+        className={recipeName}
+        inputProps={{ "data-recipe-name": recipeName }}
         name="servings-toggle"
         onChange={handleServingsToggle}
         sx={{

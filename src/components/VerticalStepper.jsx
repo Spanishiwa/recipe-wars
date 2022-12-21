@@ -10,7 +10,6 @@ import {
   Typography
 } from "@mui/material";
 import React from "react";
-import { RecipeCardSkeleton } from "./RecipeCardSkeleton";
 
 export const VerticalStepper = () => {
   const [activeStep, setActiveStep] = React.useState(0);

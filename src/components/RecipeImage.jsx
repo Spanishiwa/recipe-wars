@@ -105,6 +105,9 @@ export const RecipeImage = (props) => {
   const descriptionText = description || inputState.descriptionText;
   const servingsText = servings || inputState.servingsText;
   const titleText = title;
+  const isPerServing = values.filter(
+    (inputState) => inputState.id === "servings-toggle"
+  )[0][recipeName];
 
   return (
     <Fragment>
@@ -125,25 +128,25 @@ export const RecipeImage = (props) => {
         >
           <Box sx={{ ...svgContainerSx }}>
             <CalorieSvg
-              calories={(servingsIsPerServing
+              calories={(isPerServing
                 ? calories / servingsText
                 : calories
               ).toFixed(0)}
             />
             <CarbohydrateSvg
-              carbohydrate={(servingsIsPerServing
+              carbohydrate={(isPerServing
                 ? carbohydrate / servingsText
                 : carbohydrate
               ).toFixed(0)}
             />
             <ProteinSvg
-              protein={(servingsIsPerServing
+              protein={(isPerServing
                 ? protein / servingsText
                 : protein
               ).toFixed(0)}
             />
             <FatSvg
-              fat={(servingsIsPerServing ? fat / servingsText : fat).toFixed(0)}
+              fat={(isPerServing ? fat / servingsText : fat).toFixed(0)}
             />
           </Box>
           <Box
@@ -156,7 +159,8 @@ export const RecipeImage = (props) => {
           >
             <ServingsSwitch
               handleServingsToggle={handleServingsToggle}
-              isPerServing={servingsIsPerServing}
+              isPerServing={isPerServing}
+              recipeName={recipe}
             />
             <Typography
               component="span"
