@@ -62,7 +62,7 @@ export default function TextMobileStepper(props) {
 
   const [open, setOpen] = React.useState(false);
   const isValidIngredientsList = values.filter(
-    (inputState) => inputState.parsed
+    (inputState) => inputState.recipeName === "custom"
   )[0];
 
   const handleClick = () => {

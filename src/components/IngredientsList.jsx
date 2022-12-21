@@ -22,7 +22,8 @@ export const IngredientsList = (props) => {
     handleKeyDelete,
     handleKeySubmit,
     handleToggleDisable,
-    ingredients
+    ingredients,
+    recipeName
   } = props;
 
   const mode = useTheme().palette.mode;
@@ -30,6 +31,11 @@ export const IngredientsList = (props) => {
     mode === "light"
       ? "thin solid rgba(0, 0, 0, 0.12)"
       : "thin solid rgba(255, 255, 255, 0.12)";
+
+  const recipe = recipeName || "custom";
+  const recipeIngredients = ingredients.filter(
+    (ingr) => ingr.recipeName === recipe
+  );
 
   return (
     <Fragment>
@@ -44,7 +50,7 @@ export const IngredientsList = (props) => {
         variant="h6"
       >
         <ReceiptLong sx={{ mr: 1, verticalAlign: "middle" }} />
-        Ingredients ({ingredients.length})
+        Ingredients ({recipeIngredients.length})
       </Typography>
       <List
         sx={{
@@ -53,7 +59,7 @@ export const IngredientsList = (props) => {
           pt: 2
         }}
       >
-        {ingredients.map((ingredient) => (
+        {recipeIngredients.map((ingredient) => (
           <ListItem
             disableGutters
             key={ingredient.id}
@@ -70,7 +76,6 @@ export const IngredientsList = (props) => {
               handleToggleDisable={handleToggleDisable}
               ingredient={ingredient}
             />
-            {/* <Divider /> */}
           </ListItem>
         ))}
       </List>

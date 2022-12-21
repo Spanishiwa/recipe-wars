@@ -5,7 +5,7 @@ import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 // import Bg_Pattern_Light from "../assets/Beige_Paper.png";
 import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import { Link, Typography, useTheme } from "@mui/material";
-import { GitHub, Help, LocalDining } from "@mui/icons-material";
+import { GitHub, Help, Home, LocalDining } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 
 function Footer() {
@@ -43,7 +43,7 @@ function Footer() {
           flex: "1 1 auto",
           margin: "auto",
           maxWidth: "1200px",
-          padding: { sm: "0px 24px 0px 0px" }
+          padding: { sm: "0px 0px 0px 0px" }
         }}
       >
         <Box
@@ -51,7 +51,7 @@ function Footer() {
             alignItems: "center",
             display: "flex",
             flex: "1 1 auto",
-            justifyContent: { xs: "center", sm: "space-between" },
+            justifyContent: { xs: "center", sm: "center", md: "space-between" },
             margin: { lg: "auto" },
             maxWidth: "lg",
             width: { xs: "auto", lg: "100%" }
@@ -75,21 +75,24 @@ function Footer() {
               sx={{ display: "block", height: "50px" }}
             />
           </Link>
-          <Box sx={{ display: { xs: "none", sm: "flex" } }} gap={4}>
-            {/* <Link
-            component="a"
-            href="/recipe-wars"
-            rel="noopener"
-            target="_blank"
-            title="Homepage"
-          >
-            HOME
-          </Link> */}
+          <Box sx={{ display: { xs: "none", sm: "none", md: "flex" } }} gap={4}>
             <Link
               component={RouterLink}
               to="/recipe-wars"
               rel="noopener"
-              title="Recipe showcase page"
+              title="Homepage"
+              variant="b1"
+            >
+              <Home sx={{ verticalAlign: "middle" }} />
+              <Typography component="span" sx={{ ml: 1 }} variant="b1">
+                HOME
+              </Typography>
+            </Link>
+            <Link
+              component={RouterLink}
+              to="/start"
+              rel="noopener"
+              title="Customize your recipe page"
               variant="b1"
             >
               <LocalDining sx={{ verticalAlign: "middle" }} />
@@ -113,7 +116,7 @@ function Footer() {
               component="a"
               href="https://github.com/Spanishiwa/recipe-wars"
               rel="noopener"
-              sx={{ paddingRight: "8px" }}
+              sx={{ paddingRight: "18px" }}
               target="_blank"
               title="GitHub source code"
               variant="b1"

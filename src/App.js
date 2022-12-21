@@ -8,10 +8,16 @@ import NavBar from "./components/NavBar";
 import RecipeCard from "./components/RecipeCard";
 import MuiStepper from "./components/MuiStepper";
 import { RecipeCardSkeleton } from "./components/RecipeCardSkeleton";
-import { CONFIG, ITALIAN_BEEF, MOCK_RES } from "./config";
+import {
+  CHEESY_CORN,
+  CONFIG,
+  ITALIAN_BEEF,
+  KEY_LIME_PIE,
+  MOCK_RES
+} from "./config";
 import { Faq } from "./components/Faq";
 import { Route, Routes } from "react-router-dom";
-import { Start } from "./components/Start";
+import { Showcase } from "./components/Showcase";
 
 function App() {
   const [values, setValues] = useState([
@@ -29,14 +35,20 @@ function App() {
     { id: "recipe-textarea", text: "", status: " ", error: false },
     { id: "servings-input", text: "1" },
     { id: "servings-toggle", isPerServing: true },
-    { id: "isRequesting", isRequesting: false }
+    { id: "isRequesting", isRequesting: false },
+    ...KEY_LIME_PIE.ingredients,
+    ...CHEESY_CORN.ingredients,
+    ...ITALIAN_BEEF.ingredients
   ]);
 
   const flattenPayload = (data, name) => {
     let flatIngredientsPayload = [];
 
     data.ingredients.map((ingredient) => {
-      const validId = ingredient.text.replace(/[^a-zA-Z]+/g, "").slice(-15);
+      const recipeName = ingredient.recipeName || "custom";
+      const validId = (recipeName + ingredient.text)
+        .replace(/[^a-zA-Z]+/g, "")
+        .slice(-50);
       const { nutrients } = ingredient.parsed[0];
 
       const flatIngredient = {
@@ -49,7 +61,8 @@ function App() {
         fat: `${nutrients.FAT.quantity}${nutrients.FAT.unit} fat`,
         status: " ",
         isDisabled: true,
-        error: false
+        error: false,
+        recipeName: recipeName
       };
 
       flatIngredientsPayload.push(flatIngredient);
@@ -65,7 +78,7 @@ function App() {
       title: "Untitled Recipe",
       ingr: text.split("\n").filter((s) => s.length)
     };
-    debugger;
+
     if (values.filter((state) => state.id === "isRequesting")[0].isRequesting) {
       return;
     } else {
@@ -95,11 +108,14 @@ function App() {
         const flatIngredientsPayload = flattenPayload(data, name);
 
         if (!id.includes("-")) {
-          // updating input
+          // editing/updating input
           setValues((prevInputs) =>
             prevInputs.map((prevInput) =>
               prevInput.id == id
-                ? flatIngredientsPayload[0]
+                ? {
+                    ...flatIngredientsPayload[0],
+                    recipeName: prevInput.recipeName
+                  }
                 : prevInput.id == "isRequesting"
                 ? { ...prevInput, isRequesting: false }
                 : prevInput
@@ -352,10 +368,13 @@ function App() {
           <Routes>
             <Route
               path="/recipe-wars"
-              element={<MuiStepper {...handlersAndState} />}
+              element={<Showcase {...handlersAndState} />}
             ></Route>
             <Route path="/faq" element={<Faq />}></Route>
-            <Route path="/start" element={<Start />}></Route>
+            <Route
+              path="/start"
+              element={<MuiStepper {...handlersAndState} />}
+            ></Route>
           </Routes>
         </Box>
       </Container>

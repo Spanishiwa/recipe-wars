@@ -186,7 +186,7 @@ export const Faq = () => {
           component={RouterLink}
           size="medium"
           title="Start Page"
-          to="/recipe-wars"
+          to="/start"
           variant="outlined"
         >
           <LocalDining sx={{ mr: 1 }} />

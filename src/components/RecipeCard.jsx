@@ -58,6 +58,12 @@ export const RecipeCard = (props) => {
     handleKeySubmit,
     handleToggleDisable,
     handleServingsToggle,
+    description,
+    imgSrc,
+    recipeName,
+    servings,
+    title,
+    instructions,
     values
   } = props;
 
@@ -94,8 +100,13 @@ export const RecipeCard = (props) => {
     );
   };
 
-  const { titleText, recipeText } = inputValues(values);
-  const ingredients = values.filter((ingr) => ingr.parsed);
+  const recipe = recipeName || "custom";
+  const ingredients = values.filter((ingr) => ingr.recipeName === recipe);
+
+  const inputState = inputValues(values);
+  const titleText = title || inputState.titleText;
+  const recipeText = instructions || inputState.recipeText;
+
   return (
     <Box component="section" sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}>
       <CardContent
@@ -122,6 +133,7 @@ export const RecipeCard = (props) => {
             handleKeySubmit={handleKeySubmit}
             handleToggleDisable={handleToggleDisable}
             ingredients={ingredients}
+            recipeName={recipe}
           />
           <Typography component="p" variant="b1"></Typography>
         </Box>
@@ -134,7 +146,12 @@ export const RecipeCard = (props) => {
             {titleText}
           </Typography>
           <RecipeImage
+            description={description}
             handleServingsToggle={handleServingsToggle}
+            imgSrc={imgSrc}
+            recipeName={recipe}
+            servings={servings}
+            title={title}
             values={values}
           />
           <CardActions
@@ -146,7 +163,6 @@ export const RecipeCard = (props) => {
               justifyContent: "left"
             }}
           >
-            {" "}
             Recipe instructions
             <FeedOutlinedIcon sx={{ m: "0px 8px 0px 16px" }} />
             <ExpandMore

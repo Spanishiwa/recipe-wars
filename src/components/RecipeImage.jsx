@@ -41,9 +41,19 @@ export const RecipeImage = (props) => {
     rowGap: "16px"
   };
 
-  const { ingredients, values, handleServingsToggle } = props;
+  const {
+    description,
+    handleServingsToggle,
+    imgSrc,
+    recipeName,
+    servings,
+    title,
+    values
+  } = props;
+  const recipe = recipeName || "custom";
+
   const sumNutrients = (values) => {
-    const ingredients = values.filter((ingr) => ingr.parsed);
+    const ingredients = values.filter((ingr) => ingr.recipeName === recipe);
     return ingredients.reduce(
       (accum, ingr) => {
         accum.calories = parseFloat(accum.calories) + parseFloat(ingr.calories);
@@ -89,13 +99,12 @@ export const RecipeImage = (props) => {
   const { calories, carbohydrate, protein, fat } = sumNutrients(values);
 
   const { isOpen } = state;
-  const {
-    imageImgSrc,
-    titleText,
-    descriptionText,
-    servingsText,
-    servingsIsPerServing
-  } = inputValues(values);
+  const inputState = inputValues(values);
+  const { imageImgSrc, servingsIsPerServing } = inputState;
+
+  const descriptionText = description || inputState.descriptionText;
+  const servingsText = servings || inputState.servingsText;
+  const titleText = title;
 
   return (
     <Fragment>
@@ -104,7 +113,7 @@ export const RecipeImage = (props) => {
           alt={titleText}
           component="img"
           height="194"
-          image={imageImgSrc || DefaultImg}
+          image={imgSrc || imageImgSrc || DefaultImg}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
           title={titleText}
@@ -162,7 +171,7 @@ export const RecipeImage = (props) => {
       </Box>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imageImgSrc || DefaultImg}
+        imgSrc={imgSrc || imageImgSrc || DefaultImg}
         open={isOpen}
         title={titleText}
       />

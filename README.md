@@ -5,8 +5,7 @@ Look up the nutritional content of your favorite ingredient or recipe (multiple 
 Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Routes from React-Router-Dom and textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons, logos, and additional icons sourced from [freeiconspng](https://www.freeiconspng.com/) and [visualpharm](https://www.visualpharm.com/free-icons/).
 
 TODO:
-Router /start page
-Example recipes/stock photos
+Complete call to action for /start page
 
 ## Available Scripts
 
