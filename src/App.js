@@ -34,6 +34,7 @@ function App() {
       ItalianBeef: true
     },
     { id: "isRequesting", isRequesting: false },
+    { id: "photos-select-input", text: "" },
     ...KEY_LIME_PIE.ingredients,
     ...CHEESY_CORN.ingredients,
     ...ITALIAN_BEEF.ingredients
@@ -269,6 +270,18 @@ function App() {
     );
   };
 
+  const handleSelect = (e) => {
+    const name = e.target.name || e.currentTarget.name;
+    const value = e.target.value || e.currentTarget.value || " ";
+    setValues((prevStates) =>
+      prevStates.map((prevState) =>
+        prevState.id === "photos-select-input"
+          ? { ...prevState, text: value }
+          : prevState
+      )
+    );
+  };
+
   const handleServingsToggle = (e) => {
     const recipeName =
       e.target.getAttribute("data-recipe-name") ||
@@ -357,6 +370,7 @@ function App() {
     handleKeySubmit: handleKeySubmit,
     handleImage: handleImage,
     handleServingsToggle: handleServingsToggle,
+    handleSelect: handleSelect,
     handleSubmit: handleSubmit,
     handleToggleDisable: handleToggleDisable,
     values: values

@@ -1,10 +1,21 @@
 import { Tune } from "@mui/icons-material";
-import { Box, Card, FormControl, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
+} from "@mui/material";
 import React from "react";
 import ImageInput from "./ImageInput";
 import IngredientInput from "./IngredientInput";
 import { IngredientsList } from "./IngredientsList";
 import { RecipeNumberfield } from "./RecipeNumberfield";
+import { RecipeSelect } from "./RecipeSelect";
 import { RecipeTextarea } from "./RecipeTextarea";
 import { RecipeTextfield } from "./RecipeTextfield";
 
@@ -17,6 +28,7 @@ export const RecipeFormOptional = (props) => {
     handleImage,
     handleKeyDelete,
     handleKeySubmit,
+    handleSelect,
     handleSubmit,
     handleToggleDisable,
     values
@@ -36,6 +48,8 @@ export const RecipeFormOptional = (props) => {
             accum.recipeText = inputState.text;
           case "servings-input":
             accum.servingsText = inputState.text;
+          case "photos-select-input":
+            accum.selectText = inputState.text;
           default:
             return accum;
         }
@@ -45,13 +59,20 @@ export const RecipeFormOptional = (props) => {
         titleText: "",
         descriptionText: "",
         recipeText: "",
-        servingsText: 1
+        servingsText: 1,
+        selectText: ""
       }
     );
   };
 
-  const { imageImgName, titleText, descriptionText, recipeText, servingsText } =
-    inputValues(values);
+  const {
+    imageImgName,
+    titleText,
+    descriptionText,
+    recipeText,
+    servingsText,
+    selectText
+  } = inputValues(values);
 
   const ingredientsState = values.filter((ingredient) => ingredient.parsed);
 
@@ -148,8 +169,13 @@ recipe.
           >
             <RecipeNumberfield {...servingsProps} />
           </Box>
-          <Box>
-            <ImageInput handleImage={handleImage} imgName={imageImgName} />
+          <Box sx={{ display: "flex" }}>
+            <ImageInput
+              handleImage={handleImage}
+              handleSelect={handleSelect}
+              imgName={imageImgName}
+              text={selectText}
+            />
           </Box>
           <RecipeTextarea {...recipeTextareaProps} />
         </FormControl>

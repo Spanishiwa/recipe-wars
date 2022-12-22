@@ -20,6 +20,12 @@ import { FoodBank, Label } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { ServingsSwitch } from "./ServingsSwitch";
 import DefaultImg from "../assets/Default_Img.jpeg";
+import ForkKnife from "../assets/Fork_Knife.jpeg";
+import Grains from "../assets/Grains.jpeg";
+import Vegetables from "../assets/Colorful_Vegetables.jpeg";
+import Charcuterie from "../assets/Charcuterie_Board.webp";
+import Cookies from "../assets/Cocoa_Cookies.jpeg";
+
 export const RecipeImage = (props) => {
   const [state, setState] = React.useState({
     isOpen: false
@@ -82,6 +88,8 @@ export const RecipeImage = (props) => {
             accum.servingsText = inputState.text;
           case "servings-toggle":
             accum.servingsIsPerServing = inputState.isPerServing;
+          case "photos-select-input":
+            accum.photosText = inputState.text;
           default:
             return accum;
         }
@@ -91,7 +99,8 @@ export const RecipeImage = (props) => {
         titleText: "",
         descriptionText: "",
         servingsText: 1,
-        servingsIsPerServing: false
+        servingsIsPerServing: false,
+        photosText: "Fork_Knife"
       }
     );
   };
@@ -100,7 +109,7 @@ export const RecipeImage = (props) => {
 
   const { isOpen } = state;
   const inputState = inputValues(values);
-  const { imageImgSrc, servingsIsPerServing } = inputState;
+  const { imageImgSrc, servingsIsPerServing, photosText } = inputState;
 
   const descriptionText = description || inputState.descriptionText;
   const servingsText = servings || inputState.servingsText;
@@ -108,6 +117,24 @@ export const RecipeImage = (props) => {
   const isPerServing = values.filter(
     (inputState) => inputState.id === "servings-toggle"
   )[0][recipeName];
+  const selectedImage = (selectedText) => {
+    switch (selectedText) {
+      case "forkKnife":
+        return ForkKnife;
+      case "grains":
+        return Grains;
+      case "colorfulVegetables":
+        return Vegetables;
+      case "charcuterie":
+        return Charcuterie;
+      case "cookies":
+        return Cookies;
+      case " ":
+        return DefaultImg;
+      default:
+        return DefaultImg;
+    }
+  };
 
   return (
     <Fragment>
@@ -116,7 +143,7 @@ export const RecipeImage = (props) => {
           alt={titleText}
           component="img"
           height="194"
-          image={imgSrc || imageImgSrc || DefaultImg}
+          image={imgSrc || imageImgSrc || selectedImage(photosText)}
           onClick={handleClickOpen}
           sx={{ cursor: "pointer" }}
           title={titleText}
@@ -175,7 +202,7 @@ export const RecipeImage = (props) => {
       </Box>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imgSrc || imageImgSrc || DefaultImg}
+        imgSrc={imgSrc || imageImgSrc || selectedImage(photosText)}
         open={isOpen}
         title={titleText}
       />
