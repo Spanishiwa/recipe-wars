@@ -1,5 +1,11 @@
 import { ReceiptLong } from "@mui/icons-material";
-import { List, ListItem, Typography, useTheme } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListSubheader,
+  Typography,
+  useTheme
+} from "@mui/material";
 import React, { Fragment } from "react";
 import IngredientInputDisabled from "./IngredientInputDisabled";
 
@@ -29,31 +35,44 @@ export const IngredientsList = (props) => {
 
   return (
     <Fragment>
-      <Typography
-        component="p"
-        pb={3}
-        sx={{
-          borderBottom: ingredientsBorderStyle,
-          fontWeight: 400,
-          paddingTop: { xs: "16px", sm: "0px" }
-        }}
-        variant="h6"
-      >
-        <ReceiptLong sx={{ mr: 1, verticalAlign: "middle" }} />
-        Ingredients ({recipeIngredients.length})
-      </Typography>
       <List
         sx={{
           display: "flex",
           flexDirection: "column",
-          pt: 2
+          padding: "0px"
         }}
       >
+        <ListSubheader
+          sx={{
+            padding: {
+              xs: "16px 0px 0px 0px",
+              sm: "16px 0px 0px 0px",
+              md: "0px 16px"
+            },
+            top: "-1px"
+          }}
+        >
+          <Typography
+            component="p"
+            pb={3}
+            sx={{
+              borderBottom: ingredientsBorderStyle,
+              fontWeight: 400,
+              marginBottom: "8px",
+              paddingLeft: "16px",
+              paddingTop: "0px"
+            }}
+            variant="h6"
+          >
+            <ReceiptLong sx={{ mr: 1, verticalAlign: "middle" }} />
+            Ingredients ({recipeIngredients.length})
+          </Typography>
+        </ListSubheader>
         {recipeIngredients.map((ingredient) => (
           <ListItem
             disableGutters
             key={ingredient.id}
-            sx={{ padding: "16px 8px 0px 0px" }}
+            sx={{ padding: "16px 8px 0px 8px" }}
           >
             <IngredientInputDisabled
               error={ingredient.error}

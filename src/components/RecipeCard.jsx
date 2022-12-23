@@ -95,7 +95,6 @@ export const RecipeCard = (props) => {
         sx={{
           display: "flex",
           flexFlow: { xs: "column-reverse", md: "row-reverse" },
-          gap: 2,
           padding: "16px 0px 0px 0px",
           ".MuiCardContent-root&:last-child": { pb: 0 }
         }}
@@ -103,7 +102,6 @@ export const RecipeCard = (props) => {
         <Box
           sx={{
             flex: "35%",
-            padding: { xs: "16px", sm: "16px", md: "0px 16px 16px 16px" },
             ...ingredientsSx(expanded, cardActionBorderStyle)
           }}
         >
