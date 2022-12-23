@@ -150,7 +150,17 @@ const RecipeForm = (props) => {
             })}
           </List>
         </Box>
-        <FormControl sx={{ display: "flex", gap: 4, my: 2 }}>
+        <FormControl
+          sx={{
+            display: "flex",
+            gap: 4,
+            margin: {
+              xs: "32px 0px 16px 0px",
+              sm: "32px 0px 16px 0px",
+              md: "32px 0px 0px 0px"
+            }
+          }}
+        >
           <IngredientInput
             error={ingredientInputVal.error}
             handleBlur={handleBlur}
