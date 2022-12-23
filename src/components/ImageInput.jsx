@@ -43,11 +43,18 @@ const ImageInput = (props) => {
             color="primary"
             onKeyDown={handleKeyEnter}
             startIcon={imgIcon}
-            sx={{ padding: "15px" }}
+            sx={{ maxHeight: "57px", padding: "15px" }}
             title="Upload a recipe image here"
             variant="outlined"
           >
             UPLOAD
+            <Typography
+              component="span"
+              sx={{ display: { xs: "none", sm: "inline" }, ml: "4px" }}
+              variant="b2"
+            >
+              IMAGE
+            </Typography>
             <input
               accept="image/*"
               onChange={handleImage}

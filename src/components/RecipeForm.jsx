@@ -63,7 +63,7 @@ const RecipeForm = (props) => {
     titles: [
       "Good input - used exact measurements",
       "Poor input - nonstandard unit of measurement",
-      "Good input - ingredient was concise without unecessary descriptors",
+      "Good input - ingredient was concise without unnecessary descriptors",
       "Poor input - recipe ingredient preparation methods were included",
       "Good input - a niche ingredient was substituted for a common ingredient",
       "Poor input - too specific to be found in Edamam's database"

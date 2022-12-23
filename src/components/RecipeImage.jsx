@@ -100,7 +100,7 @@ export const RecipeImage = (props) => {
         descriptionText: "",
         servingsText: 1,
         servingsIsPerServing: false,
-        photosText: "Fork_Knife"
+        photosText: " "
       }
     );
   };
@@ -130,7 +130,7 @@ export const RecipeImage = (props) => {
       case "cookies":
         return Cookies;
       case " ":
-        return DefaultImg;
+        return ForkKnife;
       default:
         return DefaultImg;
     }
