@@ -1,5 +1,6 @@
 import { ReceiptLong } from "@mui/icons-material";
 import {
+  imageListClasses,
   List,
   ListItem,
   ListSubheader,
@@ -44,6 +45,8 @@ export const IngredientsList = (props) => {
       >
         <ListSubheader
           sx={{
+            backgroundImage:
+              "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
             padding: {
               xs: "16px 0px 0px 0px",
               sm: "16px 0px 0px 0px",
