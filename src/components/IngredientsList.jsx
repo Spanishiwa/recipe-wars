@@ -40,7 +40,8 @@ export const IngredientsList = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          padding: "0px"
+          padding: "0px",
+          top: "-1px"
         }}
       >
         <ListSubheader
