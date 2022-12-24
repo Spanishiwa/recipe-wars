@@ -56,7 +56,7 @@ export const RecipeImage = (props) => {
     title,
     values
   } = props;
-  const recipe = recipeName || "custom";
+  const recipe = recipeName || "Untitled";
 
   const sumNutrients = (values) => {
     const ingredients = values.filter((ingr) => ingr.recipeName === recipe);
@@ -113,10 +113,10 @@ export const RecipeImage = (props) => {
 
   const descriptionText = description || inputState.descriptionText;
   const servingsText = servings || inputState.servingsText;
-  const titleText = title;
+  const titleText = title || inputState.titleText;
   const isPerServing = values.filter(
     (inputState) => inputState.id === "servings-toggle"
-  )[0][recipeName];
+  )[0][`is${recipeName}PerServing`];
   const selectedImage = (selectedText) => {
     switch (selectedText) {
       case "forkKnife":

@@ -29,7 +29,7 @@ export const IngredientsList = (props) => {
       ? "thin solid rgba(0, 0, 0, 0.12)"
       : "thin solid rgba(255, 255, 255, 0.12)";
 
-  const recipe = recipeName || "custom";
+  const recipe = recipeName || "Untitled";
   const recipeIngredients = ingredients.filter(
     (ingr) => ingr.recipeName === recipe
   );

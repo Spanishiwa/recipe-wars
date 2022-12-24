@@ -55,8 +55,8 @@ const RecipeForm = (props) => {
     examples: [
       "12 ounces flour",
       "About 1 scoop of flour",
-      "1 pound green beans",
-      "3 cups steamed carrots",
+      "3 cups carrots",
+      "3 cups peeled and chopped carrots",
       "8.5 oz red chili pepper",
       "8.5 oz Italian giardiniera"
     ],
@@ -180,13 +180,15 @@ const RecipeForm = (props) => {
           <RecipeTextarea {...ingredientsTextareaProps} />
           <Button
             className="submit"
+            disableElevation
             name="ingredients-textarea"
             onKeyDown={handleKeySubmit}
             onClick={handleSubmit}
+            size="large"
             startIcon={<PostAdd />}
-            sx={{ maxWidth: "190px" }}
+            sx={{ mt: "-24px", maxWidth: "220px" }}
             type="submit"
-            variant="outlined"
+            variant="contained"
           >
             POST INGREDIENTS
           </Button>

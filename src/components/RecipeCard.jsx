@@ -82,7 +82,7 @@ export const RecipeCard = (props) => {
     );
   };
 
-  const recipe = recipeName || "custom";
+  const recipe = recipeName || "Untitled";
   const ingredients = values.filter((ingr) => ingr.recipeName === recipe);
 
   const inputState = inputValues(values);

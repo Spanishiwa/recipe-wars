@@ -9,32 +9,30 @@ import { CHEESY_CORN, CONFIG, ITALIAN_BEEF, KEY_LIME_PIE } from "./config";
 import { Faq } from "./components/Faq";
 import { Route, Routes } from "react-router-dom";
 import { Showcase } from "./components/Showcase";
+import {
+  INIT_INGREDIENT_INPUT,
+  INIT_INGREDIENTS_TEXTAREA,
+  INIT_IMAGE_INPUT,
+  INIT_TITLE_INPUT,
+  INIT_DESCRIPTION_TEXTAREA,
+  INIT_RECIPE_TEXTAREA,
+  INIT_SERVINGS_INPUT,
+  INIT_SERVINGS_TOGGLE,
+  INIT_PHOTOS_SELECT_INPUT
+} from "./Util";
 
 function App() {
   const [values, setValues] = useState([
-    {
-      id: "ingredient-input",
-      text: "",
-      isDisabled: false,
-      error: false,
-      status: " "
-    },
-    { id: "ingredients-textarea", text: "", status: " ", error: false },
-    { id: "image-input", imgSrc: "", imgName: "" },
-    { id: "title-input", text: "Untitled recipe" },
-    { id: "description-textarea", text: "", status: " ", error: false },
-    { id: "recipe-textarea", text: "", status: " ", error: false },
-    { id: "servings-input", text: "1" },
-    {
-      id: "servings-toggle",
-      isPerServing: true,
-      custom: true,
-      KeyLimePie: true,
-      CheesyCorn: true,
-      ItalianBeef: true
-    },
+    INIT_INGREDIENT_INPUT,
+    INIT_INGREDIENTS_TEXTAREA,
+    INIT_IMAGE_INPUT,
+    INIT_TITLE_INPUT,
+    INIT_DESCRIPTION_TEXTAREA,
+    INIT_RECIPE_TEXTAREA,
+    INIT_SERVINGS_INPUT,
+    INIT_SERVINGS_TOGGLE,
+    INIT_PHOTOS_SELECT_INPUT,
     { id: "isRequesting", isRequesting: false },
-    { id: "photos-select-input", text: "" },
     ...KEY_LIME_PIE.ingredients,
     ...CHEESY_CORN.ingredients,
     ...ITALIAN_BEEF.ingredients
@@ -42,7 +40,7 @@ function App() {
 
   const flattenPayload = (data, name) => {
     return data.ingredients.map((ingredient) => {
-      const recipeName = ingredient.recipeName || "custom";
+      const recipeName = ingredient.recipeName || "Untitled";
       const validId = (recipeName + ingredient.text)
         .replace(/[^a-zA-Z]+/g, "")
         .slice(-50);
@@ -68,7 +66,7 @@ function App() {
     const { accessRecipe, appId, appKey } = CONFIG;
     const recipeUrl = accessRecipe + appId + appKey;
     const recipePayload = {
-      title: "Untitled Recipe",
+      title: "Untitled",
       ingr: text.split("\n").filter((s) => s.length)
     };
 
@@ -103,60 +101,74 @@ function App() {
         if (!id.includes("-")) {
           // editing/updating input
           setValues((prevInputs) =>
-            prevInputs.map((prevInput) =>
-              prevInput.id == id
-                ? {
-                    ...flatIngredientsPayload[0],
-                    recipeName: prevInput.recipeName
-                  }
-                : prevInput.id === "isRequesting"
-                ? { ...prevInput, isRequesting: false }
-                : prevInput
-            )
+            prevInputs.map((prevInput) => {
+              if (prevInput.id == id) {
+                return {
+                  ...flatIngredientsPayload[0],
+                  recipeName: prevInput.recipeName
+                };
+              }
+
+              if (prevInput.id === "isRequesting") {
+                return { ...prevInput, isRequesting: false };
+              }
+
+              return prevInput;
+            })
           );
         } else {
           // clearing input generator / error / status
           setValues((prevValues) =>
-            prevValues.map((prevIngredient) =>
-              prevIngredient.id == id
-                ? {
-                    ...prevIngredient,
-                    text: "",
-                    error: false,
-                    status: "Successfully posted"
-                  }
-                : prevIngredient.id === "isRequesting"
-                ? { ...prevIngredient, isRequesting: false }
-                : prevIngredient
-            )
+            prevValues.map((prevIngredient) => {
+              if (prevIngredient.id == id) {
+                return {
+                  ...prevIngredient,
+                  text: "",
+                  error: false,
+                  status: "Successfully posted"
+                };
+              }
+
+              if (prevIngredient.id === "isRequesting") {
+                return { ...prevIngredient, isRequesting: false };
+              }
+
+              return prevIngredient;
+            })
           );
           // appending new input
           setValues((prevInputs) => [
-            ...prevInputs.map((prevInput) =>
-              prevInput.id === "isRequesting"
-                ? { ...prevInput, isRequesting: false }
-                : prevInput.id != name
-                ? prevInput
-                : null
-            ),
+            ...prevInputs.map((prevInput) => {
+              if (prevInput.id === "isRequesting") {
+                return { ...prevInput, isRequesting: false };
+              }
+
+              if (prevInput.id != name) {
+                return prevInput;
+              }
+            }),
             ...flatIngredientsPayload
           ]);
         }
       })
       .catch((err) => {
         setValues((prevInputs) =>
-          prevInputs.map((prevInput) =>
-            prevInput.id == id
-              ? {
-                  ...prevInput,
-                  error: true,
-                  status: err.message,
-                  text: prevInput.parsed
-                }
-              : prevInput.id === "isRequesting"
-              ? { ...prevInput, isRequesting: false }
-              : prevInput
-          )
+          prevInputs.map((prevInput) => {
+            if (prevInput.id == id) {
+              return {
+                ...prevInput,
+                error: true,
+                status: err.message,
+                text: prevInput.parsed
+              };
+            }
+
+            if (prevInput.id === "isRequesting") {
+              return { ...prevInput, isRequesting: false };
+            }
+
+            return prevInput;
+          })
         );
       });
   };
@@ -270,6 +282,35 @@ function App() {
     );
   };
 
+  const handleReset = (e) => {
+    setValues((prevStates) =>
+      prevStates.map((prevState) => {
+        switch (prevState.id) {
+          case "ingredient-input":
+            return INIT_INGREDIENT_INPUT;
+          case "ingredients-textarea":
+            return INIT_INGREDIENTS_TEXTAREA;
+          case "image-input":
+            return INIT_IMAGE_INPUT;
+          case "title-input":
+            return INIT_TITLE_INPUT;
+          case "description-textarea":
+            return INIT_DESCRIPTION_TEXTAREA;
+          case "recipe-textarea":
+            return INIT_RECIPE_TEXTAREA;
+          case "servings-input":
+            return INIT_SERVINGS_INPUT;
+          case "servings-toggle":
+            return INIT_SERVINGS_TOGGLE;
+          case "photos-select-input":
+            return INIT_PHOTOS_SELECT_INPUT;
+          default:
+            return prevState;
+        }
+      })
+    );
+  };
+
   const handleSelect = (e) => {
     const name = e.target.name || e.currentTarget.name;
     const value = e.target.value || e.currentTarget.value || " ";
@@ -287,30 +328,17 @@ function App() {
       e.target.getAttribute("data-recipe-name") ||
       e.currentTarget.getAttribute("data-recipe-name");
 
-    if (recipeName == "custom") {
-      setValues((prevValues) =>
-        prevValues.map((inputState) =>
-          inputState.id == "servings-toggle"
-            ? {
-                ...inputState,
-                isPerServing: !inputState.isPerServing,
-                custom: !inputState.custom
-              }
-            : inputState
-        )
-      );
-    } else {
-      setValues((prevValues) =>
-        prevValues.map((inputState) =>
-          inputState.id == "servings-toggle"
-            ? {
-                ...inputState,
-                [recipeName]: !inputState[recipeName]
-              }
-            : inputState
-        )
-      );
-    }
+    setValues((prevValues) =>
+      prevValues.map((inputState) =>
+        inputState.id == "servings-toggle"
+          ? {
+              ...inputState,
+              [`is${recipeName}PerServing`]:
+                !inputState[`is${recipeName}PerServing`]
+            }
+          : inputState
+      )
+    );
   };
 
   const handleSubmit = (e) => {
@@ -369,6 +397,7 @@ function App() {
     handleKeyDelete: handleKeyDelete,
     handleKeySubmit: handleKeySubmit,
     handleImage: handleImage,
+    handleReset: handleReset,
     handleServingsToggle: handleServingsToggle,
     handleSelect: handleSelect,
     handleSubmit: handleSubmit,
