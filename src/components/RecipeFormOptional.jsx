@@ -38,8 +38,6 @@ export const RecipeFormOptional = (props) => {
         switch (input.id) {
           case "image-input":
             accum.imgName = input.imgName;
-          case "title-input":
-            accum.title = input.text;
           case "description-textarea":
             accum.description = input.text;
           case "recipe-textarea":
@@ -54,7 +52,6 @@ export const RecipeFormOptional = (props) => {
       },
       {
         imgName: "",
-        title: "",
         description: "",
         instructions: "",
         servings: 1,
@@ -63,17 +60,8 @@ export const RecipeFormOptional = (props) => {
     );
   };
 
-  const { imgName, title, description, instructions, servings, selectText } =
+  const { imgName, description, instructions, servings, selectText } =
     inputValues(inputs);
-
-  // const titleProps = {
-  //   handleChange: handleChange,
-  //   label: "Recipe title",
-  //   name: "title-input",
-  //   placeholder: "e.g. Abuela's dirty beans syrniki",
-  //   title: `Enter a concise, cogent, and exciting title`,
-  //   value: title
-  // };
 
   const recipeDescriptionProps = {
     error: false,
@@ -137,7 +125,6 @@ recipe.
           </Typography>
         </Typography>
         <FormControl sx={{ display: "flex", gap: 4 }}>
-          {/* <RecipeTextfield {...titleProps} /> */}
           <RecipeTextarea {...recipeDescriptionProps} />
           <Box
             sx={{

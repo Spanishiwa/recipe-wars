@@ -457,6 +457,18 @@ function App() {
     );
   };
 
+  const setInputError = (id, msg) => {
+    setValues((prevValues) =>
+      prevValues.map((prevValue) => {
+        if (prevValue.id === id) {
+          return { ...prevValue, error: true, status: msg };
+        } else {
+          return prevValue;
+        }
+      })
+    );
+  };
+
   const mode = useTheme().palette.mode;
   const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
   const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
@@ -527,6 +539,7 @@ function App() {
                   handlers={handlers}
                   inputs={inputs}
                   recipeStates={values}
+                  setInputError={setInputError}
                 />
               }
             ></Route>

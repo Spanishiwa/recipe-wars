@@ -1,22 +1,25 @@
 # RECIPE WARS
 
-Look up the nutritional content of your favorite ingredient or recipe (multiple ingredients). Just copy and paste the ingredient or list of ingredients! Display nutritional content per serving or by total. Toggle color themes with the theme nav bar button. Recipe form supports tab and enter keyboard controls and editing list items in place. This repository won't compile without the free API keys which are not included here.
-
-Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Routes from React-Router-Dom and textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons, logos, and additional icons sourced from [freeiconspng](https://www.freeiconspng.com/) and [visualpharm](https://www.visualpharm.com/free-icons/).
-
-TODO:
-Complete call to action for /start page
-error and status for recipe title
-persisting state
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Fetch the nutritional content of your favorite ingredient or recipe (multiple ingredients)! \
+\
+\
+##FEATURES \
+Responsive single-page application with React-Router-Dom useNavigate() Hook \
+Toggle color themes (Dark mode) \
+Recipe forms and icon buttons support tab and enter keyboard controls \
+Input fields error handling and snackbar dialogue \
+edit ingredient list items in place \
+Display nutritional content per serving or by total \
+Image modals \
+\
+\
+\
+Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Routes from React-Router-Dom and textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons, logos, and additional icons sourced from [freeiconspng](https://www.freeiconspng.com/) and [visualpharm](https://www.visualpharm.com/free-icons/). \
+\
+This repository won't compile without the free API keys which are not included here. \
+\
+##TODO: \
+Complete call to action for /start page \
+error and status for recipe title \
+snackbar dialogue for submit recipe, reset recipe buttons \
+persisting state \

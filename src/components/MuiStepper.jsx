@@ -40,7 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function TextMobileStepper(props) {
-  const { handlers, inputs, recipeStates } = props;
+  const { handlers, inputs, recipeStates, setInputError } = props;
 
   const {
     handleBlur,
@@ -136,9 +136,11 @@ export default function TextMobileStepper(props) {
   const maxSteps = steps.length;
 
   const [open, setOpen] = React.useState(false);
+
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
   const isValidTitle =
     recipeState.title !== "" && recipeState.title !== "Untitled";
+
   const validationMsg = () => {
     if (!isValidTitle) {
       return `Title is "Untitled" or empty`;
@@ -159,12 +161,20 @@ export default function TextMobileStepper(props) {
     setOpen(false);
   };
 
+  const titleRef = React.useRef(null);
+
   const handleNext = () => {
     if (isValidIngredientsList && isValidTitle) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else {
-      handleClick();
+      return;
     }
+
+    if (!isValidTitle) {
+      setInputError("title-input", `Title can't be "Untitled" or empty`);
+      titleRef.current.focus();
+    }
+
+    handleClick();
   };
 
   const handleBack = () => {
@@ -190,6 +200,7 @@ export default function TextMobileStepper(props) {
             handlers={handlersRecipeForm}
             ingredients={noRecipeNameIngredients}
             inputs={inputs}
+            titleRef={titleRef}
           />
         );
       case 1:
@@ -216,6 +227,7 @@ export default function TextMobileStepper(props) {
             handlers={handlersRecipeForm}
             ingredients={noRecipeNameIngredients}
             inputs={inputs}
+            titleRef={titleRef}
           />
         );
     }

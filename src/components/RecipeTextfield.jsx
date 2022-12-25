@@ -9,6 +9,7 @@ export const RecipeTextfield = (props) => {
     label,
     name,
     placeholder,
+    inputRef,
     status,
     title,
     value
@@ -16,8 +17,12 @@ export const RecipeTextfield = (props) => {
   return (
     <TextField
       error={error}
+      helperText={status}
       label={label}
       id={name}
+      inputProps={{
+        ref: inputRef
+      }}
       name={name}
       InputLabelProps={{
         shrink: true
@@ -25,7 +30,6 @@ export const RecipeTextfield = (props) => {
       onBlur={handleBlur}
       onChange={handleChange}
       placeholder={placeholder}
-      status={status}
       sx={{ flex: 1 }}
       title={title}
       type="text"

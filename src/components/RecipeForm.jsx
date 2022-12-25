@@ -14,7 +14,7 @@ import { RecipeTextarea } from "./RecipeTextarea";
 import { RecipeTextfield } from "./RecipeTextfield";
 
 const RecipeForm = (props) => {
-  const { handlers, ingredients, inputs } = props;
+  const { handlers, ingredients, inputs, titleRef } = props;
   const {
     handleBlur,
     handleChange,
@@ -67,11 +67,14 @@ const RecipeForm = (props) => {
   };
 
   const titleProps = {
+    error: titleInput.error,
     handleChange: handleChange,
     handleBlur: handleBlur,
     label: "Recipe title",
     name: "title-input",
     placeholder: "e.g. Abuela's dirty beans syrniki",
+    inputRef: titleRef,
+    status: titleInput.status,
     title: `Enter a concise, cogent, and exciting title`,
     value: titleInput.text
   };
@@ -126,7 +129,7 @@ const RecipeForm = (props) => {
           </Typography>
         </Typography>
         <RecipeTextfield {...titleProps} />
-        <Typography component="p" sx={{ mt: 3 }} variant="b1">
+        <Typography component="p" variant="b1">
           Enter your recipe ingredients below "grocery list" style - an
           ingredient and unit of measurement. Don't enter guesstimations such as
           "roughly" one "heaping" cup or descriptions like "finely minced" and
@@ -163,9 +166,9 @@ const RecipeForm = (props) => {
             display: "flex",
             gap: 4,
             margin: {
-              xs: "16px 0px 16px 0px",
-              sm: "16px 0px 16px 0px",
-              md: "16px 0px 0px 0px"
+              xs: "8px 0px 0px 0px",
+              sm: "8px 0px 0px 0px",
+              md: "8px 0px 0px 0px"
             }
           }}
         >
@@ -174,7 +177,7 @@ const RecipeForm = (props) => {
             input={ingredientInput}
           />
           <Typography
-            sx={{ mt: "-8px", paddingLeft: "32px", textIndent: "-32px" }}
+            sx={{ mt: "-16px", paddingLeft: "32px", textIndent: "-32px" }}
           >
             <DynamicFeed
               sx={{ verticalAlign: "middle", padding: "8px 8px 8px 0px" }}

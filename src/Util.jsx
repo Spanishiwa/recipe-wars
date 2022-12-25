@@ -25,6 +25,8 @@ const INIT_IMAGE_INPUT = {
 const INIT_TITLE_INPUT = {
   id: "title-input",
   text: "Untitled",
+  status: " ",
+  error: false,
   isInput: true
 };
 
