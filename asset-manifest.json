@@ -1,16 +1,13 @@
 {
   "files": {
     "main.css": "/recipe-wars/static/css/main.f34dc258.css",
-    "main.js": "/recipe-wars/static/js/main.b97d329f.js",
+    "main.js": "/recipe-wars/static/js/main.2ffb3349.js",
     "static/js/787.a596de65.chunk.js": "/recipe-wars/static/js/787.a596de65.chunk.js",
     "static/media/Charcuterie_Board.webp": "/recipe-wars/static/media/Charcuterie_Board.970e7a7ffec988c6d66c.webp",
-    "static/media/Key_Lime_Pie.png": "/recipe-wars/static/media/Key_Lime_Pie.eedbecbe427bbc7b7254.png",
     "static/media/recipe_icon.png": "/recipe-wars/static/media/recipe_icon.f5391a98839af524fb72.png",
     "static/media/Cocoa_Cookies.jpeg": "/recipe-wars/static/media/Cocoa_Cookies.fc7c67a38eb7993ae34c.jpeg",
-    "static/media/Italian_Beef.jpeg": "/recipe-wars/static/media/Italian_Beef.54848b51231e4bba1319.jpeg",
     "static/media/Grains.jpeg": "/recipe-wars/static/media/Grains.ddf17c1d1205fb875d59.jpeg",
     "static/media/Default_Img.jpeg": "/recipe-wars/static/media/Default_Img.5aae56b9a2fdf33f1160.jpeg",
-    "static/media/Cheesy_Corn.jpeg": "/recipe-wars/static/media/Cheesy_Corn.bd53eb8e2b016cac5cd3.jpeg",
     "static/media/Colorful_Vegetables.jpeg": "/recipe-wars/static/media/Colorful_Vegetables.07bbc24cd16230fd3276.jpeg",
     "static/media/Fork_Knife.jpeg": "/recipe-wars/static/media/Fork_Knife.3b3b0c153330661c8d04.jpeg",
     "static/media/Beige_Paper.png": "/recipe-wars/static/media/Beige_Paper.ea4127ea011aae24782c.png",
@@ -22,11 +19,11 @@
     "static/media/Fat.svg": "/recipe-wars/static/media/Fat.d2d5302a72f34c2fc295466f337a415e.svg",
     "index.html": "/recipe-wars/index.html",
     "main.f34dc258.css.map": "/recipe-wars/static/css/main.f34dc258.css.map",
-    "main.b97d329f.js.map": "/recipe-wars/static/js/main.b97d329f.js.map",
+    "main.2ffb3349.js.map": "/recipe-wars/static/js/main.2ffb3349.js.map",
     "787.a596de65.chunk.js.map": "/recipe-wars/static/js/787.a596de65.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f34dc258.css",
-    "static/js/main.b97d329f.js"
+    "static/js/main.2ffb3349.js"
   ]
 }
