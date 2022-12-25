@@ -6,6 +6,8 @@ Special thanks to [Edamam API](https://developer.edamam.com/attribution). This p
 
 TODO:
 Complete call to action for /start page
+error and status for recipe title
+persisting state
 
 ## Available Scripts
 
