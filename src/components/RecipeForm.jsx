@@ -68,6 +68,7 @@ const RecipeForm = (props) => {
 
   const titleProps = {
     handleChange: handleChange,
+    handleBlur: handleBlur,
     label: "Recipe title",
     name: "title-input",
     placeholder: "e.g. Abuela's dirty beans syrniki",

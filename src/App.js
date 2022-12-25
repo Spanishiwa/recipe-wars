@@ -374,6 +374,8 @@ function App() {
               accum.instructions = input.text;
             case "servings-input":
               accum.servings = input.text;
+            case "photos-select-input":
+              accum.selectText = input.text;
             default:
               return accum;
           }
@@ -384,7 +386,8 @@ function App() {
           description: "",
           instructions: "",
           servings: 1,
-          id: ""
+          id: "",
+          selectText: ""
         }
       );
 

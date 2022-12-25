@@ -47,8 +47,9 @@ export const Showcase = (props) => {
             <RecipeCard
               handlers={handlers}
               ingredients={ingredients}
-              recipeState={recipeState}
               isPerServing={servingsToggle[`is${recipeName}PerServing`]}
+              recipeState={recipeState}
+              selectText={recipeState.selectText}
             />
           </Card>
         );
