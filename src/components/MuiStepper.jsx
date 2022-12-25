@@ -153,11 +153,11 @@ export default function TextMobileStepper(props) {
   };
 
   const handleNext = () => {
-    // if (isValidIngredientsList) {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    // } else {
-    // handleClick();
-    // }
+    if (isValidIngredientsList) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      handleClick();
+    }
   };
 
   const handleBack = () => {

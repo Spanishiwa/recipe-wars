@@ -25,6 +25,7 @@ import {
 } from "./Util";
 
 function App() {
+  const navigate = useNavigate();
   const [values, setValues] = useState([
     INIT_INGREDIENT_INPUT,
     INIT_INGREDIENTS_TEXTAREA,
@@ -121,9 +122,11 @@ function App() {
           );
         } else {
           // clearing input generator / error / status
+
           setValues((prevValues) =>
             prevValues.map((prevIngredient) => {
               if (prevIngredient.id == id) {
+                debugger;
                 return {
                   ...prevIngredient,
                   text: "",
@@ -391,6 +394,13 @@ function App() {
         .slice(-50);
 
       return [
+        {
+          // prepend recipe details
+          ...recipeState,
+          title: recipeState.title,
+          id: recipeState.id.replace(/[^a-zA-Z]+/g, "").slice(-50),
+          recipeName: recipeState.id.replace(/[^a-zA-Z]+/g, "").slice(-50)
+        },
         ...prevStates.map((prevState) => {
           // update all noRecipeName ingredients
           if (prevState.recipeName === "Untitled") {
@@ -426,16 +436,11 @@ function App() {
             default:
               return prevState;
           }
-        }),
-        {
-          // append recipe details
-          ...recipeState,
-          title: recipeState.title,
-          id: recipeState.id.replace(/[^a-zA-Z]+/g, "").slice(-50),
-          recipeName: recipeState.id.replace(/[^a-zA-Z]+/g, "").slice(-50)
-        }
+        })
       ];
     });
+
+    navigate("/recipe-wars");
   };
 
   const handleToggleDisable = (e) => {

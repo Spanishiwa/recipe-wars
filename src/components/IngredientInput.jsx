@@ -4,7 +4,7 @@ import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
   const { handlers, input } = props;
-  const { error, status, value } = input;
+  const { error, status, text } = input;
   const { handleBlur, handleChange, handleKeySubmit, handleSubmit } = handlers;
 
   const errorSx = error
@@ -87,7 +87,7 @@ const IngredientInput = (props) => {
         }}
         title="Enter an ingredient & quantity here"
         type="text"
-        value={value}
+        value={text}
         variant="outlined"
       />
     </Box>
