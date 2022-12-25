@@ -126,7 +126,6 @@ function App() {
           setValues((prevValues) =>
             prevValues.map((prevIngredient) => {
               if (prevIngredient.id == id) {
-                debugger;
                 return {
                   ...prevIngredient,
                   text: "",

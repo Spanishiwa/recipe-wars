@@ -66,14 +66,14 @@ export const RecipeFormOptional = (props) => {
   const { imgName, title, description, instructions, servings, selectText } =
     inputValues(inputs);
 
-  const titleProps = {
-    handleChange: handleChange,
-    label: "Recipe title",
-    name: "title-input",
-    placeholder: "e.g. Abuela's dirty beans syrniki",
-    title: `Enter a concise, cogent, and exciting title`,
-    value: title
-  };
+  // const titleProps = {
+  //   handleChange: handleChange,
+  //   label: "Recipe title",
+  //   name: "title-input",
+  //   placeholder: "e.g. Abuela's dirty beans syrniki",
+  //   title: `Enter a concise, cogent, and exciting title`,
+  //   value: title
+  // };
 
   const recipeDescriptionProps = {
     error: false,
@@ -137,7 +137,7 @@ recipe.
           </Typography>
         </Typography>
         <FormControl sx={{ display: "flex", gap: 4 }}>
-          <RecipeTextfield {...titleProps} />
+          {/* <RecipeTextfield {...titleProps} /> */}
           <RecipeTextarea {...recipeDescriptionProps} />
           <Box
             sx={{

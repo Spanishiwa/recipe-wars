@@ -11,6 +11,7 @@ import {
 } from "@mui/icons-material";
 import { InputExamples } from "./InputExamples";
 import { RecipeTextarea } from "./RecipeTextarea";
+import { RecipeTextfield } from "./RecipeTextfield";
 
 const RecipeForm = (props) => {
   const { handlers, ingredients, inputs } = props;
@@ -44,6 +45,7 @@ const RecipeForm = (props) => {
 
   const ingredientInput = getInput("ingredient-input");
   const ingredientsTextarea = getInput("ingredients-textarea");
+  const titleInput = getInput("title-input");
 
   const inputExamples = {
     examples: [
@@ -62,6 +64,15 @@ const RecipeForm = (props) => {
       "Good input - a niche ingredient was substituted for a common ingredient",
       "Poor input - too specific to be found in Edamam's database"
     ]
+  };
+
+  const titleProps = {
+    handleChange: handleChange,
+    label: "Recipe title",
+    name: "title-input",
+    placeholder: "e.g. Abuela's dirty beans syrniki",
+    title: `Enter a concise, cogent, and exciting title`,
+    value: titleInput.text
   };
 
   const ingredientsTextareaProps = {
@@ -107,12 +118,14 @@ const RecipeForm = (props) => {
             sx={{ padding: "0px 8px 8px 0px", verticalAlign: "middle" }}
           />
           Recipe Nutrition
-          <Typography component="p" variant="body1">
-            Look up the nutritional content of your favorite dishes. Compare
-            recipes and substitute ingredients to fit your goals.
+          <Typography component="p" sx={{ mb: 2 }} variant="body1">
+            Look up the nutritional content of your favorite dishes, compare
+            recipes, and substitute ingredients to fit your goals. Enter a
+            recipe title and at least one ingredient to get started!
           </Typography>
         </Typography>
-        <Typography component="p" variant="b1">
+        <RecipeTextfield {...titleProps} />
+        <Typography component="p" sx={{ mt: 3 }} variant="b1">
           Enter your recipe ingredients below "grocery list" style - an
           ingredient and unit of measurement. Don't enter guesstimations such as
           "roughly" one "heaping" cup or descriptions like "finely minced" and
@@ -149,9 +162,9 @@ const RecipeForm = (props) => {
             display: "flex",
             gap: 4,
             margin: {
-              xs: "32px 0px 16px 0px",
-              sm: "32px 0px 16px 0px",
-              md: "32px 0px 0px 0px"
+              xs: "16px 0px 16px 0px",
+              sm: "16px 0px 16px 0px",
+              md: "16px 0px 0px 0px"
             }
           }}
         >
@@ -159,7 +172,9 @@ const RecipeForm = (props) => {
             handlers={handlersIngredientInput}
             input={ingredientInput}
           />
-          <Typography sx={{ paddingLeft: "32px", textIndent: "-32px" }}>
+          <Typography
+            sx={{ mt: "-8px", paddingLeft: "32px", textIndent: "-32px" }}
+          >
             <DynamicFeed
               sx={{ verticalAlign: "middle", padding: "8px 8px 8px 0px" }}
             />

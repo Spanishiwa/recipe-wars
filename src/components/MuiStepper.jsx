@@ -136,9 +136,16 @@ export default function TextMobileStepper(props) {
   const maxSteps = steps.length;
 
   const [open, setOpen] = React.useState(false);
-  const isValidIngredientsList = recipeStates.filter(
-    (inputState) => inputState.recipeName === "Untitled"
-  )[0];
+  const isValidIngredientsList = noRecipeNameIngredients.length > 0;
+  const isValidTitle =
+    recipeState.title !== "" && recipeState.title !== "Untitled";
+  const validationMsg = () => {
+    if (!isValidTitle) {
+      return `Title is "Untitled" or empty`;
+    } else if (!isValidIngredientsList) {
+      return "Ingredients list is empty";
+    }
+  };
 
   const handleClick = () => {
     setOpen(true);
@@ -153,7 +160,7 @@ export default function TextMobileStepper(props) {
   };
 
   const handleNext = () => {
-    if (isValidIngredientsList) {
+    if (isValidIngredientsList && isValidTitle) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
       handleClick();
@@ -219,7 +226,7 @@ export default function TextMobileStepper(props) {
       <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
         <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            Your ingredients list is empty
+            {validationMsg()}
           </Alert>
         </Snackbar>
         {stepView(activeStep)}
