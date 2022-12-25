@@ -1,25 +1,15 @@
 import { Tune } from "@mui/icons-material";
-import {
-  Box,
-  Card,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Box, FormControl, Typography } from "@mui/material";
 import React from "react";
 import ImageInput from "./ImageInput";
-import IngredientInput from "./IngredientInput";
 import { IngredientsList } from "./IngredientsList";
 import { RecipeNumberfield } from "./RecipeNumberfield";
-import { RecipeSelect } from "./RecipeSelect";
 import { RecipeTextarea } from "./RecipeTextarea";
 import { RecipeTextfield } from "./RecipeTextfield";
 
 export const RecipeFormOptional = (props) => {
+  const { handlers, ingredients, inputs } = props;
+
   const {
     handleBlur,
     handleChange,
@@ -29,52 +19,52 @@ export const RecipeFormOptional = (props) => {
     handleKeyDelete,
     handleKeySubmit,
     handleSelect,
-    handleSubmit,
-    handleToggleDisable,
-    values
-  } = props;
+    handleToggleDisable
+  } = handlers;
 
-  const inputValues = (state) => {
-    return state.reduce(
-      (accum, inputState) => {
-        switch (inputState.id) {
+  const handlersIngredientsList = {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleKeyDelete,
+    handleKeySubmit,
+    handleToggleDisable
+  };
+
+  const inputValues = (inputs) => {
+    return inputs.reduce(
+      (accum, input) => {
+        switch (input.id) {
           case "image-input":
-            accum.imageImgName = inputState.imgName;
+            accum.imgName = input.imgName;
           case "title-input":
-            accum.titleText = inputState.text;
+            accum.title = input.text;
           case "description-textarea":
-            accum.descriptionText = inputState.text;
+            accum.description = input.text;
           case "recipe-textarea":
-            accum.recipeText = inputState.text;
+            accum.instructions = input.text;
           case "servings-input":
-            accum.servingsText = inputState.text;
+            accum.servings = input.text;
           case "photos-select-input":
-            accum.selectText = inputState.text;
+            accum.selectText = input.text;
           default:
             return accum;
         }
       },
       {
-        imageImgName: "",
-        titleText: "",
-        descriptionText: "",
-        recipeText: "",
-        servingsText: 1,
+        imgName: "",
+        title: "",
+        description: "",
+        instructions: "",
+        servings: 1,
         selectText: ""
       }
     );
   };
 
-  const {
-    imageImgName,
-    titleText,
-    descriptionText,
-    recipeText,
-    servingsText,
-    selectText
-  } = inputValues(values);
-
-  const ingredientsState = values.filter((ingredient) => ingredient.parsed);
+  const { imgName, title, description, instructions, servings, selectText } =
+    inputValues(inputs);
 
   const titleProps = {
     handleChange: handleChange,
@@ -82,18 +72,7 @@ export const RecipeFormOptional = (props) => {
     name: "title-input",
     placeholder: "e.g. Abuela's dirty beans syrniki",
     title: `Enter a concise, cogent, and exciting title`,
-    value: titleText
-  };
-
-  const ingredientsTextareaProps = {
-    label: "Ingredients & quantities list",
-    name: "ingredients-textarea",
-    placeholder: `Ingredients list with one ingredient & quantity per line e.g.
-1/2 cup heavy cream
-3 tablespoons butter
-1 pound chicken breast`,
-    title: "Enter an ingredients list with one ingredient & quantity per line",
-    value: recipeText
+    value: title
   };
 
   const recipeDescriptionProps = {
@@ -105,7 +84,7 @@ export const RecipeFormOptional = (props) => {
     rows: 5,
     status: "",
     title: `Highlight interesting things about the recipe or elaborate on the recipe title`,
-    value: descriptionText
+    value: description
   };
 
   const recipeTextareaProps = {
@@ -120,7 +99,7 @@ recipe.
     rows: 19,
     status: "",
     title: `Describe in full detail the cooking and preparation process to reproduce your recipe`,
-    value: recipeText
+    value: instructions
   };
 
   const servingsProps = {
@@ -128,7 +107,7 @@ recipe.
     label: "Servings per recipe",
     name: "servings-input",
     title: `How many portion sizes the recipe serves`,
-    value: servingsText
+    value: servings
   };
 
   return (
@@ -173,7 +152,7 @@ recipe.
             <ImageInput
               handleImage={handleImage}
               handleSelect={handleSelect}
-              imgName={imageImgName}
+              imgName={imgName}
               text={selectText}
             />
           </Box>
@@ -188,14 +167,8 @@ recipe.
         }}
       >
         <IngredientsList
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          handleKeyDelete={handleKeyDelete}
-          handleKeySubmit={handleKeySubmit}
-          handleToggleDisable={handleToggleDisable}
-          ingredients={ingredientsState}
+          handlers={handlersIngredientsList}
+          ingredients={ingredients}
         />
       </Box>
     </Box>

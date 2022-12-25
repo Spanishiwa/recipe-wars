@@ -1,9 +1,4 @@
-import {
-  FlatwareRounded,
-  FoodBank,
-  FoodBankRounded,
-  Restaurant
-} from "@mui/icons-material";
+import { FlatwareRounded, Restaurant } from "@mui/icons-material";
 import { InputLabel, Switch, Typography } from "@mui/material";
 import React from "react";
 

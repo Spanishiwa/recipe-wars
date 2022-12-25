@@ -40,27 +40,103 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function TextMobileStepper(props) {
+  const { handlers, inputs, recipeStates } = props;
+
   const {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleImage,
+    handleKeyDelete,
+    handleKeySubmit,
+    handleSubmit,
+    handleSubmitRecipe,
+    handleToggleDisable,
+    handleReset,
+    handleSelect,
+    handleServingsToggle
+  } = handlers;
+
+  const handlersRecipeForm = {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleKeySubmit,
+    handleSubmit,
+    handleToggleDisable
+  };
+
+  const handlersRecipeFormOptional = {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleImage,
+    handleKeyDelete,
+    handleKeySubmit,
+    handleSelect,
+    handleToggleDisable
+  };
+
+  const handlersRecipeCard = {
     handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
     handleKeyDelete,
     handleKeySubmit,
-    handleImage,
-    handleReset,
-    handleServingsToggle,
-    handleSubmit,
     handleToggleDisable,
-    values
-  } = props;
+    handleServingsToggle
+  };
+
+  const noRecipeNameIngredients = recipeStates.filter(
+    (recipe) => recipe.recipeName === "Untitled"
+  );
+
+  const inputValues = (inputs) => {
+    return inputs.reduce(
+      (accum, input) => {
+        switch (input.id) {
+          case "image-input":
+            accum.imgSrc = input.imgSrc;
+          case "title-input":
+            accum.title = input.text;
+          case "description-textarea":
+            accum.description = input.text;
+          case "recipe-textarea":
+            accum.instructions = input.text;
+          case "servings-input":
+            accum.servings = input.text;
+          case "photos-select-input":
+            accum.selectText = input.text;
+          default:
+            return accum;
+        }
+      },
+      {
+        imgSrc: "",
+        title: "",
+        description: "",
+        instructions: "",
+        servings: 1,
+        selectText: ""
+      }
+    );
+  };
+
+  const recipeState = inputValues(inputs);
+  const isPerServing = inputs.filter(
+    (input) => input.id === "servings-toggle"
+  )[0]["isUntitledPerServing"];
 
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
 
   const [open, setOpen] = React.useState(false);
-  const isValidIngredientsList = values.filter(
+  const isValidIngredientsList = recipeStates.filter(
     (inputState) => inputState.recipeName === "Untitled"
   )[0];
 
@@ -77,11 +153,11 @@ export default function TextMobileStepper(props) {
   };
 
   const handleNext = () => {
-    if (isValidIngredientsList) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else {
-      handleClick();
-    }
+    // if (isValidIngredientsList) {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // } else {
+    // handleClick();
+    // }
   };
 
   const handleBack = () => {
@@ -102,13 +178,39 @@ export default function TextMobileStepper(props) {
   const stepView = (step) => {
     switch (step) {
       case 0:
-        return <RecipeForm {...props} />;
+        return (
+          <RecipeForm
+            handlers={handlersRecipeForm}
+            ingredients={noRecipeNameIngredients}
+            inputs={inputs}
+          />
+        );
       case 1:
-        return <RecipeFormOptional {...props} />;
+        return (
+          <RecipeFormOptional
+            handlers={handlersRecipeFormOptional}
+            ingredients={noRecipeNameIngredients}
+            inputs={inputs}
+          />
+        );
       case 2:
-        return <RecipeCard {...props} />;
+        return (
+          <RecipeCard
+            handlers={handlersRecipeCard}
+            ingredients={noRecipeNameIngredients}
+            isPerServing={isPerServing}
+            recipeState={inputValues(inputs)}
+            selectText={recipeState.selectText}
+          />
+        );
       default:
-        return <RecipeForm {...props} />;
+        return (
+          <RecipeForm
+            handlers={handlersRecipeForm}
+            ingredients={noRecipeNameIngredients}
+            inputs={inputs}
+          />
+        );
     }
   };
 
@@ -135,7 +237,7 @@ export default function TextMobileStepper(props) {
                 disableElevation
                 startIcon={<AssignmentTurnedIn />}
                 size="large"
-                sx={{ visibility: "hidden" }}
+                onClick={handleSubmitRecipe}
                 variant="contained"
               >
                 SUBMIT
