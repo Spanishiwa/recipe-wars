@@ -13,6 +13,7 @@ import RecipeForm from "./RecipeForm";
 import { RecipeFormOptional } from "./RecipeFormOptional";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { AssignmentTurnedIn, Delete } from "@mui/icons-material";
 
 const steps = [
   {
@@ -39,27 +40,104 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function TextMobileStepper(props) {
+  const { handlers, inputs, recipeStates } = props;
+
   const {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleImage,
+    handleKeyDelete,
+    handleKeySubmit,
+    handleSubmit,
+    handleSubmitRecipe,
+    handleToggleDisable,
+    handleReset,
+    handleSelect,
+    handleServingsToggle
+  } = handlers;
+
+  const handlersRecipeForm = {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleKeySubmit,
+    handleSubmit,
+    handleToggleDisable
+  };
+
+  const handlersRecipeFormOptional = {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleImage,
+    handleKeyDelete,
+    handleKeySubmit,
+    handleSelect,
+    handleToggleDisable
+  };
+
+  const handlersRecipeCard = {
     handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
     handleKeyDelete,
     handleKeySubmit,
-    handleImage,
-    handleServingsToggle,
-    handleSubmit,
     handleToggleDisable,
-    values
-  } = props;
+    handleServingsToggle
+  };
+
+  const noRecipeNameIngredients = recipeStates.filter(
+    (recipe) => recipe.recipeName === "Untitled"
+  );
+
+  const inputValues = (inputs) => {
+    return inputs.reduce(
+      (accum, input) => {
+        switch (input.id) {
+          case "image-input":
+            accum.imgSrc = input.imgSrc;
+          case "title-input":
+            accum.title = input.text;
+          case "description-textarea":
+            accum.description = input.text;
+          case "recipe-textarea":
+            accum.instructions = input.text;
+          case "servings-input":
+            accum.servings = input.text;
+          case "photos-select-input":
+            accum.selectText = input.text;
+          default:
+            return accum;
+        }
+      },
+      {
+        imgSrc: "",
+        title: "",
+        description: "",
+        instructions: "",
+        servings: 1,
+        selectText: ""
+      }
+    );
+  };
+
+  const recipeState = inputValues(inputs);
+  const isPerServing = inputs.filter(
+    (input) => input.id === "servings-toggle"
+  )[0]["isUntitledPerServing"];
 
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
 
   const [open, setOpen] = React.useState(false);
-  const isValidIngredientsList = values.filter(
-    (inputState) => inputState.recipeName === "custom"
+  const isValidIngredientsList = recipeStates.filter(
+    (inputState) => inputState.recipeName === "Untitled"
   )[0];
 
   const handleClick = () => {
@@ -100,20 +178,46 @@ export default function TextMobileStepper(props) {
   const stepView = (step) => {
     switch (step) {
       case 0:
-        return <RecipeForm {...props} />;
+        return (
+          <RecipeForm
+            handlers={handlersRecipeForm}
+            ingredients={noRecipeNameIngredients}
+            inputs={inputs}
+          />
+        );
       case 1:
-        return <RecipeFormOptional {...props} />;
+        return (
+          <RecipeFormOptional
+            handlers={handlersRecipeFormOptional}
+            ingredients={noRecipeNameIngredients}
+            inputs={inputs}
+          />
+        );
       case 2:
-        return <RecipeCard {...props} />;
+        return (
+          <RecipeCard
+            handlers={handlersRecipeCard}
+            ingredients={noRecipeNameIngredients}
+            isPerServing={isPerServing}
+            recipeState={inputValues(inputs)}
+            selectText={recipeState.selectText}
+          />
+        );
       default:
-        return <RecipeForm {...props} />;
+        return (
+          <RecipeForm
+            handlers={handlersRecipeForm}
+            ingredients={noRecipeNameIngredients}
+            inputs={inputs}
+          />
+        );
     }
   };
 
   return (
     <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 1200 } }}>
       <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
             Your ingredients list is empty
           </Alert>
@@ -124,40 +228,63 @@ export default function TextMobileStepper(props) {
         <MobileStepper
           variant="text"
           steps={maxSteps}
-          sx={{ ...actionSx }}
+          sx={{ p: 2, ...actionSx }}
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-              sx={{
-                visibility: activeStep == maxSteps - 1 ? "hidden" : "visible"
-              }}
-            >
-              Next
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
+            activeStep == maxSteps - 1 ? (
+              <Button
+                disableElevation
+                startIcon={<AssignmentTurnedIn />}
+                size="large"
+                onClick={handleSubmitRecipe}
+                variant="contained"
+              >
+                SUBMIT
+              </Button>
+            ) : (
+              <Button
+                disableElevation
+                disabled={activeStep === maxSteps - 1}
+                onClick={handleNext}
+                size="large"
+                variant="contained"
+              >
+                Next
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            )
           }
           backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-              sx={{ visibility: activeStep == 0 ? "hidden" : "visible" }}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Back
-            </Button>
+            activeStep == 0 ? (
+              <Button
+                startIcon={<Delete />}
+                onClick={handleReset}
+                size="large"
+                type="button"
+                variant="outlined"
+              >
+                RESET
+              </Button>
+            ) : (
+              <Button
+                size="large"
+                onClick={handleBack}
+                disabled={activeStep === 0}
+                variant="outlined"
+              >
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowRight />
+                ) : (
+                  <KeyboardArrowLeft />
+                )}
+                Back
+              </Button>
+            )
           }
         />
       </Box>

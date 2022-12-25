@@ -1,26 +1,10 @@
-import React, { useState } from "react";
-import { CONFIG, MOCK_RES } from "./../config";
+import React from "react";
 import IngredientInput from "./IngredientInput";
-import ImageInput from "./ImageInput";
-import IngredientsTextarea from "./IngredientsTextarea";
-import {
-  Box,
-  Button,
-  Card,
-  FormControl,
-  Icon,
-  List,
-  ListItem,
-  ListItemIcon,
-  Typography
-} from "@mui/material";
+import { Box, Button, FormControl, List, Typography } from "@mui/material";
 import { IngredientsList } from "./IngredientsList";
-import { ITALIAN_BEEF } from "../config";
 import {
   Close,
-  Delete,
   Done,
-  DoneAll,
   DynamicFeed,
   ManageSearch,
   PostAdd
@@ -29,34 +13,44 @@ import { InputExamples } from "./InputExamples";
 import { RecipeTextarea } from "./RecipeTextarea";
 
 const RecipeForm = (props) => {
+  const { handlers, ingredients, inputs } = props;
   const {
     handleBlur,
     handleChange,
     handleDelete,
     handleEdit,
     handleKeySubmit,
-    handleImage,
     handleSubmit,
-    handleToggleDisable,
-    status,
-    values
-  } = props;
+    handleToggleDisable
+  } = handlers;
 
-  const ingredients = values.filter((ingredient) => ingredient.parsed);
-  const ingredientInputVal = values.filter(
-    (ingredient) => ingredient.id == "ingredient-input"
-  )[0];
+  const handlersIngredientInput = {
+    handleBlur,
+    handleChange,
+    handleKeySubmit,
+    handleSubmit
+  };
 
-  const ingredientsTextareaState = values.filter(
-    (ingredient) => ingredient.id == "ingredients-textarea"
-  )[0];
+  const handlersIngredientsList = {
+    handleBlur,
+    handleChange,
+    handleDelete,
+    handleEdit,
+    handleKeySubmit,
+    handleToggleDisable
+  };
+
+  const getInput = (id) => inputs.filter((input) => input.id == id)[0];
+
+  const ingredientInput = getInput("ingredient-input");
+  const ingredientsTextarea = getInput("ingredients-textarea");
 
   const inputExamples = {
     examples: [
       "12 ounces flour",
       "About 1 scoop of flour",
-      "1 pound green beans",
-      "3 cups steamed carrots",
+      "3 cups carrots",
+      "3 cups peeled and chopped carrots",
       "8.5 oz red chili pepper",
       "8.5 oz Italian giardiniera"
     ],
@@ -71,7 +65,7 @@ const RecipeForm = (props) => {
   };
 
   const ingredientsTextareaProps = {
-    error: ingredientsTextareaState.error,
+    error: ingredientsTextarea.error,
     handleChange: handleChange,
     handleBlur: handleBlur,
     label: "Ingredients & quantities",
@@ -81,9 +75,9 @@ const RecipeForm = (props) => {
 3 tablespoons butter
 1 pound chicken breast`,
     rows: 10,
-    status: ingredientsTextareaState.status,
+    status: ingredientsTextarea.status,
     title: `Enter an ingredients grocery list with one ingredient & quantity per line`,
-    value: ingredientsTextareaState.text
+    value: ingredientsTextarea.text
   };
 
   return (
@@ -162,13 +156,8 @@ const RecipeForm = (props) => {
           }}
         >
           <IngredientInput
-            error={ingredientInputVal.error}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            handleKeySubmit={handleKeySubmit}
-            handleSubmit={handleSubmit}
-            status={ingredientInputVal.status}
-            value={ingredientInputVal.text}
+            handlers={handlersIngredientInput}
+            input={ingredientInput}
           />
           <Typography sx={{ paddingLeft: "32px", textIndent: "-32px" }}>
             <DynamicFeed
@@ -180,13 +169,15 @@ const RecipeForm = (props) => {
           <RecipeTextarea {...ingredientsTextareaProps} />
           <Button
             className="submit"
+            disableElevation
             name="ingredients-textarea"
             onKeyDown={handleKeySubmit}
             onClick={handleSubmit}
+            size="large"
             startIcon={<PostAdd />}
-            sx={{ maxWidth: "190px" }}
+            sx={{ mt: "-24px", maxWidth: "220px" }}
             type="submit"
-            variant="outlined"
+            variant="contained"
           >
             POST INGREDIENTS
           </Button>
@@ -200,12 +191,7 @@ const RecipeForm = (props) => {
         }}
       >
         <IngredientsList
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          handleKeySubmit={handleKeySubmit}
-          handleToggleDisable={handleToggleDisable}
+          handlers={handlersIngredientsList}
           ingredients={ingredients}
         />
       </Box>

@@ -3,15 +3,10 @@ import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
-  const {
-    error,
-    handleBlur,
-    handleChange,
-    handleKeySubmit,
-    handleSubmit,
-    status,
-    value
-  } = props;
+  const { handlers, input } = props;
+  const { error, status, text } = input;
+  const { handleBlur, handleChange, handleKeySubmit, handleSubmit } = handlers;
+
   const errorSx = error
     ? {
         "& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline": {
@@ -92,7 +87,7 @@ const IngredientInput = (props) => {
         }}
         title="Enter an ingredient & quantity here"
         type="text"
-        value={value}
+        value={text}
         variant="outlined"
       />
     </Box>

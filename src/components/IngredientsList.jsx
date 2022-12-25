@@ -11,28 +11,13 @@ import React, { Fragment } from "react";
 import IngredientInputDisabled from "./IngredientInputDisabled";
 
 export const IngredientsList = (props) => {
-  const {
-    handleBlur,
-    handleChange,
-    handleDelete,
-    handleEdit,
-    handleKeyDelete,
-    handleKeySubmit,
-    handleToggleDisable,
-    ingredients,
-    recipeName
-  } = props;
+  const { handlers, ingredients } = props;
 
   const mode = useTheme().palette.mode;
   const ingredientsBorderStyle =
     mode === "light"
       ? "thin solid rgba(0, 0, 0, 0.12)"
       : "thin solid rgba(255, 255, 255, 0.12)";
-
-  const recipe = recipeName || "custom";
-  const recipeIngredients = ingredients.filter(
-    (ingr) => ingr.recipeName === recipe
-  );
 
   return (
     <Fragment>
@@ -69,24 +54,17 @@ export const IngredientsList = (props) => {
             variant="h6"
           >
             <ReceiptLong sx={{ mr: 1, verticalAlign: "middle" }} />
-            Ingredients ({recipeIngredients.length})
+            Ingredients ({ingredients.length})
           </Typography>
         </ListSubheader>
-        {recipeIngredients.map((ingredient) => (
+        {ingredients.map((ingredient) => (
           <ListItem
             disableGutters
             key={ingredient.id}
             sx={{ padding: "16px 8px 0px 8px" }}
           >
             <IngredientInputDisabled
-              error={ingredient.error}
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-              handleKeyDelete={handleKeyDelete}
-              handleKeySubmit={handleKeySubmit}
-              handleToggleDisable={handleToggleDisable}
+              handlers={handlers}
               ingredient={ingredient}
             />
           </ListItem>

@@ -39,22 +39,13 @@ const ingredientsSx = (expand, style) => {
 
 export const RecipeCard = (props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const {
-    handleBlur,
-    handleChange,
-    handleDelete,
-    handleEdit,
-    handleKeySubmit,
-    handleToggleDisable,
-    handleServingsToggle,
-    description,
-    imgSrc,
-    recipeName,
-    servings,
-    title,
-    instructions,
-    values
-  } = props;
+
+  const { handlers, ingredients, recipeState, isPerServing, selectText } =
+    props;
+  const { handleServingsToggle } = handlers;
+
+  const { title, description, imgSrc, recipeName, instructions, servings } =
+    recipeState;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -65,29 +56,6 @@ export const RecipeCard = (props) => {
     mode === "light"
       ? "thin solid rgba(0, 0, 0, 0.12)"
       : "thin solid rgba(255, 255, 255, 0.12)";
-
-  const inputValues = (state) => {
-    return state.reduce(
-      (accum, inputState) => {
-        switch (inputState.id) {
-          case "title-input":
-            accum.titleText = inputState.text;
-          case "recipe-textarea":
-            accum.recipeText = inputState.text;
-          default:
-            return accum;
-        }
-      },
-      { titleText: "", recipeText: "" }
-    );
-  };
-
-  const recipe = recipeName || "custom";
-  const ingredients = values.filter((ingr) => ingr.recipeName === recipe);
-
-  const inputState = inputValues(values);
-  const titleText = title || inputState.titleText;
-  const recipeText = instructions || inputState.recipeText;
 
   return (
     <Box component="section" sx={{ borderRadius: { xs: 0, sm: 0, md: "4px" } }}>
@@ -106,14 +74,9 @@ export const RecipeCard = (props) => {
           }}
         >
           <IngredientsList
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            handleKeySubmit={handleKeySubmit}
-            handleToggleDisable={handleToggleDisable}
+            handlers={handlers}
             ingredients={ingredients}
-            recipeName={recipe}
+            recipeName={recipeName}
           />
           <Typography component="p" variant="b1"></Typography>
         </Box>
@@ -123,16 +86,18 @@ export const RecipeCard = (props) => {
             sx={{ padding: "0px 0px 24px 16px" }}
             variant="h5"
           >
-            {titleText}
+            {title}
           </Typography>
           <RecipeImage
             description={description}
             handleServingsToggle={handleServingsToggle}
             imgSrc={imgSrc}
-            recipeName={recipe}
+            ingredients={ingredients}
+            isPerServing={isPerServing}
+            recipeName={recipeName}
             servings={servings}
+            selectText={selectText}
             title={title}
-            values={values}
           />
           <CardActions
             disableSpacing
@@ -171,7 +136,7 @@ export const RecipeCard = (props) => {
               }}
               variant="b2"
             >
-              {recipeText}
+              {instructions}
             </Typography>
           </Collapse>
         </Box>

@@ -2,12 +2,10 @@ import { Box, Card } from "@mui/material";
 import React from "react";
 import { RecipeCard } from "./RecipeCard";
 import { VerticalStepper } from "./VerticalStepper";
-import { ITALIAN_BEEF, KEY_LIME_PIE, CHEESY_CORN } from "../config";
-import StockBeefImage from "../assets/Italian_Beef.jpeg";
-import KeyLimePieImage from "../assets/Key_Lime_Pie.png";
-import CheesyCornImage from "../assets/Cheesy_Corn.jpeg";
 
 export const Showcase = (props) => {
+  const { handlers, recipeStates } = props;
+
   const {
     handleBlur,
     handleChange,
@@ -15,49 +13,46 @@ export const Showcase = (props) => {
     handleEdit,
     handleKeySubmit,
     handleToggleDisable,
-    handleServingsToggle,
-    values
-  } = props;
+    handleServingsToggle
+  } = handlers;
+
+  const lodashGroupBy = (xs, key) => {
+    return xs.reduce(function (rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  };
+
+  const recipes = lodashGroupBy(recipeStates, "recipeName");
+  const recipeNames = Object.keys(recipes).filter(
+    (recipeName) => recipeName !== "undefined" && recipeName !== "Untitled"
+  );
+  const servingsToggle = recipeStates.filter(
+    (state) => state.id === "servings-toggle"
+  )[0];
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {/* <VerticalStepper></VerticalStepper> */}
-      <Card>
-        <RecipeCard
-          description={KEY_LIME_PIE.description}
-          imgSrc={KeyLimePieImage}
-          instructions={KEY_LIME_PIE.instructions}
-          recipeName="KeyLimePie"
-          servings={KEY_LIME_PIE.servings}
-          title={KEY_LIME_PIE.title}
-          values={values}
-          {...props}
-        />
-      </Card>
-      <Card>
-        <RecipeCard
-          description={CHEESY_CORN.description}
-          imgSrc={CheesyCornImage}
-          instructions={CHEESY_CORN.instructions}
-          recipeName="CheesyCorn"
-          servings={CHEESY_CORN.servings}
-          title={CHEESY_CORN.title}
-          values={values}
-          {...props}
-        />
-      </Card>
-      <Card>
-        <RecipeCard
-          description={ITALIAN_BEEF.description}
-          imgSrc={StockBeefImage}
-          instructions={ITALIAN_BEEF.instructions}
-          recipeName="ItalianBeef"
-          servings={ITALIAN_BEEF.servings}
-          title={ITALIAN_BEEF.title}
-          values={values}
-          {...props}
-        />
-      </Card>
+      {recipeNames.map((recipeName) => {
+        const recipeState = recipes[recipeName].filter(
+          (recipe) => recipe.title
+        )[0];
+        const ingredients = recipes[recipeName].filter(
+          (recipe) => recipe.parsed
+        );
+
+        return (
+          <Card key={recipeName}>
+            <RecipeCard
+              handlers={handlers}
+              ingredients={ingredients}
+              recipeState={recipeState}
+              isPerServing={servingsToggle[`is${recipeName}PerServing`]}
+            />
+          </Card>
+        );
+      })}
     </Box>
   );
 };

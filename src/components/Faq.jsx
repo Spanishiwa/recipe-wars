@@ -184,10 +184,11 @@ export const Faq = () => {
           aria-label="START PAGE"
           color="primary"
           component={RouterLink}
-          size="medium"
+          disableElevation
+          size="large"
           title="Start Page"
           to="/start"
-          variant="outlined"
+          variant="contained"
         >
           <LocalDining sx={{ mr: 1 }} />
           GET STARTED

@@ -6,6 +6,8 @@ import React from "react";
 import { Done } from "@mui/icons-material";
 
 const IngredientInputDisabled = (props) => {
+  const { handlers, ingredient } = props;
+
   const {
     handleBlur,
     handleChange,
@@ -14,9 +16,9 @@ const IngredientInputDisabled = (props) => {
     handleKeyDelete,
     handleKeySubmit,
     handleToggleDisable
-  } = props;
+  } = handlers;
 
-  const { error, id, isDisabled, status, text } = props.ingredient;
+  const { error, id, isDisabled, status, text } = ingredient;
 
   const standardVariantSx = isDisabled ? { disableUnderline: true } : {};
   return (
