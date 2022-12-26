@@ -165,29 +165,29 @@ export default function TextMobileStepper(props) {
   const titleRef = React.useRef(null);
 
   const handleNext = () => {
-    // let errorMessage = "";
-    // if (isValidIngredientsList && isValidTitle) {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    // return;
-    // }
+    let errorMessage = "";
+    if (isValidIngredientsList && isValidTitle) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      return;
+    }
 
-    // if (!isValidIngredientsList) {
-    //   errorMessage = `Ingredients list is empty`;
-    // }
+    if (!isValidIngredientsList) {
+      errorMessage = `Ingredients list is empty`;
+    }
 
-    // if (!isValidTitle) {
-    //   errorMessage = `Title can't be "Untitled" or empty`;
+    if (!isValidTitle) {
+      errorMessage = `Title can't be "Untitled" or empty`;
 
-    //   setInputError("title-input", errorMessage);
-    //   titleRef.current.focus();
-    // }
+      setInputError("title-input", errorMessage);
+      titleRef.current.focus();
+    }
 
-    // setSnackbarState((prevState) => ({
-    //   ...prevState,
-    //   message: errorMessage,
-    //   open: true,
-    //   severity: "error"
-    // }));
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      message: errorMessage,
+      open: true,
+      severity: "error"
+    }));
   };
 
   const handleBack = () => {
