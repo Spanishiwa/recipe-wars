@@ -70,10 +70,11 @@ const RecipeForm = (props) => {
     error: titleInput.error,
     handleChange: handleChange,
     handleBlur: handleBlur,
+    inputRef: titleRef,
     label: "Recipe title",
     name: "title-input",
     placeholder: "e.g. Abuela's dirty beans syrniki",
-    inputRef: titleRef,
+    required: true,
     status: titleInput.status,
     title: `Enter a concise, cogent, and exciting title`,
     value: titleInput.text
@@ -106,9 +107,6 @@ const RecipeForm = (props) => {
       }}
     >
       <Box
-        component="form"
-        id="recipe-form"
-        onSubmit={(e) => e.preventDefault()}
         sx={{
           display: "flex",
           flex: { xs: "1 1 auto", sm: "1 1 auto", md: "65%" },

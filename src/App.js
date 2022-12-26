@@ -223,6 +223,16 @@ function App() {
     ]);
   };
 
+  const handleDeleteRecipe = (e) => {
+    const recipeName =
+      e.target.getAttribute("data-recipe-name") ||
+      e.currentTarget.getAttribute("data-recipe-name");
+
+    setValues((prevValues) =>
+      prevValues.filter((prevValue) => prevValue.recipeName !== recipeName)
+    );
+  };
+
   const handleEdit = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -499,6 +509,7 @@ function App() {
     handleBlur: handleBlur,
     handleChange: handleChange,
     handleDelete: handleDelete,
+    handleDeleteRecipe: handleDeleteRecipe,
     handleEdit: handleEdit,
     handleKeyDelete: handleKeyDelete,
     handleKeySubmit: handleKeySubmit,

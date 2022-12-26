@@ -10,6 +10,7 @@ export const Showcase = (props) => {
     handleBlur,
     handleChange,
     handleDelete,
+    handleDeleteRecipe,
     handleEdit,
     handleKeySubmit,
     handleToggleDisable,
@@ -32,7 +33,7 @@ export const Showcase = (props) => {
   )[0];
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
       {/* <VerticalStepper></VerticalStepper> */}
       {recipeNames.map((recipeName) => {
         const recipeState = recipes[recipeName].filter(

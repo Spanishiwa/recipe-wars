@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   CardActions,
@@ -13,6 +13,7 @@ import { RecipeImage } from "./RecipeImage";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import { IngredientsList } from "./IngredientsList";
+import { RecipeMenu } from "./RecipeMenu";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,11 +39,11 @@ const ingredientsSx = (expand, style) => {
 };
 
 export const RecipeCard = (props) => {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const { handlers, ingredients, recipeState, isPerServing, selectText } =
     props;
-  const { handleServingsToggle } = handlers;
+  const { handleDeleteRecipe, handleServingsToggle } = handlers;
 
   const { title, description, imgSrc, recipeName, instructions, servings } =
     recipeState;
@@ -86,6 +87,10 @@ export const RecipeCard = (props) => {
             sx={{ padding: "0px 0px 24px 16px" }}
             variant="h5"
           >
+            <RecipeMenu
+              handleDeleteRecipe={handleDeleteRecipe}
+              recipeName={recipeName}
+            />
             {title}
           </Typography>
           <RecipeImage

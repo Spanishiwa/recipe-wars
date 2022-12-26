@@ -11,7 +11,7 @@ export const ServingsSwitch = (props) => {
     if (key == 13 || key == 37 || key == 39) {
       e.preventDefault();
       e.stopPropagation();
-      handleServingsToggle();
+      handleServingsToggle(e);
     }
   };
 

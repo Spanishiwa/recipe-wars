@@ -6,14 +6,17 @@ export const RecipeTextfield = (props) => {
     error,
     handleBlur,
     handleChange,
+    inputRef,
     label,
     name,
     placeholder,
-    inputRef,
+    required,
     status,
     title,
     value
   } = props;
+
+  const asteriskSx = {};
   return (
     <TextField
       error={error}
@@ -25,12 +28,20 @@ export const RecipeTextfield = (props) => {
       }}
       name={name}
       InputLabelProps={{
+        required: true,
         shrink: true
       }}
       onBlur={handleBlur}
       onChange={handleChange}
       placeholder={placeholder}
-      sx={{ flex: 1 }}
+      sx={{
+        flex: 1,
+        "& .MuiInputLabel-root.Mui-required": {
+          display: "flex",
+          flexDirection: "row-reverse",
+          marginLeft: "-5px"
+        }
+      }}
       title={title}
       type="text"
       variant="outlined"
