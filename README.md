@@ -4,17 +4,16 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 ## FEATURES
 
-Responsive single-page application with React-Router-Dom useNavigate() Hook \
-Toggle color themes (Dark mode) \
-Recipe forms and icon buttons support tab and enter keyboard controls \
-Input fields error handling and snackbar dialogue \
+Responsive single-page application with React-Router-Dom useNavigate and useLocation Hooks \
+Dark Mode. Toggle light and dark color themes \
+Accessible forms, inputs, and icon buttons handle keyboard controls and are correctly tab indexed \
+Error handling focuses input fields that fail to validate and provide descriptive snackbar dialogues \
 Edit ingredient list items in place \
-Display nutritional content per serving or by total \
+Display nutritional content per serving or by total
 
 ## TODO:
 
 Complete call to action for /start page \
-Error and status for recipe title \
 Snackbar dialogue for submit recipe, reset recipe buttons \
 Persisting state \
 \

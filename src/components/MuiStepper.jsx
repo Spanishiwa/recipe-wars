@@ -136,17 +136,25 @@ export default function TextMobileStepper(props) {
   const maxSteps = steps.length;
 
   const [open, setOpen] = React.useState(false);
+  const [alert, setAlert] = React.useState({
+    severity: "error",
+    message: `Title is "Untitled" or empty`
+  });
 
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
   const isValidTitle =
     recipeState.title !== "" && recipeState.title !== "Untitled";
 
-  const validationMsg = () => {
-    if (!isValidTitle) {
-      return `Title is "Untitled" or empty`;
-    } else if (!isValidIngredientsList) {
-      return "Ingredients list is empty";
-    }
+  const handleResetClick = (e) => {
+    setAlert((prevAlert) => ({
+      ...prevAlert,
+      severity: "success",
+      message: "Resetting recipe"
+    }));
+
+    handleClose();
+    handleClick();
+    handleReset();
   };
 
   const handleClick = () => {
@@ -164,16 +172,30 @@ export default function TextMobileStepper(props) {
   const titleRef = React.useRef(null);
 
   const handleNext = () => {
+    let errorMessage = "";
     if (isValidIngredientsList && isValidTitle) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       return;
     }
 
+    if (!isValidIngredientsList) {
+      errorMessage = `Ingredients list is empty`;
+    }
+
     if (!isValidTitle) {
-      setInputError("title-input", `Title can't be "Untitled" or empty`);
+      errorMessage = `Title can't be "Untitled" or empty`;
+
+      setInputError("title-input", errorMessage);
       titleRef.current.focus();
     }
 
+    setAlert((prevAlert) => ({
+      ...prevAlert,
+      severity: "error",
+      message: errorMessage
+    }));
+
+    handleClose();
     handleClick();
   };
 
@@ -237,8 +259,12 @@ export default function TextMobileStepper(props) {
     <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 1200 } }}>
       <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
         <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            {validationMsg()}
+          <Alert
+            onClose={handleClose}
+            severity={alert.severity}
+            sx={{ width: "100%" }}
+          >
+            {alert.message}
           </Alert>
         </Snackbar>
         {stepView(activeStep)}
@@ -282,7 +308,8 @@ export default function TextMobileStepper(props) {
             activeStep == 0 ? (
               <Button
                 startIcon={<Delete />}
-                onClick={handleReset}
+                name="reset-recipe"
+                onClick={handleResetClick}
                 size="large"
                 type="button"
                 variant="outlined"

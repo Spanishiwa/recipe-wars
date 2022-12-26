@@ -106,7 +106,7 @@ function App() {
           // editing/updating input
           setValues((prevInputs) =>
             prevInputs.map((prevInput) => {
-              if (prevInput.id == id) {
+              if (prevInput.id === id) {
                 return {
                   ...flatIngredientsPayload[0],
                   recipeName: prevInput.recipeName
@@ -125,7 +125,7 @@ function App() {
 
           setValues((prevValues) =>
             prevValues.map((prevIngredient) => {
-              if (prevIngredient.id == id) {
+              if (prevIngredient.id === id) {
                 return {
                   ...prevIngredient,
                   text: "",
@@ -149,9 +149,11 @@ function App() {
                 return { ...prevInput, isRequesting: false };
               }
 
-              if (prevInput.id != name) {
+              if (prevInput.id !== name) {
                 return prevInput;
               }
+
+              return prevInput;
             }),
             ...flatIngredientsPayload
           ]);
@@ -160,7 +162,7 @@ function App() {
       .catch((err) => {
         setValues((prevInputs) =>
           prevInputs.map((prevInput) => {
-            if (prevInput.id == id) {
+            if (prevInput.id === id) {
               return {
                 ...prevInput,
                 error: true,
@@ -185,7 +187,7 @@ function App() {
 
     setValues((prevValues) =>
       prevValues.map((prevIngredient) =>
-        prevIngredient.id == name
+        prevIngredient.id === name
           ? {
               ...prevIngredient,
               error: false,
@@ -201,7 +203,7 @@ function App() {
     const inputName = e.target.name;
 
     const ingredient = values.filter(
-      (ingredient) => ingredient.id == inputName
+      (ingredient) => ingredient.id === inputName
     )[0];
 
     setValues((prevValues) =>
@@ -218,9 +220,9 @@ function App() {
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
-    setValues((prevValues) => [
-      ...prevValues.filter((prevIngredient) => prevIngredient.id != name)
-    ]);
+    setValues((prevValues) =>
+      prevValues.filter((prevValue) => prevValue.id !== name)
+    );
   };
 
   const handleDeleteRecipe = (e) => {
@@ -240,7 +242,7 @@ function App() {
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
-    const ingredient = values.filter((ingredient) => ingredient.id == name);
+    const ingredient = values.filter((ingredient) => ingredient.id === name);
     if (ingredient) fetchAPI(ingredient[0].text, name, name);
   };
 
@@ -279,13 +281,13 @@ function App() {
     const imgFile = e.target.files[0];
     if (!imgFile) return;
     // clean up previous Blob
-    const imgInput = values.filter((input) => input.id == "image-input")[0];
+    const imgInput = values.filter((input) => input.id === "image-input")[0];
 
     if (imgInput?.imgSrc) URL.revokeObjectURL(imgInput.imgSrc);
 
     setValues((prevValues) =>
       prevValues.map((prevIngredient) =>
-        prevIngredient.id == name
+        prevIngredient.id === name
           ? {
               ...prevIngredient,
               imgSrc: URL.createObjectURL(imgFile),
@@ -328,7 +330,6 @@ function App() {
   };
 
   const handleSelect = (e) => {
-    const name = e.target.name || e.currentTarget.name;
     const value = e.target.value || e.currentTarget.value || " ";
     setValues((prevStates) =>
       prevStates.map((prevState) =>
@@ -346,7 +347,7 @@ function App() {
 
     setValues((prevValues) =>
       prevValues.map((inputState) =>
-        inputState.id == "servings-toggle"
+        inputState.id === "servings-toggle"
           ? {
               ...inputState,
               [`is${recipeName}PerServing`]:
@@ -362,7 +363,7 @@ function App() {
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
     // code works - ration API calls for testing
-    const ingredient = values.filter((ingredient) => ingredient.id == name);
+    const ingredient = values.filter((ingredient) => ingredient.id === name);
 
     if (ingredient) fetchAPI(ingredient[0].text, null, name);
   };
@@ -462,7 +463,7 @@ function App() {
 
     setValues((prevStates) =>
       prevStates.map((prevState) =>
-        prevState.id == name ? { ...prevState, isDisabled: false } : prevState
+        prevState.id === name ? { ...prevState, isDisabled: false } : prevState
       )
     );
   };
