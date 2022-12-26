@@ -84,7 +84,7 @@ export const RecipeCard = (props) => {
         <Box sx={{ flex: "65%" }}>
           <Typography
             component="h5"
-            sx={{ padding: "0px 0px 24px 16px" }}
+            sx={{ padding: "0px 0px 16px 16px" }}
             variant="h5"
           >
             <RecipeMenu
