@@ -11,9 +11,8 @@ import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
 import RecipeForm from "./RecipeForm";
 import { RecipeFormOptional } from "./RecipeFormOptional";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import { AssignmentTurnedIn, Delete } from "@mui/icons-material";
+import { MuiSnackbar } from "./MuiSnackbar";
 
 const steps = [
   {
@@ -34,10 +33,6 @@ const steps = [
     and substitute any ingredients and construct the perfect recipe.`
   }
 ];
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function TextMobileStepper(props) {
   const { handlers, inputs, recipeStates, setInputError } = props;
@@ -135,10 +130,10 @@ export default function TextMobileStepper(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
 
-  const [open, setOpen] = React.useState(false);
-  const [alert, setAlert] = React.useState({
-    severity: "error",
-    message: `Title is "Untitled" or empty`
+  const [snackbarState, setSnackbarState] = React.useState({
+    message: `Title is "Untitled" or empty`,
+    open: false,
+    severity: "error"
   });
 
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
@@ -146,27 +141,25 @@ export default function TextMobileStepper(props) {
     recipeState.title !== "" && recipeState.title !== "Untitled";
 
   const handleResetClick = (e) => {
-    setAlert((prevAlert) => ({
-      ...prevAlert,
-      severity: "success",
-      message: "Resetting recipe"
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      message: "Resetting recipe",
+      open: true,
+      severity: "success"
     }));
 
-    handleClose();
-    handleClick();
     handleReset();
   };
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
+  const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setOpen(false);
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      open: false
+    }));
   };
 
   const titleRef = React.useRef(null);
@@ -189,14 +182,12 @@ export default function TextMobileStepper(props) {
       titleRef.current.focus();
     }
 
-    setAlert((prevAlert) => ({
-      ...prevAlert,
-      severity: "error",
-      message: errorMessage
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      message: errorMessage,
+      open: true,
+      severity: "error"
     }));
-
-    handleClose();
-    handleClick();
   };
 
   const handleBack = () => {
@@ -258,15 +249,12 @@ export default function TextMobileStepper(props) {
   return (
     <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 1200 } }}>
       <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity={alert.severity}
-            sx={{ width: "100%" }}
-          >
-            {alert.message}
-          </Alert>
-        </Snackbar>
+        <MuiSnackbar
+          handleClose={handleSnackbarClose}
+          message={snackbarState.message}
+          open={snackbarState.open}
+          severity={snackbarState.severity}
+        />
         {stepView(activeStep)}
       </Box>
       <Box mt={2}>
