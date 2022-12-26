@@ -21,7 +21,8 @@ import {
   INIT_PHOTOS_SELECT_INPUT,
   INIT_KEY_LIME_PIE,
   INIT_CHEESY_CORN,
-  INIT_ITALIAN_BEEF
+  INIT_ITALIAN_BEEF,
+  submitRecipeSnackbar
 } from "./Util";
 
 function App() {
@@ -453,7 +454,7 @@ function App() {
       ];
     });
 
-    navigate("/recipe-wars");
+    navigate("/recipe-wars", { state: submitRecipeSnackbar });
   };
 
   const handleToggleDisable = (e) => {

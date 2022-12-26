@@ -4,7 +4,7 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 ## FEATURES
 
-Responsive single-page application with React-Router-Dom useNavigate and useLocation Hooks \
+Responsive single-page application with React-Router-Dom useNavigate & useLocation Hooks \
 Dark Mode. Toggle light and dark color themes \
 Accessible forms, inputs, and icon buttons handle keyboard controls and are correctly tab indexed \
 Error handling focuses input fields that fail to validate and provide descriptive snackbar dialogues \
@@ -13,9 +13,8 @@ Display nutritional content per serving or by total
 
 ## TODO
 
-Focus ingredient input and ingredients textarea after submission
+Focus ingredient input and ingredients textarea after submission \
 Complete call to action for /start page \
-Snackbar dialogue for submit recipe, delete recipe buttons \
 Persisting state \
 \
 Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Routes from React-Router-Dom and textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons, logos, and additional icons sourced from [freeiconspng](https://www.freeiconspng.com/) and [visualpharm](https://www.visualpharm.com/free-icons/). \

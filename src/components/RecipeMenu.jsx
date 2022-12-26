@@ -5,7 +5,9 @@ import React, { Fragment, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export const RecipeMenu = (props) => {
-  const { handleDeleteRecipe, location, recipeName } = props;
+  const { pathname } = useLocation();
+  const { handleDeleteRecipe, recipeName, showAlert } = props;
+
   // MUI Positioned menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -18,10 +20,9 @@ export const RecipeMenu = (props) => {
 
   const handleDeleteRecipeFromMenu = (e) => {
     handleDeleteRecipe(e);
+    showAlert("Deleting Recipe", "success");
     handleClose();
   };
-
-  const { pathname } = useLocation();
 
   return (
     <Fragment>

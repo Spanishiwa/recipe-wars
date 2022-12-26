@@ -41,8 +41,14 @@ const ingredientsSx = (expand, style) => {
 export const RecipeCard = (props) => {
   const [expanded, setExpanded] = useState(false);
 
-  const { handlers, ingredients, recipeState, isPerServing, selectText } =
-    props;
+  const {
+    handlers,
+    ingredients,
+    recipeState,
+    isPerServing,
+    selectText,
+    showAlert
+  } = props;
   const { handleDeleteRecipe, handleServingsToggle } = handlers;
 
   const { title, description, imgSrc, recipeName, instructions, servings } =
@@ -90,6 +96,7 @@ export const RecipeCard = (props) => {
             <RecipeMenu
               handleDeleteRecipe={handleDeleteRecipe}
               recipeName={recipeName}
+              showAlert={showAlert}
             />
             {title}
           </Typography>

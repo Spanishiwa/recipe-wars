@@ -370,6 +370,12 @@ const INIT_ITALIAN_BEEF = [
   }
 ];
 
+const submitRecipeSnackbar = {
+  message: `Submitting Recipe`,
+  open: true,
+  severity: "success"
+};
+
 export {
   INIT_INGREDIENT_INPUT,
   INIT_INGREDIENTS_TEXTAREA,
@@ -382,5 +388,6 @@ export {
   INIT_PHOTOS_SELECT_INPUT,
   INIT_KEY_LIME_PIE,
   INIT_CHEESY_CORN,
-  INIT_ITALIAN_BEEF
+  INIT_ITALIAN_BEEF,
+  submitRecipeSnackbar
 };

@@ -1,9 +1,18 @@
 import { Box, Card } from "@mui/material";
-import React from "react";
+import React, { Fragment } from "react";
 import { RecipeCard } from "./RecipeCard";
 import { VerticalStepper } from "./VerticalStepper";
+import { MuiSnackbar } from "./MuiSnackbar";
+import { useLocation } from "react-router-dom";
+
+const INIT_SNACKBAR = {
+  message: 'Title is "Untitled" or empty',
+  open: false,
+  severity: "error"
+};
 
 export const Showcase = (props) => {
+  const { state } = useLocation();
   const { handlers, recipeStates } = props;
 
   const {
@@ -16,6 +25,30 @@ export const Showcase = (props) => {
     handleToggleDisable,
     handleServingsToggle
   } = handlers;
+
+  const [snackbarState, setSnackbarState] = React.useState(
+    state ? state : INIT_SNACKBAR
+  );
+
+  const showAlert = (message, severity) => {
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      message: message,
+      open: true,
+      severity: severity
+    }));
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      open: false
+    }));
+  };
 
   const lodashGroupBy = (xs, key) => {
     return xs.reduce(function (rv, x) {
@@ -33,28 +66,37 @@ export const Showcase = (props) => {
   )[0];
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      {/* <VerticalStepper></VerticalStepper> */}
-      {recipeNames.map((recipeName) => {
-        const recipeState = recipes[recipeName].filter(
-          (recipe) => recipe.title
-        )[0];
-        const ingredients = recipes[recipeName].filter(
-          (recipe) => recipe.parsed
-        );
+    <Fragment>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        {/* <VerticalStepper></VerticalStepper> */}
+        {recipeNames.map((recipeName) => {
+          const recipeState = recipes[recipeName].filter(
+            (recipe) => recipe.title
+          )[0];
+          const ingredients = recipes[recipeName].filter(
+            (recipe) => recipe.parsed
+          );
 
-        return (
-          <Card key={recipeName}>
-            <RecipeCard
-              handlers={handlers}
-              ingredients={ingredients}
-              isPerServing={servingsToggle[`is${recipeName}PerServing`]}
-              recipeState={recipeState}
-              selectText={recipeState.selectText}
-            />
-          </Card>
-        );
-      })}
-    </Box>
+          return (
+            <Card key={recipeName}>
+              <RecipeCard
+                handlers={handlers}
+                ingredients={ingredients}
+                isPerServing={servingsToggle[`is${recipeName}PerServing`]}
+                recipeState={recipeState}
+                selectText={recipeState.selectText}
+                showAlert={showAlert}
+              />
+            </Card>
+          );
+        })}
+      </Box>
+      <MuiSnackbar
+        handleClose={handleSnackbarClose}
+        message={snackbarState.message}
+        open={snackbarState.open}
+        severity={snackbarState.severity}
+      />
+    </Fragment>
   );
 };
