@@ -361,6 +361,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
     // code works - ration API calls for testing

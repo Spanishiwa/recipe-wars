@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import IngredientInput from "./IngredientInput";
 import { Box, Button, FormControl, List, Typography } from "@mui/material";
 import { IngredientsList } from "./IngredientsList";
@@ -46,6 +46,17 @@ const RecipeForm = (props) => {
   const ingredientInput = getInput("ingredient-input");
   const ingredientsTextarea = getInput("ingredients-textarea");
   const titleInput = getInput("title-input");
+  const ingredientsTextareaRef = useRef(null);
+
+  const handleKeySubmitThenFocus = (e) => {
+    handleKeySubmit(e);
+    ingredientsTextareaRef.current.focus();
+  };
+
+  const handleSubmitThenFocus = (e) => {
+    handleSubmit(e);
+    ingredientsTextareaRef.current.focus();
+  };
 
   const inputExamples = {
     examples: [
@@ -90,6 +101,7 @@ const RecipeForm = (props) => {
 1/2 cup heavy cream
 3 tablespoons butter
 1 pound chicken breast`,
+    inputRef: ingredientsTextareaRef,
     rows: 10,
     status: ingredientsTextarea.status,
     title: `Enter an ingredients grocery list with one ingredient & quantity per line`,
@@ -188,8 +200,8 @@ const RecipeForm = (props) => {
             className="submit"
             disableElevation
             name="ingredients-textarea"
-            onKeyDown={handleKeySubmit}
-            onClick={handleSubmit}
+            onKeyDown={handleKeySubmitThenFocus}
+            onClick={handleSubmitThenFocus}
             size="large"
             startIcon={<PostAdd />}
             sx={{ mt: "-24px", maxWidth: "220px" }}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
@@ -6,6 +6,12 @@ const IngredientInput = (props) => {
   const { handlers, input } = props;
   const { error, status, text } = input;
   const { handleBlur, handleChange, handleKeySubmit, handleSubmit } = handlers;
+
+  const inputRef = useRef(null);
+  const handleSubmitThenFocus = (e) => {
+    handleSubmit(e);
+    inputRef.current.focus();
+  };
 
   const errorSx = error
     ? {
@@ -58,7 +64,7 @@ const IngredientInput = (props) => {
                 className="submit"
                 edge="end"
                 name="ingredient-input"
-                onClick={handleSubmit}
+                onClick={handleSubmitThenFocus}
                 onKeyDown={handleKeySubmit}
                 sx={{
                   "&:hover, &.Mui-focusVisible, &.Mui-active": {
@@ -77,6 +83,7 @@ const IngredientInput = (props) => {
         onChange={handleChange}
         onKeyDown={handleKeySubmit}
         placeholder="e.g. 1/2 cup broccoli"
+        ref={inputRef}
         sx={{
           flex: 1,
           "& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root": {

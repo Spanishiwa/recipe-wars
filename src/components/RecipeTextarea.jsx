@@ -10,6 +10,7 @@ export const RecipeTextarea = (props) => {
     label,
     name,
     placeholder,
+    inputRef,
     rows,
     status,
     title,
@@ -57,6 +58,9 @@ export const RecipeTextarea = (props) => {
         InputLabelProps={{ shrink: true }}
         label={label}
         id={name}
+        inputProps={{
+          ref: inputRef
+        }}
         multiline
         name={name}
         onBlur={handleBlur}
