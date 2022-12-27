@@ -6,7 +6,7 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 Responsive single-page application with React-Router-Dom useNavigate & useLocation Hooks \
 Focuses input fields that fail to validate with useRef Hooks while providing descriptive snackbar dialogues \
-Implements Dark Mode from MUI docs using useMemo Hook. Toggle light and dark color themes \
+Implements MUI Dark Mode using useMemo and useContext Hook. Toggle light and dark color themes \
 Accessible forms, inputs, and icon buttons handle keyboard controls and are correctly tab indexed \
 Edit ingredient list items in place \
 Display nutritional content per serving or by total

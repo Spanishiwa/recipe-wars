@@ -8,9 +8,25 @@ const IngredientInput = (props) => {
   const { handleBlur, handleChange, handleKeySubmit, handleSubmit } = handlers;
 
   const inputRef = useRef(null);
+
   const handleSubmitThenFocus = (e) => {
     handleSubmit(e);
     inputRef.current.focus();
+  };
+
+  const handleKeySubmitThenFocus = (e) => {
+    const key = e.which || e.keyCode || 0;
+    const isSubmit =
+      e.target.classList.contains("submit") ||
+      e.currentTarget.classList.contains("submit");
+
+    if (key === 13 && isSubmit) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      handleKeySubmit(e);
+      inputRef.current.focus();
+    }
   };
 
   const errorSx = error
@@ -56,6 +72,9 @@ const IngredientInput = (props) => {
         InputLabelProps={{
           shrink: true
         }}
+        inputProps={{
+          ref: inputRef
+        }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end" name="ingredient-input">
@@ -65,7 +84,7 @@ const IngredientInput = (props) => {
                 edge="end"
                 name="ingredient-input"
                 onClick={handleSubmitThenFocus}
-                onKeyDown={handleKeySubmit}
+                onKeyDown={handleKeySubmitThenFocus}
                 sx={{
                   "&:hover, &.Mui-focusVisible, &.Mui-active": {
                     color: "primary.main"
@@ -81,9 +100,8 @@ const IngredientInput = (props) => {
         name="ingredient-input"
         onBlur={handleBlur}
         onChange={handleChange}
-        onKeyDown={handleKeySubmit}
+        onKeyDown={handleKeySubmitThenFocus}
         placeholder="e.g. 1/2 cup broccoli"
-        ref={inputRef}
         sx={{
           flex: 1,
           "& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root": {
