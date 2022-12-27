@@ -14,7 +14,7 @@ import { RecipeTextarea } from "./RecipeTextarea";
 import { RecipeTextfield } from "./RecipeTextfield";
 
 const RecipeForm = (props) => {
-  const { handlers, ingredients, inputs, titleRef } = props;
+  const { handlers, ingredients, inputs, showAlert, titleRef } = props;
   const {
     handleBlur,
     handleChange,
@@ -50,11 +50,13 @@ const RecipeForm = (props) => {
 
   const handleKeySubmitThenFocus = (e) => {
     handleKeySubmit(e);
+    showAlert("Fetching ingredients", "info");
     ingredientsTextareaRef.current.focus();
   };
 
   const handleSubmitThenFocus = (e) => {
     handleSubmit(e);
+    showAlert("Fetching ingredients", "info");
     ingredientsTextareaRef.current.focus();
   };
 
@@ -185,6 +187,7 @@ const RecipeForm = (props) => {
           <IngredientInput
             handlers={handlersIngredientInput}
             input={ingredientInput}
+            showAlert={showAlert}
           />
           <Typography
             sx={{ mt: "-16px", paddingLeft: "32px", textIndent: "-32px" }}

@@ -3,7 +3,7 @@ import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { PostAdd } from "@mui/icons-material";
 
 const IngredientInput = (props) => {
-  const { handlers, input } = props;
+  const { handlers, input, showAlert } = props;
   const { error, status, text } = input;
   const { handleBlur, handleChange, handleKeySubmit, handleSubmit } = handlers;
 
@@ -11,6 +11,7 @@ const IngredientInput = (props) => {
 
   const handleSubmitThenFocus = (e) => {
     handleSubmit(e);
+    showAlert("Fetching ingredient", "info");
     inputRef.current.focus();
   };
 
@@ -25,6 +26,7 @@ const IngredientInput = (props) => {
       e.preventDefault();
 
       handleKeySubmit(e);
+      showAlert("Fetching ingredient", "info");
       inputRef.current.focus();
     }
   };
@@ -68,7 +70,6 @@ const IngredientInput = (props) => {
         error={error}
         helperText={status}
         id="ingredient-input"
-        name="ingredient-input"
         InputLabelProps={{
           shrink: true
         }}

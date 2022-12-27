@@ -38,7 +38,7 @@ export const RecipeMenu = (props) => {
         sx={{
           mr: 2,
           verticalAlign: "middle",
-          visibility: pathname === "/recipe-wars" ? "visible" : "hidden"
+          visibility: pathname === "/start" ? "hidden" : "visible"
         }}
       >
         <MoreVert />

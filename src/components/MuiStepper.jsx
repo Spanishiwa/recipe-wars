@@ -136,6 +136,15 @@ export default function TextMobileStepper(props) {
     severity: "error"
   });
 
+  const showAlert = (message, severity) => {
+    setSnackbarState((prevState) => ({
+      ...prevState,
+      message: message,
+      open: true,
+      severity: severity
+    }));
+  };
+
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
   const isValidTitle =
     recipeState.title !== "" && recipeState.title !== "Untitled";
@@ -213,6 +222,7 @@ export default function TextMobileStepper(props) {
             handlers={handlersRecipeForm}
             ingredients={noRecipeNameIngredients}
             inputs={inputs}
+            showAlert={showAlert}
             titleRef={titleRef}
           />
         );
