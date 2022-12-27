@@ -370,6 +370,22 @@ const INIT_ITALIAN_BEEF = [
   }
 ];
 
+const INIT_RECIPE_WARS = [
+  INIT_INGREDIENT_INPUT,
+  INIT_INGREDIENTS_TEXTAREA,
+  INIT_IMAGE_INPUT,
+  INIT_TITLE_INPUT,
+  INIT_DESCRIPTION_TEXTAREA,
+  INIT_RECIPE_TEXTAREA,
+  INIT_SERVINGS_INPUT,
+  INIT_SERVINGS_TOGGLE,
+  INIT_PHOTOS_SELECT_INPUT,
+  { id: "isRequesting", isRequesting: false },
+  ...INIT_KEY_LIME_PIE,
+  ...INIT_CHEESY_CORN,
+  ...INIT_ITALIAN_BEEF
+];
+
 const submitRecipeSnackbar = {
   message: `Submitting Recipe`,
   open: true,
@@ -389,5 +405,6 @@ export {
   INIT_KEY_LIME_PIE,
   INIT_CHEESY_CORN,
   INIT_ITALIAN_BEEF,
+  INIT_RECIPE_WARS,
   submitRecipeSnackbar
 };

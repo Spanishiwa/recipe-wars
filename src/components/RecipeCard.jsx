@@ -25,6 +25,7 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest
   })
 }));
+
 const ingredientsSx = (expand, style) => {
   return expand
     ? {

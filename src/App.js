@@ -22,26 +22,15 @@ import {
   INIT_KEY_LIME_PIE,
   INIT_CHEESY_CORN,
   INIT_ITALIAN_BEEF,
+  INIT_RECIPE_WARS,
   submitRecipeSnackbar
 } from "./Util";
 
 function App() {
   const navigate = useNavigate();
-  const [values, setValues] = useState([
-    INIT_INGREDIENT_INPUT,
-    INIT_INGREDIENTS_TEXTAREA,
-    INIT_IMAGE_INPUT,
-    INIT_TITLE_INPUT,
-    INIT_DESCRIPTION_TEXTAREA,
-    INIT_RECIPE_TEXTAREA,
-    INIT_SERVINGS_INPUT,
-    INIT_SERVINGS_TOGGLE,
-    INIT_PHOTOS_SELECT_INPUT,
-    { id: "isRequesting", isRequesting: false },
-    ...INIT_KEY_LIME_PIE,
-    ...INIT_CHEESY_CORN,
-    ...INIT_ITALIAN_BEEF
-  ]);
+  const [values, setValues] = useState(
+    JSON.parse(localStorage.getItem("values")) || INIT_RECIPE_WARS
+  );
 
   const flattenPayload = (data, name) => {
     return data.ingredients.map((ingredient) => {
@@ -262,6 +251,7 @@ function App() {
     const isDelete =
       e.target.classList.contains("delete") ||
       e.currentTarget.classList.contains("delete");
+
     const isSubmit =
       e.target.classList.contains("submit") ||
       e.currentTarget.classList.contains("submit");
@@ -269,16 +259,19 @@ function App() {
     if (key === 13 && isDelete) {
       e.stopPropagation();
       e.preventDefault();
+
       handleDelete(e);
     } else if (key === 13 && isSubmit) {
       e.stopPropagation();
       e.preventDefault();
+
       handleSubmit(e);
     }
   };
 
   const handleImage = (e) => {
     const name = e.target.name || e.currentTarget.name;
+
     const imgFile = e.target.files[0];
     if (!imgFile) return;
     // clean up previous Blob
@@ -328,6 +321,10 @@ function App() {
           }
         })
     );
+  };
+
+  const handleResetAll = (e) => {
+    setValues(() => INIT_RECIPE_WARS);
   };
 
   const handleSelect = (e) => {
@@ -508,6 +505,21 @@ function App() {
     };
   }, [mode, bgColor, bgPattern]);
 
+  // useEffect(() => {
+  //   // load localstorage as state
+  //   const state = JSON.parse(localStorage.getItem("values"));
+  //   if (state) {
+  //     setValues(state);
+  //   } else {
+  //     setValues(INIT_RECIPE_WARS);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    // save state to localstorage
+    localStorage.setItem("values", JSON.stringify(values));
+  }, [values]);
+
   const handlers = {
     handleBlur: handleBlur,
     handleChange: handleChange,
@@ -518,6 +530,7 @@ function App() {
     handleKeySubmit: handleKeySubmit,
     handleImage: handleImage,
     handleReset: handleReset,
+    handleResetAll: handleResetAll,
     handleServingsToggle: handleServingsToggle,
     handleSelect: handleSelect,
     handleSubmit: handleSubmit,
@@ -545,7 +558,10 @@ function App() {
               path="/recipe-wars"
               element={<Showcase handlers={handlers} recipeStates={values} />}
             ></Route>
-            <Route path="/faq" element={<Faq />}></Route>
+            <Route
+              path="/faq"
+              element={<Faq handleResetAll={handleResetAll} />}
+            ></Route>
             <Route
               path="/start"
               element={

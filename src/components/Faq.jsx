@@ -2,7 +2,7 @@ import React from "react";
 import { LocalDining } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
-// import Bg_Pattern_Light from "../assets/Beige_Paper.png";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import Bg_Pattern_Light from "../assets/Back_Pattern.png";
 import {
   Accordion,
@@ -16,7 +16,9 @@ import {
 import { Container } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
-export const Faq = () => {
+export const Faq = (props) => {
+  const { handleResetAll } = props;
+
   const mode = useTheme().palette.mode;
   const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
   const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
@@ -175,11 +177,52 @@ export const Faq = () => {
             React-Router-Dom v6 for routing, and leverages Material UI's v5
             styling library. All images, icons, and APIs are sourced from free
             to use services like Edamam's Open API. All of the code, except for
-            the API keys, is available to be viewed on GitHub.
+            the API keys, is available to be viewed on GitHub. Recipes are
+            saved/state is persisted in the browsers local storage.
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Card sx={{ p: 2, mt: 2 }}>
+      <Accordion sx={expandedSx}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          aria-controls="panel5a-content"
+          id="panel5a-header"
+          sx={hoverSx}
+        >
+          <Typography>
+            I want to restart - clear all the recipes and restore the defaults!
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            You can clear your local storage, open this site in an incognito
+            browser, or press the "RESET ALL" button below
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion sx={expandedSx}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          aria-controls="panel4a-content"
+          id="panel4a-header"
+          sx={hoverSx}
+        >
+          <Typography>
+            After refreshing my browser my saved recipe images are gone
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Unfortunately that is a limitation of how I am saving recipe images
+            in local storage with createObjectURL. I would need to save the
+            recipe images with a more robust method like FileSystem API, but
+            that would require user permission.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Card
+        sx={{ display: "flex", justifyContent: "space-between", p: 2, mt: 2 }}
+      >
         <Button
           aria-label="START PAGE"
           color="primary"
@@ -192,6 +235,20 @@ export const Faq = () => {
         >
           <LocalDining sx={{ mr: 1 }} />
           GET STARTED
+        </Button>
+        <Button
+          aria-label="RESET ALL"
+          color="error"
+          component={RouterLink}
+          disableElevation
+          onClick={handleResetAll}
+          size="large"
+          title="Reset all recipes to default"
+          to="/recipe-wars"
+          variant="outlined"
+        >
+          <RestartAltIcon sx={{ mr: 1 }} />
+          RESET ALL
         </Button>
       </Card>
     </Container>
