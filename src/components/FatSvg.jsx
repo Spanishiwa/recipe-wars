@@ -1,6 +1,5 @@
-import { SvgIcon, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import React from "react";
-import { ReactComponent as Fat } from "../assets/Fat.svg";
 import EggOutlinedIcon from "@mui/icons-material/EggOutlined";
 export const FatSvg = (props) => {
   const { sx, fat } = props;

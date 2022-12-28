@@ -96,16 +96,22 @@ export default function TextMobileStepper(props) {
         switch (input.id) {
           case "image-input":
             accum.imgSrc = input.imgSrc;
+          //falls through
           case "title-input":
             accum.title = input.text;
+          //falls through
           case "description-textarea":
             accum.description = input.text;
+          //falls through
           case "recipe-textarea":
             accum.instructions = input.text;
+          //falls through
           case "servings-input":
             accum.servings = input.text;
+          //falls through
           case "photos-select-input":
             accum.selectText = input.text;
+          //falls through
           default:
             return accum;
         }

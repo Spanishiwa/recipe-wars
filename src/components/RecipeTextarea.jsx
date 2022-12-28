@@ -1,5 +1,4 @@
-import { PostAdd } from "@mui/icons-material";
-import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import React from "react";
 
 export const RecipeTextarea = (props) => {

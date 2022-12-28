@@ -5,7 +5,6 @@ import ImageInput from "./ImageInput";
 import { IngredientsList } from "./IngredientsList";
 import { RecipeNumberfield } from "./RecipeNumberfield";
 import { RecipeTextarea } from "./RecipeTextarea";
-import { RecipeTextfield } from "./RecipeTextfield";
 
 export const RecipeFormOptional = (props) => {
   const { handlers, ingredients, inputs } = props;
@@ -38,14 +37,19 @@ export const RecipeFormOptional = (props) => {
         switch (input.id) {
           case "image-input":
             accum.imgName = input.imgName;
+          //falls through
           case "description-textarea":
             accum.description = input.text;
+          //falls through
           case "recipe-textarea":
             accum.instructions = input.text;
+          //falls through
           case "servings-input":
             accum.servings = input.text;
+          //falls through
           case "photos-select-input":
             accum.selectText = input.text;
+          //falls through
           default:
             return accum;
         }

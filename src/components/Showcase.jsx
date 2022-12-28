@@ -1,7 +1,6 @@
 import { Box, Button, Card, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import { RecipeCard } from "./RecipeCard";
-import { VerticalStepper } from "./VerticalStepper";
 import { MuiSnackbar } from "./MuiSnackbar";
 import { useLocation } from "react-router-dom";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -16,17 +15,7 @@ export const Showcase = (props) => {
   const { state } = useLocation();
   const { handlers, recipeStates } = props;
 
-  const {
-    handleBlur,
-    handleChange,
-    handleDelete,
-    handleDeleteRecipe,
-    handleEdit,
-    handleKeySubmit,
-    handleToggleDisable,
-    handleResetAll,
-    handleServingsToggle
-  } = handlers;
+  const { handleResetAll } = handlers;
 
   const [snackbarState, setSnackbarState] = React.useState(
     state ? state : INIT_SNACKBAR
@@ -100,7 +89,6 @@ export const Showcase = (props) => {
         <></>
       )}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        {/* <VerticalStepper></VerticalStepper> */}
         {recipeNames.map((recipeName) => {
           const recipeState = recipes[recipeName].filter(
             (recipe) => recipe.title

@@ -8,7 +8,7 @@ export const ServingsSwitch = (props) => {
   const handleKeyDown = (e) => {
     const key = e.which || e.keyCode || 0;
 
-    if (key == 13 || key == 37 || key == 39) {
+    if (key === 13 || key === 37 || key === 39) {
       e.preventDefault();
       e.stopPropagation();
       handleServingsToggle(e);
