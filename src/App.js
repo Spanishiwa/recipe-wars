@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useReducer } from "react";
 import Bg_Pattern_Dark from "./assets/Graphcoders_Lil_Fiber.png";
 import Bg_Pattern_Light from "./assets/Beige_Paper.png";
 import Footer from "./components/Footer";
@@ -9,26 +9,31 @@ import { CONFIG } from "./config";
 import { Faq } from "./components/Faq";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Showcase } from "./components/Showcase";
+import { INIT_INPUTS, INIT_RECIPE_WARS, submitRecipeSnackbar } from "./Util";
 import {
-  INIT_INGREDIENT_INPUT,
-  INIT_INGREDIENTS_TEXTAREA,
-  INIT_IMAGE_INPUT,
-  INIT_TITLE_INPUT,
-  INIT_DESCRIPTION_TEXTAREA,
-  INIT_RECIPE_TEXTAREA,
-  INIT_SERVINGS_INPUT,
-  INIT_SERVINGS_TOGGLE,
-  INIT_PHOTOS_SELECT_INPUT,
-  INIT_KEY_LIME_PIE,
-  INIT_CHEESY_CORN,
-  INIT_ITALIAN_BEEF,
-  INIT_RECIPE_WARS,
-  submitRecipeSnackbar
-} from "./Util";
+  resetInputError,
+  updateInput,
+  createIngredients,
+  updateIngredient,
+  deleteIngredient,
+  deleteRecipe,
+  updateImage,
+  resetRecipe,
+  resetAll,
+  updateSelect,
+  toggleServingsInput,
+  submitRecipe,
+  toggleInputDisable,
+  updateInputError,
+  setFetching,
+  setFetchFail
+} from "./components/reducers/actions";
+import { rootReducer } from "./components/reducers/rootReducer";
 
 function App() {
   const navigate = useNavigate();
-  const [values, setValues] = useState(
+  const [state, dispatch] = useReducer(
+    rootReducer,
     JSON.parse(localStorage.getItem("values")) || INIT_RECIPE_WARS
   );
 
@@ -64,16 +69,10 @@ function App() {
       ingr: text.split("\n").filter((s) => s.length)
     };
 
-    if (values.filter((state) => state.id === "isRequesting")[0].isRequesting) {
+    if (state.filter((value) => value.id === "isRequesting")[0].isRequesting) {
       return;
     } else {
-      setValues((prevStates) =>
-        prevStates.map((prevState) =>
-          prevState.id === "isRequesting"
-            ? { ...prevState, isRequesting: true }
-            : prevState
-        )
-      );
+      dispatch(setFetching());
     }
 
     fetch(recipeUrl, {
@@ -91,138 +90,37 @@ function App() {
       })
       .then((data) => {
         const flatIngredientsPayload = flattenPayload(data, name);
+        const flatIngredientPayload = flatIngredientsPayload[0];
 
         if (!id.includes("-")) {
-          // editing/updating input
-          setValues((prevInputs) =>
-            prevInputs.map((prevInput) => {
-              if (prevInput.id === id) {
-                return {
-                  ...flatIngredientsPayload[0],
-                  recipeName: prevInput.recipeName
-                };
-              }
-
-              if (prevInput.id === "isRequesting") {
-                return { ...prevInput, isRequesting: false };
-              }
-
-              return prevInput;
-            })
-          );
+          // updating single ingredient
+          dispatch(updateIngredient(id, flatIngredientPayload));
         } else {
-          // clearing input generator / error / status
-
-          setValues((prevValues) =>
-            prevValues.map((prevIngredient) => {
-              if (prevIngredient.id === id) {
-                return {
-                  ...prevIngredient,
-                  text: "",
-                  error: false,
-                  status: "Successfully posted"
-                };
-              }
-
-              if (prevIngredient.id === "isRequesting") {
-                return { ...prevIngredient, isRequesting: false };
-              }
-
-              return prevIngredient;
-            })
-          );
-          // appending new input
-
-          setValues((prevInputs) => [
-            ...prevInputs.map((prevInput) => {
-              if (prevInput.id === "isRequesting") {
-                return { ...prevInput, isRequesting: false };
-              }
-
-              if (prevInput.id !== name) {
-                return prevInput;
-              }
-
-              return prevInput;
-            }),
-            ...flatIngredientsPayload
-          ]);
+          dispatch(createIngredients(id, flatIngredientsPayload));
+          // appending ingredient(s) and clearing input generator / error / status
         }
       })
       .catch((err) => {
-        setValues((prevInputs) =>
-          prevInputs.map((prevInput) => {
-            if (prevInput.id === id) {
-              return {
-                ...prevInput,
-                error: true,
-                status: err.message,
-                text: prevInput.parsed
-              };
-            }
-
-            if (prevInput.id === "isRequesting") {
-              return { ...prevInput, isRequesting: false };
-            }
-
-            return prevInput;
-          })
-        );
+        dispatch(setFetchFail(id, err.message));
       });
   };
 
   const handleBlur = (e) => {
-    const name =
-      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
-
-    setValues((prevValues) =>
-      prevValues.map((prevIngredient) =>
-        prevIngredient.id === name
-          ? {
-              ...prevIngredient,
-              error: false,
-              status: " "
-            }
-          : prevIngredient
-      )
-    );
+    dispatch(resetInputError(e));
   };
 
   const handleChange = (e) => {
-    const inputValue = e.target.value;
-    const inputName = e.target.name;
-
-    const ingredient = values.filter(
-      (ingredient) => ingredient.id === inputName
-    )[0];
-
-    setValues((prevValues) =>
-      prevValues.map((prevIngredient) =>
-        prevIngredient.id === ingredient.id
-          ? { ...prevIngredient, text: inputValue }
-          : prevIngredient
-      )
-    );
+    dispatch(updateInput(e));
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-    const name =
-      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
-    setValues((prevValues) =>
-      prevValues.filter((prevValue) => prevValue.id !== name)
-    );
+    dispatch(deleteIngredient(e));
   };
 
   const handleDeleteRecipe = (e) => {
-    const recipeName =
-      e.target.getAttribute("data-recipe-name") ||
-      e.currentTarget.getAttribute("data-recipe-name");
-
-    setValues((prevValues) =>
-      prevValues.filter((prevValue) => prevValue.recipeName !== recipeName)
-    );
+    dispatch(deleteRecipe(e));
   };
 
   const handleEdit = (e) => {
@@ -232,7 +130,7 @@ function App() {
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
-    const ingredient = values.filter((ingredient) => ingredient.id === name);
+    const ingredient = state.filter((ingredient) => ingredient.id === name);
     if (ingredient) fetchAPI(ingredient[0].text, name, name);
   };
 
@@ -270,90 +168,30 @@ function App() {
   };
 
   const handleImage = (e) => {
-    const name = e.target.name || e.currentTarget.name;
-
     const imgFile = e.target.files[0];
     if (!imgFile) return;
     // clean up previous Blob
-    const imgInput = values.filter((input) => input.id === "image-input")[0];
+    const imgInput = state.filter((input) => input.id === "image-input")[0];
 
     if (imgInput?.imgSrc) URL.revokeObjectURL(imgInput.imgSrc);
 
-    setValues((prevValues) =>
-      prevValues.map((prevIngredient) =>
-        prevIngredient.id === name
-          ? {
-              ...prevIngredient,
-              imgSrc: URL.createObjectURL(imgFile),
-              imgName: imgFile.name
-            }
-          : prevIngredient
-      )
-    );
+    dispatch(updateImage(e));
   };
 
   const handleReset = (e) => {
-    setValues((prevStates) =>
-      prevStates
-        .filter((prevState) => prevState.recipeName !== "Untitled")
-        .map((prevStateFiltered) => {
-          switch (prevStateFiltered.id) {
-            case "ingredient-input":
-              return INIT_INGREDIENT_INPUT;
-            case "ingredients-textarea":
-              return INIT_INGREDIENTS_TEXTAREA;
-            case "image-input":
-              return INIT_IMAGE_INPUT;
-            case "title-input":
-              return INIT_TITLE_INPUT;
-            case "description-textarea":
-              return INIT_DESCRIPTION_TEXTAREA;
-            case "recipe-textarea":
-              return INIT_RECIPE_TEXTAREA;
-            case "servings-input":
-              return INIT_SERVINGS_INPUT;
-            case "servings-toggle":
-              return INIT_SERVINGS_TOGGLE;
-            case "photos-select-input":
-              return INIT_PHOTOS_SELECT_INPUT;
-            default:
-              return prevStateFiltered;
-          }
-        })
-    );
+    dispatch(resetRecipe());
   };
 
   const handleResetAll = (e) => {
-    setValues(() => INIT_RECIPE_WARS);
+    dispatch(resetAll());
   };
 
   const handleSelect = (e) => {
-    const value = e.target.value || e.currentTarget.value || " ";
-    setValues((prevStates) =>
-      prevStates.map((prevState) =>
-        prevState.id === "photos-select-input"
-          ? { ...prevState, text: value }
-          : prevState
-      )
-    );
+    dispatch(updateSelect(e));
   };
 
   const handleServingsToggle = (e) => {
-    const recipeName =
-      e.target.getAttribute("data-recipe-name") ||
-      e.currentTarget.getAttribute("data-recipe-name");
-
-    setValues((prevValues) =>
-      prevValues.map((inputState) =>
-        inputState.id === "servings-toggle"
-          ? {
-              ...inputState,
-              [`is${recipeName}PerServing`]:
-                !inputState[`is${recipeName}PerServing`]
-            }
-          : inputState
-      )
-    );
+    dispatch(toggleServingsInput(e));
   };
 
   const handleSubmit = (e) => {
@@ -362,121 +200,25 @@ function App() {
     const name =
       e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
     // code works - ration API calls for testing
-    const ingredient = values.filter((ingredient) => ingredient.id === name);
+    const ingredient = state.filter((ingredient) => ingredient.id === name);
 
     if (ingredient) fetchAPI(ingredient[0].text, null, name);
   };
 
   const handleSubmitRecipe = (e) => {
-    // get input values
-    setValues((prevStates) => {
-      const recipeState = prevStates.reduce(
-        (accum, input) => {
-          switch (input.id) {
-            case "image-input":
-              accum.imgSrc = input.imgSrc;
-            case "title-input":
-              accum.title = input.text;
-              accum.id = input.text;
-            case "description-textarea":
-              accum.description = input.text;
-            case "recipe-textarea":
-              accum.instructions = input.text;
-            case "servings-input":
-              accum.servings = input.text;
-            case "photos-select-input":
-              accum.selectText = input.text;
-            default:
-              return accum;
-          }
-        },
-        {
-          imgSrc: "",
-          title: "",
-          description: "",
-          instructions: "",
-          servings: 1,
-          id: "",
-          selectText: ""
-        }
-      );
-
-      const recipeName = recipeState.title
-        .replace(/[^a-zA-Z]+/g, "")
-        .slice(-50);
-
-      return [
-        {
-          // prepend recipe details
-          ...recipeState,
-          title: recipeState.title,
-          id: recipeState.id.replace(/[^a-zA-Z]+/g, "").slice(-50),
-          recipeName: recipeState.id.replace(/[^a-zA-Z]+/g, "").slice(-50)
-        },
-        ...prevStates.map((prevState) => {
-          // update all noRecipeName ingredients
-          if (prevState.recipeName === "Untitled") {
-            return {
-              ...prevState,
-              recipeName: recipeName
-            };
-          }
-
-          switch (prevState.id) {
-            case "ingredient-input":
-              return INIT_INGREDIENT_INPUT;
-            case "ingredients-textarea":
-              return INIT_INGREDIENTS_TEXTAREA;
-            case "image-input":
-              return INIT_IMAGE_INPUT;
-            case "title-input":
-              return INIT_TITLE_INPUT;
-            case "description-textarea":
-              return INIT_DESCRIPTION_TEXTAREA;
-            case "recipe-textarea":
-              return INIT_RECIPE_TEXTAREA;
-            case "servings-input":
-              return INIT_SERVINGS_INPUT;
-            case "servings-toggle":
-              return {
-                ...prevState,
-                isUntitledPerServing: true,
-                [`is${recipeName}PerServing`]: prevState["isUntitledPerServing"]
-              };
-            case "photos-select-input":
-              return INIT_PHOTOS_SELECT_INPUT;
-            default:
-              return prevState;
-          }
-        })
-      ];
-    });
+    dispatch(submitRecipe());
 
     navigate("/recipe-wars", { state: submitRecipeSnackbar });
   };
 
   const handleToggleDisable = (e) => {
     e.preventDefault();
-    const name =
-      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
 
-    setValues((prevStates) =>
-      prevStates.map((prevState) =>
-        prevState.id === name ? { ...prevState, isDisabled: false } : prevState
-      )
-    );
+    dispatch(toggleInputDisable(e));
   };
 
-  const setInputError = (id, msg) => {
-    setValues((prevValues) =>
-      prevValues.map((prevValue) => {
-        if (prevValue.id === id) {
-          return { ...prevValue, error: true, status: msg };
-        } else {
-          return prevValue;
-        }
-      })
-    );
+  const setInputError = (name, message) => {
+    dispatch(updateInputError(name, message));
   };
 
   const mode = useTheme().palette.mode;
@@ -505,20 +247,16 @@ function App() {
     };
   }, [mode, bgColor, bgPattern]);
 
-  // useEffect(() => {
-  //   // load localstorage as state
-  //   const state = JSON.parse(localStorage.getItem("values"));
-  //   if (state) {
-  //     setValues(state);
-  //   } else {
-  //     setValues(INIT_RECIPE_WARS);
-  //   }
-  // }, []);
-
   useEffect(() => {
-    // save state to localstorage
-    localStorage.setItem("values", JSON.stringify(values));
-  }, [values]);
+    // save ingredients, recipes, but not inputs to localstorage
+
+    const stateWithInputsReset = [
+      ...INIT_INPUTS,
+      ...state.filter((v) => !v.isInput || v.id === "servings-toggle")
+    ];
+
+    localStorage.setItem("values", JSON.stringify(stateWithInputsReset));
+  }, [state]);
 
   const handlers = {
     handleBlur: handleBlur,
@@ -538,7 +276,7 @@ function App() {
     handleToggleDisable: handleToggleDisable
   };
 
-  const inputs = values.filter((value) => value.isInput);
+  const inputs = state.filter((value) => value.isInput);
 
   return (
     <Fragment>
@@ -556,7 +294,7 @@ function App() {
           <Routes>
             <Route
               path="/recipe-wars"
-              element={<Showcase handlers={handlers} recipeStates={values} />}
+              element={<Showcase handlers={handlers} recipeStates={state} />}
             ></Route>
             <Route
               path="/faq"
@@ -568,7 +306,7 @@ function App() {
                 <MuiStepper
                   handlers={handlers}
                   inputs={inputs}
-                  recipeStates={values}
+                  recipeStates={state}
                   setInputError={setInputError}
                 />
               }

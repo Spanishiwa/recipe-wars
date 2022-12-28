@@ -41,7 +41,7 @@ const RecipeForm = (props) => {
     handleToggleDisable
   };
 
-  const getInput = (id) => inputs.filter((input) => input.id == id)[0];
+  const getInput = (id) => inputs.filter((input) => input.id === id)[0];
 
   const ingredientInput = getInput("ingredient-input");
   const ingredientsTextarea = getInput("ingredients-textarea");
@@ -49,9 +49,12 @@ const RecipeForm = (props) => {
   const ingredientsTextareaRef = useRef(null);
 
   const handleKeySubmitThenFocus = (e) => {
+    const key = e.which || e.keyCode || 0;
     handleKeySubmit(e);
-    showAlert("Fetching ingredients", "info");
-    ingredientsTextareaRef.current.focus();
+    if (key === 13) {
+      showAlert("Fetching ingredients", "info");
+      ingredientsTextareaRef.current.focus();
+    }
   };
 
   const handleSubmitThenFocus = (e) => {
@@ -160,8 +163,8 @@ const RecipeForm = (props) => {
             {inputExamples.examples.map((inputExample, idx) => {
               return (
                 <InputExamples
-                  CustomIcon={idx % 2 == 0 ? Done : Close}
-                  iconColor={idx % 2 == 0 ? "success" : "error"}
+                  CustomIcon={idx % 2 === 0 ? Done : Close}
+                  iconColor={idx % 2 === 0 ? "success" : "error"}
                   inputExample={inputExample}
                   key={inputExample}
                   inputExamplesSx={{
@@ -218,7 +221,7 @@ const RecipeForm = (props) => {
       <Box
         sx={{
           display: "flex",
-          flex: { xs: "1 1 auto", xs: "1 1 auto", md: "1 1 35%" },
+          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "1 1 35%" },
           flexDirection: "column"
         }}
       >
