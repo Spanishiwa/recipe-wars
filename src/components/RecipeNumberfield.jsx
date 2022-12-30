@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const RecipeNumberfield = (props) => {
   const { handleChange, label, name, title, value } = props;
@@ -19,4 +20,12 @@ export const RecipeNumberfield = (props) => {
       value={value}
     />
   );
+};
+
+RecipeNumberfield.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  name: PropTypes.string,
+  title: PropTypes.string,
+  value: PropTypes.string,
 };

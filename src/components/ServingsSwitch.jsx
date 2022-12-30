@@ -1,6 +1,7 @@
 import { FlatwareRounded, Restaurant } from '@mui/icons-material';
 import { InputLabel, Switch, Typography } from '@mui/material';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const ServingsSwitch = (props) => {
   const { handleServingsToggle, isPerServing, recipeName } = props;
@@ -77,4 +78,10 @@ export const ServingsSwitch = (props) => {
       </Typography>
     </InputLabel>
   );
+};
+
+ServingsSwitch.propTypes = {
+  handleServingsToggle: PropTypes.func.isRequired,
+  isPerServing: PropTypes.bool,
+  recipeName: PropTypes.string,
 };

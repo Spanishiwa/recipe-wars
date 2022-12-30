@@ -12,6 +12,7 @@ import Grains from '../assets/Grains.jpeg';
 import Vegetables from '../assets/Colorful_Vegetables.jpeg';
 import Charcuterie from '../assets/Charcuterie_Board.webp';
 import Cookies from '../assets/Cocoa_Cookies.jpeg';
+import PropTypes from 'prop-types';
 
 export const RecipeImage = (props) => {
   const [state, setState] = useState({
@@ -153,4 +154,32 @@ export const RecipeImage = (props) => {
       />
     </Fragment>
   );
+};
+
+RecipeImage.propTypes = {
+  description: PropTypes.string,
+  handleServingsToggle: PropTypes.func.isRequired,
+  imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      parsed: PropTypes.string.isRequired,
+      calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      carbohydrate: PropTypes.string.isRequired,
+      protein: PropTypes.string.isRequired,
+      fat: PropTypes.string.isRequired,
+      status: PropTypes.string,
+      isDisabled: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      recipeName: PropTypes.string.isRequired,
+    })
+  ),
+  recipeName: PropTypes.string,
+  selectText: PropTypes.string,
+  servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  isPerServing: PropTypes.bool,
+  title: PropTypes.string,
 };

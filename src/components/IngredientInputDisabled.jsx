@@ -4,6 +4,7 @@ import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import { Done } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 
 const IngredientInputDisabled = (props) => {
   const { handlers, ingredient } = props;
@@ -133,3 +134,29 @@ const IngredientInputDisabled = (props) => {
 };
 
 export default IngredientInputDisabled;
+
+IngredientInputDisabled.propTypes = {
+  handlers: PropTypes.shape({
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    handleDelete: PropTypes.func,
+    handleEdit: PropTypes.func,
+    handleKeyDelete: PropTypes.func,
+    handleKeySubmit: PropTypes.func,
+    handleToggleDisable: PropTypes.func,
+  }).isRequired,
+  ingredient: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    parsed: PropTypes.string.isRequired,
+    calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+      .isRequired,
+    carbohydrate: PropTypes.string.isRequired,
+    protein: PropTypes.string.isRequired,
+    fat: PropTypes.string.isRequired,
+    status: PropTypes.string,
+    isDisabled: PropTypes.bool.isRequired,
+    error: PropTypes.bool.isRequired,
+    recipeName: PropTypes.string.isRequired,
+  }).isRequired,
+};

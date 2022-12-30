@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const RecipeTextfield = (props) => {
   const {
@@ -46,4 +47,20 @@ export const RecipeTextfield = (props) => {
       value={value}
     />
   );
+};
+
+RecipeTextfield.propTypes = {
+  error: PropTypes.bool.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
+  status: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };

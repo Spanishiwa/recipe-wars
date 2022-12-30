@@ -6,6 +6,7 @@ import {
   Select,
 } from '@mui/material';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const RecipeSelect = (props) => {
   const { handleSelect, text } = props;
@@ -33,4 +34,9 @@ export const RecipeSelect = (props) => {
       <FormHelperText>Choose a photo</FormHelperText>
     </FormControl>
   );
+};
+
+RecipeSelect.propTypes = {
+  handleSelect: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
 };

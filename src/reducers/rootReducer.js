@@ -144,7 +144,7 @@ const rootReducer = (state, action) => {
             }
           : prevState
       );
-    case SUBMIT_RECIPE:
+    case SUBMIT_RECIPE: {
       const recipeState = state.reduce(
         (accum, input) => {
           // get input values
@@ -230,6 +230,7 @@ const rootReducer = (state, action) => {
 
       // preprend recipe and reset inputs in state
       return [recipeComplete, ...stateWithInputsReset];
+    }
     case TOGGLE_INPUT_DISABLE:
       return state.map((prevState) =>
         prevState.id === action.payload.name

@@ -1,5 +1,6 @@
 import { Box, TextField } from '@mui/material';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const RecipeTextarea = (props) => {
   const {
@@ -73,4 +74,21 @@ export const RecipeTextarea = (props) => {
       />
     </Box>
   );
+};
+
+RecipeTextarea.propTypes = {
+  error: PropTypes.bool,
+  handleBlur: PropTypes.func,
+  handleChange: PropTypes.func,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
+  rows: PropTypes.number,
+  status: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string,
 };

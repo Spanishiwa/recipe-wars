@@ -14,9 +14,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import { IngredientsList } from './IngredientsList';
 import { RecipeMenu } from './RecipeMenu';
+import PropTypes from 'prop-types';
 
 const ExpandMore = styled((props) => {
+  // ignorerestsiblings
+  /* eslint-disable */
   const { expand, ...other } = props;
+  /* eslint-enable */
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -159,3 +163,45 @@ export const RecipeCard = (props) => {
 };
 
 export default RecipeCard;
+
+RecipeCard.propTypes = {
+  handlers: PropTypes.shape({
+    handleBlur: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    handleDeleteRecipe: PropTypes.func,
+    handleEdit: PropTypes.func.isRequired,
+    handleKeyDelete: PropTypes.func.isRequired,
+    handleKeySubmit: PropTypes.func.isRequired,
+    handleToggleDisable: PropTypes.func.isRequired,
+    handleServingsToggle: PropTypes.func.isRequired,
+  }).isRequired,
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      parsed: PropTypes.string.isRequired,
+      calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      carbohydrate: PropTypes.string.isRequired,
+      protein: PropTypes.string.isRequired,
+      fat: PropTypes.string.isRequired,
+      status: PropTypes.string,
+      isDisabled: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      recipeName: PropTypes.string.isRequired,
+    })
+  ),
+  recipeState: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    recipeName: PropTypes.string,
+    instructions: PropTypes.string,
+    servings: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+      .isRequired,
+  }),
+  isPerServing: PropTypes.bool,
+  selectText: PropTypes.string,
+  showAlert: PropTypes.func.isRequired,
+};

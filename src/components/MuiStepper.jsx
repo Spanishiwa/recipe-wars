@@ -13,6 +13,7 @@ import RecipeForm from './RecipeForm';
 import { RecipeFormOptional } from './RecipeFormOptional';
 import { AssignmentTurnedIn, Delete } from '@mui/icons-material';
 import { MuiSnackbar } from './MuiSnackbar';
+import PropTypes from 'prop-types';
 
 const steps = [
   {
@@ -34,7 +35,7 @@ const steps = [
   },
 ];
 
-export default function TextMobileStepper(props) {
+export default function MuiStepper(props) {
   const { handlers, inputs, recipeStates, setInputError } = props;
 
   const {
@@ -341,3 +342,24 @@ export default function TextMobileStepper(props) {
     </Card>
   );
 }
+
+MuiStepper.propTypes = {
+  handlers: PropTypes.shape({
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    handleDelete: PropTypes.func,
+    handleEdit: PropTypes.func,
+    handleImage: PropTypes.func,
+    handleKeyDelete: PropTypes.func,
+    handleKeySubmit: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    handleSubmitRecipe: PropTypes.func,
+    handleToggleDisable: PropTypes.func,
+    handleReset: PropTypes.func,
+    handleSelect: PropTypes.func,
+    handleServingsToggle: PropTypes.func,
+  }).isRequired,
+  inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  recipeStates: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setInputError: PropTypes.func.isRequired,
+};

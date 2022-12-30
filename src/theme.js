@@ -1,6 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ColorModeContext from './components/ColorModeContext';
+import PropTypes from 'prop-types';
 
 const darkTheme = createTheme({
   palette: {
@@ -22,7 +23,6 @@ const getDesignTokens = (mode) => ({
     ...(mode === 'dark'
       ? {
           ...darkTheme.palette,
-          // common: { white: "#66bb6a" },
           primary: { main: '#66bb6a' },
           text: {
             primary: 'rgba(255,255,255,0.7)',
@@ -48,27 +48,14 @@ const getDesignTokens = (mode) => ({
         }),
   },
 });
-//             // footer: "#F5F7FA"
-//           }
-//         : {})
-//       // }
-//       // text: {
-//       //   ...(mode === "light"
-//       //     ? {
-//       //         primary: "#616E7C"
-//       //         // dark: "#323F4B"
-//       //       }
-//       //     : {})
-//     // },
-//     // secondary: { ...(mode === "light" ? { main: "#f2f4f8" } : {}) }
-//   }
-// })
 
 const Theme = (props) => {
   const [mode, setMode] = React.useState();
+
+  const { childComponent } = props;
+
   const colorMode = React.useMemo(
     () => ({
-      // The dark mode switch would invoke this method
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
       },
@@ -84,28 +71,12 @@ const Theme = (props) => {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={currTheme}>{props.childComponent}</ThemeProvider>
+      <ThemeProvider theme={currTheme}>{childComponent}</ThemeProvider>
     </ColorModeContext.Provider>
   );
 };
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: "#77c800",
-//       footer: "#F5F7FA"
-//       // dark: "#3949AB",
-//       // light: "#7986CB"
-//     },
-//     text: {
-//       primary: "#616E7C",
-//       dark: "#323F4B"
-//     },
-//     secondary: {
-//       main: "#f2f4f8"
-//       // dark: "#FF7100",
-//       // light: "#FFB402"
-//     }
-//   }
-// });
-
 export default Theme;
+
+Theme.propTypes = {
+  childComponent: PropTypes.element.isRequired,
+};

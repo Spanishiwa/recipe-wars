@@ -12,6 +12,7 @@ import {
 import { InputExamples } from './InputExamples';
 import { RecipeTextarea } from './RecipeTextarea';
 import { RecipeTextfield } from './RecipeTextfield';
+import PropTypes from 'prop-types';
 
 const RecipeForm = (props) => {
   const { handlers, ingredients, inputs, showAlert, titleRef } = props;
@@ -236,3 +237,37 @@ const RecipeForm = (props) => {
 };
 
 export default RecipeForm;
+
+RecipeForm.propTypes = {
+  handlers: PropTypes.shape({
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    handleDelete: PropTypes.func,
+    handleEdit: PropTypes.func,
+    handleKeySubmit: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    handleToggleDisable: PropTypes.func,
+  }).isRequired,
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      parsed: PropTypes.string.isRequired,
+      calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      carbohydrate: PropTypes.string.isRequired,
+      protein: PropTypes.string.isRequired,
+      fat: PropTypes.string.isRequired,
+      status: PropTypes.string,
+      isDisabled: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      recipeName: PropTypes.string.isRequired,
+    })
+  ),
+  inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  showAlert: PropTypes.func.isRequired,
+  titleRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
+};

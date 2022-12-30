@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import React, { Fragment } from 'react';
 import IngredientInputDisabled from './IngredientInputDisabled';
+import PropTypes from 'prop-types';
 
 export const IngredientsList = (props) => {
   const { handlers, ingredients } = props;
@@ -71,4 +72,32 @@ export const IngredientsList = (props) => {
       </List>
     </Fragment>
   );
+};
+
+IngredientsList.propTypes = {
+  handlers: PropTypes.shape({
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    handleDelete: PropTypes.func,
+    handleEdit: PropTypes.func,
+    handleKeyDelete: PropTypes.func,
+    handleKeySubmit: PropTypes.func,
+    handleToggleDisable: PropTypes.func,
+  }).isRequired,
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      parsed: PropTypes.string.isRequired,
+      calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      carbohydrate: PropTypes.string.isRequired,
+      protein: PropTypes.string.isRequired,
+      fat: PropTypes.string.isRequired,
+      status: PropTypes.string,
+      isDisabled: PropTypes.bool.isRequired,
+      error: PropTypes.bool.isRequired,
+      recipeName: PropTypes.string.isRequired,
+    })
+  ),
 };

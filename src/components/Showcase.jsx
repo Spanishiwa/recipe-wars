@@ -4,6 +4,7 @@ import { RecipeCard } from './RecipeCard';
 import { MuiSnackbar } from './MuiSnackbar';
 import { useLocation } from 'react-router-dom';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PropTypes from 'prop-types';
 
 const INIT_SNACKBAR = {
   message: 'Title is "Untitled" or empty',
@@ -119,4 +120,20 @@ export const Showcase = (props) => {
       />
     </Fragment>
   );
+};
+
+Showcase.propTypes = {
+  handlers: PropTypes.shape({
+    handleResetAll: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    handleDeleteRecipe: PropTypes.func.isRequired,
+    handleEdit: PropTypes.func.isRequired,
+    handleKeyDelete: PropTypes.func.isRequired,
+    handleKeySubmit: PropTypes.func.isRequired,
+    handleToggleDisable: PropTypes.func.isRequired,
+    handleServingsToggle: PropTypes.func.isRequired,
+  }).isRequired,
+  recipeStates: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

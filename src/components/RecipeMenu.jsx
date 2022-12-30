@@ -3,6 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import React, { Fragment, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export const RecipeMenu = (props) => {
   const { pathname } = useLocation();
@@ -70,4 +71,10 @@ export const RecipeMenu = (props) => {
       </Menu>
     </Fragment>
   );
+};
+
+RecipeMenu.propTypes = {
+  handleDeleteRecipe: PropTypes.func.isRequired,
+  recipeName: PropTypes.string.isRequired,
+  showAlert: PropTypes.func.isRequired,
 };
