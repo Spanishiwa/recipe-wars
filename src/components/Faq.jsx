@@ -1,9 +1,10 @@
-import React from "react";
-import { LocalDining } from "@mui/icons-material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import Bg_Pattern_Light from "../assets/Back_Pattern.png";
+import React from 'react';
+import { LocalDining } from '@mui/icons-material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Bg_Pattern_Dark from '../assets/Debut_Dark.png';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import Bg_Pattern_Light from '../assets/Back_Pattern.png';
+import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionDetails,
@@ -11,38 +12,38 @@ import {
   Button,
   Card,
   Typography,
-  useTheme
-} from "@mui/material";
-import { Container } from "@mui/system";
-import { Link as RouterLink } from "react-router-dom";
+  useTheme,
+} from '@mui/material';
+import { Container } from '@mui/system';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const Faq = (props) => {
   const { handleResetAll } = props;
 
   const mode = useTheme().palette.mode;
-  const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
-  const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
+  const bgPattern = mode === 'light' ? Bg_Pattern_Light : Bg_Pattern_Dark;
+  const bgColor = mode === 'light' ? '#F5F7FA' : '#121212';
   const hoverSx = {
-    "&:hover": {
+    '&:hover': {
       backgroundImage: `url(${bgPattern})`,
       backgroundColor: bgColor,
-      backgroundRepeat: "repeat"
-    }
+      backgroundRepeat: 'repeat',
+    },
   };
 
   const expandedSx = {
-    "& .MuiAccordionDetails-root": {
+    '& .MuiAccordionDetails-root': {
       backgroundImage: `url(${bgPattern})`,
       backgroundColor: bgColor,
-      backgroundRepeat: "repeat"
-    }
+      backgroundRepeat: 'repeat',
+    },
   };
 
   return (
     <Container
       className="faq"
       maxWidth="lg"
-      sx={{ "&.MuiContainer-root.faq": { padding: "0px" } }}
+      sx={{ '&.MuiContainer-root.faq': { padding: '0px' } }}
     >
       <Card sx={{ padding: 2, mb: 2 }}>
         <Typography component="h4" color="text.primary" variant="h6">
@@ -54,7 +55,7 @@ export const Faq = (props) => {
           expandIcon={
             <ExpandMoreIcon
               sx={{
-                color: "primary.main"
+                color: 'primary.main',
               }}
             />
           }
@@ -75,7 +76,7 @@ export const Faq = (props) => {
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel2a-content"
           id="panel2a-header"
           sx={hoverSx}
@@ -86,7 +87,7 @@ export const Faq = (props) => {
           <Typography>
             A controlled form built in ReactJS submits each of the ingredients
             that a user adds to his ingredients list. HTTP post requests send
-            the ingredients list which is matched to entries in Edamam's
+            the ingredients list which is matched to entries in Edamam&apos;s
             database. Edamam sends back the nutritional content of each
             ingredient like calories, carbohydrates, proteins, and fats.
             Nutritional content is displayed alongside other personalizations
@@ -97,7 +98,7 @@ export const Faq = (props) => {
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel3a-content"
           id="panel3a-header"
           sx={hoverSx}
@@ -111,17 +112,18 @@ export const Faq = (props) => {
           <Typography>
             Unfortunately, Edamam does not post which ingredients in a list are
             failing to parse so I am unable to provide more descriptive error
-            messages without parsing each ingredient individually. Edamam's free
-            API subscription is limited in the number of requests that I can
-            make, so it is not feasible to display more descriptive errors.
-            Fortunately, I don't clear the user input on failed posts, so try
-            posting less ingredients at a time or submitting them one at a time.
+            messages without parsing each ingredient individually. Edamam&apos;s
+            free API subscription is limited in the number of requests that I
+            can make, so it is not feasible to display more descriptive errors.
+            Fortunately, I don&apos;t clear the user input on failed posts, so
+            try posting less ingredients at a time or submitting them one at a
+            time.
           </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel4a-content"
           id="panel4a-header"
           sx={hoverSx}
@@ -133,11 +135,11 @@ export const Faq = (props) => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Edamam's API parses user input and returns the closest match in
+            Edamam&apos;s API parses user input and returns the closest match in
             their database, but sometimes the match is different than the user
-            input. The database doesn't have every food item and parsing user
-            input is difficult, so keep double checking your list or try making
-            a substition. The query searches for a quantity, unit of
+            input. The database doesn&apos;t have every food item and parsing
+            user input is difficult, so keep double checking your list or try
+            making a substition. The query searches for a quantity, unit of
             measurement, and ingredient, so keep your input as concise as
             possible to find the best ingredient match.
           </Typography>
@@ -145,12 +147,12 @@ export const Faq = (props) => {
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel5a-content"
           id="panel5a-header"
           sx={hoverSx}
         >
-          <Typography>I'm unable to upload my file</Typography>
+          <Typography>I&apos;m unable to upload my file</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -162,7 +164,7 @@ export const Faq = (props) => {
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel4a-content"
           id="panel4a-header"
           sx={hoverSx}
@@ -174,17 +176,17 @@ export const Faq = (props) => {
         <AccordionDetails>
           <Typography>
             Recipe wars is built with ReactJS v18 using controlled form inputs,
-            React-Router-Dom v6 for routing, and leverages Material UI's v5
+            React-Router-Dom v6 for routing, and leverages Material UI&apos;s v5
             styling library. All images, icons, and APIs are sourced from free
-            to use services like Edamam's Open API. All of the code, except for
-            the API keys, is available to be viewed on GitHub. Recipes are
+            to use services like Edamam&apos;s Open API. All of the code, except
+            for the API keys, is available to be viewed on GitHub. Recipes are
             saved/state is persisted in the browsers local storage.
           </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel5a-content"
           id="panel5a-header"
           sx={hoverSx}
@@ -196,13 +198,13 @@ export const Faq = (props) => {
         <AccordionDetails>
           <Typography>
             You can clear your local storage, open this site in an incognito
-            browser, or press the "RESET ALL" button below
+            browser, or press the &quot;RESET ALL&quot; button below
           </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion sx={expandedSx}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: "primary.main" }} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
           aria-controls="panel4a-content"
           id="panel4a-header"
           sx={hoverSx}
@@ -221,7 +223,7 @@ export const Faq = (props) => {
         </AccordionDetails>
       </Accordion>
       <Card
-        sx={{ display: "flex", justifyContent: "space-between", p: 2, mt: 2 }}
+        sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mt: 2 }}
       >
         <Button
           aria-label="START PAGE"
@@ -253,4 +255,8 @@ export const Faq = (props) => {
       </Card>
     </Container>
   );
+};
+
+Faq.propTypes = {
+  handleResetAll: PropTypes.func.isRequired,
 };

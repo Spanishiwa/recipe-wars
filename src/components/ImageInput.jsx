@@ -1,15 +1,8 @@
-import { AddTask, DownloadDone, PhotoCamera } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  InputLabel,
-  TextField,
-  Typography
-} from "@mui/material";
-import React, { useRef } from "react";
-import { RecipeSelect } from "./RecipeSelect";
+import { DownloadDone, PhotoCamera } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
+import React, { useRef } from 'react';
+import { RecipeSelect } from './RecipeSelect';
+import PropTypes from 'prop-types';
 
 const ImageInput = (props) => {
   const { imgName, handleImage, handleSelect, text } = props;
@@ -24,17 +17,17 @@ const ImageInput = (props) => {
   };
 
   return (
-    <Box sx={{ flex: "1 1 auto" }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <Typography component="p" variant="b1" sx={{ mb: 2 }}>
         Upload an image or choose a default
       </Typography>
-      <Box sx={{ display: "flex", mb: 2 }}>
+      <Box sx={{ display: 'flex', mb: 2 }}>
         <Box
           sx={{
-            display: "flex",
-            flex: "1 1 auto",
+            display: 'flex',
+            flex: '1 1 auto',
             gap: 2,
-            justifyContent: "space-between"
+            justifyContent: 'space-between',
           }}
         >
           <Button
@@ -43,14 +36,14 @@ const ImageInput = (props) => {
             color="primary"
             onKeyDown={handleKeyEnter}
             startIcon={imgIcon}
-            sx={{ maxHeight: "57px", padding: "15px" }}
+            sx={{ maxHeight: '57px', padding: '15px' }}
             title="Upload a recipe image here"
             variant="outlined"
           >
             UPLOAD
             <Typography
               component="span"
-              sx={{ display: { xs: "none", sm: "inline" }, ml: "4px" }}
+              sx={{ display: { xs: 'none', sm: 'inline' }, ml: '4px' }}
               variant="b2"
             >
               IMAGE
@@ -70,7 +63,7 @@ const ImageInput = (props) => {
       </Box>
       <Typography
         component="span"
-        sx={{ verticalAlign: "middle" }}
+        sx={{ verticalAlign: 'middle' }}
         title={`Successfully uploaded image name`}
         variant="subtitle1"
       >
@@ -81,3 +74,10 @@ const ImageInput = (props) => {
 };
 
 export default ImageInput;
+
+ImageInput.propTypes = {
+  imgName: PropTypes.string,
+  handleImage: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired,
+  text: PropTypes.string,
+};

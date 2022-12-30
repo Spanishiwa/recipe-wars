@@ -1,17 +1,17 @@
-import React, { useRef } from "react";
-import IngredientInput from "./IngredientInput";
-import { Box, Button, FormControl, List, Typography } from "@mui/material";
-import { IngredientsList } from "./IngredientsList";
+import React, { useRef } from 'react';
+import IngredientInput from './IngredientInput';
+import { Box, Button, FormControl, List, Typography } from '@mui/material';
+import { IngredientsList } from './IngredientsList';
 import {
   Close,
   Done,
   DynamicFeed,
   ManageSearch,
-  PostAdd
-} from "@mui/icons-material";
-import { InputExamples } from "./InputExamples";
-import { RecipeTextarea } from "./RecipeTextarea";
-import { RecipeTextfield } from "./RecipeTextfield";
+  PostAdd,
+} from '@mui/icons-material';
+import { InputExamples } from './InputExamples';
+import { RecipeTextarea } from './RecipeTextarea';
+import { RecipeTextfield } from './RecipeTextfield';
 
 const RecipeForm = (props) => {
   const { handlers, ingredients, inputs, showAlert, titleRef } = props;
@@ -22,14 +22,14 @@ const RecipeForm = (props) => {
     handleEdit,
     handleKeySubmit,
     handleSubmit,
-    handleToggleDisable
+    handleToggleDisable,
   } = handlers;
 
   const handlersIngredientInput = {
     handleBlur,
     handleChange,
     handleKeySubmit,
-    handleSubmit
+    handleSubmit,
   };
 
   const handlersIngredientsList = {
@@ -38,48 +38,48 @@ const RecipeForm = (props) => {
     handleDelete,
     handleEdit,
     handleKeySubmit,
-    handleToggleDisable
+    handleToggleDisable,
   };
 
   const getInput = (id) => inputs.filter((input) => input.id === id)[0];
 
-  const ingredientInput = getInput("ingredient-input");
-  const ingredientsTextarea = getInput("ingredients-textarea");
-  const titleInput = getInput("title-input");
+  const ingredientInput = getInput('ingredient-input');
+  const ingredientsTextarea = getInput('ingredients-textarea');
+  const titleInput = getInput('title-input');
   const ingredientsTextareaRef = useRef(null);
 
   const handleKeySubmitThenFocus = (e) => {
     const key = e.which || e.keyCode || 0;
     handleKeySubmit(e);
     if (key === 13) {
-      showAlert("Fetching ingredients", "info");
+      showAlert('Fetching ingredients', 'info');
       ingredientsTextareaRef.current.focus();
     }
   };
 
   const handleSubmitThenFocus = (e) => {
     handleSubmit(e);
-    showAlert("Fetching ingredients", "info");
+    showAlert('Fetching ingredients', 'info');
     ingredientsTextareaRef.current.focus();
   };
 
   const inputExamples = {
     examples: [
-      "12 ounces flour",
-      "About 1 scoop of flour",
-      "3 cups carrots",
-      "3 cups peeled and chopped carrots",
-      "8.5 oz red chili pepper",
-      "8.5 oz Italian giardiniera"
+      '12 ounces flour',
+      'About 1 scoop of flour',
+      '3 cups carrots',
+      '3 cups peeled and chopped carrots',
+      '8.5 oz red chili pepper',
+      '8.5 oz Italian giardiniera',
     ],
     titles: [
-      "Good input - used exact measurements",
-      "Poor input - nonstandard unit of measurement",
-      "Good input - ingredient was concise without unnecessary descriptors",
-      "Poor input - recipe ingredient preparation methods were included",
-      "Good input - a niche ingredient was substituted for a common ingredient",
-      "Poor input - too specific to be found in Edamam's database"
-    ]
+      'Good input - used exact measurements',
+      'Poor input - nonstandard unit of measurement',
+      'Good input - ingredient was concise without unnecessary descriptors',
+      'Poor input - recipe ingredient preparation methods were included',
+      'Good input - a niche ingredient was substituted for a common ingredient',
+      "Poor input - too specific to be found in Edamam's database",
+    ],
   };
 
   const titleProps = {
@@ -87,21 +87,21 @@ const RecipeForm = (props) => {
     handleChange: handleChange,
     handleBlur: handleBlur,
     inputRef: titleRef,
-    label: "Recipe title",
-    name: "title-input",
+    label: 'Recipe title',
+    name: 'title-input',
     placeholder: "e.g. Abuela's dirty beans syrniki",
     required: true,
     status: titleInput.status,
     title: `Enter a concise, cogent, and exciting title`,
-    value: titleInput.text
+    value: titleInput.text,
   };
 
   const ingredientsTextareaProps = {
     error: ingredientsTextarea.error,
     handleChange: handleChange,
     handleBlur: handleBlur,
-    label: "Ingredients & quantities",
-    name: "ingredients-textarea",
+    label: 'Ingredients & quantities',
+    name: 'ingredients-textarea',
     placeholder: `Ingredients list with one ingredient & quantity per line e.g.
 1/2 cup heavy cream
 3 tablespoons butter
@@ -110,31 +110,31 @@ const RecipeForm = (props) => {
     rows: 10,
     status: ingredientsTextarea.status,
     title: `Enter an ingredients grocery list with one ingredient & quantity per line`,
-    value: ingredientsTextarea.text
+    value: ingredientsTextarea.text,
   };
 
   return (
     <Box
       component="section"
       sx={{
-        display: "flex",
-        flexDirection: { xs: "column", sm: "column", md: "row" },
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'column', md: 'row' },
         gap: 2,
-        p: 2
+        p: 2,
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "65%" },
-          flexDirection: "column",
-          rowGap: 2
+          display: 'flex',
+          flex: { xs: '1 1 auto', sm: '1 1 auto', md: '65%' },
+          flexDirection: 'column',
+          rowGap: 2,
         }}
       >
         <Typography component="h1" variant="h5" mb={1}>
           <ManageSearch
             fontSize="large"
-            sx={{ padding: "0px 8px 8px 0px", verticalAlign: "middle" }}
+            sx={{ padding: '0px 8px 8px 0px', verticalAlign: 'middle' }}
           />
           Recipe Nutrition
           <Typography component="p" sx={{ mb: 2 }} variant="body1">
@@ -145,30 +145,31 @@ const RecipeForm = (props) => {
         </Typography>
         <RecipeTextfield {...titleProps} />
         <Typography component="p" variant="b1">
-          Enter your recipe ingredients below "grocery list" style - an
-          ingredient and unit of measurement. Don't enter guesstimations such as
-          "roughly" one "heaping" cup or descriptions like "finely minced" and
-          "steamed". Substitute rare ingredients for common names and double
-          check after each submission.
+          Enter your recipe ingredients below &quot;grocery list&quot; style -
+          an ingredient and unit of measurement. Don&apos;t enter guesstimations
+          such as &quot;roughly&quot; one &quot;heaping&quot; cup or
+          descriptions like &quot;finely minced&quot; and &quot;steamed&quot;.
+          Substitute rare ingredients for common names and double check after
+          each submission.
         </Typography>
         <Box>
           <List
             sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              flexFlow: "wrap",
-              pt: 0
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              flexFlow: 'wrap',
+              pt: 0,
             }}
           >
             {inputExamples.examples.map((inputExample, idx) => {
               return (
                 <InputExamples
                   CustomIcon={idx % 2 === 0 ? Done : Close}
-                  iconColor={idx % 2 === 0 ? "success" : "error"}
+                  iconColor={idx % 2 === 0 ? 'success' : 'error'}
                   inputExample={inputExample}
                   key={inputExample}
                   inputExamplesSx={{
-                    maxWidth: { xs: "100%", sm: "50%" }
+                    maxWidth: { xs: '100%', sm: '50%' },
                   }}
                   title={inputExamples.titles[idx]}
                 />
@@ -178,13 +179,13 @@ const RecipeForm = (props) => {
         </Box>
         <FormControl
           sx={{
-            display: "flex",
+            display: 'flex',
             gap: 4,
             margin: {
-              xs: "8px 0px 0px 0px",
-              sm: "8px 0px 0px 0px",
-              md: "8px 0px 0px 0px"
-            }
+              xs: '8px 0px 0px 0px',
+              sm: '8px 0px 0px 0px',
+              md: '8px 0px 0px 0px',
+            },
           }}
         >
           <IngredientInput
@@ -193,10 +194,10 @@ const RecipeForm = (props) => {
             showAlert={showAlert}
           />
           <Typography
-            sx={{ mt: "-16px", paddingLeft: "32px", textIndent: "-32px" }}
+            sx={{ mt: '-16px', paddingLeft: '32px', textIndent: '-32px' }}
           >
             <DynamicFeed
-              sx={{ verticalAlign: "middle", padding: "8px 8px 8px 0px" }}
+              sx={{ verticalAlign: 'middle', padding: '8px 8px 8px 0px' }}
             />
             Post multiple ingredients at a time below, but only enter one per
             line.
@@ -210,7 +211,7 @@ const RecipeForm = (props) => {
             onClick={handleSubmitThenFocus}
             size="large"
             startIcon={<PostAdd />}
-            sx={{ mt: "-24px", maxWidth: "220px" }}
+            sx={{ mt: '-24px', maxWidth: '220px' }}
             type="submit"
             variant="contained"
           >
@@ -220,9 +221,9 @@ const RecipeForm = (props) => {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          flex: { xs: "1 1 auto", sm: "1 1 auto", md: "1 1 35%" },
-          flexDirection: "column"
+          display: 'flex',
+          flex: { xs: '1 1 auto', sm: '1 1 auto', md: '1 1 35%' },
+          flexDirection: 'column',
         }}
       >
         <IngredientsList

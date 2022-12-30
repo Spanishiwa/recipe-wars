@@ -1,21 +1,21 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import { CardMedia } from "@mui/material";
-import { Box } from "@mui/system";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { CardMedia } from '@mui/material';
+import { Box } from '@mui/system';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2)
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
   },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1)
-  }
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
 }));
 
 function BootstrapDialogTitle(props) {
@@ -29,10 +29,10 @@ function BootstrapDialogTitle(props) {
           aria-label="close recipe image dialog modal"
           onClick={onClose}
           sx={{
-            position: "absolute",
+            position: 'absolute',
             right: 8,
             top: 8,
-            color: (theme) => theme.palette.text.primary
+            color: (theme) => theme.palette.text.primary,
           }}
         >
           <CloseIcon />
@@ -44,7 +44,7 @@ function BootstrapDialogTitle(props) {
 
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default function ImageModal(props) {
@@ -60,7 +60,7 @@ export default function ImageModal(props) {
       >
         <BootstrapDialogTitle
           id="recipe-image-dialog-title"
-          sx={{ marginRight: "56px" }}
+          sx={{ marginRight: '56px' }}
           onClose={props.handleClose}
         >
           {title}
@@ -70,7 +70,7 @@ export default function ImageModal(props) {
             alt={title}
             component="img"
             image={imgSrc}
-            sx={{ maxWidth: "700px" }}
+            sx={{ maxWidth: '700px' }}
             title={title}
           />
         </DialogContent>
@@ -78,3 +78,10 @@ export default function ImageModal(props) {
     </Box>
   );
 }
+
+ImageModal.propTypes = {
+  imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  title: PropTypes.string,
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+};

@@ -3,9 +3,9 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select
-} from "@mui/material";
-import React from "react";
+  Select,
+} from '@mui/material';
+import React from 'react';
 
 export const RecipeSelect = (props) => {
   const { handleSelect, text } = props;
@@ -15,7 +15,7 @@ export const RecipeSelect = (props) => {
       <Select
         displayEmpty
         id="photos-select-input"
-        inputProps={{ "aria-label": "Choose a preset photo" }}
+        inputProps={{ 'aria-label': 'Choose a preset photo' }}
         label="Photo"
         name="photos-select-input"
         onChange={handleSelect}

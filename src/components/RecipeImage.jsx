@@ -1,21 +1,21 @@
-import { Box, CardMedia, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
-import ImageModal from "./ImageModal";
-import { CalorieSvg } from "./CalorieSvg";
-import { CarbohydrateSvg } from "./CarbohydrateSvg";
-import { ProteinSvg } from "./ProteinSvg";
-import { FatSvg } from "./FatSvg";
-import { ServingsSwitch } from "./ServingsSwitch";
-import DefaultImg from "../assets/Default_Img.jpeg";
-import ForkKnife from "../assets/Fork_Knife.jpeg";
-import Grains from "../assets/Grains.jpeg";
-import Vegetables from "../assets/Colorful_Vegetables.jpeg";
-import Charcuterie from "../assets/Charcuterie_Board.webp";
-import Cookies from "../assets/Cocoa_Cookies.jpeg";
+import { Box, CardMedia, Typography } from '@mui/material';
+import React, { Fragment, useState } from 'react';
+import ImageModal from './ImageModal';
+import { CalorieSvg } from './CalorieSvg';
+import { CarbohydrateSvg } from './CarbohydrateSvg';
+import { ProteinSvg } from './ProteinSvg';
+import { FatSvg } from './FatSvg';
+import { ServingsSwitch } from './ServingsSwitch';
+import DefaultImg from '../assets/Default_Img.jpeg';
+import ForkKnife from '../assets/Fork_Knife.jpeg';
+import Grains from '../assets/Grains.jpeg';
+import Vegetables from '../assets/Colorful_Vegetables.jpeg';
+import Charcuterie from '../assets/Charcuterie_Board.webp';
+import Cookies from '../assets/Cocoa_Cookies.jpeg';
 
 export const RecipeImage = (props) => {
   const [state, setState] = useState({
-    isOpen: false
+    isOpen: false,
   });
 
   const handleClickOpen = () => {
@@ -26,12 +26,12 @@ export const RecipeImage = (props) => {
   };
 
   const svgContainerSx = {
-    display: "flex",
-    flexWrap: "wrap",
-    columnGap: { xs: "6px", md: "8px" },
-    justifyContent: "space-between",
-    pb: "16px",
-    rowGap: "16px"
+    display: 'flex',
+    flexWrap: 'wrap',
+    columnGap: { xs: '6px', md: '8px' },
+    justifyContent: 'space-between',
+    pb: '16px',
+    rowGap: '16px',
   };
 
   const {
@@ -43,9 +43,9 @@ export const RecipeImage = (props) => {
     selectText,
     servings,
     isPerServing,
-    title
+    title,
   } = props;
-  const recipe = recipeName || "Untitled";
+  const recipe = recipeName || 'Untitled';
 
   const sumNutrients = (ingrs) => {
     return ingrs.reduce(
@@ -68,17 +68,17 @@ export const RecipeImage = (props) => {
 
   const selectedImage = (selectText) => {
     switch (selectText) {
-      case "forkKnife":
+      case 'forkKnife':
         return ForkKnife;
-      case "grains":
+      case 'grains':
         return Grains;
-      case "colorfulVegetables":
+      case 'colorfulVegetables':
         return Vegetables;
-      case "charcuterie":
+      case 'charcuterie':
         return Charcuterie;
-      case "cookies":
+      case 'cookies':
         return Cookies;
-      case " ":
+      case ' ':
         return ForkKnife;
       default:
         return DefaultImg;
@@ -95,13 +95,13 @@ export const RecipeImage = (props) => {
           image={imgSrc || selectedImage(selectText)}
           onClick={handleClickOpen}
           sx={{
-            cursor: "pointer"
+            cursor: 'pointer',
           }}
           title={title}
         />
         <Typography
           component="figcaption"
-          sx={{ padding: "24px 16px", whiteSpace: "pre-wrap" }}
+          sx={{ padding: '24px 16px', whiteSpace: 'pre-wrap' }}
           variant="b2"
         >
           <Box sx={{ ...svgContainerSx }}>
@@ -124,9 +124,9 @@ export const RecipeImage = (props) => {
           <Box
             display="flex"
             sx={{
-              alignItems: "center",
-              justifyContent: "space-between",
-              py: 2
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              py: 2,
             }}
           >
             <ServingsSwitch
@@ -136,7 +136,7 @@ export const RecipeImage = (props) => {
             />
             <Typography
               component="span"
-              sx={{ verticalAlign: "middle" }}
+              sx={{ verticalAlign: 'middle' }}
               variant="b2"
             >
               Serves {servings}

@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
-import React from "react";
+import { TextField } from '@mui/material';
+import React from 'react';
 
 export const RecipeTextfield = (props) => {
   const {
@@ -10,13 +10,11 @@ export const RecipeTextfield = (props) => {
     label,
     name,
     placeholder,
-    required,
     status,
     title,
-    value
+    value,
   } = props;
 
-  const asteriskSx = {};
   return (
     <TextField
       error={error}
@@ -24,23 +22,23 @@ export const RecipeTextfield = (props) => {
       label={label}
       id={name}
       inputProps={{
-        ref: inputRef
+        ref: inputRef,
       }}
       name={name}
       InputLabelProps={{
         required: true,
-        shrink: true
+        shrink: true,
       }}
       onBlur={handleBlur}
       onChange={handleChange}
       placeholder={placeholder}
       sx={{
         flex: 1,
-        "& .MuiInputLabel-root.Mui-required": {
-          display: "flex",
-          flexDirection: "row-reverse",
-          marginLeft: "-5px"
-        }
+        '& .MuiInputLabel-root.Mui-required': {
+          display: 'flex',
+          flexDirection: 'row-reverse',
+          marginLeft: '-5px',
+        },
       }}
       title={title}
       type="text"

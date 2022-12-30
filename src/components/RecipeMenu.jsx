@@ -1,8 +1,8 @@
-import { MoreVert } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import React, { Fragment, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { MoreVert } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import React, { Fragment, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const RecipeMenu = (props) => {
   const { pathname } = useLocation();
@@ -20,15 +20,15 @@ export const RecipeMenu = (props) => {
 
   const handleDeleteRecipeFromMenu = (e) => {
     handleDeleteRecipe(e);
-    showAlert("Deleting Recipe", "success");
+    showAlert('Deleting Recipe', 'success');
     handleClose();
   };
 
   return (
     <Fragment>
       <IconButton
-        aria-controls={open ? "recipe-positioned-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
+        aria-controls={open ? 'recipe-positioned-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         aria-label="show more actions"
         color="primary"
@@ -37,8 +37,8 @@ export const RecipeMenu = (props) => {
         onClick={handleClick}
         sx={{
           mr: 2,
-          verticalAlign: "middle",
-          visibility: pathname === "/start" ? "hidden" : "visible"
+          verticalAlign: 'middle',
+          visibility: pathname === '/start' ? 'hidden' : 'visible',
         }}
       >
         <MoreVert />
@@ -50,12 +50,12 @@ export const RecipeMenu = (props) => {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "left"
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left"
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem

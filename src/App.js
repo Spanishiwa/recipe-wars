@@ -1,15 +1,15 @@
-import React, { Fragment, useEffect, useReducer } from "react";
-import Bg_Pattern_Dark from "./assets/Graphcoders_Lil_Fiber.png";
-import Bg_Pattern_Light from "./assets/Beige_Paper.png";
-import Footer from "./components/Footer";
-import { Box, Container, useTheme } from "@mui/material";
-import NavBar from "./components/NavBar";
-import MuiStepper from "./components/MuiStepper";
-import { CONFIG } from "./config";
-import { Faq } from "./components/Faq";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { Showcase } from "./components/Showcase";
-import { INIT_INPUTS, INIT_RECIPE_WARS, submitRecipeSnackbar } from "./Util";
+import React, { Fragment, useEffect, useReducer } from 'react';
+import Bg_Pattern_Dark from './assets/Graphcoders_Lil_Fiber.png';
+import Bg_Pattern_Light from './assets/Beige_Paper.png';
+import Footer from './components/Footer';
+import { Box, Container, useTheme } from '@mui/material';
+import NavBar from './components/NavBar';
+import MuiStepper from './components/MuiStepper';
+import { CONFIG } from './config';
+import { Faq } from './components/Faq';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Showcase } from './components/Showcase';
+import { INIT_INPUTS, INIT_RECIPE_WARS, submitRecipeSnackbar } from './Util';
 import {
   resetInputError,
   updateInput,
@@ -26,22 +26,22 @@ import {
   toggleInputDisable,
   updateInputError,
   setFetching,
-  setFetchFail
-} from "./components/reducers/actions";
-import { rootReducer } from "./components/reducers/rootReducer";
+  setFetchFail,
+} from './reducers/actions';
+import { rootReducer } from './reducers/rootReducer';
 
 function App() {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(
     rootReducer,
-    JSON.parse(localStorage.getItem("values")) || INIT_RECIPE_WARS
+    JSON.parse(localStorage.getItem('values')) || INIT_RECIPE_WARS
   );
 
   const flattenPayload = (data, name) => {
     return data.ingredients.map((ingredient) => {
-      const recipeName = ingredient.recipeName || "Untitled";
+      const recipeName = ingredient.recipeName || 'Untitled';
       const validId = (recipeName + ingredient.text)
-        .replace(/[^a-zA-Z]+/g, "")
+        .replace(/[^a-zA-Z]+/g, '')
         .slice(-50);
       const { nutrients } = ingredient.parsed[0];
 
@@ -53,10 +53,10 @@ function App() {
         carbohydrate: `${nutrients.CHOCDF.quantity}${nutrients.CHOCDF.unit} carbs`,
         protein: `${nutrients.PROCNT.quantity}${nutrients.PROCNT.unit} protein`,
         fat: `${nutrients.FAT.quantity}${nutrients.FAT.unit} fat`,
-        status: " ",
+        status: ' ',
         isDisabled: true,
         error: false,
-        recipeName: recipeName
+        recipeName: recipeName,
       };
     });
   };
@@ -65,22 +65,22 @@ function App() {
     const { accessRecipe, appId, appKey } = CONFIG;
     const recipeUrl = accessRecipe + appId + appKey;
     const recipePayload = {
-      title: "Untitled",
-      ingr: text.split("\n").filter((s) => s.length)
+      title: 'Untitled',
+      ingr: text.split('\n').filter((s) => s.length),
     };
 
-    if (state.filter((value) => value.id === "isRequesting")[0].isRequesting) {
+    if (state.filter((value) => value.id === 'isRequesting')[0].isRequesting) {
       return;
     } else {
       dispatch(setFetching());
     }
 
     fetch(recipeUrl, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(recipePayload)
+      body: JSON.stringify(recipePayload),
     })
       .then((res) => {
         if (!res.ok) {
@@ -92,7 +92,7 @@ function App() {
         const flatIngredientsPayload = flattenPayload(data, name);
         const flatIngredientPayload = flatIngredientsPayload[0];
 
-        if (!id.includes("-")) {
+        if (!id.includes('-')) {
           // updating single ingredient
           dispatch(updateIngredient(id, flatIngredientPayload));
         } else {
@@ -128,7 +128,7 @@ function App() {
     e.preventDefault();
 
     const name =
-      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
+      e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
 
     const ingredient = state.filter((ingredient) => ingredient.id === name);
     if (ingredient) fetchAPI(ingredient[0].text, name, name);
@@ -147,12 +147,12 @@ function App() {
   const handleKeySubmit = (e) => {
     const key = e.which || e.keyCode || 0;
     const isDelete =
-      e.target.classList.contains("delete") ||
-      e.currentTarget.classList.contains("delete");
+      e.target.classList.contains('delete') ||
+      e.currentTarget.classList.contains('delete');
 
     const isSubmit =
-      e.target.classList.contains("submit") ||
-      e.currentTarget.classList.contains("submit");
+      e.target.classList.contains('submit') ||
+      e.currentTarget.classList.contains('submit');
 
     if (key === 13 && isDelete) {
       e.stopPropagation();
@@ -171,18 +171,18 @@ function App() {
     const imgFile = e.target.files[0];
     if (!imgFile) return;
     // clean up previous Blob
-    const imgInput = state.filter((input) => input.id === "image-input")[0];
+    const imgInput = state.filter((input) => input.id === 'image-input')[0];
 
     if (imgInput?.imgSrc) URL.revokeObjectURL(imgInput.imgSrc);
 
     dispatch(updateImage(e));
   };
 
-  const handleReset = (e) => {
+  const handleReset = () => {
     dispatch(resetRecipe());
   };
 
-  const handleResetAll = (e) => {
+  const handleResetAll = () => {
     dispatch(resetAll());
   };
 
@@ -198,17 +198,17 @@ function App() {
     e.preventDefault();
 
     const name =
-      e.target.getAttribute("name") || e.currentTarget.getAttribute("name");
+      e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
     // code works - ration API calls for testing
     const ingredient = state.filter((ingredient) => ingredient.id === name);
 
     if (ingredient) fetchAPI(ingredient[0].text, null, name);
   };
 
-  const handleSubmitRecipe = (e) => {
+  const handleSubmitRecipe = () => {
     dispatch(submitRecipe());
 
-    navigate("/recipe-wars", { state: submitRecipeSnackbar });
+    navigate('/recipe-wars', { state: submitRecipeSnackbar });
   };
 
   const handleToggleDisable = (e) => {
@@ -222,23 +222,23 @@ function App() {
   };
 
   const mode = useTheme().palette.mode;
-  const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
-  const bgColor = mode === "light" ? "#F5F7FA" : "#121212";
+  const bgPattern = mode === 'light' ? Bg_Pattern_Light : Bg_Pattern_Dark;
+  const bgColor = mode === 'light' ? '#F5F7FA' : '#121212';
   const appSx = {
-    backgroundColor: "background.default",
+    backgroundColor: 'background.default',
     backgroundImage: `url(${bgPattern})`,
-    backgroundRepeat: "repeat",
-    display: "flex",
-    height: "100%",
-    justifyContent: "center",
-    width: "100%"
+    backgroundRepeat: 'repeat',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
   };
 
   useEffect(() => {
     // fix rubber banding scroll
     document.body.style.backgroundColor = bgColor;
     document.body.style.backgroundImage = `url(${bgPattern})`;
-    document.body.style.backgroundRepeat = "repeat";
+    document.body.style.backgroundRepeat = 'repeat';
 
     return () => {
       document.body.style.backgroundColor = null;
@@ -252,10 +252,10 @@ function App() {
 
     const stateWithInputsReset = [
       ...INIT_INPUTS,
-      ...state.filter((v) => !v.isInput || v.id === "servings-toggle")
+      ...state.filter((v) => !v.isInput || v.id === 'servings-toggle'),
     ];
 
-    localStorage.setItem("values", JSON.stringify(stateWithInputsReset));
+    localStorage.setItem('values', JSON.stringify(stateWithInputsReset));
   }, [state]);
 
   const handlers = {
@@ -273,7 +273,7 @@ function App() {
     handleSelect: handleSelect,
     handleSubmit: handleSubmit,
     handleSubmitRecipe: handleSubmitRecipe,
-    handleToggleDisable: handleToggleDisable
+    handleToggleDisable: handleToggleDisable,
   };
 
   const inputs = state.filter((value) => value.isInput);
@@ -285,9 +285,9 @@ function App() {
         component="main"
         maxWidth="lg"
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          padding: { xs: "32px 0px", sm: "32px 16px" }
+          display: 'flex',
+          justifyContent: 'center',
+          padding: { xs: '32px 0px', sm: '32px 16px' },
         }}
       >
         <Box className="app" sx={appSx}>

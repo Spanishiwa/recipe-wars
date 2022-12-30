@@ -1,9 +1,9 @@
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
-import { Done } from "@mui/icons-material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { Box } from '@mui/system';
+import React from 'react';
+import { Done } from '@mui/icons-material';
 
 const IngredientInputDisabled = (props) => {
   const { handlers, ingredient } = props;
@@ -15,7 +15,7 @@ const IngredientInputDisabled = (props) => {
     handleEdit,
     handleKeyDelete,
     handleKeySubmit,
-    handleToggleDisable
+    handleToggleDisable,
   } = handlers;
 
   const { error, id, isDisabled, status, text } = ingredient;
@@ -25,20 +25,20 @@ const IngredientInputDisabled = (props) => {
     <Box
       name={id}
       sx={{
-        display: "flex",
-        flexDirection: "row",
-        flex: "1 1 auto"
+        display: 'flex',
+        flexDirection: 'row',
+        flex: '1 1 auto',
       }}
     >
       <TextField
-        className={`parsed ${isDisabled ? "" : "submit"}`}
+        className={`parsed ${isDisabled ? '' : 'submit'}`}
         disabled={isDisabled}
         error={error}
         helperText={status}
-        label={isDisabled ? "" : "Ingredient & quantity"}
+        label={isDisabled ? '' : 'Ingredient & quantity'}
         id={id}
         InputLabelProps={{
-          shrink: true
+          shrink: true,
         }}
         InputProps={{
           ...standardVariantSx,
@@ -50,10 +50,10 @@ const IngredientInputDisabled = (props) => {
                 edge="end"
                 name={id}
                 sx={{
-                  color: "text.primary",
-                  "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                    color: "primary.main"
-                  }
+                  color: 'text.primary',
+                  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+                    color: 'primary.main',
+                  },
                 }}
                 onClick={handleToggleDisable}
                 title="Edit ingredient"
@@ -68,10 +68,10 @@ const IngredientInputDisabled = (props) => {
                 onClick={handleEdit}
                 onKeyDown={handleKeySubmit}
                 sx={{
-                  color: "primary.main",
-                  "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                    color: "primary.main"
-                  }
+                  color: 'primary.main',
+                  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+                    color: 'primary.main',
+                  },
                 }}
                 title="Save your edits to the ingredients list"
               >
@@ -93,8 +93,8 @@ const IngredientInputDisabled = (props) => {
                 onClick={handleDelete}
                 onKeyDown={handleKeyDelete}
                 sx={{
-                  color: "error.main",
-                  "&:hover": { color: "error.main" }
+                  color: 'error.main',
+                  '&:hover': { color: 'error.main' },
                 }}
                 title="Delete ingredient from ingredients list"
               >
@@ -105,7 +105,7 @@ const IngredientInputDisabled = (props) => {
                 />
               </IconButton>
             </InputAdornment>
-          )
+          ),
         }}
         name={id}
         onBlur={handleBlur}
@@ -114,19 +114,19 @@ const IngredientInputDisabled = (props) => {
         p={0}
         placeholder={text}
         sx={{
-          flex: "1 1 auto",
-          "& .MuiInputBase-root.Mui-disabled .submit": { display: "none" },
-          "& .MuiInputBase-root.Mui-disabled .delete": { display: "none" },
-          "& .MuiInputBase-root.Mui-disabled .edit": { display: "inline-flex" },
-          "& .MuiInputBase-root .edit": { display: "none" },
-          "& .MuiInputBase-adornedEnd.MuiInputBase-adornedStart": {
-            paddingLeft: "0px "
-          }
+          flex: '1 1 auto',
+          '& .MuiInputBase-root.Mui-disabled .submit': { display: 'none' },
+          '& .MuiInputBase-root.Mui-disabled .delete': { display: 'none' },
+          '& .MuiInputBase-root.Mui-disabled .edit': { display: 'inline-flex' },
+          '& .MuiInputBase-root .edit': { display: 'none' },
+          '& .MuiInputBase-adornedEnd.MuiInputBase-adornedStart': {
+            paddingLeft: '0px ',
+          },
         }}
         title="Ingredient parsed through Edamam API"
         type="text"
         value={text}
-        variant={isDisabled ? "standard" : "outlined"}
+        variant={isDisabled ? 'standard' : 'outlined'}
       />
     </Box>
   );

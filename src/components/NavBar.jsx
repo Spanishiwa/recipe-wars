@@ -6,62 +6,61 @@ import {
   Stack,
   Toolbar,
   Typography,
-  useTheme
-} from "@mui/material";
-import ColorModeContext from "./ColorModeContext";
-import Recipe_Icon from "../assets/recipe_icon.png";
-import React, { useContext } from "react";
-import Bg_Pattern_Light from "../assets/Beige_Paper.png";
-import Bg_Pattern_Dark from "../assets/Maze_Black.png";
+  useTheme,
+} from '@mui/material';
+import ColorModeContext from './ColorModeContext';
+import Recipe_Icon from '../assets/recipe_icon.png';
+import React, { useContext } from 'react';
+import Bg_Pattern_Light from '../assets/Beige_Paper.png';
+import Bg_Pattern_Dark from '../assets/Maze_Black.png';
 import {
   GitHub,
   Help,
   LightMode,
   LocalDining,
-  Mail,
-  Nightlight
-} from "@mui/icons-material";
-import Divider from "@mui/material/Divider";
-import { Link as RouterLink } from "react-router-dom";
+  Nightlight,
+} from '@mui/icons-material';
+import Divider from '@mui/material/Divider';
+import { Link as RouterLink } from 'react-router-dom';
 
 const NavBar = () => {
   const colorMode = useContext(ColorModeContext);
   const mode = useTheme().palette.mode;
-  const bgPattern = mode === "light" ? Bg_Pattern_Light : Bg_Pattern_Dark;
+  const bgPattern = mode === 'light' ? Bg_Pattern_Light : Bg_Pattern_Dark;
   const hoverSx =
-    mode === "light" ? { "&:hover": { background: "rgb(83, 140, 0)" } } : {};
+    mode === 'light' ? { '&:hover': { background: 'rgb(83, 140, 0)' } } : {};
 
   const navButtonStyles = {
-    color: mode === "light" ? "secondary.main" : "primary.main",
-    cursor: "pointer",
-    display: "flex",
-    flex: "1 1 0px",
-    flexDirection: "column",
+    color: mode === 'light' ? 'secondary.main' : 'primary.main',
+    cursor: 'pointer',
+    display: 'flex',
+    flex: '1 1 0px',
+    flexDirection: 'column',
     px: 2,
-    ...hoverSx
+    ...hoverSx,
   };
 
-  const colorModeIcon = mode === "light" ? <Nightlight /> : <LightMode />;
+  const colorModeIcon = mode === 'light' ? <Nightlight /> : <LightMode />;
 
   return (
     <React.Fragment>
       <AppBar position="fixed" sx={{ backgroundImage: `url(${bgPattern})` }}>
         <Toolbar
           sx={{
-            flexDirection: "row",
-            justifyContent: { xs: "center" },
-            margin: { lg: "auto" },
-            maxWidth: "lg",
-            width: { lg: "100%" }
+            flexDirection: 'row',
+            justifyContent: { xs: 'center' },
+            margin: { lg: 'auto' },
+            maxWidth: 'lg',
+            width: { lg: '100%' },
           }}
         >
-          <Box display={{ xs: "none", sm: "flex" }} flexGrow={1} gap={2}>
+          <Box display={{ xs: 'none', sm: 'flex' }} flexGrow={1} gap={2}>
             <Link
               color="inherit"
               component={RouterLink}
               display="flex"
               to="/recipe-wars"
-              sx={{ alignItems: "center", gap: 2 }}
+              sx={{ alignItems: 'center', gap: 2 }}
               title="Homepage"
               underline="none"
             >
@@ -72,7 +71,7 @@ const NavBar = () => {
                 width="48"
               />
               <Typography
-                color={mode === "light" ? "text.dark" : "primary.main"}
+                color={mode === 'light' ? 'text.dark' : 'primary.main'}
                 component="h1"
                 fontWeight="500"
                 variant="h5"
@@ -85,8 +84,8 @@ const NavBar = () => {
             divider={<Divider flexItem orientation="vertical" />}
             direction="row"
             sx={{
-              alignItems: "center",
-              flex: { xs: "1 1 auto", sm: "0.1 1 auto" }
+              alignItems: 'center',
+              flex: { xs: '1 1 auto', sm: '0.1 1 auto' },
             }}
           >
             <Button

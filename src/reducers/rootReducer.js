@@ -8,9 +8,9 @@ import {
   INIT_SERVINGS_INPUT,
   INIT_SERVINGS_TOGGLE,
   INIT_PHOTOS_SELECT_INPUT,
-  INIT_RECIPE_WARS
-} from "../../Util";
-import { ACTION_TYPES } from "./actions";
+  INIT_RECIPE_WARS,
+} from '../Util';
+import { ACTION_TYPES } from './actions';
 const {
   RESET_INPUT_ERROR,
   UPDATE_INPUT,
@@ -29,7 +29,7 @@ const {
   SET_FETCHING,
   SET_NOT_FETCHING,
   SET_FETCH_FAIL,
-  LOAD_LOCAL_STORAGE
+  LOAD_LOCAL_STORAGE,
 } = ACTION_TYPES;
 
 const rootReducer = (state, action) => {
@@ -37,7 +37,7 @@ const rootReducer = (state, action) => {
     case RESET_INPUT_ERROR:
       return state.map((prevState) =>
         prevState.id === action.payload.name
-          ? { ...prevState, error: false, status: " " }
+          ? { ...prevState, error: false, status: ' ' }
           : prevState
       );
     case UPDATE_INPUT:
@@ -53,31 +53,31 @@ const rootReducer = (state, action) => {
           if (prevState.id === action.payload.name) {
             return {
               ...prevState,
-              text: "",
+              text: '',
               error: false,
-              status: "Successfully posted"
+              status: 'Successfully posted',
             };
           }
 
-          if (prevState.id === "isRequesting") {
+          if (prevState.id === 'isRequesting') {
             return { ...prevState, isRequesting: false };
           }
 
           return prevState;
         }),
         // appending new ingredients
-        ...action.payload.flatIngredients
+        ...action.payload.flatIngredients,
       ];
     case UPDATE_INGREDIENT:
       return state.map((prevState) => {
         if (prevState.id === action.payload.name) {
           return {
             ...action.payload.flatIngredient,
-            recipeName: prevState.recipeName
+            recipeName: prevState.recipeName,
           };
         }
 
-        if (prevState.id === "isRequesting") {
+        if (prevState.id === 'isRequesting') {
           return { ...prevState, isRequesting: false };
         }
 
@@ -95,33 +95,33 @@ const rootReducer = (state, action) => {
           ? {
               ...prevState,
               imgSrc: action.payload.imgSrc,
-              imgName: action.payload.imgName
+              imgName: action.payload.imgName,
             }
           : prevState
       );
     case RESET_RECIPE:
       // filter out noRecipeName ingredients and reset inputs
       return state
-        .filter((prevState) => prevState.recipeName !== "Untitled")
+        .filter((prevState) => prevState.recipeName !== 'Untitled')
         .map((prevStateFiltered) => {
           switch (prevStateFiltered.id) {
-            case "ingredient-input":
+            case 'ingredient-input':
               return INIT_INGREDIENT_INPUT;
-            case "ingredients-textarea":
+            case 'ingredients-textarea':
               return INIT_INGREDIENTS_TEXTAREA;
-            case "image-input":
+            case 'image-input':
               return INIT_IMAGE_INPUT;
-            case "title-input":
+            case 'title-input':
               return INIT_TITLE_INPUT;
-            case "description-textarea":
+            case 'description-textarea':
               return INIT_DESCRIPTION_TEXTAREA;
-            case "recipe-textarea":
+            case 'recipe-textarea':
               return INIT_RECIPE_TEXTAREA;
-            case "servings-input":
+            case 'servings-input':
               return INIT_SERVINGS_INPUT;
-            case "servings-toggle":
+            case 'servings-toggle':
               return INIT_SERVINGS_TOGGLE;
-            case "photos-select-input":
+            case 'photos-select-input':
               return INIT_PHOTOS_SELECT_INPUT;
             default:
               return prevStateFiltered;
@@ -131,16 +131,16 @@ const rootReducer = (state, action) => {
       return INIT_RECIPE_WARS;
     case UPDATE_SELECT:
       return state.map((prevState) =>
-        prevState.id === "photos-select-input"
+        prevState.id === 'photos-select-input'
           ? { ...prevState, text: action.payload.value }
           : prevState
       );
     case TOGGLE_SERVINGS_INPUT:
       return state.map((prevState) =>
-        prevState.id === "servings-toggle"
+        prevState.id === 'servings-toggle'
           ? {
               ...prevState,
-              [action.payload.name]: !prevState[action.payload.name]
+              [action.payload.name]: !prevState[action.payload.name],
             }
           : prevState
       );
@@ -149,23 +149,23 @@ const rootReducer = (state, action) => {
         (accum, input) => {
           // get input values
           switch (input.id) {
-            case "image-input":
+            case 'image-input':
               accum.imgSrc = input.imgSrc;
             // falls through
-            case "title-input":
+            case 'title-input':
               accum.title = input.text;
               accum.id = input.text;
             // falls through
-            case "description-textarea":
+            case 'description-textarea':
               accum.description = input.text;
             // falls through
-            case "recipe-textarea":
+            case 'recipe-textarea':
               accum.instructions = input.text;
             // falls through
-            case "servings-input":
+            case 'servings-input':
               accum.servings = input.text;
             // falls through
-            case "photos-select-input":
+            case 'photos-select-input':
               accum.selectText = input.text;
             // falls through
             default:
@@ -173,55 +173,55 @@ const rootReducer = (state, action) => {
           }
         },
         {
-          imgSrc: "",
-          title: "",
-          description: "",
-          instructions: "",
+          imgSrc: '',
+          title: '',
+          description: '',
+          instructions: '',
           servings: 1,
-          id: "",
-          selectText: ""
+          id: '',
+          selectText: '',
         }
       );
 
       const recipeName = recipeState.title
-        .replace(/[^a-zA-Z]+/g, "")
+        .replace(/[^a-zA-Z]+/g, '')
         .slice(-50);
 
       const recipeComplete = {
         ...recipeState,
         title: recipeState.title,
         id: recipeName,
-        recipeName: recipeName
+        recipeName: recipeName,
       };
 
       const stateWithInputsReset = state.map((prevState) => {
-        if (prevState.recipeName === "Untitled") {
+        if (prevState.recipeName === 'Untitled') {
           //   update recipeName of pending noRecipeName ingredients
           return { ...prevState, recipeName: recipeName };
         }
         switch (prevState.id) {
           // reset recipe inputs
-          case "ingredient-input":
+          case 'ingredient-input':
             return INIT_INGREDIENT_INPUT;
-          case "ingredients-textarea":
+          case 'ingredients-textarea':
             return INIT_INGREDIENTS_TEXTAREA;
-          case "image-input":
+          case 'image-input':
             return INIT_IMAGE_INPUT;
-          case "title-input":
+          case 'title-input':
             return INIT_TITLE_INPUT;
-          case "description-textarea":
+          case 'description-textarea':
             return INIT_DESCRIPTION_TEXTAREA;
-          case "recipe-textarea":
+          case 'recipe-textarea':
             return INIT_RECIPE_TEXTAREA;
-          case "servings-input":
+          case 'servings-input':
             return INIT_SERVINGS_INPUT;
-          case "servings-toggle":
+          case 'servings-toggle':
             return {
               ...prevState,
               isUntitledPerServing: true,
-              [`is${recipeName}PerServing`]: prevState["isUntitledPerServing"]
+              [`is${recipeName}PerServing`]: prevState['isUntitledPerServing'],
             };
-          case "photos-select-input":
+          case 'photos-select-input':
             return INIT_PHOTOS_SELECT_INPUT;
           default:
             return prevState;
@@ -244,13 +244,13 @@ const rootReducer = (state, action) => {
       );
     case SET_FETCHING:
       return state.map((prevState) =>
-        prevState.id === "isRequesting"
+        prevState.id === 'isRequesting'
           ? { ...prevState, isRequesting: true }
           : prevState
       );
     case SET_NOT_FETCHING:
       return state.map((prevState) =>
-        prevState.id === "isRequesting"
+        prevState.id === 'isRequesting'
           ? { ...prevState, isRequesting: false }
           : prevState
       );
@@ -261,11 +261,11 @@ const rootReducer = (state, action) => {
             ...prevState,
             error: true,
             status: action.payload.status,
-            text: prevState.parsed || prevState.text
+            text: prevState.parsed || prevState.text,
           };
         }
 
-        if (prevState.id === "isRequesting") {
+        if (prevState.id === 'isRequesting') {
           return { ...prevState, isRequesting: false };
         }
 

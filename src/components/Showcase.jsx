@@ -1,14 +1,14 @@
-import { Box, Button, Card, Typography } from "@mui/material";
-import React, { Fragment } from "react";
-import { RecipeCard } from "./RecipeCard";
-import { MuiSnackbar } from "./MuiSnackbar";
-import { useLocation } from "react-router-dom";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import { Box, Button, Card, Typography } from '@mui/material';
+import React, { Fragment } from 'react';
+import { RecipeCard } from './RecipeCard';
+import { MuiSnackbar } from './MuiSnackbar';
+import { useLocation } from 'react-router-dom';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const INIT_SNACKBAR = {
   message: 'Title is "Untitled" or empty',
   open: false,
-  severity: "error"
+  severity: 'error',
 };
 
 export const Showcase = (props) => {
@@ -26,23 +26,23 @@ export const Showcase = (props) => {
       ...prevState,
       message: message,
       open: true,
-      severity: severity
+      severity: severity,
     }));
   };
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
     setSnackbarState((prevState) => ({
       ...prevState,
-      open: false
+      open: false,
     }));
   };
 
   const handleResetAllClick = () => {
-    showAlert("Resetting all recipes to default", "success");
+    showAlert('Resetting all recipes to default', 'success');
     handleResetAll();
   };
 
@@ -53,18 +53,18 @@ export const Showcase = (props) => {
     }, {});
   };
 
-  const recipes = lodashGroupBy(recipeStates, "recipeName");
+  const recipes = lodashGroupBy(recipeStates, 'recipeName');
   const recipeNames = Object.keys(recipes).filter(
-    (recipeName) => recipeName !== "undefined" && recipeName !== "Untitled"
+    (recipeName) => recipeName !== 'undefined' && recipeName !== 'Untitled'
   );
   const servingsToggle = recipeStates.filter(
-    (state) => state.id === "servings-toggle"
+    (state) => state.id === 'servings-toggle'
   )[0];
 
   return (
     <Fragment>
       {recipeNames.length === 0 ? (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           <Card sx={{ padding: 2 }}>
             <Typography component="p" sx={{ mb: 2 }} variant="h6">
               Want to bring back the default recipes? Use this Reset All button
@@ -88,7 +88,7 @@ export const Showcase = (props) => {
       ) : (
         <></>
       )}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         {recipeNames.map((recipeName) => {
           const recipeState = recipes[recipeName].filter(
             (recipe) => recipe.title

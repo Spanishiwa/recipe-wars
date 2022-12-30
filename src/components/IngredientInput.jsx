@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
-import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
-import { PostAdd } from "@mui/icons-material";
+import React, { useRef } from 'react';
+import { Box, TextField, IconButton, InputAdornment } from '@mui/material';
+import { PostAdd } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 
 const IngredientInput = (props) => {
   const { handlers, input, showAlert } = props;
@@ -11,59 +12,59 @@ const IngredientInput = (props) => {
 
   const handleSubmitThenFocus = (e) => {
     handleSubmit(e);
-    showAlert("Fetching ingredient", "info");
+    showAlert('Fetching ingredient', 'info');
     inputRef.current.focus();
   };
 
   const handleKeySubmitThenFocus = (e) => {
     const key = e.which || e.keyCode || 0;
     const isSubmit =
-      e.target.classList.contains("submit") ||
-      e.currentTarget.classList.contains("submit");
+      e.target.classList.contains('submit') ||
+      e.currentTarget.classList.contains('submit');
 
     if (key === 13 && isSubmit) {
       e.stopPropagation();
       e.preventDefault();
 
       handleKeySubmit(e);
-      showAlert("Fetching ingredient", "info");
+      showAlert('Fetching ingredient', 'info');
       inputRef.current.focus();
     }
   };
 
   const errorSx = error
     ? {
-        "& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline": {
-          borderWidth: "1px",
-          borderStyle: "solid",
-          borderColor: "error.main"
+        '& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline': {
+          borderWidth: '1px',
+          borderStyle: 'solid',
+          borderColor: 'error.main',
         },
-        "& .MuiInputLabel-root.Mui-error": {
-          color: "error.main"
+        '& .MuiInputLabel-root.Mui-error': {
+          color: 'error.main',
         },
-        "& .MuiFormHelperText-root.Mui-error": {
-          color: "error.main"
-        }
+        '& .MuiFormHelperText-root.Mui-error': {
+          color: 'error.main',
+        },
       }
     : {};
   const statusSx =
     status.length > 1
       ? {
-          "& .MuiInputBase-root .MuiOutlinedInput-notchedOutline": {
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "primary.main"
+          '& .MuiInputBase-root .MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: 'primary.main',
           },
-          "& .MuiInputLabel-root": {
-            color: "primary.main"
+          '& .MuiInputLabel-root': {
+            color: 'primary.main',
           },
-          "& .MuiFormHelperText-root": {
-            color: "primary.main"
-          }
+          '& .MuiFormHelperText-root': {
+            color: 'primary.main',
+          },
         }
       : {};
   return (
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <TextField
         className="ingredient-input submit"
         label="Ingredient & quantity"
@@ -71,10 +72,10 @@ const IngredientInput = (props) => {
         helperText={status}
         id="ingredient-input"
         InputLabelProps={{
-          shrink: true
+          shrink: true,
         }}
         inputProps={{
-          ref: inputRef
+          ref: inputRef,
         }}
         InputProps={{
           endAdornment: (
@@ -87,16 +88,16 @@ const IngredientInput = (props) => {
                 onClick={handleSubmitThenFocus}
                 onKeyDown={handleKeySubmitThenFocus}
                 sx={{
-                  "&:hover, &.Mui-focusVisible, &.Mui-active": {
-                    color: "primary.main"
-                  }
+                  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+                    color: 'primary.main',
+                  },
                 }}
                 title="Save ingredient to ingredients list"
               >
                 <PostAdd name="ingredient-input" variant="outlined" />
               </IconButton>
             </InputAdornment>
-          )
+          ),
         }}
         name="ingredient-input"
         onBlur={handleBlur}
@@ -105,11 +106,11 @@ const IngredientInput = (props) => {
         placeholder="e.g. 1/2 cup broccoli"
         sx={{
           flex: 1,
-          "& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root": {
-            color: "primary.main"
+          '& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root': {
+            color: 'primary.main',
           },
           ...errorSx,
-          ...statusSx
+          ...statusSx,
         }}
         title="Enter an ingredient & quantity here"
         type="text"
@@ -121,3 +122,18 @@ const IngredientInput = (props) => {
 };
 
 export default IngredientInput;
+
+IngredientInput.propTypes = {
+  handlers: PropTypes.shape({
+    handleBlur: PropTypes.func,
+    handleChange: PropTypes.func,
+    handleKeySubmit: PropTypes.func,
+    handleSubmit: PropTypes.func,
+  }).isRequired,
+  input: PropTypes.shape({
+    error: PropTypes.bool,
+    status: PropTypes.string,
+    text: PropTypes.string,
+  }).isRequired,
+  showAlert: PropTypes.func.isRequired,
+};

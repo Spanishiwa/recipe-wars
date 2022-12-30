@@ -1,37 +1,37 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
-import MobileStepper from "@mui/material/MobileStepper";
-import Button from "@mui/material/Button";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import RecipeCard from "./RecipeCard";
-import { Card } from "@mui/material";
-import Bg_Pattern_Light from "../assets/Back_Pattern.png";
-import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
-import RecipeForm from "./RecipeForm";
-import { RecipeFormOptional } from "./RecipeFormOptional";
-import { AssignmentTurnedIn, Delete } from "@mui/icons-material";
-import { MuiSnackbar } from "./MuiSnackbar";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import RecipeCard from './RecipeCard';
+import { Card } from '@mui/material';
+import Bg_Pattern_Light from '../assets/Back_Pattern.png';
+import Bg_Pattern_Dark from '../assets/Debut_Dark.png';
+import RecipeForm from './RecipeForm';
+import { RecipeFormOptional } from './RecipeFormOptional';
+import { AssignmentTurnedIn, Delete } from '@mui/icons-material';
+import { MuiSnackbar } from './MuiSnackbar';
 
 const steps = [
   {
-    label: "List of recipe ingredients",
+    label: 'List of recipe ingredients',
     description: `Enter all the ingredients and their quantities until your ingredients
     recipe list is complete. Specifically only enter the ingredient and quantity. Adding
-    descriptions like finely chopped, steamed, blanched, etc will cause the parser to fail. `
+    descriptions like finely chopped, steamed, blanched, etc will cause the parser to fail. `,
   },
   {
-    label: "Customize your recipe",
+    label: 'Customize your recipe',
     description: `Add all of the details necessary to transform your ingredients list into the final
       cooked product. A good title, description, and image showing the final product will
-      help. And of course, a detailed step by step recipe instructions section.`
+      help. And of course, a detailed step by step recipe instructions section.`,
   },
   {
-    label: "Calculate the nutrients",
+    label: 'Calculate the nutrients',
     description: `Check the nutrient profile of your recipe by total or per serving. Edit
-    and substitute any ingredients and construct the perfect recipe.`
-  }
+    and substitute any ingredients and construct the perfect recipe.`,
+  },
 ];
 
 export default function TextMobileStepper(props) {
@@ -50,7 +50,7 @@ export default function TextMobileStepper(props) {
     handleToggleDisable,
     handleReset,
     handleSelect,
-    handleServingsToggle
+    handleServingsToggle,
   } = handlers;
 
   const handlersRecipeForm = {
@@ -60,7 +60,7 @@ export default function TextMobileStepper(props) {
     handleEdit,
     handleKeySubmit,
     handleSubmit,
-    handleToggleDisable
+    handleToggleDisable,
   };
 
   const handlersRecipeFormOptional = {
@@ -72,7 +72,7 @@ export default function TextMobileStepper(props) {
     handleKeyDelete,
     handleKeySubmit,
     handleSelect,
-    handleToggleDisable
+    handleToggleDisable,
   };
 
   const handlersRecipeCard = {
@@ -83,33 +83,33 @@ export default function TextMobileStepper(props) {
     handleKeyDelete,
     handleKeySubmit,
     handleToggleDisable,
-    handleServingsToggle
+    handleServingsToggle,
   };
 
   const noRecipeNameIngredients = recipeStates.filter(
-    (recipe) => recipe.recipeName === "Untitled"
+    (recipe) => recipe.recipeName === 'Untitled'
   );
 
   const inputValues = (inputs) => {
     return inputs.reduce(
       (accum, input) => {
         switch (input.id) {
-          case "image-input":
+          case 'image-input':
             accum.imgSrc = input.imgSrc;
           //falls through
-          case "title-input":
+          case 'title-input':
             accum.title = input.text;
           //falls through
-          case "description-textarea":
+          case 'description-textarea':
             accum.description = input.text;
           //falls through
-          case "recipe-textarea":
+          case 'recipe-textarea':
             accum.instructions = input.text;
           //falls through
-          case "servings-input":
+          case 'servings-input':
             accum.servings = input.text;
           //falls through
-          case "photos-select-input":
+          case 'photos-select-input':
             accum.selectText = input.text;
           //falls through
           default:
@@ -117,20 +117,20 @@ export default function TextMobileStepper(props) {
         }
       },
       {
-        imgSrc: "",
-        title: "",
-        description: "",
-        instructions: "",
+        imgSrc: '',
+        title: '',
+        description: '',
+        instructions: '',
         servings: 1,
-        selectText: ""
+        selectText: '',
       }
     );
   };
 
   const recipeState = inputValues(inputs);
   const isPerServing = inputs.filter(
-    (input) => input.id === "servings-toggle"
-  )[0]["isUntitledPerServing"];
+    (input) => input.id === 'servings-toggle'
+  )[0]['isUntitledPerServing'];
 
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -139,7 +139,7 @@ export default function TextMobileStepper(props) {
   const [snackbarState, setSnackbarState] = React.useState({
     message: `Title is "Untitled" or empty`,
     open: false,
-    severity: "error"
+    severity: 'error',
   });
 
   const showAlert = (message, severity) => {
@@ -147,40 +147,40 @@ export default function TextMobileStepper(props) {
       ...prevState,
       message: message,
       open: true,
-      severity: severity
+      severity: severity,
     }));
   };
 
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
   const isValidTitle =
-    recipeState.title !== "" && recipeState.title !== "Untitled";
+    recipeState.title !== '' && recipeState.title !== 'Untitled';
 
-  const handleResetClick = (e) => {
+  const handleResetClick = () => {
     setSnackbarState((prevState) => ({
       ...prevState,
-      message: "Resetting recipe",
+      message: 'Resetting recipe',
       open: true,
-      severity: "success"
+      severity: 'success',
     }));
 
     handleReset();
   };
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
     setSnackbarState((prevState) => ({
       ...prevState,
-      open: false
+      open: false,
     }));
   };
 
   const titleRef = React.useRef(null);
 
   const handleNext = () => {
-    let errorMessage = "";
+    let errorMessage = '';
     if (isValidIngredientsList && isValidTitle) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       return;
@@ -193,7 +193,7 @@ export default function TextMobileStepper(props) {
     if (!isValidTitle) {
       errorMessage = `Title can't be "Untitled" or empty`;
 
-      setInputError("title-input", errorMessage);
+      setInputError('title-input', errorMessage);
       titleRef.current.focus();
     }
 
@@ -201,7 +201,7 @@ export default function TextMobileStepper(props) {
       ...prevState,
       message: errorMessage,
       open: true,
-      severity: "error"
+      severity: 'error',
     }));
   };
 
@@ -210,14 +210,14 @@ export default function TextMobileStepper(props) {
   };
 
   const actionSx =
-    theme.palette.mode === "light"
+    theme.palette.mode === 'light'
       ? {
-          backgroundColor: "primary.light",
-          backgroundImage: `url(${Bg_Pattern_Light})`
+          backgroundColor: 'primary.light',
+          backgroundImage: `url(${Bg_Pattern_Light})`,
         }
       : {
-          backgroundColor: "background.default",
-          backgroundImage: `url(${Bg_Pattern_Dark})`
+          backgroundColor: 'background.default',
+          backgroundImage: `url(${Bg_Pattern_Dark})`,
         };
 
   const stepView = (step) => {
@@ -263,8 +263,8 @@ export default function TextMobileStepper(props) {
   };
 
   return (
-    <Card sx={{ flexGrow: 1, height: "100%", maxWidth: { xs: 1200 } }}>
-      <Box sx={{ maxWidth: { xs: 1200 }, width: "100%" }}>
+    <Card sx={{ flexGrow: 1, height: '100%', maxWidth: { xs: 1200 } }}>
+      <Box sx={{ maxWidth: { xs: 1200 }, width: '100%' }}>
         <MuiSnackbar
           handleClose={handleSnackbarClose}
           message={snackbarState.message}
@@ -300,7 +300,7 @@ export default function TextMobileStepper(props) {
                 variant="contained"
               >
                 Next
-                {theme.direction === "rtl" ? (
+                {theme.direction === 'rtl' ? (
                   <KeyboardArrowLeft />
                 ) : (
                   <KeyboardArrowRight />
@@ -327,7 +327,7 @@ export default function TextMobileStepper(props) {
                 disabled={activeStep === 0}
                 variant="outlined"
               >
-                {theme.direction === "rtl" ? (
+                {theme.direction === 'rtl' ? (
                   <KeyboardArrowRight />
                 ) : (
                   <KeyboardArrowLeft />

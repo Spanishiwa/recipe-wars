@@ -1,5 +1,5 @@
-import { Box, TextField } from "@mui/material";
-import React from "react";
+import { Box, TextField } from '@mui/material';
+import React from 'react';
 
 export const RecipeTextarea = (props) => {
   const {
@@ -13,44 +13,44 @@ export const RecipeTextarea = (props) => {
     rows,
     status,
     title,
-    value
+    value,
   } = props;
   const errorSx = error
     ? {
-        "& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline": {
-          borderWidth: "1px",
-          borderStyle: "solid",
-          borderColor: "error.main"
+        '& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline': {
+          borderWidth: '1px',
+          borderStyle: 'solid',
+          borderColor: 'error.main',
         },
-        "& .MuiInputLabel-root.Mui-error": {
-          color: "error.main"
+        '& .MuiInputLabel-root.Mui-error': {
+          color: 'error.main',
         },
-        "& .MuiFormHelperText-root.Mui-error": {
-          color: "error.main"
-        }
+        '& .MuiFormHelperText-root.Mui-error': {
+          color: 'error.main',
+        },
       }
     : {};
 
   const statusSx =
     status.length > 1
       ? {
-          "& .MuiInputBase-root .MuiOutlinedInput-notchedOutline": {
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "primary.main"
+          '& .MuiInputBase-root .MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: 'primary.main',
           },
-          "& .MuiInputLabel-root": {
-            color: "primary.main"
+          '& .MuiInputLabel-root': {
+            color: 'primary.main',
           },
-          "& .MuiFormHelperText-root": {
-            color: "primary.main"
-          }
+          '& .MuiFormHelperText-root': {
+            color: 'primary.main',
+          },
         }
       : {};
   return (
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <TextField
-        className={`${name} ${status.length > 1 ? "status" : ""}`}
+        className={`${name} ${status.length > 1 ? 'status' : ''}`}
         cols="50"
         error={error}
         helperText={status}
@@ -58,7 +58,7 @@ export const RecipeTextarea = (props) => {
         label={label}
         id={name}
         inputProps={{
-          ref: inputRef
+          ref: inputRef,
         }}
         multiline
         name={name}
@@ -66,7 +66,7 @@ export const RecipeTextarea = (props) => {
         onChange={handleChange}
         placeholder={placeholder}
         rows={rows}
-        sx={{ flex: "1 1 auto", ...errorSx, ...statusSx }}
+        sx={{ flex: '1 1 auto', ...errorSx, ...statusSx }}
         title={title}
         variant="outlined"
         value={value}

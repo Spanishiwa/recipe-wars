@@ -1,6 +1,6 @@
-import { Snackbar } from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
-import React from "react";
+import { Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+import React from 'react';
 
 export const MuiSnackbar = (props) => {
   const { handleClose, message, open, severity } = props;
@@ -11,7 +11,7 @@ export const MuiSnackbar = (props) => {
         elevation={6}
         onClose={handleClose}
         severity={severity}
-        sx={{ width: "100%" }}
+        sx={{ width: '100%' }}
         variant="filled"
       >
         {message}

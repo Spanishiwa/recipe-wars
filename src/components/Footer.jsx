@@ -1,60 +1,60 @@
-import { Box } from "@mui/system";
-import React from "react";
-import Edamam_Badge_Transparent from "../assets/Edamam_Badge_Transparent.svg";
-import Bg_Pattern_Dark from "../assets/Debut_Dark.png";
+import { Box } from '@mui/system';
+import React from 'react';
+import Edamam_Badge_Transparent from '../assets/Edamam_Badge_Transparent.svg';
+import Bg_Pattern_Dark from '../assets/Debut_Dark.png';
 // import Bg_Pattern_Light from "../assets/Beige_Paper.png";
-import Bg_Pattern_Light from "../assets/Back_Pattern.png";
-import { Link, Typography, useTheme } from "@mui/material";
-import { GitHub, Help, Home, LocalDining } from "@mui/icons-material";
-import { Link as RouterLink } from "react-router-dom";
+import Bg_Pattern_Light from '../assets/Back_Pattern.png';
+import { Link, Typography, useTheme } from '@mui/material';
+import { GitHub, Help, Home, LocalDining } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 
 function Footer() {
   const mode = useTheme().palette.mode;
   const footerSx =
-    mode === "light"
+    mode === 'light'
       ? {
-          backgroundColor: "primary.light",
+          backgroundColor: 'primary.light',
           backgroundImage: `url(${Bg_Pattern_Light})`,
-          borderTop: "1px solid rgba(0, 0, 0, 0.23)"
+          borderTop: '1px solid rgba(0, 0, 0, 0.23)',
         }
       : {
-          backgroundColor: "background.default",
-          backgroundImage: `url(${Bg_Pattern_Dark})`
+          backgroundColor: 'background.default',
+          backgroundImage: `url(${Bg_Pattern_Dark})`,
         };
   const footerAttributes = {
-    component: "footer",
+    component: 'footer',
     sx: {
-      display: "flex",
+      display: 'flex',
       ...footerSx,
 
       padding: {
-        xs: "16px",
-        sm: "16px 16px 16px 12px",
-        lg: "16px"
-      }
-    }
+        xs: '16px',
+        sm: '16px 16px 16px 12px',
+        lg: '16px',
+      },
+    },
   };
 
   return (
     <Box {...footerAttributes}>
       <Box
         sx={{
-          display: "flex",
-          flex: "1 1 auto",
-          margin: "auto",
-          maxWidth: "1200px",
-          padding: { sm: "0px 0px 0px 0px" }
+          display: 'flex',
+          flex: '1 1 auto',
+          margin: 'auto',
+          maxWidth: '1200px',
+          padding: { sm: '0px 0px 0px 0px' },
         }}
       >
         <Box
           sx={{
-            alignItems: "center",
-            display: "flex",
-            flex: "1 1 auto",
-            justifyContent: { xs: "center", sm: "center", md: "space-between" },
-            margin: { lg: "auto" },
-            maxWidth: "lg",
-            width: { xs: "auto", lg: "100%" }
+            alignItems: 'center',
+            display: 'flex',
+            flex: '1 1 auto',
+            justifyContent: { xs: 'center', sm: 'center', md: 'space-between' },
+            margin: { lg: 'auto' },
+            maxWidth: 'lg',
+            width: { xs: 'auto', lg: '100%' },
           }}
         >
           <Link
@@ -62,7 +62,7 @@ function Footer() {
             href="https://developer.edamam.com/attribution"
             rel="noopener"
             sx={{
-              display: "inline-block"
+              display: 'inline-block',
             }}
             target="_blank"
             title="Edamam API logo and attribution"
@@ -72,10 +72,10 @@ function Footer() {
               component="img"
               className="logo-edamam"
               src={Edamam_Badge_Transparent}
-              sx={{ display: "block", height: "50px" }}
+              sx={{ display: 'block', height: '50px' }}
             />
           </Link>
-          <Box sx={{ display: { xs: "none", sm: "none", md: "flex" } }} gap={4}>
+          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }} gap={4}>
             <Link
               component={RouterLink}
               to="/recipe-wars"
@@ -83,7 +83,7 @@ function Footer() {
               title="Homepage"
               variant="b1"
             >
-              <Home sx={{ verticalAlign: "middle" }} />
+              <Home sx={{ verticalAlign: 'middle' }} />
               <Typography component="span" sx={{ ml: 1 }} variant="b1">
                 HOME
               </Typography>
@@ -95,7 +95,7 @@ function Footer() {
               title="Customize your recipe page"
               variant="b1"
             >
-              <LocalDining sx={{ verticalAlign: "middle" }} />
+              <LocalDining sx={{ verticalAlign: 'middle' }} />
               <Typography component="span" sx={{ ml: 1 }} variant="b1">
                 START
               </Typography>
@@ -107,7 +107,7 @@ function Footer() {
               title="Frequently Asked Questions page"
               variant="b1"
             >
-              <Help sx={{ verticalAlign: "middle" }} />
+              <Help sx={{ verticalAlign: 'middle' }} />
               <Typography component="span" sx={{ ml: 1 }} variant="b1">
                 FAQ
               </Typography>
@@ -116,12 +116,12 @@ function Footer() {
               component="a"
               href="https://github.com/Spanishiwa/recipe-wars"
               rel="noopener"
-              sx={{ paddingRight: "18px" }}
+              sx={{ paddingRight: '18px' }}
               target="_blank"
               title="GitHub source code"
               variant="b1"
             >
-              <GitHub sx={{ verticalAlign: "middle" }} />
+              <GitHub sx={{ verticalAlign: 'middle' }} />
               <Typography component="span" sx={{ ml: 1 }} variant="b1">
                 GITHUB
               </Typography>

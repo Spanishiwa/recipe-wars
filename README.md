@@ -16,6 +16,9 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 - Complete call to action for /start page
 - Add snackbar dialogue when resetting state from faq page button
+- Add edit functionality to posted recipes
+- Refactor file structure/large components
+- Migrate project to TypeScript
   \
   \
   Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Routes from React-Router-Dom and textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons, logos, and additional icons sourced from [freeiconspng](https://www.freeiconspng.com/) and [visualpharm](https://www.visualpharm.com/free-icons/). \
