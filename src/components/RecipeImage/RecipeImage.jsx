@@ -1,17 +1,17 @@
 import { Box, CardMedia, Typography } from '@mui/material';
 import React, { Fragment, useState } from 'react';
-import ImageModal from './ImageModal';
-import { CalorieSvg } from './CalorieSvg';
-import { CarbohydrateSvg } from './CarbohydrateSvg';
-import { ProteinSvg } from './ProteinSvg';
-import { FatSvg } from './FatSvg';
-import { ServingsSwitch } from './ServingsSwitch';
-import DefaultImg from '../assets/Default_Img.jpeg';
-import ForkKnife from '../assets/Fork_Knife.jpeg';
-import Grains from '../assets/Grains.jpeg';
-import Vegetables from '../assets/Colorful_Vegetables.jpeg';
-import Charcuterie from '../assets/Charcuterie_Board.webp';
-import Cookies from '../assets/Cocoa_Cookies.jpeg';
+import ImageModal from '../ImageModal/ImageModal';
+import { CalorieSvg } from '../CalorieSvg/CalorieSvg';
+import { CarbohydrateSvg } from '../CarbohydrateSvg/CarbohydrateSvg';
+import { ProteinSvg } from '../ProteinSvg/ProteinSvg';
+import { FatSvg } from '../FatSvg/FatSvg';
+import { ServingsSwitch } from '../ServingsSwitch/ServingsSwitch';
+import DefaultImg from '../../assets/Default_Img.jpeg';
+import ForkKnife from '../../assets/Fork_Knife.jpeg';
+import Grains from '../../assets/Grains.jpeg';
+import Vegetables from '../../assets/Colorful_Vegetables.jpeg';
+import Charcuterie from '../../assets/Charcuterie_Board.webp';
+import Cookies from '../../assets/Cocoa_Cookies.jpeg';
 import PropTypes from 'prop-types';
 
 export const RecipeImage = (props) => {

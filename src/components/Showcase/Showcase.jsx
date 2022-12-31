@@ -1,7 +1,7 @@
 import { Box, Button, Card, Typography } from '@mui/material';
 import React, { Fragment } from 'react';
-import { RecipeCard } from './RecipeCard';
-import { MuiSnackbar } from './MuiSnackbar';
+import { RecipeCard } from '../RecipeCard/RecipeCard';
+import { MuiSnackbar } from '../MuiSnackbar/MuiSnackbar';
 import { useLocation } from 'react-router-dom';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PropTypes from 'prop-types';

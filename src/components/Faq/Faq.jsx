@@ -1,21 +1,18 @@
 import React from 'react';
-import { LocalDining } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Bg_Pattern_Dark from '../assets/Debut_Dark.png';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import Bg_Pattern_Light from '../assets/Back_Pattern.png';
+import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
+import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
 import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
   Card,
   Typography,
   useTheme,
 } from '@mui/material';
 import { Container } from '@mui/system';
-import { Link as RouterLink } from 'react-router-dom';
+import { ButtonsCard } from './ButtonsCard';
 
 export const Faq = (props) => {
   const { handleResetAll } = props;
@@ -222,37 +219,7 @@ export const Faq = (props) => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Card
-        sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mt: 2 }}
-      >
-        <Button
-          aria-label="START PAGE"
-          color="primary"
-          component={RouterLink}
-          disableElevation
-          size="large"
-          title="Start Page"
-          to="/start"
-          variant="contained"
-        >
-          <LocalDining sx={{ mr: 1 }} />
-          GET STARTED
-        </Button>
-        <Button
-          aria-label="RESET ALL"
-          color="error"
-          component={RouterLink}
-          disableElevation
-          onClick={handleResetAll}
-          size="large"
-          title="Reset all recipes to default"
-          to="/recipe-wars"
-          variant="outlined"
-        >
-          <RestartAltIcon sx={{ mr: 1 }} />
-          RESET ALL
-        </Button>
-      </Card>
+      <ButtonsCard handleResetAll={handleResetAll} />
     </Container>
   );
 };

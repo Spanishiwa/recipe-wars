@@ -1,10 +1,10 @@
 import { Tune } from '@mui/icons-material';
 import { Box, FormControl, Typography } from '@mui/material';
 import React from 'react';
-import ImageInput from './ImageInput';
-import { IngredientsList } from './IngredientsList';
-import { RecipeNumberfield } from './RecipeNumberfield';
-import { RecipeTextarea } from './RecipeTextarea';
+import ImageInput from '../ImageInput/ImageInput';
+import { IngredientsList } from '../IngredientsList/IngredientsList';
+import { RecipeNumberfield } from '../RecipeNumberfield/RecipeNumberfield';
+import { RecipeTextarea } from '../RecipeTextarea/RecipeTextarea';
 import PropTypes from 'prop-types';
 
 export const RecipeFormOptional = (props) => {

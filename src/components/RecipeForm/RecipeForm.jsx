@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import IngredientInput from './IngredientInput';
+import IngredientInput from '../IngredientInput/IngredientInput';
 import { Box, Button, FormControl, List, Typography } from '@mui/material';
-import { IngredientsList } from './IngredientsList';
+import { IngredientsList } from '../IngredientsList/IngredientsList';
 import {
   Close,
   Done,
@@ -9,9 +9,9 @@ import {
   ManageSearch,
   PostAdd,
 } from '@mui/icons-material';
-import { InputExamples } from './InputExamples';
-import { RecipeTextarea } from './RecipeTextarea';
-import { RecipeTextfield } from './RecipeTextfield';
+import { InputExamples } from '../InputExamples/InputExamples';
+import { RecipeTextarea } from '../RecipeTextarea/RecipeTextarea';
+import { RecipeTextfield } from '../RecipeTextfield/RecipeTextfield';
 import PropTypes from 'prop-types';
 
 const RecipeForm = (props) => {

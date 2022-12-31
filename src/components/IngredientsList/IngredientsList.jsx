@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@mui/material';
 import React, { Fragment } from 'react';
-import IngredientInputDisabled from './IngredientInputDisabled';
+import IngredientInputDisabled from '../IngredientInputDisabled/IngredientInputDisabled';
 import PropTypes from 'prop-types';
 
 export const IngredientsList = (props) => {

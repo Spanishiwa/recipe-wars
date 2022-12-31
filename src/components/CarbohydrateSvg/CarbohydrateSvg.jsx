@@ -1,10 +1,10 @@
 import { SvgIcon, Typography } from '@mui/material';
 import React from 'react';
-import { ReactComponent as Protein } from '../assets/Protein.svg';
+import { ReactComponent as Carbohydrate } from '../../assets/Carbohydrate.svg';
 import PropTypes from 'prop-types';
 
-export const ProteinSvg = (props) => {
-  const { sx, protein } = props;
+export const CarbohydrateSvg = (props) => {
+  const { sx, carbohydrate } = props;
   return (
     <Typography
       component="span"
@@ -17,23 +17,23 @@ export const ProteinSvg = (props) => {
     >
       <SvgIcon
         sx={{ verticalAlign: 'middle' }}
-        titleAccess={`${protein} grams of protein`}
+        titleAccess={`${carbohydrate} grams of carbohydrates`}
       >
-        <Protein></Protein>
+        <Carbohydrate></Carbohydrate>
       </SvgIcon>
       <Typography
         component="span"
         sx={{ pl: 1, verticalAlign: 'middle' }}
         variant="b1"
       >
-        {protein}g protein
+        {carbohydrate}g carbs
       </Typography>
     </Typography>
   );
 };
 
-ProteinSvg.propTypes = {
-  protein: PropTypes.string,
+CarbohydrateSvg.propTypes = {
+  carbohydrate: PropTypes.string,
   sx: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])

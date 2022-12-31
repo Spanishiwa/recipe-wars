@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ColorModeContext from './components/ColorModeContext';
+import ColorModeContext from './components/ColorModeContext/ColorModeContext';
 import PropTypes from 'prop-types';
 
 const darkTheme = createTheme({

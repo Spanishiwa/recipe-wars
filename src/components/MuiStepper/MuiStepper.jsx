@@ -5,14 +5,14 @@ import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import RecipeCard from './RecipeCard';
+import RecipeCard from '../RecipeCard/RecipeCard';
 import { Card } from '@mui/material';
-import Bg_Pattern_Light from '../assets/Back_Pattern.png';
-import Bg_Pattern_Dark from '../assets/Debut_Dark.png';
-import RecipeForm from './RecipeForm';
-import { RecipeFormOptional } from './RecipeFormOptional';
+import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
+import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
+import RecipeForm from '../RecipeForm/RecipeForm';
+import { RecipeFormOptional } from '../RecipeFormOptional/RecipeFormOptional';
 import { AssignmentTurnedIn, Delete } from '@mui/icons-material';
-import { MuiSnackbar } from './MuiSnackbar';
+import { MuiSnackbar } from '../MuiSnackbar/MuiSnackbar';
 import PropTypes from 'prop-types';
 
 const steps = [

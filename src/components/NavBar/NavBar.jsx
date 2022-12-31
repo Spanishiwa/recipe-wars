@@ -8,11 +8,11 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import ColorModeContext from './ColorModeContext';
-import Recipe_Icon from '../assets/recipe_icon.png';
+import ColorModeContext from '../ColorModeContext/ColorModeContext';
+import Recipe_Icon from '../../assets/recipe_icon.png';
 import React, { useContext } from 'react';
-import Bg_Pattern_Light from '../assets/Beige_Paper.png';
-import Bg_Pattern_Dark from '../assets/Maze_Black.png';
+import Bg_Pattern_Light from '../../assets/Beige_Paper.png';
+import Bg_Pattern_Dark from '../../assets/Maze_Black.png';
 import {
   GitHub,
   Help,

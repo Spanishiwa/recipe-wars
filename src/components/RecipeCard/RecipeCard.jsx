@@ -9,11 +9,11 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { RecipeImage } from './RecipeImage';
+import { RecipeImage } from '../RecipeImage/RecipeImage';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
-import { IngredientsList } from './IngredientsList';
-import { RecipeMenu } from './RecipeMenu';
+import { IngredientsList } from '../IngredientsList/IngredientsList';
+import { RecipeMenu } from '../RecipeMenu/RecipeMenu';
 import PropTypes from 'prop-types';
 
 const ExpandMore = styled((props) => {

@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import Bg_Pattern_Dark from './assets/Graphcoders_Lil_Fiber.png';
 import Bg_Pattern_Light from './assets/Beige_Paper.png';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 import { Box, Container, useTheme } from '@mui/material';
-import NavBar from './components/NavBar';
-import MuiStepper from './components/MuiStepper';
+import NavBar from './components/NavBar/NavBar';
+import MuiStepper from './components/MuiStepper/MuiStepper';
 import { CONFIG } from './config';
-import { Faq } from './components/Faq';
+import { Faq } from './components/Faq/Faq';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { Showcase } from './components/Showcase';
+import { Showcase } from './components/Showcase/Showcase';
 import { INIT_INPUTS, INIT_RECIPE_WARS, submitRecipeSnackbar } from './Util';
 import {
   resetInputError,

@@ -1,7 +1,7 @@
 import { DownloadDone, PhotoCamera } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import React, { useRef } from 'react';
-import { RecipeSelect } from './RecipeSelect';
+import { RecipeSelect } from '../RecipeSelect/RecipeSelect';
 import PropTypes from 'prop-types';
 
 const ImageInput = (props) => {
