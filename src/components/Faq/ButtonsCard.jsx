@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card } from '@mui/material';
+import { Button, Card, useMediaQuery, useTheme } from '@mui/material';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { LocalDining } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 
 export const ButtonsCard = (props) => {
   const { handleResetAll } = props;
+  const theme = useTheme();
+  const xsOnly = useMediaQuery(theme.breakpoints.only('xs'));
+
   return (
     <Card
       sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mt: 2 }}
@@ -22,7 +25,7 @@ export const ButtonsCard = (props) => {
         variant="contained"
       >
         <LocalDining sx={{ mr: 1 }} />
-        GET STARTED
+        {xsOnly ? 'START' : 'GET STARTED'}
       </Button>
       <Button
         aria-label="RESET ALL"

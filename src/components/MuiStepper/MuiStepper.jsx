@@ -2,18 +2,16 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import RecipeCard from '../RecipeCard/RecipeCard';
 import { Card } from '@mui/material';
 import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
 import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
 import RecipeForm from '../RecipeForm/RecipeForm';
 import { RecipeFormOptional } from '../RecipeFormOptional/RecipeFormOptional';
-import { AssignmentTurnedIn, Delete } from '@mui/icons-material';
 import { MuiSnackbar } from '../MuiSnackbar/MuiSnackbar';
 import PropTypes from 'prop-types';
+import { StepperLeftButton } from './StepperLeftButton';
+import { StepperRightButton } from './StepperRightButton';
 
 const steps = [
   {
@@ -282,60 +280,20 @@ export default function MuiStepper(props) {
           position="static"
           activeStep={activeStep}
           nextButton={
-            activeStep == maxSteps - 1 ? (
-              <Button
-                disableElevation
-                startIcon={<AssignmentTurnedIn />}
-                size="large"
-                onClick={handleSubmitRecipe}
-                variant="contained"
-              >
-                SUBMIT
-              </Button>
-            ) : (
-              <Button
-                disableElevation
-                disabled={activeStep === maxSteps - 1}
-                onClick={handleNext}
-                size="large"
-                variant="contained"
-              >
-                Next
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            )
+            <StepperRightButton
+              direction={theme.direction}
+              lastStep={activeStep === maxSteps - 1}
+              handleNext={handleNext}
+              handleSubmitRecipe={handleSubmitRecipe}
+            />
           }
           backButton={
-            activeStep == 0 ? (
-              <Button
-                startIcon={<Delete />}
-                name="reset-recipe"
-                onClick={handleResetClick}
-                size="large"
-                type="button"
-                variant="outlined"
-              >
-                RESET
-              </Button>
-            ) : (
-              <Button
-                size="large"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-                variant="outlined"
-              >
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                Back
-              </Button>
-            )
+            <StepperLeftButton
+              activeStep={activeStep}
+              handleBack={handleBack}
+              handleResetClick={handleResetClick}
+              direction={theme.direction}
+            />
           }
         />
       </Box>

@@ -1,20 +1,11 @@
-import { DownloadDone, PhotoCamera } from '@mui/icons-material';
-import { Box, Button, Typography } from '@mui/material';
-import React, { useRef } from 'react';
+import { Box, Typography } from '@mui/material';
+import React from 'react';
 import { RecipeSelect } from '../RecipeSelect/RecipeSelect';
 import PropTypes from 'prop-types';
+import { CustomFileInput } from './CustomFileInput';
 
 const ImageInput = (props) => {
   const { imgName, handleImage, handleSelect, text } = props;
-  const imgIcon = imgName ? <DownloadDone /> : <PhotoCamera />;
-  const inputRef = useRef(null);
-  const handleKeyEnter = (e) => {
-    const key = e.which || e.keyCode || 0;
-
-    if (key === 13) {
-      inputRef.current.click();
-    }
-  };
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
@@ -30,34 +21,7 @@ const ImageInput = (props) => {
             justifyContent: 'space-between',
           }}
         >
-          <Button
-            aria-label="upload picture"
-            component="label"
-            color="primary"
-            onKeyDown={handleKeyEnter}
-            startIcon={imgIcon}
-            sx={{ maxHeight: '57px', padding: '15px' }}
-            title="Upload a recipe image here"
-            variant="outlined"
-          >
-            UPLOAD
-            <Typography
-              component="span"
-              sx={{ display: { xs: 'none', sm: 'inline' }, ml: '4px' }}
-              variant="b2"
-            >
-              IMAGE
-            </Typography>
-            <input
-              accept="image/*"
-              onChange={handleImage}
-              hidden
-              id="image-input"
-              name="image-input"
-              ref={inputRef}
-              type="file"
-            />
-          </Button>
+          <CustomFileInput handleImage={handleImage} imgName={imgName} />
           <RecipeSelect handleSelect={handleSelect} text={text} />
         </Box>
       </Box>

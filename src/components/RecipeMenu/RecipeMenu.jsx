@@ -74,7 +74,7 @@ export const RecipeMenu = (props) => {
 };
 
 RecipeMenu.propTypes = {
-  handleDeleteRecipe: PropTypes.func.isRequired,
-  recipeName: PropTypes.string.isRequired,
-  showAlert: PropTypes.func.isRequired,
+  handleDeleteRecipe: PropTypes.func,
+  recipeName: PropTypes.string,
+  showAlert: PropTypes.func,
 };

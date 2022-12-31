@@ -6,7 +6,7 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 - Responsive single-page application with React-Router-Dom useNavigate & useLocation Hooks
 - Focuses input fields that fail to validate with useRef Hooks while providing descriptive snackbar dialogues
-- Implements MUI Dark Mode using useMemo and useContext Hook. Toggle light and dark color themes
+- Implements MUI Dark Mode using useMemo and useContext Hooks. Toggle light and dark color themes
 - Accessible forms, inputs, and icon buttons handle keyboard controls and are correctly tab indexed
 - Persisting state with localstorage (images only persist per session). State managed with useReducer Hook (actions, action creators, and dispatch)
 - Edit ingredient list items in place
@@ -14,13 +14,14 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 ## TODO
 
-- Complete call to action for /start page
-- Add snackbar dialogue when resetting state from faq page button
-- Add edit functionality to posted recipes
 - Refactor file structure/large components
+- Refactor rootReducer to use multiple reducers
+- Add snackbar dialogue when resetting state from faq page button
+- Complete call to action for /start page
+- Add edit functionality to posted recipes
 - Migrate project to TypeScript
   \
   \
   Special thanks to [Edamam API](https://developer.edamam.com/attribution). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and styled with [Material UI](https://mui.com/) v5 and [Material Icons](https://mui.com/material-ui/material-icons/). Routes from React-Router-Dom and textures sourced from [transparent textures](https://www.transparenttextures.com/). Favicons, logos, and additional icons sourced from [freeiconspng](https://www.freeiconspng.com/) and [visualpharm](https://www.visualpharm.com/free-icons/). \
   \
-  This repository won't compile without the free API keys which are not included here.
+  This repository does not include the free API keys which are needed to fetch from the Edamam API.

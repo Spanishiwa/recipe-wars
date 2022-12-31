@@ -1,10 +1,9 @@
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { Done } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { IngredientDisabledEndAdornment } from './IngredientDisabledEndAdornment';
+import { IngredientDisabledStartAdornment } from './IngredientDisabledStartAdornment';
+import { TextField } from '@mui/material';
 
 const IngredientInputDisabled = (props) => {
   const { handlers, ingredient } = props;
@@ -22,6 +21,7 @@ const IngredientInputDisabled = (props) => {
   const { error, id, isDisabled, status, text } = ingredient;
 
   const standardVariantSx = isDisabled ? { disableUnderline: true } : {};
+
   return (
     <Box
       name={id}
@@ -38,74 +38,23 @@ const IngredientInputDisabled = (props) => {
         helperText={status}
         label={isDisabled ? '' : 'Ingredient & quantity'}
         id={id}
-        InputLabelProps={{
-          shrink: true,
-        }}
+        InputLabelProps={{ shrink: true }}
         InputProps={{
           ...standardVariantSx,
           startAdornment: (
-            <InputAdornment name={id} position="start">
-              <IconButton
-                aria-label="Edit parsed ingredient"
-                className="edit"
-                edge="end"
-                name={id}
-                sx={{
-                  color: 'text.primary',
-                  '&:hover, &.Mui-focusVisible, &.Mui-active': {
-                    color: 'primary.main',
-                  },
-                }}
-                onClick={handleToggleDisable}
-                title="Edit ingredient"
-              >
-                <EditIcon name={id} variant="standard" />
-              </IconButton>
-              <IconButton
-                aria-label="Submit parsed ingredient"
-                className="submit"
-                edge="end"
-                name={id}
-                onClick={handleEdit}
-                onKeyDown={handleKeySubmit}
-                sx={{
-                  color: 'primary.main',
-                  '&:hover, &.Mui-focusVisible, &.Mui-active': {
-                    color: 'primary.main',
-                  },
-                }}
-                title="Save your edits to the ingredients list"
-              >
-                <Done name={id} variant="standard" />
-              </IconButton>
-            </InputAdornment>
+            <IngredientDisabledStartAdornment
+              handleEdit={handleEdit}
+              handleKeySubmit={handleKeySubmit}
+              handleToggleDisable={handleToggleDisable}
+              id={id}
+            />
           ),
           endAdornment: (
-            <InputAdornment
-              name={id}
-              onKeyDown={handleKeyDelete}
-              position="end"
-            >
-              <IconButton
-                aria-label="Delete ingredient"
-                className="delete"
-                edge="end"
-                name={id}
-                onClick={handleDelete}
-                onKeyDown={handleKeyDelete}
-                sx={{
-                  color: 'error.main',
-                  '&:hover': { color: 'error.main' },
-                }}
-                title="Delete ingredient from ingredients list"
-              >
-                <DeleteIcon
-                  name={id}
-                  onKeyDown={handleKeyDelete}
-                  variant="outlined"
-                />
-              </IconButton>
-            </InputAdornment>
+            <IngredientDisabledEndAdornment
+              handleDelete={handleDelete}
+              handleKeyDelete={handleKeyDelete}
+              id={id}
+            />
           ),
         }}
         name={id}

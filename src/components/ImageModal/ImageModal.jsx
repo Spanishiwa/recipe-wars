@@ -49,6 +49,7 @@ BootstrapDialogTitle.propTypes = {
 
 export default function ImageModal(props) {
   const { imgSrc, title, handleClose } = props;
+
   return (
     <Box component="section">
       <BootstrapDialog

@@ -203,5 +203,5 @@ RecipeCard.propTypes = {
   }),
   isPerServing: PropTypes.bool,
   selectText: PropTypes.string,
-  showAlert: PropTypes.func.isRequired,
+  showAlert: PropTypes.func,
 };
