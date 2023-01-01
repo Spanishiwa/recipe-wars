@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/recipe-wars/static/css/main.f34dc258.css",
-    "main.js": "/recipe-wars/static/js/main.6dd293f7.js",
+    "main.js": "/recipe-wars/static/js/main.1478693d.js",
     "static/js/787.a596de65.chunk.js": "/recipe-wars/static/js/787.a596de65.chunk.js",
     "static/media/Charcuterie_Board.webp": "/recipe-wars/static/media/Charcuterie_Board.970e7a7ffec988c6d66c.webp",
     "static/media/recipe_icon.png": "/recipe-wars/static/media/recipe_icon.f5391a98839af524fb72.png",
@@ -18,11 +18,11 @@
     "static/media/Protein.svg": "/recipe-wars/static/media/Protein.15d9199bb842b377e14ab9573e0c2318.svg",
     "index.html": "/recipe-wars/index.html",
     "main.f34dc258.css.map": "/recipe-wars/static/css/main.f34dc258.css.map",
-    "main.6dd293f7.js.map": "/recipe-wars/static/js/main.6dd293f7.js.map",
+    "main.1478693d.js.map": "/recipe-wars/static/js/main.1478693d.js.map",
     "787.a596de65.chunk.js.map": "/recipe-wars/static/js/787.a596de65.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f34dc258.css",
-    "static/js/main.6dd293f7.js"
+    "static/js/main.1478693d.js"
   ]
 }
