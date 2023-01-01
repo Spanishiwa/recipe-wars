@@ -1,22 +1,26 @@
 const getIngredientsSx = (expand, mode) => {
-  return expand
-    ? {
-        borderTop: { xs: cardActionBorderStyle(mode), md: 'unset' },
-        flex: '35%',
-        maxHeight: 'auto',
-        overflowY: 'auto',
-      }
-    : {
-        flex: '35%',
-        maxHeight: '400px',
-        overflowY: 'auto',
-      };
+  if (expand) {
+    return {
+      borderTop: { xs: cardActionBorderStyle(mode), md: 'unset' },
+      flex: '35%',
+      maxHeight: 'auto',
+      overflowY: 'auto',
+    };
+  } else {
+    return {
+      flex: '35%',
+      maxHeight: '400px',
+      overflowY: 'auto',
+    };
+  }
 };
 
 const cardActionBorderStyle = (mode) => {
-  mode === 'light'
-    ? 'thin solid rgba(0, 0, 0, 0.12)'
-    : 'thin solid rgba(255, 255, 255, 0.12)';
+  if (mode === 'light') {
+    return 'thin solid rgba(0, 0, 0, 0.12)';
+  } else {
+    return 'thin solid rgba(255, 255, 255, 0.12)';
+  }
 };
 
 const getCardActionsSx = (mode) => {
