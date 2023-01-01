@@ -14,8 +14,7 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 ## TODO
 
-- Refactor file structure/large components
-- Refactor rootReducer to use multiple reducers
+- Refactor App.js. Refactor rootReducer to use multiple reducers, extract hooks
 - Add snackbar dialogue when resetting state from faq page button
 - Complete call to action for /start page
 - Add edit functionality to posted recipes

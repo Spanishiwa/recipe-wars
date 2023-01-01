@@ -43,25 +43,25 @@ const getRecipeInputValues = (inputs) => {
       switch (input.id) {
         case 'image-input':
           accum.imgSrc = input.imgSrc;
-        //falls through
+          return accum;
         case 'title-input':
           accum.title = input.text;
-        //falls through
+          return accum;
         case 'description-textarea':
           accum.description = input.text;
-        //falls through
+          return accum;
         case 'recipe-textarea':
           accum.instructions = input.text;
-        //falls through
+          return accum;
         case 'servings-input':
           accum.servings = input.text;
-        //falls through
+          return accum;
         case 'servings-toggle':
           accum.isUntitledPerServing = input.isUntitledPerServing;
-        //falls through
+          return accum;
         case 'photos-select-input':
           accum.selectText = input.text;
-        //falls through
+          return accum;
         default:
           return accum;
       }

@@ -14,9 +14,7 @@ export const RecipeNumberfield = (props) => {
       title={title}
       type="number"
       sx={{ maxWidth: '145px' }}
-      InputLabelProps={{
-        shrink: true,
-      }}
+      InputLabelProps={{ shrink: true }}
       value={value}
     />
   );

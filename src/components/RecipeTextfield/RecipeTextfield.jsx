@@ -16,31 +16,28 @@ export const RecipeTextfield = (props) => {
     value,
   } = props;
 
+  const recipeTextfieldSx = {
+    flex: 1,
+    '& .MuiInputLabel-root.Mui-required': {
+      display: 'flex',
+      flexDirection: 'row-reverse',
+      marginLeft: '-5px',
+    },
+  };
+
   return (
     <TextField
       error={error}
       helperText={status}
       label={label}
       id={name}
-      inputProps={{
-        ref: inputRef,
-      }}
+      inputProps={{ ref: inputRef }}
       name={name}
-      InputLabelProps={{
-        required: true,
-        shrink: true,
-      }}
+      InputLabelProps={{ required: true, shrink: true }}
       onBlur={handleBlur}
       onChange={handleChange}
       placeholder={placeholder}
-      sx={{
-        flex: 1,
-        '& .MuiInputLabel-root.Mui-required': {
-          display: 'flex',
-          flexDirection: 'row-reverse',
-          marginLeft: '-5px',
-        },
-      }}
+      sx={recipeTextfieldSx}
       title={title}
       type="text"
       variant="outlined"

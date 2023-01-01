@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
-import Bg_Pattern_Dark from './assets/Graphcoders_Lil_Fiber.png';
-import Bg_Pattern_Light from './assets/Beige_Paper.png';
 import Footer from './components/Footer/Footer';
 import { Box, Container, useTheme } from '@mui/material';
 import NavBar from './components/NavBar/NavBar';
@@ -29,6 +27,7 @@ import {
   setFetchFail,
 } from './reducers/actions';
 import { rootReducer } from './reducers/rootReducer';
+import { flattenPayload } from './reducers/FetchIngredients';
 
 function App() {
   const navigate = useNavigate();
@@ -36,30 +35,6 @@ function App() {
     rootReducer,
     JSON.parse(localStorage.getItem('values')) || INIT_RECIPE_WARS
   );
-
-  const flattenPayload = (data, name) => {
-    return data.ingredients.map((ingredient) => {
-      const recipeName = ingredient.recipeName || 'Untitled';
-      const validId = (recipeName + ingredient.text)
-        .replace(/[^a-zA-Z]+/g, '')
-        .slice(-50);
-      const { nutrients } = ingredient.parsed[0];
-
-      return {
-        id: name || validId,
-        text: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
-        parsed: `${ingredient.parsed[0].quantity} ${ingredient.parsed[0].measure} ${ingredient.parsed[0].foodMatch}`,
-        calories: nutrients.ENERC_KCAL.quantity,
-        carbohydrate: `${nutrients.CHOCDF.quantity}${nutrients.CHOCDF.unit} carbs`,
-        protein: `${nutrients.PROCNT.quantity}${nutrients.PROCNT.unit} protein`,
-        fat: `${nutrients.FAT.quantity}${nutrients.FAT.unit} fat`,
-        status: ' ',
-        isDisabled: true,
-        error: false,
-        recipeName: recipeName,
-      };
-    });
-  };
 
   const fetchAPI = (text, name, id) => {
     const { accessRecipe, appId, appKey } = CONFIG;
@@ -83,9 +58,8 @@ function App() {
       body: JSON.stringify(recipePayload),
     })
       .then((res) => {
-        if (!res.ok) {
-          throw Error(`${res.status} poor input failed to update`);
-        }
+        if (!res.ok) throw Error(`Poor input failed to update`);
+
         return res.json();
       })
       .then((data) => {
@@ -96,13 +70,11 @@ function App() {
           // updating single ingredient
           dispatch(updateIngredient(id, flatIngredientPayload));
         } else {
-          dispatch(createIngredients(id, flatIngredientsPayload));
           // appending ingredient(s) and clearing input generator / error / status
+          dispatch(createIngredients(id, flatIngredientsPayload));
         }
       })
-      .catch((err) => {
-        dispatch(setFetchFail(id, err.message));
-      });
+      .catch((err) => dispatch(setFetchFail(id, err.message)));
   };
 
   const handleBlur = (e) => {
@@ -222,11 +194,9 @@ function App() {
   };
 
   const mode = useTheme().palette.mode;
-  const bgPattern = mode === 'light' ? Bg_Pattern_Light : Bg_Pattern_Dark;
   const bgColor = mode === 'light' ? '#F5F7FA' : '#121212';
   const appSx = {
     backgroundColor: 'background.default',
-    backgroundImage: `url(${bgPattern})`,
     backgroundRepeat: 'repeat',
     display: 'flex',
     height: '100%',
@@ -237,15 +207,13 @@ function App() {
   useEffect(() => {
     // fix rubber banding scroll
     document.body.style.backgroundColor = bgColor;
-    document.body.style.backgroundImage = `url(${bgPattern})`;
     document.body.style.backgroundRepeat = 'repeat';
 
     return () => {
       document.body.style.backgroundColor = null;
-      document.body.style.backgroundImage = null;
       document.body.style.backgroundRepeat = null;
     };
-  }, [mode, bgColor, bgPattern]);
+  }, [mode, bgColor]);
 
   useEffect(() => {
     // save ingredients, recipes, but not inputs to localstorage

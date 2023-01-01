@@ -1,23 +1,25 @@
 import { MoreVert } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
-import React, { Fragment, useState } from 'react';
+import {
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export const RecipeMenu = (props) => {
   const { pathname } = useLocation();
-  const { handleDeleteRecipe, recipeName, showAlert } = props;
+  const { handleDeleteRecipe, recipeName, showAlert, title } = props;
 
   // MUI Positioned menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClick = (e) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   const handleDeleteRecipeFromMenu = (e) => {
     handleDeleteRecipe(e);
@@ -25,8 +27,19 @@ export const RecipeMenu = (props) => {
     handleClose();
   };
 
+  const topLeftOrigin = {
+    vertical: 'top',
+    horizontal: 'left',
+  };
+
+  const menuButtonSx = {
+    mr: 2,
+    verticalAlign: 'middle',
+    visibility: pathname === '/start' ? 'hidden' : 'visible',
+  };
+
   return (
-    <Fragment>
+    <Typography component="h5" sx={{ pb: 2, pl: 2 }} variant="h5">
       <IconButton
         aria-controls={open ? 'recipe-positioned-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
@@ -36,11 +49,7 @@ export const RecipeMenu = (props) => {
         data-recipe-name={recipeName}
         id="recipe-positioned-button"
         onClick={handleClick}
-        sx={{
-          mr: 2,
-          verticalAlign: 'middle',
-          visibility: pathname === '/start' ? 'hidden' : 'visible',
-        }}
+        sx={{ menuButtonSx }}
       >
         <MoreVert />
       </IconButton>
@@ -50,14 +59,8 @@ export const RecipeMenu = (props) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
+        anchorOrigin={topLeftOrigin}
+        transformOrigin={topLeftOrigin}
       >
         <MenuItem
           data-recipe-name={recipeName}
@@ -69,7 +72,8 @@ export const RecipeMenu = (props) => {
           Delete Recipe
         </MenuItem>
       </Menu>
-    </Fragment>
+      {title}
+    </Typography>
   );
 };
 
@@ -77,4 +81,5 @@ RecipeMenu.propTypes = {
   handleDeleteRecipe: PropTypes.func,
   recipeName: PropTypes.string,
   showAlert: PropTypes.func,
+  title: PropTypes.string,
 };

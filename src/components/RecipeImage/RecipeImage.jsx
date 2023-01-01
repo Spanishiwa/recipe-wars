@@ -1,39 +1,16 @@
-import { Box, CardMedia, Typography } from '@mui/material';
-import React, { Fragment, useState } from 'react';
+import { Box, CardMedia } from '@mui/material';
+import React, { useState } from 'react';
 import ImageModal from '../ImageModal/ImageModal';
-import { CalorieSvg } from '../CalorieSvg/CalorieSvg';
-import { CarbohydrateSvg } from '../CarbohydrateSvg/CarbohydrateSvg';
-import { ProteinSvg } from '../ProteinSvg/ProteinSvg';
-import { FatSvg } from '../FatSvg/FatSvg';
 import { ServingsSwitch } from '../ServingsSwitch/ServingsSwitch';
-import DefaultImg from '../../assets/Default_Img.jpeg';
-import ForkKnife from '../../assets/Fork_Knife.jpeg';
-import Grains from '../../assets/Grains.jpeg';
-import Vegetables from '../../assets/Colorful_Vegetables.jpeg';
-import Charcuterie from '../../assets/Charcuterie_Board.webp';
-import Cookies from '../../assets/Cocoa_Cookies.jpeg';
 import PropTypes from 'prop-types';
+import { getSelectedImage } from './RecipeImageUtil';
+import { RecipeImageFigcaption } from './RecipeImageFigcaption';
 
 export const RecipeImage = (props) => {
-  const [state, setState] = useState({
-    isOpen: false,
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setState((prevState) => ({ ...prevState, isOpen: true }));
-  };
-  const handleClose = () => {
-    setState((prevState) => ({ ...prevState, isOpen: false }));
-  };
-
-  const svgContainerSx = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    columnGap: { xs: '6px', md: '8px' },
-    justifyContent: 'space-between',
-    pb: '16px',
-    rowGap: '16px',
-  };
+  const handleClickOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   const {
     description,
@@ -46,113 +23,41 @@ export const RecipeImage = (props) => {
     isPerServing,
     title,
   } = props;
+
   const recipe = recipeName || 'Untitled';
 
-  const sumNutrients = (ingrs) => {
-    return ingrs.reduce(
-      (accum, ingr) => {
-        accum.calories = parseFloat(accum.calories) + parseFloat(ingr.calories);
-        accum.carbohydrate =
-          parseFloat(accum.carbohydrate) + parseFloat(ingr.carbohydrate);
-        accum.protein = parseFloat(accum.protein) + parseFloat(ingr.protein);
-        accum.fat = parseFloat(accum.fat) + parseFloat(ingr.fat);
-
-        return accum;
-      },
-      { calories: 0, carbohydrate: 0, protein: 0, fat: 0 }
-    );
-  };
-
-  const { calories, carbohydrate, protein, fat } = sumNutrients(ingredients);
-
-  const { isOpen } = state;
-
-  const selectedImage = (selectText) => {
-    switch (selectText) {
-      case 'forkKnife':
-        return ForkKnife;
-      case 'grains':
-        return Grains;
-      case 'colorfulVegetables':
-        return Vegetables;
-      case 'charcuterie':
-        return Charcuterie;
-      case 'cookies':
-        return Cookies;
-      case ' ':
-        return ForkKnife;
-      default:
-        return DefaultImg;
-    }
-  };
+  const selectedImage = getSelectedImage(selectText);
 
   return (
-    <Fragment>
-      <Box component="figure" m={0}>
-        <CardMedia
-          alt={title}
-          component="img"
-          height="194"
-          image={imgSrc || selectedImage(selectText)}
-          onClick={handleClickOpen}
-          sx={{
-            cursor: 'pointer',
-          }}
-          title={title}
+    <Box component="figure" m={0}>
+      <CardMedia
+        alt={title}
+        component="img"
+        height="194"
+        image={imgSrc || selectedImage}
+        onClick={handleClickOpen}
+        sx={{ cursor: 'pointer' }}
+        title={title}
+      />
+      <RecipeImageFigcaption
+        description={description}
+        ingredients={ingredients}
+        isPerServing={isPerServing}
+        servings={servings}
+      >
+        <ServingsSwitch
+          handleServingsToggle={handleServingsToggle}
+          isPerServing={isPerServing}
+          recipeName={recipe}
         />
-        <Typography
-          component="figcaption"
-          sx={{ padding: '24px 16px', whiteSpace: 'pre-wrap' }}
-          variant="b2"
-        >
-          <Box sx={{ ...svgContainerSx }}>
-            <CalorieSvg
-              calories={(isPerServing ? calories / servings : calories).toFixed(
-                0
-              )}
-            />
-            <CarbohydrateSvg
-              carbohydrate={(isPerServing
-                ? carbohydrate / servings
-                : carbohydrate
-              ).toFixed(0)}
-            />
-            <ProteinSvg
-              protein={(isPerServing ? protein / servings : protein).toFixed(0)}
-            />
-            <FatSvg fat={(isPerServing ? fat / servings : fat).toFixed(0)} />
-          </Box>
-          <Box
-            display="flex"
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              py: 2,
-            }}
-          >
-            <ServingsSwitch
-              handleServingsToggle={handleServingsToggle}
-              isPerServing={isPerServing}
-              recipeName={recipe}
-            />
-            <Typography
-              component="span"
-              sx={{ verticalAlign: 'middle' }}
-              variant="b2"
-            >
-              Serves {servings}
-            </Typography>
-          </Box>
-          {description}
-        </Typography>
-      </Box>
+      </RecipeImageFigcaption>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imgSrc || selectedImage(selectText)}
+        imgSrc={imgSrc || selectedImage}
         open={isOpen}
         title={title}
       />
-    </Fragment>
+    </Box>
   );
 };
 

@@ -1,7 +1,8 @@
-import { FlatwareRounded, Restaurant } from '@mui/icons-material';
-import { InputLabel, Switch, Typography } from '@mui/material';
+import { InputLabel, Switch } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ServingsSwitchLeft } from './ServingsSwitchLeft';
+import { ServingsSwitchRight } from './ServingsSwitchRight';
 
 export const ServingsSwitch = (props) => {
   const { handleServingsToggle, isPerServing, recipeName } = props;
@@ -16,6 +17,12 @@ export const ServingsSwitch = (props) => {
     }
   };
 
+  const servingsSwitchSx = {
+    '.MuiButtonBase-root.MuiSwitch-switchBase.MuiSwitch-colorPrimary': {
+      color: 'primary.main',
+    },
+  };
+
   return (
     <InputLabel
       className={recipeName}
@@ -24,58 +31,16 @@ export const ServingsSwitch = (props) => {
       sx={{ alignItems: 'center', display: 'flex' }}
       title="Display nutritional values per serving or by total amount"
     >
-      <Typography
-        component="span"
-        name="servings-toggle"
-        sx={{
-          ...(!isPerServing && { color: 'primary.main' }),
-          cursor: 'pointer',
-          '&:hover': { color: 'primary.main' },
-        }}
-        title="Display nutritional values by total amount"
-        variant="caption"
-      >
-        <Typography
-          component="span"
-          name="servings-toggle"
-          sx={{
-            display: { xs: 'none', sm: 'inline' },
-            verticalAlign: 'middle',
-          }}
-          variant="caption"
-        >
-          Total
-        </Typography>
-        <FlatwareRounded sx={{ verticalAlign: 'middle' }}></FlatwareRounded>
-      </Typography>
+      <ServingsSwitchLeft isPerServing={isPerServing} />
       <Switch
         className={recipeName}
         inputProps={{ 'data-recipe-name': recipeName }}
         name="servings-toggle"
         onChange={handleServingsToggle}
-        sx={{
-          '.MuiButtonBase-root.MuiSwitch-switchBase.MuiSwitch-colorPrimary': {
-            color: 'primary.main',
-          },
-        }}
+        sx={{ servingsSwitchSx }}
         checked={isPerServing}
       />
-      <Typography
-        component="span"
-        name="servings-toggle"
-        sx={{
-          ...(isPerServing && { color: 'primary.main' }),
-          cursor: 'pointer',
-          '&:hover': { color: 'primary.main' },
-        }}
-        title="Display nutritional values per serving"
-        variant="caption"
-      >
-        <Restaurant sx={{ verticalAlign: 'middle' }}></Restaurant>
-        <Typography component="span" name="servings-toggle" variant="caption">
-          Per serving
-        </Typography>
-      </Typography>
+      <ServingsSwitchRight isPerServing={isPerServing} />
     </InputLabel>
   );
 };

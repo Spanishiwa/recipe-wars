@@ -1,16 +1,11 @@
-import { Box, Button, Card, Typography } from '@mui/material';
-import React, { Fragment } from 'react';
+import { Box, Card } from '@mui/material';
+import React, { Fragment, useState } from 'react';
 import { RecipeCard } from '../RecipeCard/RecipeCard';
 import { MuiSnackbar } from '../MuiSnackbar/MuiSnackbar';
 import { useLocation } from 'react-router-dom';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PropTypes from 'prop-types';
-
-const INIT_SNACKBAR = {
-  message: 'Title is "Untitled" or empty',
-  open: false,
-  severity: 'error',
-};
+import { ResetAllCard } from './ResetAllCard';
+import { INIT_SNACKBAR } from '../../Util';
 
 export const Showcase = (props) => {
   const { state } = useLocation();
@@ -18,7 +13,7 @@ export const Showcase = (props) => {
 
   const { handleResetAll } = handlers;
 
-  const [snackbarState, setSnackbarState] = React.useState(
+  const [snackbarState, setSnackbarState] = useState(
     state ? state : INIT_SNACKBAR
   );
 
@@ -32,14 +27,9 @@ export const Showcase = (props) => {
   };
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    if (reason === 'clickaway') return;
 
-    setSnackbarState((prevState) => ({
-      ...prevState,
-      open: false,
-    }));
+    setSnackbarState((prevState) => ({ ...prevState, open: false }));
   };
 
   const handleResetAllClick = () => {
@@ -58,34 +48,15 @@ export const Showcase = (props) => {
   const recipeNames = Object.keys(recipes).filter(
     (recipeName) => recipeName !== 'undefined' && recipeName !== 'Untitled'
   );
+
   const servingsToggle = recipeStates.filter(
-    (state) => state.id === 'servings-toggle'
+    (input) => input.id === 'servings-toggle'
   )[0];
 
   return (
     <Fragment>
       {recipeNames.length === 0 ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <Card sx={{ padding: 2 }}>
-            <Typography component="p" sx={{ mb: 2 }} variant="h6">
-              Want to bring back the default recipes? Use this Reset All button
-            </Typography>
-            <Button
-              aria-label="RESET ALL"
-              color="error"
-              component="button"
-              disableElevation
-              onClick={handleResetAllClick}
-              size="large"
-              title="Reset all recipes to default"
-              type="button"
-              variant="contained"
-            >
-              <RestartAltIcon sx={{ mr: 1 }} />
-              RESET ALL
-            </Button>
-          </Card>
-        </Box>
+        <ResetAllCard handleResetAllClick={handleResetAllClick} />
       ) : (
         <></>
       )}
@@ -94,6 +65,7 @@ export const Showcase = (props) => {
           const recipeState = recipes[recipeName].filter(
             (recipe) => recipe.title
           )[0];
+
           const ingredients = recipes[recipeName].filter(
             (recipe) => recipe.parsed
           );

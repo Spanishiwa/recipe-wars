@@ -1,6 +1,7 @@
 import { Box, TextField } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getErrorSx, getStatusSx } from './RecipeTextareaSx';
 
 export const RecipeTextarea = (props) => {
   const {
@@ -16,38 +17,10 @@ export const RecipeTextarea = (props) => {
     title,
     value,
   } = props;
-  const errorSx = error
-    ? {
-        '& .MuiInputBase-root.Mui-error .MuiOutlinedInput-notchedOutline': {
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderColor: 'error.main',
-        },
-        '& .MuiInputLabel-root.Mui-error': {
-          color: 'error.main',
-        },
-        '& .MuiFormHelperText-root.Mui-error': {
-          color: 'error.main',
-        },
-      }
-    : {};
 
-  const statusSx =
-    status.length > 1
-      ? {
-          '& .MuiInputBase-root .MuiOutlinedInput-notchedOutline': {
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderColor: 'primary.main',
-          },
-          '& .MuiInputLabel-root': {
-            color: 'primary.main',
-          },
-          '& .MuiFormHelperText-root': {
-            color: 'primary.main',
-          },
-        }
-      : {};
+  const errorSx = getErrorSx(error);
+  const statusSx = getStatusSx(status);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <TextField
@@ -58,9 +31,7 @@ export const RecipeTextarea = (props) => {
         InputLabelProps={{ shrink: true }}
         label={label}
         id={name}
-        inputProps={{
-          ref: inputRef,
-        }}
+        inputProps={{ ref: inputRef }}
         multiline
         name={name}
         onBlur={handleBlur}

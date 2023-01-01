@@ -48,7 +48,7 @@ export const StepView = (props) => {
           <RecipeCard
             handlers={handlersRecipeCard}
             ingredients={noRecipeNameIngredients}
-            isPerServing={recipeState.isPerServing}
+            isPerServing={recipeState[`isUntitledPerServing`]}
             recipeState={recipeState}
             selectText={recipeState.selectText}
           />

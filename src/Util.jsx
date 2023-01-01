@@ -77,7 +77,7 @@ const INIT_KEY_LIME_PIE = [
       'FOR THE CRUST\nPreheat oven to 375 °F and set an oven rack in the middle position.\nIn a medium bowl, combine the graham cracker crumbs, brown sugar, and melted butter; stir with a fork first, and then your hands until the mixture is well combined. Using your fingers and the bottom of a glass or dry measuring cup, press the crumbs firmly into the bottom and up the sides of a 9 x 1.5-inch (deep-dish) pie pan. The crust should be about ¼-inch thick. (Tip: do the sides first.) Bake for 10 minutes, until just slightly browned. Let the crust cool on a wire rack.\n\nFOR THE FILLING\nLower the oven temperature to 350°F. In a large bowl, whisk together the sweetened condensed milk, yogurt, lime zest, and lime juice. Pour the thick mixture into the warm graham cracker crust. Bake for 15 minutes, until the filling is almost set; it should wobble a bit. Let cool at room temperature for 30 minutes, then place in the refrigerator to chill thoroughly, about 3 hours.\n\nFOR THE TOPPING\nIn the bowl of an electric mixer, beat the heavy cream until soft peaks form. Add the confectioners’ sugar and beat until medium peaks form. Top the pie with the whipped cream. Decorate with the lime zest and lime slices. Store the pie in the refrigerator until ready to serve. Slice the pie into wedges, wiping your knife clean between slices, and serve cold. Make-Ahead Instructions: You can make the crust a day ahead of time, but the filling should be added on the day of serving, otherwise the crust will get soggy',
     recipeName: 'KeyLimePie',
     servings: 6,
-    title: 'Famous Florida Keys Lime Pie',
+    title: 'Florida Keys Lime Pie',
   },
   {
     text: '4 large egg yolks',
@@ -397,6 +397,12 @@ const INIT_RECIPE_WARS = [
   ...INIT_ITALIAN_BEEF,
 ];
 
+const INIT_SNACKBAR = {
+  message: 'Title is "Untitled" or empty',
+  open: false,
+  severity: 'error',
+};
+
 const submitRecipeSnackbar = {
   message: `Submitting Recipe`,
   open: true,
@@ -419,4 +425,5 @@ export {
   INIT_INPUTS,
   INIT_RECIPE_WARS,
   submitRecipeSnackbar,
+  INIT_SNACKBAR,
 };
