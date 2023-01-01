@@ -37,7 +37,7 @@ export const ServingsSwitch = (props) => {
         inputProps={{ 'data-recipe-name': recipeName }}
         name="servings-toggle"
         onChange={handleServingsToggle}
-        sx={{ servingsSwitchSx }}
+        sx={servingsSwitchSx}
         checked={isPerServing}
       />
       <ServingsSwitchRight isPerServing={isPerServing} />

@@ -16,7 +16,7 @@ export const ServingsSwitchLeft = (props) => {
     <Typography
       component="span"
       name="servings-toggle"
-      sx={{ servingsSwitchLeftSx }}
+      sx={servingsSwitchLeftSx}
       title="Display nutritional values by total amount"
       variant="caption"
     >

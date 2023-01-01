@@ -49,7 +49,7 @@ export const RecipeMenu = (props) => {
         data-recipe-name={recipeName}
         id="recipe-positioned-button"
         onClick={handleClick}
-        sx={{ menuButtonSx }}
+        sx={menuButtonSx}
       >
         <MoreVert />
       </IconButton>
