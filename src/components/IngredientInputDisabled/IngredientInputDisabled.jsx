@@ -1,6 +1,11 @@
 import { Box } from '@mui/system';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  standardVariantSx,
+  containerSx,
+  ingredientInputDisabledSx,
+} from './IngredientDisabledStyles';
 import { IngredientDisabledEndAdornment } from './IngredientDisabledEndAdornment';
 import { IngredientDisabledStartAdornment } from './IngredientDisabledStartAdornment';
 import { TextField } from '@mui/material';
@@ -20,17 +25,8 @@ const IngredientInputDisabled = (props) => {
 
   const { error, id, isDisabled, status, text } = ingredient;
 
-  const standardVariantSx = isDisabled ? { disableUnderline: true } : {};
-
   return (
-    <Box
-      name={id}
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        flex: '1 1 auto',
-      }}
-    >
+    <Box name={id} sx={containerSx}>
       <TextField
         className={`parsed ${isDisabled ? '' : 'submit'}`}
         disabled={isDisabled}
@@ -40,7 +36,7 @@ const IngredientInputDisabled = (props) => {
         id={id}
         InputLabelProps={{ shrink: true }}
         InputProps={{
-          ...standardVariantSx,
+          ...standardVariantSx(isDisabled),
           startAdornment: (
             <IngredientDisabledStartAdornment
               handleEdit={handleEdit}
@@ -63,16 +59,7 @@ const IngredientInputDisabled = (props) => {
         onKeyDown={isDisabled ? undefined : handleKeySubmit}
         p={0}
         placeholder={text}
-        sx={{
-          flex: '1 1 auto',
-          '& .MuiInputBase-root.Mui-disabled .submit': { display: 'none' },
-          '& .MuiInputBase-root.Mui-disabled .delete': { display: 'none' },
-          '& .MuiInputBase-root.Mui-disabled .edit': { display: 'inline-flex' },
-          '& .MuiInputBase-root .edit': { display: 'none' },
-          '& .MuiInputBase-adornedEnd.MuiInputBase-adornedStart': {
-            paddingLeft: '0px ',
-          },
-        }}
+        sx={ingredientInputDisabledSx}
         title="Ingredient parsed through Edamam API"
         type="text"
         value={text}
