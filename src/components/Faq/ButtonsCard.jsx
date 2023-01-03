@@ -1,14 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Button, Card, useMediaQuery, useTheme } from '@mui/material';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { LocalDining } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
+import { RecipesContext } from '../App/App';
+import { resetAll } from '../../reducers/actions';
 
-export const ButtonsCard = (props) => {
-  const { handleResetAll } = props;
+export const ButtonsCard = () => {
   const theme = useTheme();
   const xsOnly = useMediaQuery(theme.breakpoints.only('xs'));
+  const { dispatch } = useContext(RecipesContext);
+
+  const handleResetAll = () => dispatch(resetAll());
 
   return (
     <Card
@@ -43,8 +46,4 @@ export const ButtonsCard = (props) => {
       </Button>
     </Card>
   );
-};
-
-ButtonsCard.propTypes = {
-  handleResetAll: PropTypes.func.isRequired,
 };

@@ -1,15 +1,19 @@
-const standardVariantSx = (isDisabled) => {
-  if (isDisabled) {
-    return { disableUnderline: true };
-  } else {
-    return {};
-  }
-};
-
 const containerSx = {
   display: 'flex',
   flexDirection: 'row',
   flex: '1 1 auto',
+};
+
+const deleteButtonSx = {
+  color: 'error.main',
+  '&:hover': { color: 'error.main' },
+};
+
+const editButtonSx = {
+  color: 'text.primary',
+  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+    color: 'primary.main',
+  },
 };
 
 const ingredientInputDisabledSx = {
@@ -23,4 +27,26 @@ const ingredientInputDisabledSx = {
   },
 };
 
-export { standardVariantSx, containerSx, ingredientInputDisabledSx };
+const standardVariantSx = (isDisabled) => {
+  if (isDisabled) {
+    return { disableUnderline: true };
+  } else {
+    return {};
+  }
+};
+
+const submitButtonSx = {
+  color: 'primary.main',
+  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+    color: 'primary.main',
+  },
+};
+
+export {
+  containerSx,
+  editButtonSx,
+  deleteButtonSx,
+  ingredientInputDisabledSx,
+  standardVariantSx,
+  submitButtonSx,
+};

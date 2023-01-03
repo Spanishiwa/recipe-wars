@@ -9,8 +9,12 @@ import {
 import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
 import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { submitRecipeSnackbar } from '../../Util';
 
 export const StepperButtons = (props) => {
+  const navigate = useNavigate;
+
   const {
     activeStep,
     handleBack,
@@ -19,6 +23,12 @@ export const StepperButtons = (props) => {
     handleSubmitRecipe,
     maxSteps,
   } = props;
+
+  const handleSubmitRecipeRedirect = () => {
+    handleSubmitRecipe();
+
+    navigate('/recipe-wars', { state: submitRecipeSnackbar });
+  };
 
   const theme = useTheme();
   const actionSx =
@@ -46,7 +56,7 @@ export const StepperButtons = (props) => {
               disableElevation
               startIcon={<AssignmentTurnedIn />}
               size="large"
-              onClick={handleSubmitRecipe}
+              onClick={handleSubmitRecipeRedirect}
               variant="contained"
             >
               SUBMIT

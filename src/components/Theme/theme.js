@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ColorModeContext from './components/ColorModeContext/ColorModeContext';
+import ColorModeContext from '../ColorModeContext/ColorModeContext';
 import PropTypes from 'prop-types';
 
 const darkTheme = createTheme({
@@ -52,7 +52,7 @@ const getDesignTokens = (mode) => ({
 const Theme = (props) => {
   const [mode, setMode] = React.useState();
 
-  const { childComponent } = props;
+  const { children } = props;
 
   const colorMode = React.useMemo(
     () => ({
@@ -71,12 +71,12 @@ const Theme = (props) => {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={currTheme}>{childComponent}</ThemeProvider>
+      <ThemeProvider theme={currTheme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   );
 };
 export default Theme;
 
 Theme.propTypes = {
-  childComponent: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
 };
