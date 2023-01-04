@@ -1,4 +1,7 @@
-export const questionsAndAnswers = [
+import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
+import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
+
+const questionsAndAnswers = [
   {
     question0: 'What is recipe wars and what does it do?',
     answer0: `Recipe wars allows users to create their own online recipe,
@@ -69,3 +72,47 @@ export const questionsAndAnswers = [
       that would require user permission.`,
   },
 ];
+
+const faqContainerSx = { '&.MuiContainer-root.faq': { padding: '0px' } };
+
+const getExpandedSx = (mode) => {
+  if (mode === 'light') {
+    return {
+      '& .MuiAccordionDetails-root': {
+        backgroundImage: `url(${Bg_Pattern_Light})`,
+        backgroundColor: '#F5F7FA',
+        backgroundRepeat: 'repeat',
+      },
+    };
+  } else {
+    return {
+      '& .MuiAccordionDetails-root': {
+        backgroundImage: `url(${Bg_Pattern_Dark})`,
+        backgroundColor: '#121212',
+        backgroundRepeat: 'repeat',
+      },
+    };
+  }
+};
+
+const getHoverSx = (mode) => {
+  if (mode === 'light') {
+    return {
+      '&:hover': {
+        backgroundImage: `url(${Bg_Pattern_Light})`,
+        backgroundColor: '#F5F7FA',
+        backgroundRepeat: 'repeat',
+      },
+    };
+  } else {
+    return {
+      '&:hover': {
+        backgroundImage: `url(${Bg_Pattern_Dark})`,
+        backgroundColor: '#121212',
+        backgroundRepeat: 'repeat',
+      },
+    };
+  }
+};
+
+export { faqContainerSx, getExpandedSx, getHoverSx, questionsAndAnswers };

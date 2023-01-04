@@ -3,14 +3,15 @@ import { Button, Card, useMediaQuery, useTheme } from '@mui/material';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { LocalDining } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
-import { RecipesContext } from '../App/App';
 import { resetAll } from '../../reducers/actions';
+import { RecipesContext } from '../App/RecipesContext';
+import { RESET_ALL_SNACKBAR } from '../../Util';
 
 export const ButtonsCard = () => {
   const theme = useTheme();
   const xsOnly = useMediaQuery(theme.breakpoints.only('xs'));
-  const { dispatch } = useContext(RecipesContext);
 
+  const { dispatch } = useContext(RecipesContext);
   const handleResetAll = () => dispatch(resetAll());
 
   return (
@@ -37,8 +38,9 @@ export const ButtonsCard = () => {
         disableElevation
         onClick={handleResetAll}
         size="large"
+        state={RESET_ALL_SNACKBAR}
         title="Reset all recipes to default"
-        to="/recipe-wars"
+        to={'/recipe-wars'}
         variant="outlined"
       >
         <RestartAltIcon sx={{ mr: 1 }} />

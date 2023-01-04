@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Box, Button, Card, Typography } from '@mui/material';
-import PropTypes from 'prop-types';
+import { RecipesContext } from '../App/RecipesContext';
+import { resetAll } from '../../reducers/actions';
+import { SnackbarContext } from '../MuiSnackbar/SnackbarContext';
+import { RESET_ALL_SNACKBAR } from '../../Util';
 
-export const ResetAllCard = (props) => {
-  const { handleResetAllClick } = props;
+export const ResetAllCard = () => {
+  const { dispatch } = useContext(RecipesContext);
+  const { showAlert } = useContext(SnackbarContext);
+
+  const handleResetAllClick = () => {
+    showAlert(RESET_ALL_SNACKBAR);
+
+    dispatch(resetAll());
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -29,8 +39,4 @@ export const ResetAllCard = (props) => {
       </Card>
     </Box>
   );
-};
-
-ResetAllCard.propTypes = {
-  handleResetAllClick: PropTypes.func.isRequired,
 };

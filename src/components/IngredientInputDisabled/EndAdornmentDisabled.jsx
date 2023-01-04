@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { IconButton, InputAdornment } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
-import { RecipesContext } from '../App/App';
+import { RecipesContext } from '../App/RecipesContext';
 import { deleteIngredient } from '../../reducers/actions';
 import { deleteButtonSx } from './IngredientDisabledStyles';
 

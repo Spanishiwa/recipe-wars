@@ -8,7 +8,7 @@ import {
 import { EndAdornmentDisabled } from './EndAdornmentDisabled';
 import { StartAdornmentDisabled } from './StartAdornmentDisabled';
 import { Box, TextField } from '@mui/material';
-import { RecipesContext } from '../App/App';
+import { RecipesContext } from '../App/RecipesContext';
 import { resetInputError, updateInput } from '../../reducers/actions';
 
 const IngredientInputDisabled = (props) => {

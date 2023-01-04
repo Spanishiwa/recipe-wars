@@ -6,17 +6,24 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import IngredientInputDisabled from '../IngredientInputDisabled/IngredientInputDisabled';
 import PropTypes from 'prop-types';
 import {
   getIngredientsHeaderSx,
+  ingrPadding,
   listSubheaderSx,
   listSx,
 } from './IngredientsListStyles';
+import { RecipesContext } from '../App/RecipesContext';
 
 export const IngredientsList = (props) => {
-  const { handlers, ingredients } = props;
+  const { recipeName } = props;
+  const { state } = useContext(RecipesContext);
+
+  const recipeIngredients = state.filter(
+    (ingredient) => ingredient.recipeName === recipeName && ingredient.parsed
+  );
 
   const mode = useTheme().palette.mode;
   const ingredientsHeaderSx = getIngredientsHeaderSx(mode);
@@ -26,49 +33,16 @@ export const IngredientsList = (props) => {
       <ListSubheader sx={listSubheaderSx}>
         <Typography component="p" sx={ingredientsHeaderSx} variant="h6">
           <ReceiptLong sx={{ mr: 1, verticalAlign: 'middle' }} />
-          Ingredients ({ingredients.length})
+          Ingredients ({recipeIngredients.length})
         </Typography>
       </ListSubheader>
-      {ingredients.map((ingredient) => (
-        <ListItem
-          disableGutters
-          key={ingredient.id}
-          sx={{ padding: '16px 8px 0px 8px' }}
-        >
-          <IngredientInputDisabled
-            handlers={handlers}
-            ingredient={ingredient}
-          />
+      {recipeIngredients.map((ingr) => (
+        <ListItem disableGutters key={ingr.id} sx={{ ingrPadding }}>
+          <IngredientInputDisabled ingredient={ingr} />
         </ListItem>
       ))}
     </List>
   );
 };
 
-IngredientsList.propTypes = {
-  handlers: PropTypes.shape({
-    handleBlur: PropTypes.func,
-    handleChange: PropTypes.func,
-    handleDelete: PropTypes.func,
-    handleEdit: PropTypes.func,
-    handleKeyDelete: PropTypes.func,
-    handleKeySubmit: PropTypes.func,
-    handleToggleDisable: PropTypes.func,
-  }).isRequired,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      parsed: PropTypes.string.isRequired,
-      calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-        .isRequired,
-      carbohydrate: PropTypes.string.isRequired,
-      protein: PropTypes.string.isRequired,
-      fat: PropTypes.string.isRequired,
-      status: PropTypes.string,
-      isDisabled: PropTypes.bool.isRequired,
-      error: PropTypes.bool.isRequired,
-      recipeName: PropTypes.string.isRequired,
-    })
-  ),
-};
+IngredientsList.propTypes = { recipeName: PropTypes.string.isRequired };

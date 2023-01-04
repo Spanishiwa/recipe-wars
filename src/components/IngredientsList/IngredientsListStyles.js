@@ -11,11 +11,11 @@ const getIngredientsHeaderSx = (mode) => {
     borderBottom: getIngredientsBorderStyle(mode),
     fontWeight: 400,
     marginBottom: '8px',
-    paddingLeft: '16px',
-    paddingTop: '0px',
-    padding: '0px 0px 16px 24px',
+    padding: '0px 0px 24px 16px',
   };
 };
+
+const ingrPadding = { padding: '16px 8px 0px 8px' };
 
 const listSx = {
   display: 'flex',
@@ -35,4 +35,4 @@ const listSubheaderSx = {
   top: '-1px',
 };
 
-export { getIngredientsHeaderSx, listSubheaderSx, listSx };
+export { getIngredientsHeaderSx, ingrPadding, listSubheaderSx, listSx };

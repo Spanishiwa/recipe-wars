@@ -1,20 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Card, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { ButtonsCard } from './ButtonsCard';
 import { MuiAccordion } from './MuiAccordion';
-import { questionsAndAnswers } from './questions';
+import { faqContainerSx, questionsAndAnswers } from './FaqUtil';
+import { resetAll } from '../../reducers/actions';
+import { RecipesContext } from '../App/RecipesContext';
 
-export const Faq = (props) => {
-  const { handleResetAll } = props;
+export const Faq = () => {
+  const { dispatch } = useContext(RecipesContext);
+
+  const handleResetAll = () => dispatch(resetAll());
 
   return (
-    <Container
-      className="faq"
-      maxWidth="lg"
-      sx={{ '&.MuiContainer-root.faq': { padding: '0px' } }}
-    >
+    <Container className="faq" maxWidth="lg" sx={faqContainerSx}>
       <Card sx={{ padding: 2, mb: 2 }}>
         <Typography component="h4" color="text.primary" variant="h6">
           Frequently Asked Questions
@@ -33,8 +32,4 @@ export const Faq = (props) => {
       <ButtonsCard handleResetAll={handleResetAll} />
     </Container>
   );
-};
-
-Faq.propTypes = {
-  handleResetAll: PropTypes.func.isRequired,
 };

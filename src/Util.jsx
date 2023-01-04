@@ -403,10 +403,85 @@ const INIT_SNACKBAR = {
   severity: 'error',
 };
 
-const submitRecipeSnackbar = {
+const RESET_ALL_SNACKBAR = {
+  message: 'Resetting all recipes to default',
+  severity: 'success',
+};
+
+const SUBMIT_RECIPE_SNACKBAR = {
   message: `Submitting Recipe`,
   open: true,
   severity: 'success',
+};
+
+const getInput = (state, id) => {
+  return state.filter((input) => input.id === id)[0];
+};
+
+const getRecipeInputValues = (inputs) => {
+  return inputs.reduce(
+    (accum, input) => {
+      switch (input.id) {
+        case 'image-input':
+          accum.imgSrc = input.imgSrc;
+          return accum;
+        case 'title-input':
+          accum.title = input.text;
+          return accum;
+        case 'description-textarea':
+          accum.description = input.text;
+          return accum;
+        case 'recipe-textarea':
+          accum.instructions = input.text;
+          return accum;
+        case 'servings-input':
+          accum.servings = input.text;
+          return accum;
+        case 'servings-toggle':
+          accum.isUntitledPerServing = input.isUntitledPerServing;
+          return accum;
+        case 'photos-select-input':
+          accum.selectText = input.text;
+          return accum;
+        default:
+          return accum;
+      }
+    },
+    {
+      imgSrc: '',
+      title: '',
+      description: '',
+      instructions: '',
+      servings: 1,
+      isUntitledPerServing: true,
+      selectText: '',
+    }
+  );
+};
+
+const getRecipeNames = (recipes) => {
+  return Object.keys(recipes).filter(
+    (recipeName) => recipeName !== 'undefined' && recipeName !== 'Untitled'
+  );
+};
+
+const lodashGroupBy = (xs, key) => {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
+
+const formatNutrients = (nutrients, isPerServing, servings) => {
+  const formattedNutrients = {};
+
+  Object.keys(nutrients).forEach((nutrient) => {
+    formattedNutrients[nutrient] = isPerServing
+      ? (nutrients[nutrient] / servings).toFixed(0)
+      : nutrients[nutrient].toFixed(0);
+  });
+
+  return formattedNutrients;
 };
 
 export {
@@ -424,6 +499,12 @@ export {
   INIT_ITALIAN_BEEF,
   INIT_INPUTS,
   INIT_RECIPE_WARS,
-  submitRecipeSnackbar,
+  SUBMIT_RECIPE_SNACKBAR,
   INIT_SNACKBAR,
+  RESET_ALL_SNACKBAR,
+  getInput,
+  getRecipeInputValues,
+  getRecipeNames,
+  formatNutrients,
+  lodashGroupBy,
 };
