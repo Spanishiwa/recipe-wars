@@ -1,32 +1,29 @@
 import { Box, CardMedia } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ImageModal from '../ImageModal/ImageModal';
 import { ServingsSwitch } from '../ServingsSwitch/ServingsSwitch';
 import PropTypes from 'prop-types';
 import { getSelectedImage } from './RecipeImageUtil';
 import { RecipeImageFigcaption } from './RecipeImageFigcaption';
+import { RecipesContext } from '../App/RecipesContext';
 
 export const RecipeImage = (props) => {
+  const { state } = useContext(RecipesContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
-  const {
-    description,
-    handleServingsToggle,
-    imgSrc,
-    ingredients,
-    recipeName,
-    selectText,
-    servings,
-    isPerServing,
-    title,
-  } = props;
+  const { recipeName, recipeState } = props;
 
-  const recipe = recipeName || 'Untitled';
+  const { title, description, imgSrc, selectText, servings } = recipeState;
 
-  const selectedImage = getSelectedImage(selectText);
+  const inputs = state.filter((input) => input.isInput);
+  const isPerServing = inputs.filter(
+    (input) => input.id === 'servings-toggle'
+  )[0][`is${recipeName}PerServing`];
+
+  const image = imgSrc || getSelectedImage(selectText);
 
   return (
     <Box component="figure" m={0}>
@@ -34,26 +31,22 @@ export const RecipeImage = (props) => {
         alt={title}
         component="img"
         height="194"
-        image={imgSrc || selectedImage}
+        image={image}
         onClick={handleClickOpen}
         sx={{ cursor: 'pointer' }}
         title={title}
       />
       <RecipeImageFigcaption
         description={description}
-        ingredients={ingredients}
+        recipeName={recipeName}
         isPerServing={isPerServing}
         servings={servings}
       >
-        <ServingsSwitch
-          handleServingsToggle={handleServingsToggle}
-          isPerServing={isPerServing}
-          recipeName={recipe}
-        />
+        <ServingsSwitch isPerServing={isPerServing} recipeName={recipeName} />
       </RecipeImageFigcaption>
       <ImageModal
         handleClose={handleClose}
-        imgSrc={imgSrc || selectedImage}
+        imgSrc={image}
         open={isOpen}
         title={title}
       />
@@ -62,29 +55,14 @@ export const RecipeImage = (props) => {
 };
 
 RecipeImage.propTypes = {
-  description: PropTypes.string,
-  handleServingsToggle: PropTypes.func.isRequired,
-  imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      parsed: PropTypes.string.isRequired,
-      calories: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-        .isRequired,
-      carbohydrate: PropTypes.string.isRequired,
-      protein: PropTypes.string.isRequired,
-      fat: PropTypes.string.isRequired,
-      status: PropTypes.string,
-      isDisabled: PropTypes.bool.isRequired,
-      error: PropTypes.bool.isRequired,
-      recipeName: PropTypes.string.isRequired,
-    })
-  ),
   recipeName: PropTypes.string,
-  selectText: PropTypes.string,
-  servings: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-  isPerServing: PropTypes.bool,
-  title: PropTypes.string,
+  recipeState: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    instructions: PropTypes.string,
+    selectText: PropTypes.string,
+    servings: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+      .isRequired,
+  }),
 };

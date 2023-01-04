@@ -1,27 +1,40 @@
-import { Box } from '@mui/system';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
-  standardVariantSx,
   containerSx,
   ingredientInputDisabledSx,
+  standardVariantSx,
 } from './IngredientDisabledStyles';
-import { IngredientDisabledEndAdornment } from './IngredientDisabledEndAdornment';
-import { IngredientDisabledStartAdornment } from './IngredientDisabledStartAdornment';
-import { TextField } from '@mui/material';
+import { EndAdornmentDisabled } from './EndAdornmentDisabled';
+import { StartAdornmentDisabled } from './StartAdornmentDisabled';
+import { Box, TextField } from '@mui/material';
+import { RecipesContext } from '../App/RecipesContext';
+import { resetInputError, updateInput } from '../../reducers/actions';
 
 const IngredientInputDisabled = (props) => {
-  const { handlers, ingredient } = props;
+  const { ingredient } = props;
+  const { state, dispatch } = useContext(RecipesContext);
 
-  const {
-    handleBlur,
-    handleChange,
-    handleDelete,
-    handleEdit,
-    handleKeyDelete,
-    handleKeySubmit,
-    handleToggleDisable,
-  } = handlers;
+  const handleBlur = (e) => dispatch(resetInputError(e));
+
+  const handleChange = (e) => dispatch(updateInput(e));
+
+  const handleKeySubmit = (e) => {
+    const key = e.which || e.keyCode || 0;
+
+    if (key === 13) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const name =
+        e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
+      // code works - ration API calls for testing
+      const ingredient = state.filter((ingredient) => ingredient.id === name);
+
+      // if (ingredient) useFetchAPI(ingredient[0].text, null, name);
+      if (ingredient) return;
+    }
+  };
 
   const { error, id, isDisabled, status, text } = ingredient;
 
@@ -38,26 +51,14 @@ const IngredientInputDisabled = (props) => {
         InputProps={{
           ...standardVariantSx(isDisabled),
           startAdornment: (
-            <IngredientDisabledStartAdornment
-              handleEdit={handleEdit}
-              handleKeySubmit={handleKeySubmit}
-              handleToggleDisable={handleToggleDisable}
-              id={id}
-            />
+            <StartAdornmentDisabled handleKeySubmit={handleKeySubmit} id={id} />
           ),
-          endAdornment: (
-            <IngredientDisabledEndAdornment
-              handleDelete={handleDelete}
-              handleKeyDelete={handleKeyDelete}
-              id={id}
-            />
-          ),
+          endAdornment: <EndAdornmentDisabled id={id} />,
         }}
         name={id}
         onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={isDisabled ? undefined : handleKeySubmit}
-        p={0}
         placeholder={text}
         sx={ingredientInputDisabledSx}
         title="Ingredient parsed through Edamam API"
@@ -72,15 +73,6 @@ const IngredientInputDisabled = (props) => {
 export default IngredientInputDisabled;
 
 IngredientInputDisabled.propTypes = {
-  handlers: PropTypes.shape({
-    handleBlur: PropTypes.func,
-    handleChange: PropTypes.func,
-    handleDelete: PropTypes.func,
-    handleEdit: PropTypes.func,
-    handleKeyDelete: PropTypes.func,
-    handleKeySubmit: PropTypes.func,
-    handleToggleDisable: PropTypes.func,
-  }).isRequired,
   ingredient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,

@@ -1,11 +1,17 @@
 import { InputLabel, Switch } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ServingsSwitchLeft } from './ServingsSwitchLeft';
 import { ServingsSwitchRight } from './ServingsSwitchRight';
+import { RecipesContext } from '../App/RecipesContext';
+import { toggleServingsInput } from '../../reducers/actions';
+import { servingsSwitchSx } from './ServingsSwitchStyles';
 
 export const ServingsSwitch = (props) => {
-  const { handleServingsToggle, isPerServing, recipeName } = props;
+  const { isPerServing, recipeName } = props;
+  const { dispatch } = useContext(RecipesContext);
+
+  const handleServingsToggle = (e) => dispatch(toggleServingsInput(e));
 
   const handleKeyDown = (e) => {
     const key = e.which || e.keyCode || 0;
@@ -13,14 +19,9 @@ export const ServingsSwitch = (props) => {
     if (key === 13 || key === 37 || key === 39) {
       e.preventDefault();
       e.stopPropagation();
+
       handleServingsToggle(e);
     }
-  };
-
-  const servingsSwitchSx = {
-    '.MuiButtonBase-root.MuiSwitch-switchBase.MuiSwitch-colorPrimary': {
-      color: 'primary.main',
-    },
   };
 
   return (
@@ -34,11 +35,11 @@ export const ServingsSwitch = (props) => {
       <ServingsSwitchLeft isPerServing={isPerServing} />
       <Switch
         className={recipeName}
+        checked={isPerServing}
         inputProps={{ 'data-recipe-name': recipeName }}
         name="servings-toggle"
         onChange={handleServingsToggle}
         sx={servingsSwitchSx}
-        checked={isPerServing}
       />
       <ServingsSwitchRight isPerServing={isPerServing} />
     </InputLabel>
@@ -46,7 +47,6 @@ export const ServingsSwitch = (props) => {
 };
 
 ServingsSwitch.propTypes = {
-  handleServingsToggle: PropTypes.func.isRequired,
   isPerServing: PropTypes.bool,
   recipeName: PropTypes.string,
 };

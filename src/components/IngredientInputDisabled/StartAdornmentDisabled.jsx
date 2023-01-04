@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IconButton, InputAdornment } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { Done } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { editButtonSx, submitButtonSx } from './IngredientDisabledStyles';
+import { toggleInputDisable } from '../../reducers/actions';
+import { RecipesContext } from '../App/RecipesContext';
 
-export const IngredientDisabledStartAdornment = (props) => {
-  const { handleEdit, handleKeySubmit, handleToggleDisable, id } = props;
+export const StartAdornmentDisabled = (props) => {
+  const { handleKeySubmit, id } = props;
+  const { state, dispatch } = useContext(RecipesContext);
 
-  const editButtonSx = {
-    color: 'text.primary',
-    '&:hover, &.Mui-focusVisible, &.Mui-active': {
-      color: 'primary.main',
-    },
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const name =
+      e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
+
+    const ingredient = state.filter((ingredient) => ingredient.id === name);
+    // if (ingredient) useFetchAPI(ingredient[0].text, name, name);
+    if (ingredient) return;
   };
 
-  const submitButtonSx = {
-    color: 'primary.main',
-    '&:hover, &.Mui-focusVisible, &.Mui-active': {
-      color: 'primary.main',
-    },
+  const handleToggleDisable = (e) => {
+    e.preventDefault();
+
+    dispatch(toggleInputDisable(e));
   };
 
   return (
@@ -50,9 +58,7 @@ export const IngredientDisabledStartAdornment = (props) => {
   );
 };
 
-IngredientDisabledStartAdornment.propTypes = {
-  handleEdit: PropTypes.func.isRequired,
+StartAdornmentDisabled.propTypes = {
   handleKeySubmit: PropTypes.func.isRequired,
-  handleToggleDisable: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };

@@ -1,55 +1,31 @@
-import React, { useRef, useState } from 'react';
-import { Card } from '@mui/material';
-import { MuiSnackbar } from '../MuiSnackbar/MuiSnackbar';
-import PropTypes from 'prop-types';
-import { getRecipeInputValues } from './StepperUtil';
+import React, { useContext, useRef, useState } from 'react';
+import { Box, Card } from '@mui/material';
+import RecipeCard from '../RecipeCard/RecipeCard';
+import RecipeForm from '../RecipeForm/RecipeForm';
+import { RecipeFormOptional } from '../RecipeFormOptional/RecipeFormOptional';
 import { StepperButtons } from './StepperButtons';
-import { StepView } from './StepView';
+import { SnackbarContext } from '../MuiSnackbar/SnackbarContext';
+import { RecipesContext } from '../App/RecipesContext';
+import { updateInputError } from '../../reducers/actions';
+import { getInput } from '../../Util';
+import PropTypes from 'prop-types';
 
 export default function MuiStepper(props) {
-  const { handlers, inputs, recipeStates, setInputError } = props;
+  const { dispatch } = useContext(RecipesContext);
+  const { showAlert } = useContext(SnackbarContext);
 
-  const { handleSubmitRecipe, handleReset } = handlers;
-
-  const recipeState = getRecipeInputValues(inputs);
-  const noRecipeNameIngredients = recipeStates.filter(
-    (recipe) => recipe.recipeName === 'Untitled'
-  );
+  const { recipeStates } = props;
 
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = 3;
 
-  const [snackbarState, setSnackbarState] = useState({
-    message: `Title is "Untitled" or empty`,
-    open: false,
-    severity: 'error',
-  });
-
-  const showAlert = (message, severity) => {
-    setSnackbarState((prevState) => ({
-      ...prevState,
-      message: message,
-      open: true,
-      severity: severity,
-    }));
-  };
-
+  const noRecipeNameIngredients = recipeStates.filter(
+    (recipe) => recipe.recipeName === 'Untitled'
+  );
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
-  const isValidTitle =
-    recipeState.title !== '' && recipeState.title !== 'Untitled';
 
-  const handleResetClick = () => {
-    showAlert('Resetting recipe', 'success');
-
-    handleReset();
-  };
-
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') return;
-
-    setSnackbarState((prevState) => ({ ...prevState, open: false }));
-  };
-
+  const title = getInput(recipeStates, 'title-input');
+  const isValidTitle = title !== '' && title !== 'Untitled';
   const titleRef = useRef(null);
 
   const handleNext = () => {
@@ -58,69 +34,52 @@ export default function MuiStepper(props) {
       return;
     }
 
-    let errMsg = '';
-
-    if (!isValidIngredientsList) errMsg = `Ingredients list is empty`;
+    const errMsg = getValidationErr();
 
     if (!isValidTitle) {
-      errMsg = `Title can't be "Untitled" or empty`;
-
-      setInputError('title-input', errMsg);
+      dispatch(updateInputError(('title-input', errMsg)));
       titleRef.current.focus();
     }
 
     showAlert(errMsg, 'error');
   };
 
+  const getValidationErr = () => {
+    if (!isValidTitle) return `Title can't be "Untitled" or empty`;
+
+    return `Ingredients list is empty`;
+  };
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const stepView = (step) => {
+    switch (step) {
+      case 0:
+        return <RecipeForm titleRef={titleRef} />;
+      case 1:
+        return <RecipeFormOptional />;
+      case 2:
+        return <RecipeCard />;
+      default:
+        return <RecipeForm titleRef={titleRef} />;
+    }
+  };
+
   return (
     <Card sx={{ flexGrow: 1, height: '100%', maxWidth: { xs: 1200 } }}>
-      <StepView
-        activeStep={activeStep}
-        handlers={handlers}
-        inputs={inputs}
-        recipeStates={recipeStates}
-        showAlert={showAlert}
-        titleRef={titleRef}
-      />
+      <Box sx={{ maxWidth: { xs: 1200 }, width: '100%' }}>
+        {stepView(activeStep)}
+      </Box>
       <StepperButtons
         activeStep={activeStep}
         handleBack={handleBack}
         handleNext={handleNext}
-        handleResetClick={handleResetClick}
-        handleSubmitRecipe={handleSubmitRecipe}
         maxSteps={maxSteps}
-      />
-      <MuiSnackbar
-        handleClose={handleSnackbarClose}
-        message={snackbarState.message}
-        open={snackbarState.open}
-        severity={snackbarState.severity}
       />
     </Card>
   );
 }
 
-MuiStepper.propTypes = {
-  handlers: PropTypes.shape({
-    handleBlur: PropTypes.func,
-    handleChange: PropTypes.func,
-    handleDelete: PropTypes.func,
-    handleEdit: PropTypes.func,
-    handleImage: PropTypes.func,
-    handleKeyDelete: PropTypes.func,
-    handleKeySubmit: PropTypes.func,
-    handleSubmit: PropTypes.func,
-    handleSubmitRecipe: PropTypes.func,
-    handleToggleDisable: PropTypes.func,
-    handleReset: PropTypes.func,
-    handleSelect: PropTypes.func,
-    handleServingsToggle: PropTypes.func,
-  }).isRequired,
-  inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
-  recipeStates: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setInputError: PropTypes.func.isRequired,
-};
+MuiStepper.propTypes = { recipeStates: PropTypes.arrayOf(PropTypes.object) };

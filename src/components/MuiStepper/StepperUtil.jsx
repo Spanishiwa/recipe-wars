@@ -1,86 +1,34 @@
-const getHandlersRecipeCard = (handlers) => {
-  return {
-    handleBlur: handlers.handleBlur,
-    handleChange: handlers.handleChange,
-    handleDelete: handlers.handleDelete,
-    handleEdit: handlers.handleEdit,
-    handleKeyDelete: handlers.handleKeyDelete,
-    handleKeySubmit: handlers.handleKeySubmit,
-    handleToggleDisable: handlers.handleToggleDisable,
-    handleServingsToggle: handlers.handleServingsToggle,
-  };
+import React from 'react';
+import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
+import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+
+const getActionSx = (mode) => {
+  if (mode === 'light') {
+    return {
+      backgroundColor: 'primary.light',
+      backgroundImage: `url(${Bg_Pattern_Light})`,
+      padding: '16px',
+    };
+  } else {
+    return {
+      backgroundColor: 'background.default',
+      backgroundImage: `url(${Bg_Pattern_Dark})`,
+      padding: '16px',
+    };
+  }
 };
 
-const getHandlersRecipeForm = (handlers) => {
-  return {
-    handleBlur: handlers.handleBlur,
-    handleChange: handlers.handleChange,
-    handleDelete: handlers.handleDelete,
-    handleEdit: handlers.handleEdit,
-    handleKeySubmit: handlers.handleKeySubmit,
-    handleSubmit: handlers.handleSubmit,
-    handleToggleDisable: handlers.handleToggleDisable,
-  };
+const getNextEndIcon = (direction) => {
+  if (direction === 'rtl') return <KeyboardArrowLeft />;
+
+  return <KeyboardArrowRight />;
 };
 
-const getHandlersRecipeFormOptional = (handlers) => {
-  return {
-    handleBlur: handlers.handleBlur,
-    handleChange: handlers.handleChange,
-    handleDelete: handlers.handleDelete,
-    handleEdit: handlers.handleEdit,
-    handleImage: handlers.handleImage,
-    handleKeyDelete: handlers.handleKeyDelete,
-    handleKeySubmit: handlers.handleKeySubmit,
-    handleSelect: handlers.handleSelect,
-    handleToggleDisable: handlers.handleToggleDisable,
-  };
+const getBackStartIcon = (direction) => {
+  if (direction === 'rtl') return <KeyboardArrowRight />;
+
+  return <KeyboardArrowLeft />;
 };
 
-const getRecipeInputValues = (inputs) => {
-  return inputs.reduce(
-    (accum, input) => {
-      switch (input.id) {
-        case 'image-input':
-          accum.imgSrc = input.imgSrc;
-          return accum;
-        case 'title-input':
-          accum.title = input.text;
-          return accum;
-        case 'description-textarea':
-          accum.description = input.text;
-          return accum;
-        case 'recipe-textarea':
-          accum.instructions = input.text;
-          return accum;
-        case 'servings-input':
-          accum.servings = input.text;
-          return accum;
-        case 'servings-toggle':
-          accum.isUntitledPerServing = input.isUntitledPerServing;
-          return accum;
-        case 'photos-select-input':
-          accum.selectText = input.text;
-          return accum;
-        default:
-          return accum;
-      }
-    },
-    {
-      imgSrc: '',
-      title: '',
-      description: '',
-      instructions: '',
-      servings: 1,
-      isUntitledPerServing: true,
-      selectText: '',
-    }
-  );
-};
-
-export {
-  getHandlersRecipeForm,
-  getHandlersRecipeCard,
-  getHandlersRecipeFormOptional,
-  getRecipeInputValues,
-};
+export { getActionSx, getBackStartIcon, getNextEndIcon };

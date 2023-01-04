@@ -2,15 +2,12 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import { FlatwareRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { getServingsSwitchLeftSx, leftCaptionSx } from './ServingsSwitchStyles';
 
 export const ServingsSwitchLeft = (props) => {
   const { isPerServing } = props;
 
-  const servingsSwitchLeftSx = {
-    ...(!isPerServing && { color: 'primary.main' }),
-    cursor: 'pointer',
-    '&:hover': { color: 'primary.main' },
-  };
+  const servingsSwitchLeftSx = getServingsSwitchLeftSx(isPerServing);
 
   return (
     <Typography
@@ -23,10 +20,7 @@ export const ServingsSwitchLeft = (props) => {
       <Typography
         component="span"
         name="servings-toggle"
-        sx={{
-          display: { xs: 'none', sm: 'inline' },
-          verticalAlign: 'middle',
-        }}
+        sx={leftCaptionSx}
         variant="caption"
       >
         Total

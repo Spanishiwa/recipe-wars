@@ -7,13 +7,20 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { deleteRecipe } from '../../reducers/actions';
+import { RecipesContext } from '../App/RecipesContext';
+import { getMenuButtonSx, topLeftOrigin } from './RecipeMenuStyles';
+import { SnackbarContext } from '../MuiSnackbar/SnackbarContext';
 
 export const RecipeMenu = (props) => {
+  const { dispatch } = useContext(RecipesContext);
+  const { showAlert } = useContext(SnackbarContext);
   const { pathname } = useLocation();
-  const { handleDeleteRecipe, recipeName, showAlert, title } = props;
+
+  const { recipeName, title } = props;
 
   // MUI Positioned menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,21 +29,13 @@ export const RecipeMenu = (props) => {
   const handleClose = () => setAnchorEl(null);
 
   const handleDeleteRecipeFromMenu = (e) => {
-    handleDeleteRecipe(e);
+    dispatch(deleteRecipe(e));
+
     showAlert('Deleting Recipe', 'success');
     handleClose();
   };
 
-  const topLeftOrigin = {
-    vertical: 'top',
-    horizontal: 'left',
-  };
-
-  const menuButtonSx = {
-    mr: 2,
-    verticalAlign: 'middle',
-    visibility: pathname === '/start' ? 'hidden' : 'visible',
-  };
+  const menuButtonSx = getMenuButtonSx(pathname);
 
   return (
     <Typography component="h5" sx={{ pb: 2, pl: 2 }} variant="h5">
@@ -78,8 +77,6 @@ export const RecipeMenu = (props) => {
 };
 
 RecipeMenu.propTypes = {
-  handleDeleteRecipe: PropTypes.func,
   recipeName: PropTypes.string,
-  showAlert: PropTypes.func,
   title: PropTypes.string,
 };

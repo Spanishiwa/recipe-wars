@@ -1,43 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Button, MobileStepper, useTheme } from '@mui/material/';
-import {
-  AssignmentTurnedIn,
-  Delete,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-} from '@mui/icons-material';
-import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
-import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
+import { AssignmentTurnedIn, Delete } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { SUBMIT_RECIPE_SNACKBAR } from '../../Util';
+import { resetRecipe, submitRecipe } from '../../reducers/actions';
+import { RecipesContext } from '../App/RecipesContext';
+import { SnackbarContext } from '../MuiSnackbar/SnackbarContext';
+import { getActionSx, getBackStartIcon, getNextEndIcon } from './StepperUtil';
 
 export const StepperButtons = (props) => {
-  const {
-    activeStep,
-    handleBack,
-    handleNext,
-    handleResetClick,
-    handleSubmitRecipe,
-    maxSteps,
-  } = props;
+  const { dispatch } = useContext(RecipesContext);
+  const { showAlert } = useContext(SnackbarContext);
+  const navigate = useNavigate;
+
+  const { activeStep, handleBack, handleNext, maxSteps } = props;
+
+  const handleResetClick = () => {
+    showAlert('Resetting recipe', 'success');
+
+    dispatch(resetRecipe());
+  };
+
+  const handleSubmitRecipeRedirect = () => {
+    dispatch(submitRecipe());
+
+    navigate('/recipe-wars', { state: SUBMIT_RECIPE_SNACKBAR });
+  };
 
   const theme = useTheme();
-  const actionSx =
-    theme.palette.mode === 'light'
-      ? {
-          backgroundColor: 'primary.light',
-          backgroundImage: `url(${Bg_Pattern_Light})`,
-        }
-      : {
-          backgroundColor: 'background.default',
-          backgroundImage: `url(${Bg_Pattern_Dark})`,
-        };
+  const actionSx = getActionSx(theme.palette.mode);
+
+  const nextEndIcon = getNextEndIcon(theme.direction);
+  const backStartIcon = getBackStartIcon(theme.direction);
 
   return (
     <Box mt={2}>
       <MobileStepper
         variant="text"
         steps={maxSteps}
-        sx={{ p: 2, ...actionSx }}
+        sx={actionSx}
         position="static"
         activeStep={activeStep}
         nextButton={
@@ -46,7 +48,7 @@ export const StepperButtons = (props) => {
               disableElevation
               startIcon={<AssignmentTurnedIn />}
               size="large"
-              onClick={handleSubmitRecipe}
+              onClick={handleSubmitRecipeRedirect}
               variant="contained"
             >
               SUBMIT
@@ -60,16 +62,12 @@ export const StepperButtons = (props) => {
               variant="contained"
             >
               Next
-              {theme.direction === 'rtl' ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
+              {nextEndIcon}
             </Button>
           )
         }
         backButton={
-          activeStep == 0 ? (
+          activeStep === 0 ? (
             <Button
               startIcon={<Delete />}
               name="reset-recipe"
@@ -87,11 +85,7 @@ export const StepperButtons = (props) => {
               disabled={activeStep === 0}
               variant="outlined"
             >
-              {theme.direction === 'rtl' ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
+              {backStartIcon}
               Back
             </Button>
           )
@@ -105,7 +99,5 @@ StepperButtons.propTypes = {
   activeStep: PropTypes.number,
   handleBack: PropTypes.func,
   handleNext: PropTypes.func,
-  handleResetClick: PropTypes.func,
-  handleSubmitRecipe: PropTypes.func,
   maxSteps: PropTypes.number,
 };
