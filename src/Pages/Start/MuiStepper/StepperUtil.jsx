@@ -1,6 +1,6 @@
 import React from 'react';
-import Bg_Pattern_Light from '../../assets/Back_Pattern.png';
-import Bg_Pattern_Dark from '../../assets/Debut_Dark.png';
+import Bg_Pattern_Light from '../../../assets/Back_Pattern.png';
+import Bg_Pattern_Dark from '../../../assets/Debut_Dark.png';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 
 const getActionSx = (mode) => {

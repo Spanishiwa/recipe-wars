@@ -10,10 +10,10 @@ import {
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { deleteRecipe } from '../../reducers/actions';
-import { RecipesContext } from '../Contexts/RecipesContext';
+import { deleteRecipe } from '../../../reducers/actions';
+import { RecipesContext } from '../../Contexts/RecipesContext';
 import { getMenuButtonSx, topLeftOrigin } from './RecipeMenuStyles';
-import { SnackbarContext } from '../Contexts/SnackbarContext';
+import { SnackbarContext } from '../../Contexts/SnackbarContext';
 
 export const RecipeMenu = (props) => {
   const { dispatch } = useContext(RecipesContext);

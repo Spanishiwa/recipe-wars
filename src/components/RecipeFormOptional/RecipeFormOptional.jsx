@@ -3,7 +3,7 @@ import { Tune } from '@mui/icons-material';
 import { Box, FormControl, Typography } from '@mui/material';
 import ImageInput from './ImageInput/ImageInput';
 import { IngredientsList } from '../IngredientsList/IngredientsList';
-import { RecipeNumberfield } from '../RecipeNumberfield/RecipeNumberfield';
+import { RecipeNumberfield } from './RecipeNumberfield/RecipeNumberfield';
 import { RecipeTextarea } from '../RecipeTextarea/RecipeTextarea';
 import {
   formOptionalSx,

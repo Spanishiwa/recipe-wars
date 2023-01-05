@@ -4,7 +4,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { LocalDining } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { resetAll } from '../../reducers/actions';
-import { RecipesContext } from '../Contexts/RecipesContext';
+import { RecipesContext } from '../../components/Contexts/RecipesContext';
 import { RESET_ALL_SNACKBAR } from '../../Util';
 
 export const ButtonsCard = () => {

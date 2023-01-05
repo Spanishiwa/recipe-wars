@@ -1,13 +1,13 @@
 import React, { useContext, useRef, useState } from 'react';
 import { Box, Card } from '@mui/material';
-import RecipeCard from '../RecipeCard/RecipeCard';
-import RecipeForm from '../RecipeForm/RecipeForm';
-import { RecipeFormOptional } from '../RecipeFormOptional/RecipeFormOptional';
+import RecipeCard from '../../../components/RecipeCard/RecipeCard';
+import RecipeForm from '../../../components/RecipeForm/RecipeForm';
+import { RecipeFormOptional } from '../../../components/RecipeFormOptional/RecipeFormOptional';
 import { StepperButtons } from './StepperButtons';
-import { SnackbarContext } from '../Contexts/SnackbarContext';
-import { RecipesContext } from '../Contexts/RecipesContext';
-import { updateInputError } from '../../reducers/actions';
-import { getInput } from '../../Util';
+import { SnackbarContext } from '../../../components/Contexts/SnackbarContext';
+import { RecipesContext } from '../../../components/Contexts/RecipesContext';
+import { updateInputError } from '../../../reducers/actions';
+import { getInput } from '../../../Util';
 import PropTypes from 'prop-types';
 
 export default function MuiStepper(props) {

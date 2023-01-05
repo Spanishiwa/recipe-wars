@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Box, Typography } from '@mui/material';
-import { RecipeSelect } from '../../RecipeSelect/RecipeSelect';
+import { RecipeSelect } from '../RecipeSelect/RecipeSelect';
 import { CustomFileInput } from './CustomFileInput';
 import { RecipesContext } from '../../Contexts/RecipesContext';
 import { getInput } from '../../../Util';

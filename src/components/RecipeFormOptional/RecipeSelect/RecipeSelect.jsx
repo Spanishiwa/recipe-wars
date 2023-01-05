@@ -6,9 +6,9 @@ import {
   Select,
 } from '@mui/material';
 import React, { useContext } from 'react';
-import { RecipesContext } from '../Contexts/RecipesContext';
-import { updateSelect } from '../../reducers/actions';
-import { getInput } from '../../Util';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import { updateSelect } from '../../../reducers/actions';
+import { getInput } from '../../../Util';
 
 export const RecipeSelect = () => {
   const { state, dispatch } = useContext(RecipesContext);

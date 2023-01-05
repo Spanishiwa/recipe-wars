@@ -5,25 +5,20 @@ import PropTypes from 'prop-types';
 
 export const FatSvg = (props) => {
   const { sx, fat } = props;
+
+  const fatTextContainerSx = {
+    ...sx,
+    flex: { xs: '50%', sm: 'auto' },
+    maxWidth: { xs: '125px', sm: 'inherit' },
+  };
+
+  const fatIconSx = { verticalAlign: 'middle' };
+  const fatFigtextSx = { pl: 1, verticalAlign: 'middle' };
+
   return (
-    <Typography
-      component="span"
-      sx={{
-        ...sx,
-        flex: { xs: '50%', sm: 'auto' },
-        maxWidth: { xs: '125px', sm: 'inherit' },
-      }}
-      variant="b2"
-    >
-      <EggOutlinedIcon
-        sx={{ verticalAlign: 'middle' }}
-        titleAccess={`${fat} grams of fat`}
-      />
-      <Typography
-        component="span"
-        sx={{ pl: 1, verticalAlign: 'middle' }}
-        variant="b1"
-      >
+    <Typography component="span" sx={fatTextContainerSx} variant="b2">
+      <EggOutlinedIcon sx={fatIconSx} titleAccess={`${fat} grams of fat`} />
+      <Typography component="span" sx={fatFigtextSx} variant="b1">
         {fat}g fat
       </Typography>
     </Typography>

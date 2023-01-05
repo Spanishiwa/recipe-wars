@@ -2,8 +2,8 @@ import React, { useMemo, useReducer } from 'react';
 import Footer from '../Footer/Footer';
 import { Box, Container } from '@mui/material';
 import NavBar from '../NavBar/NavBar';
-import MuiStepper from '../MuiStepper/MuiStepper';
-import { Faq } from '../Faq/Faq';
+import { Start } from '../../Pages/Start/Start';
+import { Faq } from '../../Pages/Faq/Faq';
 import { Route, Routes } from 'react-router-dom';
 import { Showcase } from '../Showcase/Showcase';
 import { INIT_RECIPE_WARS } from '../../Util';
@@ -41,7 +41,7 @@ function App() {
               <Route path="/faq" element={<Faq />}></Route>
               <Route
                 path="/start"
-                element={<MuiStepper recipeStates={state} />}
+                element={<Start recipeStates={state} />}
               ></Route>
             </Routes>
           </Box>
