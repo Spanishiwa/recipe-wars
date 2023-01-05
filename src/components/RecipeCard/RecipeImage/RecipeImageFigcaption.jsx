@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import { CalorieSvg } from '../CalorieSvg/CalorieSvg';
-import { CarbohydrateSvg } from '../CarbohydrateSvg/CarbohydrateSvg';
-import { ProteinSvg } from '../ProteinSvg/ProteinSvg';
-import { FatSvg } from '../FatSvg/FatSvg';
+import { CalorieSvg } from '../../CalorieSvg/CalorieSvg';
+import { CarbohydrateSvg } from '../../CarbohydrateSvg/CarbohydrateSvg';
+import { ProteinSvg } from '../../ProteinSvg/ProteinSvg';
+import { FatSvg } from '../../FatSvg/FatSvg';
 import { getNutrients } from './RecipeImageUtil';
 import PropTypes from 'prop-types';
 import {
@@ -12,8 +12,8 @@ import {
   servingsTextSx,
   svgContainerSx,
 } from './RecipeImageStyles';
-import { RecipesContext } from '../App/RecipesContext';
-import { formatNutrients } from '../../Util';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import { formatNutrients } from '../../../Util';
 
 export const RecipeImageFigcaption = (props) => {
   const { state } = useContext(RecipesContext);
@@ -30,7 +30,7 @@ export const RecipeImageFigcaption = (props) => {
 
   return (
     <Typography component="figcaption" sx={figcaptionSx} variant="b2">
-      <Box sx={{ ...svgContainerSx }}>
+      <Box sx={svgContainerSx}>
         <CalorieSvg calories={calories} />
         <CarbohydrateSvg carbohydrate={carbohydrate} />
         <ProteinSvg protein={protein} />

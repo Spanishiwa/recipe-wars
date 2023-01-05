@@ -18,6 +18,23 @@ const errorSx = (error) => {
   }
 };
 
+const ingredientInputAdornmentSx = {
+  '&:hover, &.Mui-focusVisible, &.Mui-active': {
+    color: 'primary.main',
+  },
+};
+
+const getIngredientInputSx = (error, status) => {
+  return {
+    flex: 1,
+    '& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root': {
+      color: 'primary.main',
+    },
+    ...errorSx(error),
+    ...statusSx(status),
+  };
+};
+
 const statusSx = (status) => {
   if (status.length > 1) {
     return {
@@ -38,15 +55,4 @@ const statusSx = (status) => {
   }
 };
 
-const ingredientInputSx = (error, status) => {
-  return {
-    flex: 1,
-    '& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root': {
-      color: 'primary.main',
-    },
-    ...errorSx(error),
-    ...statusSx(status),
-  };
-};
-
-export { ingredientInputSx };
+export { getIngredientInputSx, ingredientInputAdornmentSx };

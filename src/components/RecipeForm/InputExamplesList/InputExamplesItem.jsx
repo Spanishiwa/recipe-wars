@@ -2,7 +2,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const InputExamples = (props) => {
+export const InputExamplesItem = (props) => {
   const { CustomIcon, iconColor, inputExample, inputExamplesSx, title } = props;
   return (
     <ListItem disableGutters sx={{ ...inputExamplesSx }} title={title}>
@@ -14,7 +14,7 @@ export const InputExamples = (props) => {
   );
 };
 
-InputExamples.propTypes = {
+InputExamplesItem.propTypes = {
   CustomIcon: PropTypes.elementType.isRequired,
   iconColor: PropTypes.string.isRequired,
   inputExample: PropTypes.string.isRequired,

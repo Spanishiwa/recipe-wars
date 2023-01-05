@@ -8,9 +8,7 @@ export const AttributionLink = () => {
       component="a"
       href="https://developer.edamam.com/attribution"
       rel="noopener"
-      sx={{
-        display: 'inline-block',
-      }}
+      sx={{ display: 'inline-block' }}
       target="_blank"
       title="Edamam API logo and attribution"
     >

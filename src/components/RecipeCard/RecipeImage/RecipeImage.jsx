@@ -1,11 +1,12 @@
 import { Box, CardMedia } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import ImageModal from '../ImageModal/ImageModal';
-import { ServingsSwitch } from '../ServingsSwitch/ServingsSwitch';
+import ImageModal from '../../ImageModal/ImageModal';
+import { ServingsSwitch } from '../../ServingsSwitch/ServingsSwitch';
 import PropTypes from 'prop-types';
 import { getSelectedImage } from './RecipeImageUtil';
 import { RecipeImageFigcaption } from './RecipeImageFigcaption';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import { getInput } from '../../../Util';
 
 export const RecipeImage = (props) => {
   const { state } = useContext(RecipesContext);
@@ -18,10 +19,8 @@ export const RecipeImage = (props) => {
 
   const { title, description, imgSrc, selectText, servings } = recipeState;
 
-  const inputs = state.filter((input) => input.isInput);
-  const isPerServing = inputs.filter(
-    (input) => input.id === 'servings-toggle'
-  )[0][`is${recipeName}PerServing`];
+  const servingsToggle = getInput(state, 'servings-toggle');
+  const isPerServing = servingsToggle[`is${recipeName}PerServing`];
 
   const image = imgSrc || getSelectedImage(selectText);
 

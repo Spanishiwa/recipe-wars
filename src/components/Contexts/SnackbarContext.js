@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
 import { INIT_SNACKBAR } from '../../Util';
-import { MuiSnackbar } from './MuiSnackbar';
+import { MuiSnackbar } from '../MuiSnackbar/MuiSnackbar';
 import PropTypes from 'prop-types';
 
 export const SnackbarContext = createContext();

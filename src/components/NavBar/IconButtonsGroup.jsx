@@ -1,6 +1,6 @@
 import { Button, Divider, Stack, useTheme } from '@mui/material';
 import React, { useContext } from 'react';
-import ColorModeContext from '../ColorModeContext/ColorModeContext';
+import ColorModeContext from '../Contexts/ColorModeContext';
 import {
   GitHub,
   Help,

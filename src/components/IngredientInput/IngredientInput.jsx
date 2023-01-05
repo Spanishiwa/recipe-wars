@@ -1,31 +1,54 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Box, TextField } from '@mui/material';
-import PropTypes from 'prop-types';
-import { ingredientInputSx } from './IngredientInputStyles';
+import { getIngredientInputSx } from './IngredientInputStyles';
 import { IngredientInputAdornment } from './IngredientInputAdornment';
+import { getInput } from '../../Util';
+import { SnackbarContext } from '../Contexts/SnackbarContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
+import { resetInputError, updateInput } from '../../reducers/actions';
 
-const IngredientInput = (props) => {
-  const { handlers, input, showAlert } = props;
-  const { error, status, text } = input;
-  const { handleBlur, handleChange, handleKeySubmit, handleSubmit } = handlers;
+const IngredientInput = () => {
+  const { state, dispatch } = useContext(RecipesContext);
+  const { showAlert } = useContext(SnackbarContext);
+
+  const handleBlur = (e) => {
+    dispatch(resetInputError(e));
+  };
+
+  const handleChange = (e) => {
+    dispatch(updateInput(e));
+  };
 
   const inputRef = useRef(null);
 
   const handleKeySubmitThenFocus = (e) => {
     const key = e.which || e.keyCode || 0;
-    const isSubmit =
-      e.target.classList.contains('submit') ||
-      e.currentTarget.classList.contains('submit');
 
-    if (key === 13 && isSubmit) {
+    if (key === 13) {
       e.stopPropagation();
       e.preventDefault();
 
-      handleKeySubmit(e);
+      handleSubmit(e);
       showAlert('Fetching ingredient', 'info');
       inputRef.current.focus();
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const name =
+      e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
+    // code works - ration API calls for testing
+    const ingredient = state.filter((ingredient) => ingredient.id === name);
+
+    // if (ingredient) useFetchAPI(ingredient[0].text, null, name);
+    if (ingredient) return;
+  };
+
+  const input = getInput(state, 'ingredient-input');
+  const { error, status, text } = input;
+  const ingredientInputSx = getIngredientInputSx(error, status);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -52,7 +75,7 @@ const IngredientInput = (props) => {
         onChange={handleChange}
         onKeyDown={handleKeySubmitThenFocus}
         placeholder="e.g. 1/2 cup broccoli"
-        sx={ingredientInputSx(error, status)}
+        sx={ingredientInputSx}
         title="Enter an ingredient & quantity here"
         type="text"
         value={text}
@@ -63,18 +86,3 @@ const IngredientInput = (props) => {
 };
 
 export default IngredientInput;
-
-IngredientInput.propTypes = {
-  handlers: PropTypes.shape({
-    handleBlur: PropTypes.func,
-    handleChange: PropTypes.func,
-    handleKeySubmit: PropTypes.func,
-    handleSubmit: PropTypes.func,
-  }).isRequired,
-  input: PropTypes.shape({
-    error: PropTypes.bool,
-    status: PropTypes.string,
-    text: PropTypes.string,
-  }).isRequired,
-  showAlert: PropTypes.func.isRequired,
-};

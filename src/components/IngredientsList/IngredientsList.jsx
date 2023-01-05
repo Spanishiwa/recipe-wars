@@ -15,7 +15,7 @@ import {
   listSubheaderSx,
   listSx,
 } from './IngredientsListStyles';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
 
 export const IngredientsList = (props) => {
   const { recipeName } = props;
@@ -37,7 +37,7 @@ export const IngredientsList = (props) => {
         </Typography>
       </ListSubheader>
       {recipeIngredients.map((ingr) => (
-        <ListItem disableGutters key={ingr.id} sx={{ ingrPadding }}>
+        <ListItem disableGutters key={ingr.id} sx={ingrPadding}>
           <IngredientInputDisabled ingredient={ingr} />
         </ListItem>
       ))}

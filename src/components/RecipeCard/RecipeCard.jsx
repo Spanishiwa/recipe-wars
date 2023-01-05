@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Box, CardContent, useTheme } from '@mui/material';
-import { RecipeImage } from '../RecipeImage/RecipeImage';
+import { RecipeImage } from './RecipeImage/RecipeImage';
 import { IngredientsList } from '../IngredientsList/IngredientsList';
 import { RecipeMenu } from '../RecipeMenu/RecipeMenu';
 import { cardContentSx, getIngredientsSx } from './RecipeCardStyles';
 import PropTypes from 'prop-types';
 import { CardCollapse } from './CardCollapse';
 import { getRecipeInputValues } from '../../Util';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
 
 export const RecipeCard = (props) => {
   const { state } = useContext(RecipesContext);

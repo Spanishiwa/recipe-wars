@@ -9,6 +9,11 @@ const headerSubtext = `Look up the nutritional content of your favorite dishes, 
 recipes, and substitute ingredients to fit your goals. Enter a
 recipe title and at least one ingredient to get started!`;
 
+const ingredientsPlaceholder = `Ingredients list with one ingredient & quantity per line e.g.
+1/2 cup heavy cream
+3 tablespoons butter
+1 pound chicken breast`;
+
 const inputExamples = {
   examples: [
     '12 ounces flour',
@@ -28,4 +33,9 @@ const inputExamples = {
   ],
 };
 
-export { examplesDescriptionText, headerSubtext, inputExamples };
+export {
+  examplesDescriptionText,
+  headerSubtext,
+  ingredientsPlaceholder,
+  inputExamples,
+};

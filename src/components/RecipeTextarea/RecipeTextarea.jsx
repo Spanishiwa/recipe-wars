@@ -1,22 +1,21 @@
 import { Box, TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getErrorSx, getStatusSx } from './RecipeTextareaSx';
+import { getInput } from '../../Util';
+import { RecipesContext } from '../Contexts/RecipesContext';
+import { resetInputError, updateInput } from '../../reducers/actions';
 
 export const RecipeTextarea = (props) => {
-  const {
-    error,
-    handleBlur,
-    handleChange,
-    label,
-    name,
-    placeholder,
-    inputRef,
-    rows,
-    status,
-    title,
-    value,
-  } = props;
+  const { state, dispatch } = useContext(RecipesContext);
+  const { label, inputRef, name, placeholder, rows, title } = props;
+
+  const handleBlur = (e) => dispatch(resetInputError(e));
+
+  const handleChange = (e) => dispatch(updateInput(e));
+
+  const input = getInput(state, name);
+  const { error, status, text } = input;
 
   const errorSx = getErrorSx(error);
   const statusSx = getStatusSx(status);
@@ -41,25 +40,20 @@ export const RecipeTextarea = (props) => {
         sx={{ flex: '1 1 auto', ...errorSx, ...statusSx }}
         title={title}
         variant="outlined"
-        value={value}
+        value={text}
       />
     </Box>
   );
 };
 
 RecipeTextarea.propTypes = {
-  error: PropTypes.bool,
-  handleBlur: PropTypes.func,
-  handleChange: PropTypes.func,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
+  ]).isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   rows: PropTypes.number,
-  status: PropTypes.string,
   title: PropTypes.string.isRequired,
-  value: PropTypes.string,
 };

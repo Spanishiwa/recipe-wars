@@ -11,9 +11,9 @@ import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { deleteRecipe } from '../../reducers/actions';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
 import { getMenuButtonSx, topLeftOrigin } from './RecipeMenuStyles';
-import { SnackbarContext } from '../MuiSnackbar/SnackbarContext';
+import { SnackbarContext } from '../Contexts/SnackbarContext';
 
 export const RecipeMenu = (props) => {
   const { dispatch } = useContext(RecipesContext);
@@ -77,6 +77,6 @@ export const RecipeMenu = (props) => {
 };
 
 RecipeMenu.propTypes = {
-  recipeName: PropTypes.string,
+  recipeName: PropTypes.string.isRequired,
   title: PropTypes.string,
 };

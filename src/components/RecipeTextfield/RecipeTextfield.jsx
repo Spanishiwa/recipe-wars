@@ -1,29 +1,22 @@
+import React, { useContext } from 'react';
 import { TextField } from '@mui/material';
-import React from 'react';
+import { recipeTextfieldSx } from './RecipeTextfieldStyles';
+import { RecipesContext } from '../Contexts/RecipesContext';
+import { resetInputError, updateInput } from '../../reducers/actions';
+import { getInput } from '../../Util';
 import PropTypes from 'prop-types';
 
 export const RecipeTextfield = (props) => {
-  const {
-    error,
-    handleBlur,
-    handleChange,
-    inputRef,
-    label,
-    name,
-    placeholder,
-    status,
-    title,
-    value,
-  } = props;
+  const { state, dispatch } = useContext(RecipesContext);
 
-  const recipeTextfieldSx = {
-    flex: 1,
-    '& .MuiInputLabel-root.Mui-required': {
-      display: 'flex',
-      flexDirection: 'row-reverse',
-      marginLeft: '-5px',
-    },
-  };
+  const { inputRef, label, name, placeholder, required, title } = props;
+
+  const handleBlur = (e) => dispatch(resetInputError(e));
+
+  const handleChange = (e) => dispatch(updateInput(e));
+
+  const input = getInput(state, name);
+  const { error, status, text } = input;
 
   return (
     <TextField
@@ -37,19 +30,17 @@ export const RecipeTextfield = (props) => {
       onBlur={handleBlur}
       onChange={handleChange}
       placeholder={placeholder}
+      required={required}
       sx={recipeTextfieldSx}
       title={title}
       type="text"
       variant="outlined"
-      value={value}
+      value={text}
     />
   );
 };
 
 RecipeTextfield.propTypes = {
-  error: PropTypes.bool.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
@@ -57,7 +48,6 @@ RecipeTextfield.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
-  status: PropTypes.string.isRequired,
+  required: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
 };

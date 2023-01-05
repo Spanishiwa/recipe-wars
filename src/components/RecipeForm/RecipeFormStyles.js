@@ -36,6 +36,8 @@ const multilineIconSx = {
   padding: '8px 8px 8px 0px',
 };
 
+const searchIconSx = { padding: '0px 8px 8px 0px', verticalAlign: 'middle' };
+
 const textareaContainerSx = {
   display: 'flex',
   gap: 4,
@@ -53,5 +55,6 @@ export {
   formSectionSx,
   multilineHeaderSx,
   multilineIconSx,
+  searchIconSx,
   textareaContainerSx,
 };

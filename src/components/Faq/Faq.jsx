@@ -5,7 +5,7 @@ import { ButtonsCard } from './ButtonsCard';
 import { MuiAccordion } from './MuiAccordion';
 import { faqContainerSx, questionsAndAnswers } from './FaqUtil';
 import { resetAll } from '../../reducers/actions';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
 
 export const Faq = () => {
   const { dispatch } = useContext(RecipesContext);

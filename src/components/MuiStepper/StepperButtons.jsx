@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { SUBMIT_RECIPE_SNACKBAR } from '../../Util';
 import { resetRecipe, submitRecipe } from '../../reducers/actions';
-import { RecipesContext } from '../App/RecipesContext';
-import { SnackbarContext } from '../MuiSnackbar/SnackbarContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
+import { SnackbarContext } from '../Contexts/SnackbarContext';
 import { getActionSx, getBackStartIcon, getNextEndIcon } from './StepperUtil';
 
 export const StepperButtons = (props) => {

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { SnackbarContext } from '../components/MuiSnackbar/SnackbarContext';
+import { SnackbarContext } from '../components/Contexts/SnackbarContext';
 
 const useSnackbarRedirect = () => {
   const { state } = useLocation();

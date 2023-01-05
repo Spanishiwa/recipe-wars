@@ -1,9 +1,20 @@
 import { TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { RecipesContext } from '../Contexts/RecipesContext';
+import { updateInput } from '../../reducers/actions';
+import { getInput } from '../../Util';
 
 export const RecipeNumberfield = (props) => {
-  const { handleChange, label, name, title, value } = props;
+  const { state, dispatch } = useContext(RecipesContext);
+  const { label, name, title } = props;
+
+  const handleChange = (e) => {
+    dispatch(updateInput(e));
+  };
+
+  const numberInputText = getInput(state, name).text;
+
   return (
     <TextField
       id={name}
@@ -15,15 +26,13 @@ export const RecipeNumberfield = (props) => {
       type="number"
       sx={{ maxWidth: '145px' }}
       InputLabelProps={{ shrink: true }}
-      value={value}
+      value={numberInputText}
     />
   );
 };
 
 RecipeNumberfield.propTypes = {
-  handleChange: PropTypes.func.isRequired,
   label: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   title: PropTypes.string,
-  value: PropTypes.string,
 };

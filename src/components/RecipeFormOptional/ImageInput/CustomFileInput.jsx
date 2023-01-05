@@ -1,12 +1,28 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Button, Typography } from '@mui/material';
 import { DownloadDone, PhotoCamera } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import { updateImage } from '../../../reducers/actions';
 
 export const CustomFileInput = (props) => {
-  const { handleImage, imgName } = props;
+  const { state, dispatch } = useContext(RecipesContext);
 
+  const { imgName } = props;
+
+  const btnTextSx = { display: { xs: 'none', sm: 'inline' }, ml: '4px' };
   const imgIcon = imgName ? <DownloadDone /> : <PhotoCamera />;
+
+  const handleImage = (e) => {
+    const imgFile = e.target.files[0];
+    if (!imgFile) return;
+    // clean up previous Blob
+    const imgInput = state.filter((input) => input.id === 'image-input')[0];
+
+    if (imgInput?.imgSrc) URL.revokeObjectURL(imgInput.imgSrc);
+
+    dispatch(updateImage(e));
+  };
 
   const inputRef = useRef(null);
   const handleKeyEnter = (e) => {
@@ -29,11 +45,7 @@ export const CustomFileInput = (props) => {
       variant="outlined"
     >
       UPLOAD
-      <Typography
-        component="span"
-        sx={{ display: { xs: 'none', sm: 'inline' }, ml: '4px' }}
-        variant="b2"
-      >
+      <Typography component="span" sx={btnTextSx} variant="b2">
         IMAGE
       </Typography>
       <input
@@ -49,7 +61,4 @@ export const CustomFileInput = (props) => {
   );
 };
 
-CustomFileInput.propTypes = {
-  imgName: PropTypes.string,
-  handleImage: PropTypes.func.isRequired,
-};
+CustomFileInput.propTypes = { imgName: PropTypes.string };

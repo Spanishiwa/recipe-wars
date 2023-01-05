@@ -5,7 +5,7 @@ import { Done } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { editButtonSx, submitButtonSx } from './IngredientDisabledStyles';
 import { toggleInputDisable } from '../../reducers/actions';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
 
 export const StartAdornmentDisabled = (props) => {
   const { handleKeySubmit, id } = props;

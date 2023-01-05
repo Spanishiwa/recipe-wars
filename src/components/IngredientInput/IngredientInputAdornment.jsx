@@ -2,6 +2,7 @@ import React from 'react';
 import { PostAdd } from '@mui/icons-material';
 import { IconButton, InputAdornment } from '@mui/material';
 import PropTypes from 'prop-types';
+import { ingredientInputAdornmentSx } from './IngredientInputStyles';
 
 export const IngredientInputAdornment = (props) => {
   const { handleSubmit, handleKeySubmitThenFocus, inputRef, showAlert } = props;
@@ -10,12 +11,6 @@ export const IngredientInputAdornment = (props) => {
     handleSubmit(e);
     showAlert('Fetching ingredient', 'info');
     inputRef.current.focus();
-  };
-
-  const ingredientInputAdornmentSx = {
-    '&:hover, &.Mui-focusVisible, &.Mui-active': {
-      color: 'primary.main',
-    },
   };
 
   return (

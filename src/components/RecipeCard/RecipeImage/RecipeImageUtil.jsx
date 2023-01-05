@@ -1,9 +1,9 @@
-import DefaultImg from '../../assets/Default_Img.jpeg';
-import ForkKnife from '../../assets/Fork_Knife.jpeg';
-import Grains from '../../assets/Grains.jpeg';
-import Vegetables from '../../assets/Colorful_Vegetables.jpeg';
-import Charcuterie from '../../assets/Charcuterie_Board.webp';
-import Cookies from '../../assets/Cocoa_Cookies.jpeg';
+import DefaultImg from '../../../assets/Default_Img.jpeg';
+import ForkKnife from '../../../assets/Fork_Knife.jpeg';
+import Grains from '../../../assets/Grains.jpeg';
+import Vegetables from '../../../assets/Colorful_Vegetables.jpeg';
+import Charcuterie from '../../../assets/Charcuterie_Board.webp';
+import Cookies from '../../../assets/Cocoa_Cookies.jpeg';
 
 const getNutrients = (ingrs) => {
   return ingrs.reduce(

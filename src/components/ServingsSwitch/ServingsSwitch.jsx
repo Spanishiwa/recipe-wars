@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ServingsSwitchLeft } from './ServingsSwitchLeft';
 import { ServingsSwitchRight } from './ServingsSwitchRight';
-import { RecipesContext } from '../App/RecipesContext';
+import { RecipesContext } from '../Contexts/RecipesContext';
 import { toggleServingsInput } from '../../reducers/actions';
 import { servingsSwitchSx } from './ServingsSwitchStyles';
 
@@ -47,6 +47,6 @@ export const ServingsSwitch = (props) => {
 };
 
 ServingsSwitch.propTypes = {
-  isPerServing: PropTypes.bool,
-  recipeName: PropTypes.string,
+  isPerServing: PropTypes.bool.isRequired,
+  recipeName: PropTypes.string.isRequired,
 };

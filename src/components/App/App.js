@@ -9,12 +9,9 @@ import { Showcase } from '../Showcase/Showcase';
 import { INIT_RECIPE_WARS } from '../../Util';
 import { rootReducer } from '../../reducers/rootReducer';
 import { useControlledLocalStorage, useRubberBandFix } from './AppHooks';
-import { getDispatchHandlers } from '../../reducers/dispatch';
 import { appSx, mainSx } from './AppStyles';
-import { SnackbarProvider } from '../MuiSnackbar/SnackbarContext';
-import { RecipesContextProvider } from './RecipesContext';
-
-// export const RecipesContext = createContext();
+import { SnackbarProvider } from '../Contexts/SnackbarContext';
+import { RecipesContextProvider } from '../Contexts/RecipesContext';
 
 function App() {
   const [state, dispatch] = useReducer(
@@ -30,10 +27,6 @@ function App() {
   useControlledLocalStorage(state);
   useRubberBandFix();
 
-  const memoizedHandlers = getDispatchHandlers();
-
-  const inputs = state.filter((value) => value.isInput);
-
   return (
     <SnackbarProvider>
       <RecipesContextProvider value={recipesContextValue}>
@@ -48,14 +41,7 @@ function App() {
               <Route path="/faq" element={<Faq />}></Route>
               <Route
                 path="/start"
-                element={
-                  <MuiStepper
-                    handlers={memoizedHandlers}
-                    inputs={inputs}
-                    recipeStates={state}
-                    setInputError={memoizedHandlers.setInputError}
-                  />
-                }
+                element={<MuiStepper recipeStates={state} />}
               ></Route>
             </Routes>
           </Box>

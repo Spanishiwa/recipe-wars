@@ -5,11 +5,18 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { RecipesContext } from '../Contexts/RecipesContext';
+import { updateSelect } from '../../reducers/actions';
+import { getInput } from '../../Util';
 
-export const RecipeSelect = (props) => {
-  const { handleSelect, text } = props;
+export const RecipeSelect = () => {
+  const { state, dispatch } = useContext(RecipesContext);
+
+  const selectText = getInput(state, 'photos-select-input').text;
+
+  const handleSelect = (e) => dispatch(updateSelect(e));
+
   return (
     <FormControl sx={{ minWidth: 145 }}>
       <InputLabel id="photos-select-input-label">Photo</InputLabel>
@@ -21,7 +28,7 @@ export const RecipeSelect = (props) => {
         name="photos-select-input"
         onChange={handleSelect}
         title="Choose from one of our preset photos"
-        value={text}
+        value={selectText}
       >
         <MenuItem value=" "></MenuItem>
         <MenuItem value="forkKnife">Fork & Knife</MenuItem>
@@ -34,9 +41,4 @@ export const RecipeSelect = (props) => {
       <FormHelperText>Choose a photo</FormHelperText>
     </FormControl>
   );
-};
-
-RecipeSelect.propTypes = {
-  handleSelect: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
 };

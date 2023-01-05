@@ -26,5 +26,5 @@ export const ServingsSwitchRight = (props) => {
 };
 
 ServingsSwitchRight.propTypes = {
-  isPerServing: PropTypes.bool,
+  isPerServing: PropTypes.bool.isRequired,
 };
