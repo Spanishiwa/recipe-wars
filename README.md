@@ -8,14 +8,13 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 - Focuses input fields that fail to validate with useRef Hooks while providing descriptive snackbar dialogues
 - Implements MUI Dark Mode using useMemo and useContext Hooks. Toggle light and dark color themes
 - Accessible forms, inputs, and icon buttons handle keyboard controls and are correctly tab indexed
-- Persisting state with localstorage (images only persist per session). State managed with useReducer Hook (actions, action creators, and dispatch)
+- Persisting state with localstorage custom hooks (images only persist per session). State managed with useContext and useReducer Hooks (actions, action creators, and dispatch)
 - Edit ingredient list items in place
 - Display nutritional content per serving or by total
 
 ## TODO
 
-- Refactor App.js. Refactor rootReducer to use multiple reducers, extract hooks
-- Add snackbar dialogue when resetting state from faq page button
+- Refactor rootReducer to use multiple reducers, extract hooks
 - Complete call to action for /start page
 - Add edit functionality to posted recipes
 - Migrate project to TypeScript
