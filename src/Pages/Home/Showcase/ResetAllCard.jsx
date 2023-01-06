@@ -11,7 +11,7 @@ export const ResetAllCard = () => {
   const { showAlert } = useContext(SnackbarContext);
 
   const handleResetAllClick = () => {
-    showAlert(RESET_ALL_SNACKBAR);
+    showAlert(RESET_ALL_SNACKBAR.message, RESET_ALL_SNACKBAR.severity);
 
     dispatch(resetAll());
   };
