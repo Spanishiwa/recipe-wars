@@ -77,6 +77,6 @@ export const RecipeMenu = (props) => {
 };
 
 RecipeMenu.propTypes = {
-  recipeName: PropTypes.string.isRequired,
+  recipeName: PropTypes.string,
   title: PropTypes.string,
 };

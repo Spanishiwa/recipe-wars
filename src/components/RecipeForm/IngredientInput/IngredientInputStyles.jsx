@@ -30,6 +30,7 @@ const getIngredientInputSx = (error, status) => {
     '& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root': {
       color: 'primary.main',
     },
+    marginBottom: '-14px',
     ...errorSx(error),
     ...statusSx(status),
   };

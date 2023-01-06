@@ -12,6 +12,7 @@ import { ingredientsPlaceholder } from './RecipeFormUtil';
 import { RecipesContext } from '../Contexts/RecipesContext';
 import { SnackbarContext } from '../Contexts/SnackbarContext';
 
+// I don't have enough API requests on Edamam's free plan, this feature is disabled
 export const IngredientsFormControl = () => {
   const { state } = useContext(RecipesContext);
   const { showAlert } = useContext(SnackbarContext);

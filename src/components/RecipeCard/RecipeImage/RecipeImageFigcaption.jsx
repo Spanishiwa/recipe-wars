@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import { CalorieSvg } from '../../CalorieSvg/CalorieSvg';
-import { CarbohydrateSvg } from '../../CarbohydrateSvg/CarbohydrateSvg';
-import { ProteinSvg } from '../../ProteinSvg/ProteinSvg';
-import { FatSvg } from '../../FatSvg/FatSvg';
+import { CalorieSvg } from './../CalorieSvg/CalorieSvg';
+import { CarbohydrateSvg } from './../CarbohydrateSvg/CarbohydrateSvg';
+import { ProteinSvg } from './../ProteinSvg/ProteinSvg';
+import { FatSvg } from './../FatSvg/FatSvg';
 import { getNutrients } from './RecipeImageUtil';
 import PropTypes from 'prop-types';
 import {

@@ -5,13 +5,13 @@ import NavBar from '../NavBar/NavBar';
 import { Start } from '../../Pages/Start/Start';
 import { Faq } from '../../Pages/Faq/Faq';
 import { Route, Routes } from 'react-router-dom';
-import { Showcase } from '../Showcase/Showcase';
 import { INIT_RECIPE_WARS } from '../../Util';
 import { rootReducer } from '../../reducers/rootReducer';
 import { useControlledLocalStorage, useRubberBandFix } from './AppHooks';
 import { appSx, mainSx } from './AppStyles';
 import { SnackbarProvider } from '../Contexts/SnackbarContext';
 import { RecipesContextProvider } from '../Contexts/RecipesContext';
+import { Home } from '../../Pages/Home/Home';
 
 function App() {
   const [state, dispatch] = useReducer(
@@ -34,15 +34,9 @@ function App() {
         <Container component="main" maxWidth="lg" sx={mainSx}>
           <Box className="app" sx={appSx}>
             <Routes>
-              <Route
-                path="/recipe-wars"
-                element={<Showcase recipeStates={state} />}
-              ></Route>
-              <Route path="/faq" element={<Faq />}></Route>
-              <Route
-                path="/start"
-                element={<Start recipeStates={state} />}
-              ></Route>
+              <Route element={<Faq />} path="/faq" />
+              <Route element={<Home />} path="/recipe-wars" />
+              <Route element={<Start />} path="/start" />
             </Routes>
           </Box>
         </Container>

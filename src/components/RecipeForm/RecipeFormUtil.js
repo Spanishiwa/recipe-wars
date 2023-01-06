@@ -2,11 +2,9 @@ const examplesDescriptionText = `Enter your recipe ingredients below "grocery li
 an ingredient and unit of measurement. Don't enter guesstimations
 such as "roughly" one "heaping" cup or
 descriptions like "finely minced" and "steamed".
-Substitute rare ingredients for common names and double check after
-each submission.`;
+Substitute rare ingredients for common names and only enter ingredients with macronutrients (don't enter water).`;
 
-const headerSubtext = `Look up the nutritional content of your favorite dishes, compare
-recipes, and substitute ingredients to fit your goals. Enter a
+const headerSubtext = `Look up the nutritional content of your favorite dishes, enter a
 recipe title and at least one ingredient to get started!`;
 
 const ingredientsPlaceholder = `Ingredients list with one ingredient & quantity per line e.g.

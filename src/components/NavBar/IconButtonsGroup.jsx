@@ -9,36 +9,22 @@ import {
   Nightlight,
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
+import { getNavButtonStyles, iconButtonsContainerSx } from './NavBarStyles';
 
 export const IconButtonsGroup = () => {
-  const colorMode = useContext(ColorModeContext);
+  const { toggleColorMode } = useContext(ColorModeContext);
 
   const mode = useTheme().palette.mode;
-
   const colorModeIcon = mode === 'light' ? <Nightlight /> : <LightMode />;
-
-  const hoverSx =
-    mode === 'light' ? { '&:hover': { background: 'rgb(83, 140, 0)' } } : {};
-
-  const navButtonStyles = {
-    color: mode === 'light' ? 'secondary.main' : 'primary.main',
-    cursor: 'pointer',
-    display: 'flex',
-    flex: '1 1 0px',
-    flexDirection: 'column',
-    px: 2,
-    ...hoverSx,
-  };
+  const navButtonStyles = getNavButtonStyles(mode);
 
   return (
     <Stack
-      alignItems="center"
       divider={<Divider flexItem orientation="vertical" />}
-      direction="row"
-      flex={{ xs: '1 1 auto', sm: '0.1 1 auto' }}
+      sx={iconButtonsContainerSx}
     >
       <Button
-        onClick={colorMode.toggleColorMode}
+        onClick={toggleColorMode}
         sx={navButtonStyles}
         title="Toggle color theme"
       >

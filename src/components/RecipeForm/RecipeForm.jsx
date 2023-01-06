@@ -12,10 +12,10 @@ import {
 } from './RecipeFormStyles';
 import { examplesDescriptionText, headerSubtext } from './RecipeFormUtil';
 import { InputExamplesList } from './InputExamplesList/InputExamplesList';
-import { IngredientsFormControl } from './IngredientsFormControl';
+import IngredientInput from './IngredientInput/IngredientInput';
 
 const RecipeForm = (props) => {
-  const { titleRef } = props;
+  const { ingredientRef, titleRef } = props;
 
   return (
     <Box component="section" sx={formSectionSx}>
@@ -41,7 +41,8 @@ const RecipeForm = (props) => {
         <Box>
           <InputExamplesList />
         </Box>
-        <IngredientsFormControl />
+        <IngredientInput inputRef={ingredientRef} />
+        {/* <IngredientsFormControl /> */}
       </Box>
       <Box sx={formRightContainerSx}>
         <IngredientsList recipeName="Untitled" />
@@ -53,6 +54,10 @@ const RecipeForm = (props) => {
 export default RecipeForm;
 
 RecipeForm.propTypes = {
+  ingredientRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
   titleRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

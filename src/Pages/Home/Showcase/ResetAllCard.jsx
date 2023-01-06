@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Box, Button, Card, Typography } from '@mui/material';
-import { RecipesContext } from '../Contexts/RecipesContext';
-import { resetAll } from '../../reducers/actions';
-import { SnackbarContext } from '../Contexts/SnackbarContext';
-import { RESET_ALL_SNACKBAR } from '../../Util';
+import { RecipesContext } from '../../../components/Contexts/RecipesContext';
+import { resetAll } from '../../../reducers/actions';
+import { SnackbarContext } from '../../../components/Contexts/SnackbarContext';
+import { RESET_ALL_SNACKBAR } from '../../../Util';
 
 export const ResetAllCard = () => {
   const { dispatch } = useContext(RecipesContext);

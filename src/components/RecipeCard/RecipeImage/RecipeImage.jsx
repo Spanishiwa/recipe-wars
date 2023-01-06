@@ -1,7 +1,7 @@
 import { Box, CardMedia } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import ImageModal from '../../ImageModal/ImageModal';
-import { ServingsSwitch } from '../../ServingsSwitch/ServingsSwitch';
+import ImageModal from '../ImageModal/ImageModal';
+import { ServingsSwitch } from '../ServingsSwitch/ServingsSwitch';
 import PropTypes from 'prop-types';
 import { getSelectedImage } from './RecipeImageUtil';
 import { RecipeImageFigcaption } from './RecipeImageFigcaption';

@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ServingsSwitchLeft } from './ServingsSwitchLeft';
 import { ServingsSwitchRight } from './ServingsSwitchRight';
-import { RecipesContext } from '../Contexts/RecipesContext';
-import { toggleServingsInput } from '../../reducers/actions';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import { toggleServingsInput } from '../../../reducers/actions';
 import { servingsSwitchSx } from './ServingsSwitchStyles';
 
 export const ServingsSwitch = (props) => {

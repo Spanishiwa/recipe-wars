@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { IconButton, InputAdornment } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
-import { RecipesContext } from '../Contexts/RecipesContext';
-import { deleteIngredient } from '../../reducers/actions';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import { deleteIngredient } from '../../../reducers/actions';
 import { deleteButtonSx } from './IngredientDisabledStyles';
 
 export const EndAdornmentDisabled = (props) => {

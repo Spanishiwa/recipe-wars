@@ -1,31 +1,28 @@
 import { SvgIcon, Typography } from '@mui/material';
 import React from 'react';
-import { ReactComponent as Protein } from '../../assets/Protein.svg';
+import { ReactComponent as Protein } from '../../../assets/Protein.svg';
 import PropTypes from 'prop-types';
 
 export const ProteinSvg = (props) => {
   const { sx, protein } = props;
+
+  const containerSx = {
+    ...sx,
+    flex: { xs: '50%', sm: 'auto' },
+    maxWidth: { xs: '125px', sm: 'inherit' },
+  };
+
+  const proteinSx = { pl: 1, verticalAlign: 'middle' };
+
   return (
-    <Typography
-      component="span"
-      sx={{
-        ...sx,
-        flex: { xs: '50%', sm: 'auto' },
-        maxWidth: { xs: '125px', sm: 'inherit' },
-      }}
-      variant="b2"
-    >
+    <Typography component="span" sx={containerSx} variant="b2">
       <SvgIcon
         sx={{ verticalAlign: 'middle' }}
         titleAccess={`${protein} grams of protein`}
       >
         <Protein></Protein>
       </SvgIcon>
-      <Typography
-        component="span"
-        sx={{ pl: 1, verticalAlign: 'middle' }}
-        variant="b1"
-      >
+      <Typography component="span" sx={proteinSx} variant="b1">
         {protein}g protein
       </Typography>
     </Typography>

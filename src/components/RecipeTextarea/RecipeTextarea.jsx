@@ -14,8 +14,7 @@ export const RecipeTextarea = (props) => {
 
   const handleChange = (e) => dispatch(updateInput(e));
 
-  const input = getInput(state, name);
-  const { error, status, text } = input;
+  const { error, status, text } = getInput(state, name);
 
   const errorSx = getErrorSx(error);
   const statusSx = getStatusSx(status);
@@ -51,7 +50,7 @@ RecipeTextarea.propTypes = {
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
+  ]),
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   rows: PropTypes.number,

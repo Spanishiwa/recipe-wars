@@ -414,8 +414,24 @@ const SUBMIT_RECIPE_SNACKBAR = {
   severity: 'success',
 };
 
+const currentlyRequesting = (state) => {
+  return state.filter((v) => v.id === 'isRequesting')[0].isRequesting;
+};
+
+const getAttributeName = (e) => {
+  return e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
+};
+
 const getInput = (state, id) => {
   return state.filter((input) => input.id === id)[0];
+};
+
+const getPOSTBody = (ingredient) => {
+  return {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: 'Untitled', ingr: [ingredient.text] }),
+  };
 };
 
 const getRecipeInputValues = (inputs) => {
@@ -502,7 +518,10 @@ export {
   SUBMIT_RECIPE_SNACKBAR,
   INIT_SNACKBAR,
   RESET_ALL_SNACKBAR,
+  currentlyRequesting,
+  getAttributeName,
   getInput,
+  getPOSTBody,
   getRecipeInputValues,
   getRecipeNames,
   formatNutrients,

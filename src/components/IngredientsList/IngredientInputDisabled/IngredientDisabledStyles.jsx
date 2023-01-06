@@ -2,6 +2,7 @@ const containerSx = {
   display: 'flex',
   flexDirection: 'row',
   flex: '1 1 auto',
+  marginTop: '16px',
 };
 
 const deleteButtonSx = {

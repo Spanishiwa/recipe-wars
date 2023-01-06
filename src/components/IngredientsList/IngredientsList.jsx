@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@mui/material';
 import React, { useContext } from 'react';
-import IngredientInputDisabled from '../IngredientInputDisabled/IngredientInputDisabled';
+import IngredientInputDisabled from './IngredientInputDisabled/IngredientInputDisabled';
 import PropTypes from 'prop-types';
 import {
   getIngredientsHeaderSx,
@@ -45,4 +45,4 @@ export const IngredientsList = (props) => {
   );
 };
 
-IngredientsList.propTypes = { recipeName: PropTypes.string.isRequired };
+IngredientsList.propTypes = { recipeName: PropTypes.string };

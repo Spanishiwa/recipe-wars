@@ -24,9 +24,10 @@ export default function MuiStepper(props) {
   );
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
 
-  const title = getInput(recipeStates, 'title-input');
+  const title = getInput(recipeStates, 'title-input').text;
   const isValidTitle = title !== '' && title !== 'Untitled';
   const titleRef = useRef(null);
+  const ingredientRef = useRef(null);
 
   const handleNext = () => {
     if (isValidIngredientsList && isValidTitle) {
@@ -35,12 +36,16 @@ export default function MuiStepper(props) {
     }
 
     const errMsg = getValidationErr();
+    let inputId = 'ingredient-input';
+    let inputRef = ingredientRef;
 
     if (!isValidTitle) {
-      dispatch(updateInputError(('title-input', errMsg)));
-      titleRef.current.focus();
+      inputId = 'ingredient-input';
+      inputRef = titleRef;
     }
 
+    dispatch(updateInputError((inputId, errMsg)));
+    inputRef.current.focus();
     showAlert(errMsg, 'error');
   };
 
@@ -57,13 +62,13 @@ export default function MuiStepper(props) {
   const stepView = (step) => {
     switch (step) {
       case 0:
-        return <RecipeForm titleRef={titleRef} />;
+        return <RecipeForm ingredientRef={ingredientRef} titleRef={titleRef} />;
       case 1:
         return <RecipeFormOptional />;
       case 2:
-        return <RecipeCard />;
+        return <RecipeCard recipeName="Untitled" />;
       default:
-        return <RecipeForm titleRef={titleRef} />;
+        return <RecipeForm ingredientRef={ingredientRef} titleRef={titleRef} />;
     }
   };
 

@@ -1,3 +1,5 @@
+import { flattenPayload } from '../components/App/AppUtil';
+
 const ACTION_TYPES = {
   RESET_INPUT_ERROR: 'RESET_INPUT_ERROR',
   UPDATE_INPUT: 'UPDATE_INPUT',
@@ -59,22 +61,22 @@ const updateInput = (e) => {
   };
 };
 
-const createIngredients = (name, flatIngredients) => {
+const createIngredients = (data, name) => {
   return {
     type: CREATE_INGREDIENTS,
     payload: {
-      flatIngredients: flatIngredients,
+      flatIngredients: flattenPayload(data),
       name: name,
     },
   };
 };
 
-const updateIngredient = (name, flatIngredient) => {
+const updateIngredient = (data, name) => {
   return {
     type: UPDATE_INGREDIENT,
     payload: {
       name: name,
-      flatIngredient: flatIngredient,
+      flatIngredient: flattenPayload(data)[0],
     },
   };
 };

@@ -10,12 +10,15 @@ const getIngredientsHeaderSx = (mode) => {
   return {
     borderBottom: getIngredientsBorderStyle(mode),
     fontWeight: 400,
-    marginBottom: '8px',
     padding: '0px 0px 24px 16px',
   };
 };
 
-const ingrPadding = { padding: '16px 8px 0px 8px' };
+const ingrPadding = {
+  minHeight: '103px',
+  marginBottom: '-24px',
+  padding: '8px 8px 16px 8px',
+};
 
 const listSx = {
   display: 'flex',
@@ -33,6 +36,7 @@ const listSubheaderSx = {
     md: '0px 16px',
   },
   top: '-1px',
+  zIndex: 2,
 };
 
 export { getIngredientsHeaderSx, ingrPadding, listSubheaderSx, listSx };

@@ -12,7 +12,7 @@ import { getActionSx, getBackStartIcon, getNextEndIcon } from './StepperUtil';
 export const StepperButtons = (props) => {
   const { dispatch } = useContext(RecipesContext);
   const { showAlert } = useContext(SnackbarContext);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const { activeStep, handleBack, handleNext, maxSteps } = props;
 

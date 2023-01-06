@@ -28,9 +28,7 @@ export const CustomFileInput = (props) => {
   const handleKeyEnter = (e) => {
     const key = e.which || e.keyCode || 0;
 
-    if (key === 13) {
-      inputRef.current.click();
-    }
+    if (key === 13) inputRef.current.click();
   };
 
   return (

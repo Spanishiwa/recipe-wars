@@ -1,17 +1,17 @@
 import { Box, Card } from '@mui/material';
-import React, { Fragment } from 'react';
-import { RecipeCard } from '../RecipeCard/RecipeCard';
-import PropTypes from 'prop-types';
+import React, { Fragment, useContext } from 'react';
+import { RecipeCard } from '../../../components/RecipeCard/RecipeCard';
 import { ResetAllCard } from './ResetAllCard';
-import { lodashGroupBy } from '../../Util';
-import { useSnackbarRedirect } from '../../Hooks/useSnackbarRedirect';
+import { lodashGroupBy } from '../../../Util';
+import { useSnackbarRedirect } from '../../../Hooks/useSnackbarRedirect';
+import { RecipesContext } from '../../../components/Contexts/RecipesContext';
 
-export const Showcase = (props) => {
-  const { recipeStates } = props;
+export const Showcase = () => {
+  const { state } = useContext(RecipesContext);
 
   useSnackbarRedirect();
 
-  const recipes = lodashGroupBy(recipeStates, 'recipeName');
+  const recipes = lodashGroupBy(state, 'recipeName');
 
   const recipeNames = Object.keys(recipes).filter(
     (recipeName) => recipeName !== 'undefined' && recipeName !== 'Untitled'
@@ -31,8 +31,4 @@ export const Showcase = (props) => {
       </Box>
     </Fragment>
   );
-};
-
-Showcase.propTypes = {
-  recipeStates: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

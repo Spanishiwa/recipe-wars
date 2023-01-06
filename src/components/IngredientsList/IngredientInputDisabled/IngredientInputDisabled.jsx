@@ -8,36 +8,47 @@ import {
 import { EndAdornmentDisabled } from './EndAdornmentDisabled';
 import { StartAdornmentDisabled } from './StartAdornmentDisabled';
 import { Box, TextField } from '@mui/material';
-import { RecipesContext } from '../Contexts/RecipesContext';
-import { resetInputError, updateInput } from '../../reducers/actions';
+import { RecipesContext } from '../../Contexts/RecipesContext';
+import {
+  resetInputError,
+  setFetchFail,
+  setFetching,
+  updateIngredient,
+  updateInput,
+} from '../../../reducers/actions';
+import { currentlyRequesting, getPOSTBody } from '../../../Util';
+import { SnackbarContext } from '../../Contexts/SnackbarContext';
+import { CONFIG } from '../../../config';
 
 const IngredientInputDisabled = (props) => {
   const { ingredient } = props;
   const { state, dispatch } = useContext(RecipesContext);
+  const { showAlert } = useContext(SnackbarContext);
 
   const handleBlur = (e) => dispatch(resetInputError(e));
-
   const handleChange = (e) => dispatch(updateInput(e));
+
+  const { error, id, isDisabled, status, text } = ingredient;
 
   const handleKeySubmit = (e) => {
     const key = e.which || e.keyCode || 0;
 
     if (key === 13) {
-      e.stopPropagation();
-      e.preventDefault();
+      if (currentlyRequesting(state)) return;
 
-      const name =
-        e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
-      // code works - ration API calls for testing
-      const ingredient = state.filter((ingredient) => ingredient.id === name);
+      dispatch(setFetching());
+      showAlert('Fetching edited ingredient', 'info');
 
-      // if (ingredient) useFetchAPI(ingredient[0].text, null, name);
-      if (ingredient) return;
+      fetch(CONFIG.recipeURL, getPOSTBody(ingredient))
+        .then((res) => {
+          if (!res.ok) throw Error(`Poor input failed to update`);
+
+          return res.json();
+        })
+        .then((data) => dispatch(updateIngredient(data, id)))
+        .catch((err) => dispatch(setFetchFail(id, err.message)));
     }
   };
-
-  const { error, id, isDisabled, status, text } = ingredient;
-
   return (
     <Box name={id} sx={containerSx}>
       <TextField
@@ -51,7 +62,10 @@ const IngredientInputDisabled = (props) => {
         InputProps={{
           ...standardVariantSx(isDisabled),
           startAdornment: (
-            <StartAdornmentDisabled handleKeySubmit={handleKeySubmit} id={id} />
+            <StartAdornmentDisabled
+              handleKeySubmit={handleKeySubmit}
+              ingredient={ingredient}
+            />
           ),
           endAdornment: <EndAdornmentDisabled id={id} />,
         }}

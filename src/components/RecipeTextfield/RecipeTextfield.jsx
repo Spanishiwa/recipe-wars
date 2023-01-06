@@ -15,8 +15,7 @@ export const RecipeTextfield = (props) => {
 
   const handleChange = (e) => dispatch(updateInput(e));
 
-  const input = getInput(state, name);
-  const { error, status, text } = input;
+  const { error, status, text } = getInput(state, name);
 
   return (
     <TextField

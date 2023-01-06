@@ -12,7 +12,6 @@ const svgContainerSx = {
   flexWrap: 'wrap',
   columnGap: { xs: '6px', md: '8px' },
   justifyContent: 'space-between',
-  pb: '16px',
   rowGap: '16px',
 };
 
