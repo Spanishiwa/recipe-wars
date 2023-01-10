@@ -61,7 +61,7 @@ export const CardCollapse = (props) => {
           <ExpandMoreIcon fontSize="large" />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} sx={{ pb: 2 }} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         {isEditable ? (
           <Box sx={collapsibleInstructionsSx}>
             <RecipeTextarea name={`${recipeName}recipe-textarea`} rows={19} />

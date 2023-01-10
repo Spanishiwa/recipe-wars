@@ -49,7 +49,7 @@ const getCollapseInstructionsSx = (mode) => {
     justifyContent: 'left',
     maxHeight: '1200px',
     overflowY: 'auto',
-    padding: '16px',
+    padding: '32px 16px',
     whiteSpace: 'pre-wrap',
   };
 };
