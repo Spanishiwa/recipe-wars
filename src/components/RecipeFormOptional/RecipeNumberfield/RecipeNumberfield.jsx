@@ -7,7 +7,7 @@ import { getInput } from '../../../Util';
 
 export const RecipeNumberfield = (props) => {
   const { state, dispatch } = useContext(RecipesContext);
-  const { label, name, title } = props;
+  const { label, name, title, sx } = props;
 
   const handleChange = (e) => dispatch(updateInput(e));
 
@@ -22,7 +22,7 @@ export const RecipeNumberfield = (props) => {
       onChange={handleChange}
       title={title}
       type="number"
-      sx={{ maxWidth: '145px' }}
+      sx={{ ...sx }}
       InputLabelProps={{ shrink: true }}
       value={numberInputText}
     />
@@ -33,4 +33,11 @@ RecipeNumberfield.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   title: PropTypes.string,
+  sx: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])
+    ),
+    PropTypes.func,
+    PropTypes.object,
+  ]),
 };

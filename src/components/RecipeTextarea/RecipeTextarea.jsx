@@ -1,31 +1,25 @@
 import { Box, TextField } from '@mui/material';
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getErrorSx, getStatusSx } from './RecipeTextareaSx';
 import { getInput } from '../../Util';
 import { RecipesContext } from '../Contexts/RecipesContext';
 import { resetInputError, updateInput } from '../../reducers/actions';
 
 export const RecipeTextarea = (props) => {
   const { state, dispatch } = useContext(RecipesContext);
-  const { label, inputRef, name, placeholder, rows, title } = props;
+  const { disabled, label, inputRef, name, placeholder, rows, sx, title } =
+    props;
 
   const handleBlur = (e) => dispatch(resetInputError(e));
-
   const handleChange = (e) => dispatch(updateInput(e));
 
-  const { error, status, text } = getInput(state, name);
-
-  const errorSx = getErrorSx(error);
-  const statusSx = getStatusSx(status);
+  const { text } = getInput(state, name);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <TextField
-        className={`${name} ${status.length > 1 ? 'status' : ''}`}
         cols="50"
-        error={error}
-        helperText={status}
+        disabled={disabled}
         InputLabelProps={{ shrink: true }}
         label={label}
         id={name}
@@ -36,7 +30,7 @@ export const RecipeTextarea = (props) => {
         onChange={handleChange}
         placeholder={placeholder}
         rows={rows}
-        sx={{ flex: '1 1 auto', ...errorSx, ...statusSx }}
+        sx={{ flex: '1 1 auto', ...sx }}
         title={title}
         variant="outlined"
         value={text}
@@ -46,13 +40,21 @@ export const RecipeTextarea = (props) => {
 };
 
 RecipeTextarea.propTypes = {
-  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  label: PropTypes.string,
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   rows: PropTypes.number,
-  title: PropTypes.string.isRequired,
+  sx: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])
+    ),
+    PropTypes.func,
+    PropTypes.object,
+  ]),
+  title: PropTypes.string,
 };

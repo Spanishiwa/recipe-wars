@@ -23,7 +23,8 @@ export const ButtonsCard = () => {
         color="primary"
         component={RouterLink}
         disableElevation
-        size="large"
+        size={xsOnly ? 'medium' : 'large'}
+        sx={{ minWidth: { xs: '137px', sm: '175px' } }}
         title="Start Page"
         to="/start"
         variant="contained"
@@ -37,8 +38,9 @@ export const ButtonsCard = () => {
         component={RouterLink}
         disableElevation
         onClick={handleResetAll}
-        size="large"
+        size={xsOnly ? 'medium' : 'large'}
         state={RESET_ALL_SNACKBAR}
+        sx={{ minWidth: { xs: '137px', sm: '175px' } }}
         title="Reset all recipes to default"
         to={'/recipe-wars'}
         variant="outlined"

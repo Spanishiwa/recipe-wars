@@ -1,15 +1,14 @@
 const formSectionSx = {
   display: 'flex',
   flexDirection: { xs: 'column', sm: 'column', md: 'row' },
-  gap: 2,
-  p: 2,
+  columnGap: 2,
+  p: '0px 16px 8px 16px',
 };
 
 const formLeftContainerSx = {
   display: 'flex',
   flex: { xs: '1 1 auto', sm: '1 1 auto', md: '65%' },
   flexDirection: 'column',
-  rowGap: 2,
 };
 
 const formRightContainerSx = {

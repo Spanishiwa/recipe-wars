@@ -1,4 +1,4 @@
-import { Box, CardMedia } from '@mui/material';
+import { Box, CardMedia, useTheme } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import ImageModal from '../ImageModal/ImageModal';
 import { ServingsSwitch } from '../ServingsSwitch/ServingsSwitch';
@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 import { getSelectedImage } from './RecipeImageUtil';
 import { RecipeImageFigcaption } from './RecipeImageFigcaption';
 import { RecipesContext } from '../../Contexts/RecipesContext';
-import { getInput } from '../../../Util';
+import { getRecipeInputValues } from '../../../Util';
+import ImageInput from '../../RecipeFormOptional/ImageInput/ImageInput';
+import { getEditableInputsContainerSx } from './RecipeImageStyles';
 
 export const RecipeImage = (props) => {
   const { state } = useContext(RecipesContext);
@@ -15,29 +17,36 @@ export const RecipeImage = (props) => {
   const handleClickOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
-  const { recipeName, recipeState } = props;
+  const { isEditable, recipeName } = props;
 
-  const { title, description, imgSrc, selectText, servings } = recipeState;
+  const { imgSrc, title, description, servings, isPerServing, selectText } =
+    getRecipeInputValues(state, recipeName);
 
-  const servingsToggle = getInput(state, 'servings-toggle');
-  const isPerServing = servingsToggle[`is${recipeName}PerServing`];
-
+  const mode = useTheme().palette.mode;
   const image = imgSrc || getSelectedImage(selectText);
+  const editableInputsContainerSx = getEditableInputsContainerSx(image, mode);
 
   return (
     <Box component="figure" m={0}>
-      <CardMedia
-        alt={title}
-        component="img"
-        height="194"
-        image={image}
-        onClick={handleClickOpen}
-        sx={{ cursor: 'pointer' }}
-        title={title}
-      />
+      {isEditable ? (
+        <Box sx={editableInputsContainerSx}>
+          <ImageInput recipeName={recipeName} />
+        </Box>
+      ) : (
+        <CardMedia
+          alt={title}
+          component="img"
+          height="240"
+          image={image}
+          onClick={handleClickOpen}
+          sx={{ cursor: 'pointer' }}
+          title={title}
+        />
+      )}
       <RecipeImageFigcaption
         description={description}
         recipeName={recipeName}
+        isEditable={isEditable}
         isPerServing={isPerServing}
         servings={servings}
       >
@@ -54,14 +63,6 @@ export const RecipeImage = (props) => {
 };
 
 RecipeImage.propTypes = {
+  isEditable: PropTypes.bool,
   recipeName: PropTypes.string,
-  recipeState: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    instructions: PropTypes.string,
-    selectText: PropTypes.string,
-    servings: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-      .isRequired,
-  }),
 };

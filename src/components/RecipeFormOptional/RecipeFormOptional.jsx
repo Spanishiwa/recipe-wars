@@ -6,6 +6,7 @@ import { IngredientsList } from '../IngredientsList/IngredientsList';
 import { RecipeNumberfield } from './RecipeNumberfield/RecipeNumberfield';
 import { RecipeTextarea } from '../RecipeTextarea/RecipeTextarea';
 import {
+  formOptionalContainerSx,
   formOptionalSx,
   headerSubtext,
   ingredientsListContainerSx,
@@ -15,22 +16,25 @@ import {
   descriptionPlaceholder,
   instructionsPlaceholder,
 } from './FormOptionalUtil';
+import PropTypes from 'prop-types';
 
-export const RecipeFormOptional = () => {
+export const RecipeFormOptional = (props) => {
+  const { recipeName } = props;
+
   return (
-    <Box component="section" sx={{ display: 'flex', gap: 2, p: 2 }}>
+    <Box component="section" sx={formOptionalContainerSx}>
       <Box component="form" id="recipe-form-optional" sx={formOptionalSx}>
-        <Typography component="h1" variant="h5" mb={3}>
-          <Tune sx={{ padding: '0px 8px 0px 0px', verticalAlign: 'middle' }} />
+        <Typography component="h1" variant="h5" mb={{ xs: '24px', md: '29px' }}>
+          <Tune fontSize="large" sx={{ mr: 2, verticalAlign: 'bottom' }} />
           Customize recipe
           <Typography component="span" variant="caption" sx={headerSubtext}>
             (optional)
           </Typography>
         </Typography>
-        <FormControl sx={{ display: 'flex', gap: 4 }}>
+        <FormControl sx={{ display: 'flex' }}>
           <RecipeTextarea
             label="Recipe description"
-            name="description-textarea"
+            name={`${recipeName}description-textarea`}
             placeholder={descriptionPlaceholder}
             rows={5}
             title="Highlight interesting things about the recipe or elaborate on the recipe title"
@@ -38,16 +42,17 @@ export const RecipeFormOptional = () => {
           <Box sx={servingsContainerSx}>
             <RecipeNumberfield
               label="Servings per recipe"
-              name="servings-input"
+              name={`${recipeName}servings-input`}
               title="How many portion sizes the recipe serves"
+              sx={{ width: { xs: '130px', sm: '161px' } }}
             />
           </Box>
-          <Box sx={{ display: 'flex' }}>
-            <ImageInput />
+          <Box sx={{ display: 'flex', mb: 4 }}>
+            <ImageInput recipeName={recipeName} />
           </Box>
           <RecipeTextarea
             label="Recipe instructions"
-            name="recipe-textarea"
+            name={`${recipeName}recipe-textarea`}
             rows={19}
             title="Describe in full detail the cooking and preparation process to reproduce your recipe"
             placeholder={instructionsPlaceholder}
@@ -60,3 +65,5 @@ export const RecipeFormOptional = () => {
     </Box>
   );
 };
+
+RecipeFormOptional.propTypes = { recipeName: PropTypes.string };

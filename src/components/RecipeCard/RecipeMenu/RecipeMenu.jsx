@@ -1,6 +1,8 @@
-import { MoreVert } from '@mui/icons-material';
+import { Edit, EditOff, MoreVert } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
+  Box,
+  Divider,
   IconButton,
   ListItemIcon,
   Menu,
@@ -10,17 +12,22 @@ import {
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { deleteRecipe } from '../../../reducers/actions';
+import {
+  deleteRecipe,
+  setDisabledRecipeIngredients,
+} from '../../../reducers/actions';
 import { RecipesContext } from '../../Contexts/RecipesContext';
 import { getMenuButtonSx, topLeftOrigin } from './RecipeMenuStyles';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
+import { getInput } from '../../../Util';
+import { RecipeTextfield } from '../../RecipeTextfield/RecipeTextfield';
 
 export const RecipeMenu = (props) => {
-  const { dispatch } = useContext(RecipesContext);
+  const { state, dispatch } = useContext(RecipesContext);
   const { showAlert } = useContext(SnackbarContext);
   const { pathname } = useLocation();
 
-  const { recipeName, title } = props;
+  const { setIsEditable, isEditable, recipeName } = props;
 
   // MUI Positioned menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,27 +35,42 @@ export const RecipeMenu = (props) => {
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  const handleDeleteRecipeFromMenu = (e) => {
-    dispatch(deleteRecipe(e));
+  const handleDeleteRecipeFromMenu = () => {
+    dispatch(deleteRecipe(recipeName));
 
     showAlert('Deleting Recipe', 'success');
     handleClose();
   };
 
+  const handleToggleEditable = () => {
+    handleClose();
+
+    if (!isEditable) {
+      showAlert('Edit recipe mode enabled', 'info');
+      return setIsEditable(true);
+    }
+
+    showAlert('Saving edits', 'success');
+    dispatch(setDisabledRecipeIngredients(recipeName));
+    setIsEditable(false);
+  };
+
   const menuButtonSx = getMenuButtonSx(pathname);
 
+  const title = getInput(state, `${recipeName}title-input`).text;
+
   return (
-    <Typography component="h5" sx={{ pb: 2, pl: 2 }} variant="h5">
+    <Box sx={{ display: 'flex', minHeight: '64px', p: '0px 16px 16px 16px ' }}>
       <IconButton
         aria-controls={open ? 'recipe-positioned-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         aria-label="show more actions"
         color="primary"
-        data-recipe-name={recipeName}
         id="recipe-positioned-button"
         onClick={handleClick}
         sx={menuButtonSx}
+        size="large"
       >
         <MoreVert />
       </IconButton>
@@ -61,22 +83,44 @@ export const RecipeMenu = (props) => {
         anchorOrigin={topLeftOrigin}
         transformOrigin={topLeftOrigin}
       >
-        <MenuItem
-          data-recipe-name={recipeName}
-          onClick={handleDeleteRecipeFromMenu}
-        >
+        <MenuItem onClick={handleToggleEditable}>
+          <ListItemIcon>
+            {isEditable ? (
+              <EditOff color="success" />
+            ) : (
+              <Edit color="primary" />
+            )}
+          </ListItemIcon>
+          {isEditable ? 'Save Recipe' : 'Edit Recipe'}
+        </MenuItem>
+        <Divider component="li" variant="middle" />
+        <MenuItem onClick={handleDeleteRecipeFromMenu}>
           <ListItemIcon>
             <DeleteIcon color="error" />
           </ListItemIcon>
           Delete Recipe
         </MenuItem>
       </Menu>
-      {title}
-    </Typography>
+      {isEditable ? (
+        <RecipeTextfield
+          label="Recipe title"
+          helperText=""
+          name={`${recipeName}title-input`}
+          placeholder="e.g. Abuela's dirty beans syrniki"
+          required={false}
+          title="Enter a concise, cogent, and exciting title"
+        />
+      ) : (
+        <Typography component="h5" variant="h5">
+          {title}
+        </Typography>
+      )}
+    </Box>
   );
 };
 
 RecipeMenu.propTypes = {
+  setIsEditable: PropTypes.func,
+  isEditable: PropTypes.bool,
   recipeName: PropTypes.string,
-  title: PropTypes.string,
 };

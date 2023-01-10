@@ -8,8 +8,9 @@ export const CarbohydrateSvg = (props) => {
 
   const containerSx = {
     ...sx,
-    flex: { xs: '50%', sm: 'auto' },
-    maxWidth: { xs: '125px', sm: 'inherit' },
+    flex: { xs: '45%', sm: 'auto' },
+    minWidth: { xs: '125px', sm: 'inherit' },
+    textAlign: { xs: 'right', sm: 'center' },
   };
 
   const carbohydrateSx = { pl: 1, verticalAlign: 'middle' };

@@ -63,7 +63,6 @@ export const IngredientsFormControl = () => {
         title="Enter an ingredients grocery list with one ingredient & quantity per line"
       />
       <Button
-        className="submit"
         disableElevation
         name="ingredients-textarea"
         onClick={handleSubmitThenFocus}

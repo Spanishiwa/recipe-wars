@@ -8,7 +8,7 @@ import { updateImage } from '../../../reducers/actions';
 export const CustomFileInput = (props) => {
   const { state, dispatch } = useContext(RecipesContext);
 
-  const { imgName } = props;
+  const { imgName, recipeName } = props;
 
   const btnTextSx = { display: { xs: 'none', sm: 'inline' }, ml: '4px' };
   const imgIcon = imgName ? <DownloadDone /> : <PhotoCamera />;
@@ -17,11 +17,14 @@ export const CustomFileInput = (props) => {
     const imgFile = e.target.files[0];
     if (!imgFile) return;
     // clean up previous Blob
-    const imgInput = state.filter((input) => input.id === 'image-input')[0];
+    const imgInput = state.filter(
+      (input) => input.id === `${recipeName}image-input`
+    )[0];
 
     if (imgInput?.imgSrc) URL.revokeObjectURL(imgInput.imgSrc);
 
     dispatch(updateImage(e));
+    e.target.value = '';
   };
 
   const inputRef = useRef(null);
@@ -38,7 +41,7 @@ export const CustomFileInput = (props) => {
       color="primary"
       onKeyDown={handleKeyEnter}
       startIcon={imgIcon}
-      sx={{ maxHeight: '57px', padding: '15px' }}
+      sx={{ maxHeight: '57px', minWidth: '130px', padding: '15px' }}
       title="Upload a recipe image here"
       variant="outlined"
     >
@@ -50,8 +53,8 @@ export const CustomFileInput = (props) => {
         accept="image/*"
         onChange={handleImage}
         hidden
-        id="image-input"
-        name="image-input"
+        id={`${recipeName}image-input`}
+        name={`${recipeName}image-input`}
         ref={inputRef}
         type="file"
       />
@@ -59,4 +62,7 @@ export const CustomFileInput = (props) => {
   );
 };
 
-CustomFileInput.propTypes = { imgName: PropTypes.string };
+CustomFileInput.propTypes = {
+  imgName: PropTypes.string,
+  recipeName: PropTypes.string,
+};

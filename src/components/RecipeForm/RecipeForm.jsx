@@ -15,37 +15,36 @@ import { InputExamplesList } from './InputExamplesList/InputExamplesList';
 import IngredientInput from './IngredientInput/IngredientInput';
 
 const RecipeForm = (props) => {
-  const { ingredientRef, titleRef } = props;
+  const { ingredientRef, recipeName, titleRef } = props;
 
   return (
     <Box component="section" sx={formSectionSx}>
       <Box sx={formLeftContainerSx}>
-        <Typography component="h1" variant="h5" mb={1}>
+        <Typography component="h1" mb={2} pt={3} variant="h5">
           <ManageSearch fontSize="large" sx={searchIconSx} />
           Recipe Nutrition
-          <Typography component="p" sx={{ mb: 2 }} variant="body1">
+          <Typography component="p" sx={{ my: 2 }} variant="body1">
             {headerSubtext}
           </Typography>
         </Typography>
         <RecipeTextfield
           inputRef={titleRef}
           label="Recipe title"
-          name="title-input"
+          name={`${recipeName}title-input`}
           placeholder="e.g. Abuela's dirty beans syrniki"
           required={true}
           title="Enter a concise, cogent, and exciting title"
         />
-        <Typography component="p" variant="b1">
+        <Typography component="p" sx={{ mb: 2, mt: 1 }} variant="b1">
           {examplesDescriptionText}
         </Typography>
-        <Box>
+        <Box sx={{ mb: 2 }}>
           <InputExamplesList />
         </Box>
-        <IngredientInput inputRef={ingredientRef} />
-        {/* <IngredientsFormControl /> */}
+        <IngredientInput inputRef={ingredientRef} recipeName={recipeName} />
       </Box>
       <Box sx={formRightContainerSx}>
-        <IngredientsList recipeName="Untitled" />
+        <IngredientsList recipeName={recipeName} />
       </Box>
     </Box>
   );
@@ -58,6 +57,7 @@ RecipeForm.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
+  recipeName: PropTypes.string,
   titleRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

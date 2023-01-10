@@ -9,7 +9,7 @@ const getIngredientsSx = (expand, mode) => {
   } else {
     return {
       flex: '35%',
-      maxHeight: '400px',
+      maxHeight: '510px',
       overflowY: 'auto',
     };
   }
@@ -25,17 +25,20 @@ const cardActionBorderStyle = (mode) => {
 
 const getCardActionsSx = (mode) => {
   return {
+    boxSizing: 'border-box',
     borderTop: cardActionBorderStyle(mode),
     borderBottom: { xs: cardActionBorderStyle(mode), md: 'unset' },
     flexFlow: 'row-reverse',
     justifyContent: 'left',
+    minHeight: '90px',
+    pl: 0,
   };
 };
 
 const cardContentSx = {
   display: 'flex',
   flexFlow: { xs: 'column-reverse', md: 'row-reverse' },
-  padding: '16px 0px 0px 0px',
+  padding: '0px',
   '.MuiCardContent-root&:last-child': { pb: 0 },
 };
 
@@ -46,13 +49,17 @@ const getCollapseInstructionsSx = (mode) => {
     justifyContent: 'left',
     maxHeight: '1200px',
     overflowY: 'auto',
+    padding: '16px',
     whiteSpace: 'pre-wrap',
   };
 };
+
+const titleSx = { fontWeight: 500, pr: 2 };
 
 export {
   getCardActionsSx,
   getCollapseInstructionsSx,
   cardContentSx,
   getIngredientsSx,
+  titleSx,
 };

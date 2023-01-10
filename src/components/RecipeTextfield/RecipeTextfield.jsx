@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 export const RecipeTextfield = (props) => {
   const { state, dispatch } = useContext(RecipesContext);
 
-  const { inputRef, label, name, placeholder, required, title } = props;
+  const { inputRef, helperText, label, name, placeholder, required, title } =
+    props;
 
   const handleBlur = (e) => dispatch(resetInputError(e));
 
@@ -20,7 +21,7 @@ export const RecipeTextfield = (props) => {
   return (
     <TextField
       error={error}
-      helperText={status}
+      helperText={typeof helperText !== 'undefined' ? helperText : status}
       label={label}
       id={name}
       inputProps={{ ref: inputRef }}
@@ -41,12 +42,13 @@ export const RecipeTextfield = (props) => {
 
 RecipeTextfield.propTypes = {
   label: PropTypes.string.isRequired,
+  helperText: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   inputRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
+  ]),
   required: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };

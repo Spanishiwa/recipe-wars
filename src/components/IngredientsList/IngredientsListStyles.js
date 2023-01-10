@@ -6,18 +6,20 @@ const getIngredientsBorderStyle = (mode) => {
   }
 };
 
-const getIngredientsHeaderSx = (mode) => {
+const getIngredientsHeaderSx = (isEditable, mode) => {
   return {
     borderBottom: getIngredientsBorderStyle(mode),
-    fontWeight: 400,
-    padding: '0px 0px 24px 16px',
+    padding: isEditable ? '27px 16px' : '27px 16px',
   };
 };
 
-const ingrPadding = {
-  minHeight: '103px',
-  marginBottom: '-24px',
-  padding: '8px 8px 16px 8px',
+const ingrPadding = (isEditable) => {
+  return {
+    marginBottom: isEditable ? '-16px' : '-28px',
+    padding: isEditable
+      ? '0px 16px 8px 16px'
+      : { xs: '0px 16px 8px 16px', md: '0px 16px 8px 28px' },
+  };
 };
 
 const listSx = {
@@ -30,13 +32,18 @@ const listSx = {
 const listSubheaderSx = {
   backgroundImage:
     'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
-  padding: {
-    xs: '16px 0px 0px 0px',
-    sm: '16px 0px 0px 0px',
-    md: '0px 16px',
-  },
+  '&.MuiListSubheader-sticky': { color: 'inherit' },
+  padding: { xs: '0px', md: '0px 16px' },
   top: '-1px',
   zIndex: 2,
 };
 
-export { getIngredientsHeaderSx, ingrPadding, listSubheaderSx, listSx };
+const receiptLongSx = { mr: 2, verticalAlign: 'bottom' };
+
+export {
+  getIngredientsHeaderSx,
+  ingrPadding,
+  listSubheaderSx,
+  listSx,
+  receiptLongSx,
+};

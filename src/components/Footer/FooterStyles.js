@@ -22,8 +22,7 @@ const getFooterSx = (mode) => {
     ...footerBgSx(mode),
     padding: {
       xs: '16px',
-      sm: '16px 16px 16px 12px',
-      lg: '16px',
+      sm: '16px 0px 16px 8px',
     },
   };
 };
@@ -33,7 +32,6 @@ const footerContainerSx = {
   flex: '1 1 auto',
   margin: 'auto',
   maxWidth: '1200px',
-  padding: { sm: '0px 0px 0px 0px' },
 };
 
 const footerLinksContainerSx = {

@@ -14,35 +14,39 @@ import {
   ingrPadding,
   listSubheaderSx,
   listSx,
+  receiptLongSx,
 } from './IngredientsListStyles';
 import { RecipesContext } from '../Contexts/RecipesContext';
 
 export const IngredientsList = (props) => {
-  const { recipeName } = props;
   const { state } = useContext(RecipesContext);
-
-  const recipeIngredients = state.filter(
-    (ingredient) => ingredient.recipeName === recipeName && ingredient.parsed
-  );
+  const { isEditable, recipeName } = props;
 
   const mode = useTheme().palette.mode;
-  const ingredientsHeaderSx = getIngredientsHeaderSx(mode);
+  const ingredientsHeaderSx = getIngredientsHeaderSx(isEditable, mode);
+
+  const recipeIngredients = state.filter(
+    (input) => input.recipeName === recipeName && input.parsed
+  );
 
   return (
     <List sx={listSx}>
       <ListSubheader sx={listSubheaderSx}>
         <Typography component="p" sx={ingredientsHeaderSx} variant="h6">
-          <ReceiptLong sx={{ mr: 1, verticalAlign: 'middle' }} />
+          <ReceiptLong fontSize="large" sx={receiptLongSx} />
           Ingredients ({recipeIngredients.length})
         </Typography>
       </ListSubheader>
       {recipeIngredients.map((ingr) => (
-        <ListItem disableGutters key={ingr.id} sx={ingrPadding}>
-          <IngredientInputDisabled ingredient={ingr} />
+        <ListItem disableGutters key={ingr.id} sx={ingrPadding(isEditable)}>
+          <IngredientInputDisabled ingredient={ingr} isEditable={isEditable} />
         </ListItem>
       ))}
     </List>
   );
 };
 
-IngredientsList.propTypes = { recipeName: PropTypes.string };
+IngredientsList.propTypes = {
+  isEditable: PropTypes.bool,
+  recipeName: PropTypes.string,
+};

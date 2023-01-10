@@ -2,12 +2,7 @@ import React, { useContext } from 'react';
 import { Box, TextField } from '@mui/material';
 import { getIngredientInputSx } from './IngredientInputStyles';
 import { IngredientInputAdornment } from './IngredientInputAdornment';
-import {
-  currentlyRequesting,
-  getAttributeName,
-  getInput,
-  getPOSTBody,
-} from '../../../Util';
+import { currentlyRequesting, getInput, getPOSTBody } from '../../../Util';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import { RecipesContext } from '../../Contexts/RecipesContext';
 import {
@@ -21,7 +16,7 @@ import PropTypes from 'prop-types';
 import { CONFIG } from '../../../config';
 
 const IngredientInput = (props) => {
-  const { inputRef } = props;
+  const { inputRef, recipeName } = props;
 
   const { state, dispatch } = useContext(RecipesContext);
   const { showAlert } = useContext(SnackbarContext);
@@ -36,15 +31,15 @@ const IngredientInput = (props) => {
     if (key === 13) handleSubmit(e);
   };
 
-  const handleSubmit = (e) => {
+  const name = `${recipeName}ingredient-input`;
+  const ingredient = getInput(state, name);
+
+  const handleSubmit = () => {
     if (currentlyRequesting(state)) return;
 
     dispatch(setFetching());
     showAlert('Fetching ingredient', 'info');
     inputRef.current.focus();
-
-    const name = getAttributeName(e);
-    const ingredient = state.filter((ingredient) => ingredient.id === name)[0];
 
     fetch(CONFIG.recipeURL, getPOSTBody(ingredient))
       .then((res) => {
@@ -56,17 +51,16 @@ const IngredientInput = (props) => {
       .catch((err) => dispatch(setFetchFail(name, err.message)));
   };
 
-  const { error, status, text } = getInput(state, 'ingredient-input');
+  const { error, status, text } = ingredient;
   const ingredientInputSx = getIngredientInputSx(error, status);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <TextField
-        className="ingredient-input submit"
         label="Ingredient & quantity"
         error={error}
         helperText={status}
-        id="ingredient-input"
+        id={`${recipeName}ingredient-input`}
         InputLabelProps={{ shrink: true }}
         inputProps={{ ref: inputRef }}
         InputProps={{
@@ -75,15 +69,17 @@ const IngredientInput = (props) => {
               handleSubmit={handleSubmit}
               handleKeySubmitThenFocus={handleKeySubmitThenFocus}
               inputRef={inputRef}
+              recipeName={recipeName}
               showAlert={showAlert}
             />
           ),
         }}
-        name="ingredient-input"
+        name={`${recipeName}ingredient-input`}
         onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={handleKeySubmitThenFocus}
         placeholder="e.g. 1/2 cup broccoli"
+        required={true}
         sx={ingredientInputSx}
         title="Enter an ingredient & quantity here"
         type="text"
@@ -101,4 +97,5 @@ IngredientInput.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
+  recipeName: PropTypes.string,
 };

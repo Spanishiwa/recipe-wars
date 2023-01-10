@@ -1,10 +1,12 @@
 import { flattenPayload } from '../components/App/AppUtil';
+import { getAttributeName } from '../Util';
 
 const ACTION_TYPES = {
   RESET_INPUT_ERROR: 'RESET_INPUT_ERROR',
   UPDATE_INPUT: 'UPDATE_INPUT',
   CREATE_INGREDIENTS: 'CREATE_INGREDIENTS',
   UPDATE_INGREDIENT: 'UPDATE_INGREDIENT',
+  DELETE_IMAGE: 'DELETE_IMAGE',
   DELETE_INGREDIENT: 'DELETE_INGREDIENT',
   DELETE_RECIPE: 'DELETE_RECIPE',
   UPDATE_IMAGE: 'UPDATE_IMAGE',
@@ -18,6 +20,7 @@ const ACTION_TYPES = {
   SET_FETCHING: 'SET_FETCHING',
   SET_NOT_FETCHING: 'SET_NOT_FETCHING',
   SET_FETCH_FAIL: 'SET_FETCH_FAIL',
+  SET_DISABLED_RECIPE_INGREDIENTS: 'SET_DISABLED_RECIPE_INGREDIENTS',
   LOAD_LOCAL_STORAGE: 'LOAD_LOCAL_STORAGE',
 };
 
@@ -26,6 +29,7 @@ const {
   UPDATE_INPUT,
   CREATE_INGREDIENTS,
   UPDATE_INGREDIENT,
+  DELETE_IMAGE,
   DELETE_INGREDIENT,
   DELETE_RECIPE,
   UPDATE_IMAGE,
@@ -39,6 +43,7 @@ const {
   SET_FETCHING,
   SET_NOT_FETCHING,
   SET_FETCH_FAIL,
+  SET_DISABLED_RECIPE_INGREDIENTS,
   LOAD_LOCAL_STORAGE,
 } = ACTION_TYPES;
 
@@ -81,6 +86,15 @@ const updateIngredient = (data, name) => {
   };
 };
 
+const deleteImage = (recipeName) => {
+  return {
+    type: DELETE_IMAGE,
+    payload: {
+      recipeName: recipeName,
+    },
+  };
+};
+
 const deleteIngredient = (e) => {
   return {
     type: DELETE_INGREDIENT,
@@ -91,13 +105,11 @@ const deleteIngredient = (e) => {
   };
 };
 
-const deleteRecipe = (e) => {
+const deleteRecipe = (recipeName) => {
   return {
     type: DELETE_RECIPE,
     payload: {
-      recipeName:
-        e.target.getAttribute('data-recipe-name') ||
-        e.currentTarget.getAttribute('data-recipe-name'),
+      recipeName: recipeName,
     },
   };
 };
@@ -126,18 +138,17 @@ const resetAll = () => {
 const updateSelect = (e) => {
   return {
     type: UPDATE_SELECT,
-    payload: { value: e.target.value || e.currentTarget.value || ' ' },
+    payload: {
+      name: e.target.name,
+      value: e.target.value || e.currentTarget.value || ' ',
+    },
   };
 };
 
 const toggleServingsInput = (e) => {
   return {
     type: TOGGLE_SERVINGS_INPUT,
-    payload: {
-      name:
-        `is${e.target.getAttribute('data-recipe-name')}PerServing` ||
-        `is${e.currentTarget.getAttribute('data-recipe-name')}PerServing`,
-    },
+    payload: { name: getAttributeName(e) },
   };
 };
 
@@ -183,6 +194,13 @@ const setFetchFail = (name, status) => {
   };
 };
 
+const setDisabledRecipeIngredients = (recipeName) => {
+  return {
+    type: SET_DISABLED_RECIPE_INGREDIENTS,
+    payload: { recipeName: recipeName },
+  };
+};
+
 const loadLocalStorage = (localStorageState) => {
   return {
     type: LOAD_LOCAL_STORAGE,
@@ -196,6 +214,7 @@ export {
   updateInput,
   createIngredients,
   updateIngredient,
+  deleteImage,
   deleteIngredient,
   deleteRecipe,
   updateImage,
@@ -209,5 +228,6 @@ export {
   setFetching,
   setNotFetching,
   setFetchFail,
+  setDisabledRecipeIngredients,
   loadLocalStorage,
 };

@@ -11,7 +11,6 @@ export const EndAdornment = (props) => {
     <InputAdornment position="end" name="ingredient-input">
       <IconButton
         aria-label="Save ingredient"
-        className="submit"
         edge="end"
         name="ingredient-input"
         onClick={handleSubmitThenFocus}

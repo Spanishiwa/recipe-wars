@@ -22,11 +22,11 @@ const inputExamples = {
     '8.5 oz Italian giardiniera',
   ],
   titles: [
-    'Good input - used exact measurements',
+    'Good input - standard unit of measurement',
     'Poor input - nonstandard unit of measurement',
-    'Good input - ingredient was concise without unnecessary descriptors',
-    'Poor input - recipe ingredient preparation methods were included',
-    'Good input - a niche ingredient was substituted for a common ingredient',
+    'Good input - concise input without descriptors',
+    'Poor input - preparation methods were included',
+    'Good input - specific ingredient was substituted for a common ingredient',
     "Poor input - too specific to be found in Edamam's database",
   ],
 };

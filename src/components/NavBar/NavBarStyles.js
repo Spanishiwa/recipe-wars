@@ -25,7 +25,9 @@ const toolbarSx = {
   flexDirection: 'row',
   justifyContent: { xs: 'center' },
   margin: { lg: 'auto' },
-  maxWidth: 'lg',
+  maxWidth: '1192px',
+  paddingLeft: { sm: '20px' },
+  paddingRight: { sm: 0 },
   width: { lg: '100%' },
 };
 

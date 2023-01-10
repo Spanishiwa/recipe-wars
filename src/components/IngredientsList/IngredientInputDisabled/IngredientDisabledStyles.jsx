@@ -17,23 +17,38 @@ const editButtonSx = {
   },
 };
 
-const ingredientInputDisabledSx = {
-  flex: '1 1 auto',
-  '& .MuiInputBase-root.Mui-disabled .submit': { display: 'none' },
-  '& .MuiInputBase-root.Mui-disabled .delete': { display: 'none' },
-  '& .MuiInputBase-root.Mui-disabled .edit': { display: 'inline-flex' },
-  '& .MuiInputBase-root .edit': { display: 'none' },
-  '& .MuiInputBase-adornedEnd.MuiInputBase-adornedStart': {
-    paddingLeft: '0px ',
-  },
+const ingredientInputDisabledSx = (isEditable) => {
+  return {
+    flex: '1 1 auto',
+    '& .MuiInputBase-root.Mui-disabled': { minHeight: '56px' },
+    '& .MuiFormHelperText-root.Mui-disabled': isEditable
+      ? { display: 'block' }
+      : { display: 'none' },
+    '& .MuiInputBase-root.Mui-disabled .submit': { display: 'none' },
+    '& .MuiInputBase-root.Mui-disabled .delete': { display: 'none' },
+    '& .MuiInputBase-root.Mui-disabled .edit': isEditable
+      ? { display: 'inline-flex' }
+      : { display: 'none' },
+    '& .MuiInputBase-root .edit': { display: 'none' },
+    '& .MuiInputBase-adornedEnd.MuiInputBase-adornedStart': {
+      paddingLeft: '0px ',
+    },
+  };
 };
 
-const standardVariantSx = (isDisabled) => {
-  if (isDisabled) {
-    return { disableUnderline: true };
-  } else {
-    return {};
-  }
+const standardVariantSx = (mode, isEditable) => {
+  if (!isEditable) return;
+
+  return {
+    disableUnderline: true,
+    sx: {
+      '& .MuiInputBase-input.Mui-disabled': {
+        color: 'text.primary',
+        WebkitTextFillColor:
+          mode === 'light' ? '#616E7C' : 'rgba(255,255,255,0.7)',
+      },
+    },
+  };
 };
 
 const submitButtonSx = {

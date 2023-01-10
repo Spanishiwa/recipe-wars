@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 import { ingredientInputAdornmentSx } from './IngredientInputStyles';
 
 export const IngredientInputAdornment = (props) => {
-  const { handleSubmit, handleKeySubmitThenFocus, inputRef, showAlert } = props;
+  const {
+    handleSubmit,
+    handleKeySubmitThenFocus,
+    inputRef,
+    recipeName,
+    showAlert,
+  } = props;
 
   const handleSubmitThenFocus = (e) => {
     handleSubmit(e);
@@ -14,18 +20,17 @@ export const IngredientInputAdornment = (props) => {
   };
 
   return (
-    <InputAdornment position="end" name="ingredient-input">
+    <InputAdornment position="end" name={`${recipeName}ingredient-input`}>
       <IconButton
         aria-label="Save ingredient"
-        className="submit"
         edge="end"
-        name="ingredient-input"
+        name={`${recipeName}ingredient-input`}
         onClick={handleSubmitThenFocus}
         onKeyDown={handleKeySubmitThenFocus}
         sx={ingredientInputAdornmentSx}
         title="Save ingredient to ingredients list"
       >
-        <PostAdd name="ingredient-input" variant="outlined" />
+        <PostAdd name={`${recipeName}ingredient-input`} variant="outlined" />
       </IconButton>
     </InputAdornment>
   );
@@ -38,5 +43,6 @@ IngredientInputAdornment.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
+  recipeName: PropTypes.string,
   showAlert: PropTypes.func.isRequired,
 };

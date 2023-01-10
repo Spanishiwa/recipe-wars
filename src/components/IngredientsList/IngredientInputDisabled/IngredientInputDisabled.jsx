@@ -7,7 +7,7 @@ import {
 } from './IngredientDisabledStyles';
 import { EndAdornmentDisabled } from './EndAdornmentDisabled';
 import { StartAdornmentDisabled } from './StartAdornmentDisabled';
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, useTheme } from '@mui/material';
 import { RecipesContext } from '../../Contexts/RecipesContext';
 import {
   resetInputError,
@@ -21,9 +21,10 @@ import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import { CONFIG } from '../../../config';
 
 const IngredientInputDisabled = (props) => {
-  const { ingredient } = props;
+  const { ingredient, isEditable } = props;
   const { state, dispatch } = useContext(RecipesContext);
   const { showAlert } = useContext(SnackbarContext);
+  const mode = useTheme().palette.mode;
 
   const handleBlur = (e) => dispatch(resetInputError(e));
   const handleChange = (e) => dispatch(updateInput(e));
@@ -49,10 +50,10 @@ const IngredientInputDisabled = (props) => {
         .catch((err) => dispatch(setFetchFail(id, err.message)));
     }
   };
+
   return (
     <Box name={id} sx={containerSx}>
       <TextField
-        className={`parsed ${isDisabled ? '' : 'submit'}`}
         disabled={isDisabled}
         error={error}
         helperText={status}
@@ -60,7 +61,7 @@ const IngredientInputDisabled = (props) => {
         id={id}
         InputLabelProps={{ shrink: true }}
         InputProps={{
-          ...standardVariantSx(isDisabled),
+          ...standardVariantSx(mode, isDisabled),
           startAdornment: (
             <StartAdornmentDisabled
               handleKeySubmit={handleKeySubmit}
@@ -74,7 +75,7 @@ const IngredientInputDisabled = (props) => {
         onChange={handleChange}
         onKeyDown={isDisabled ? undefined : handleKeySubmit}
         placeholder={text}
-        sx={ingredientInputDisabledSx}
+        sx={ingredientInputDisabledSx(isEditable)}
         title="Ingredient parsed through Edamam API"
         type="text"
         value={text}
@@ -101,4 +102,5 @@ IngredientInputDisabled.propTypes = {
     error: PropTypes.bool.isRequired,
     recipeName: PropTypes.string.isRequired,
   }).isRequired,
+  isEditable: PropTypes.bool,
 };

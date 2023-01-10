@@ -26,18 +26,15 @@ export const ServingsSwitch = (props) => {
 
   return (
     <InputLabel
-      className={recipeName}
-      name="servings-toggle"
+      name={`${recipeName}servings-toggle`}
       onKeyDown={handleKeyDown}
       sx={{ alignItems: 'center', display: 'flex' }}
       title="Display nutritional values per serving or by total amount"
     >
       <ServingsSwitchLeft isPerServing={isPerServing} />
       <Switch
-        className={recipeName}
         checked={isPerServing}
-        inputProps={{ 'data-recipe-name': recipeName }}
-        name="servings-toggle"
+        name={`${recipeName}servings-toggle`}
         onChange={handleServingsToggle}
         sx={servingsSwitchSx}
       />

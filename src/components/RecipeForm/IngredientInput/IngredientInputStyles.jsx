@@ -30,6 +30,11 @@ const getIngredientInputSx = (error, status) => {
     '& .MuiOutlinedInput-root.Mui-focused .MuiIconButton-root': {
       color: 'primary.main',
     },
+    '& .MuiInputLabel-root.Mui-required': {
+      display: 'flex',
+      flexDirection: 'row-reverse',
+      marginLeft: '-5px',
+    },
     marginBottom: '-14px',
     ...errorSx(error),
     ...statusSx(status),

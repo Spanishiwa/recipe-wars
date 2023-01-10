@@ -8,8 +8,8 @@ export const FatSvg = (props) => {
 
   const fatTextContainerSx = {
     ...sx,
-    flex: { xs: '50%', sm: 'auto' },
-    maxWidth: { xs: '125px', sm: 'inherit' },
+    flex: { xs: '45%', sm: 'auto' },
+    minWidth: { xs: '125px', sm: 'inherit' },
   };
 
   const fatIconSx = { verticalAlign: 'middle' };

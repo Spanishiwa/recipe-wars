@@ -1,70 +1,67 @@
 const INIT_INGREDIENT_INPUT = {
-  id: 'ingredient-input',
+  id: 'Untitledingredient-input',
   text: '',
   isDisabled: false,
   error: false,
   status: ' ',
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_INGREDIENTS_TEXTAREA = {
-  id: 'ingredients-textarea',
+  id: 'Untitledingredients-textarea',
   text: '',
   status: ' ',
   error: false,
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_IMAGE_INPUT = {
-  id: 'image-input',
+  id: 'Untitledimage-input',
   imgSrc: '',
   imgName: '',
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_TITLE_INPUT = {
-  id: 'title-input',
+  id: 'Untitledtitle-input',
   text: 'Untitled',
   status: ' ',
   error: false,
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_DESCRIPTION_TEXTAREA = {
-  id: 'description-textarea',
+  id: 'Untitleddescription-textarea',
   text: '',
   status: ' ',
   error: false,
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_RECIPE_TEXTAREA = {
-  id: 'recipe-textarea',
+  id: 'Untitledrecipe-textarea',
   text: '',
   status: ' ',
   error: false,
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_SERVINGS_INPUT = {
-  id: 'servings-input',
+  id: 'Untitledservings-input',
+  recipeName: 'Untitled',
   text: '1',
-  isInput: true,
 };
 
 const INIT_SERVINGS_TOGGLE = {
-  id: 'servings-toggle',
-  isUntitledPerServing: true,
-  isKeyLimePiePerServing: true,
-  isCheesyCornPerServing: true,
-  isItalianBeefPerServing: true,
-  isInput: true,
+  id: 'Untitledservings-toggle',
+  isPerServing: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_PHOTOS_SELECT_INPUT = {
-  id: 'photos-select-input',
+  id: 'Untitledphotos-select-input',
   text: '',
-  isInput: true,
+  recipeName: 'Untitled',
 };
 
 const INIT_KEY_LIME_PIE = [
@@ -78,6 +75,71 @@ const INIT_KEY_LIME_PIE = [
     recipeName: 'KeyLimePie',
     servings: 6,
     title: 'Florida Keys Lime Pie',
+  },
+  {
+    id: 'KeyLimePieingredient-input',
+    text: '',
+    isDisabled: false,
+    error: false,
+    status: ' ',
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePieingredients-textarea',
+    text: '',
+    status: ' ',
+    error: false,
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePieimage-input',
+    imgSrc: `${process.env.PUBLIC_URL}/Key_Lime_Pie.png`,
+    imgName: 'Key_Lime_Pie.png',
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePietitle-input',
+    text: 'Florida Keys Lime Pie',
+    status: ' ',
+    error: false,
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePiedescription-textarea',
+    text: "Key Lime pie is the quintessential Florida pie, and no one does it better than the famous Kermit's Key West Key Lime Shoppe. Enjoy the classic version of this tart-sweet or try their delectable version dipped in chocolate.",
+    status: ' ',
+    error: false,
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePierecipe-textarea',
+    text: 'FOR THE CRUST\nPreheat oven to 375 °F and set an oven rack in the middle position.\nIn a medium bowl, combine the graham cracker crumbs, brown sugar, and melted butter; stir with a fork first, and then your hands until the mixture is well combined. Using your fingers and the bottom of a glass or dry measuring cup, press the crumbs firmly into the bottom and up the sides of a 9 x 1.5-inch (deep-dish) pie pan. The crust should be about ¼-inch thick. (Tip: do the sides first.) Bake for 10 minutes, until just slightly browned. Let the crust cool on a wire rack.\n\nFOR THE FILLING\nLower the oven temperature to 350°F. In a large bowl, whisk together the sweetened condensed milk, yogurt, lime zest, and lime juice. Pour the thick mixture into the warm graham cracker crust. Bake for 15 minutes, until the filling is almost set; it should wobble a bit. Let cool at room temperature for 30 minutes, then place in the refrigerator to chill thoroughly, about 3 hours.\n\nFOR THE TOPPING\nIn the bowl of an electric mixer, beat the heavy cream until soft peaks form. Add the confectioners’ sugar and beat until medium peaks form. Top the pie with the whipped cream. Decorate with the lime zest and lime slices. Store the pie in the refrigerator until ready to serve. Slice the pie into wedges, wiping your knife clean between slices, and serve cold. Make-Ahead Instructions: You can make the crust a day ahead of time, but the filling should be added on the day of serving, otherwise the crust will get soggy',
+    status: ' ',
+    error: false,
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePieservings-input',
+    recipeName: 'KeyLimePie',
+    text: 6,
+  },
+
+  {
+    id: 'KeyLimePieservings-toggle',
+    isPerServing: true,
+    recipeName: 'KeyLimePie',
+  },
+
+  {
+    id: 'KeyLimePiephotos-select-input',
+    text: '',
+    recipeName: 'KeyLimePie',
   },
   {
     text: '4 large egg yolks',
@@ -185,6 +247,71 @@ const INIT_CHEESY_CORN = [
     servings: 2,
   },
   {
+    id: 'CheesyCorningredient-input',
+    text: '',
+    isDisabled: false,
+    error: false,
+    status: ' ',
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCorningredients-textarea',
+    text: '',
+    status: ' ',
+    error: false,
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCornimage-input',
+    imgSrc: `${process.env.PUBLIC_URL}/Cheesy_Corn.jpeg`,
+    imgName: 'Cheesy_Corn.jpeg',
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCorntitle-input',
+    text: 'Korean Cheesy Corn',
+    status: ' ',
+    error: false,
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCorndescription-textarea',
+    text: 'A simple and delicious recipe for creamy, gooey Korean Corn Cheese. Minimal ingredients and made in under 20 minutes. Serve with chips or bread for dipping as a yummy appetizer, or keep it simple and serve as a side dish. We love it with freshly grilled meat.',
+    status: ' ',
+    error: false,
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCornrecipe-textarea',
+    text: '1. Preheat oven to 400˚F.\n\n2. Combine all ingredients into a mixing bowl and stir together.\n\n3. Pour mixture into a lightly greased baking dish.\n\n4. Bake for 10 minutes or until mixture melts and bubbles.\n\n5. Transfer dish to broiler and broil for 2 minutes or until top is browned.\n\n6. Serve immediately.\n\n\nTips and Tricks for Delicious Korean Corn Cheese Success!\n\nAlthough fresh corn is our preference, you can definitely use canned corn or frozen corn. If using canned corn, thoroughly drain kernels from 1 (15 ounce) can and make sure to omit the 1 1/2 teaspoon of sugar as canned corn sits in a naturally sweet brine. If using frozen corn (about 1 1/3 cups), thaw completely and drain any excess water before continuing to make the recipe as instructed.\n\nWe’re often asked if the sugar is important. Yes! A small amount of sugar is added to further bring out the corns natural sweetness and add a nice balance to the creamy mayonnaise and salty cheese.',
+    status: ' ',
+    error: false,
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCornservings-input',
+    recipeName: 'CheesyCorn',
+    text: 2,
+  },
+
+  {
+    id: 'CheesyCornservings-toggle',
+    isPerServing: true,
+    recipeName: 'CheesyCorn',
+  },
+
+  {
+    id: 'CheesyCornphotos-select-input',
+    text: '',
+    recipeName: 'CheesyCorn',
+  },
+  {
     text: '2 ears sweet corn',
     parsed: '2 ear corn',
     id: 'CheesyCornearssweetcorn',
@@ -263,6 +390,71 @@ const INIT_ITALIAN_BEEF = [
     recipeSettings: 'ItalianBeef',
     servings: 8,
     title: "Portillo's Italian beef sandwich",
+  },
+  {
+    id: 'ItalianBeefingredient-input',
+    text: '',
+    isDisabled: false,
+    error: false,
+    status: ' ',
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeefingredients-textarea',
+    text: '',
+    status: ' ',
+    error: false,
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeefimage-input',
+    imgSrc: `${process.env.PUBLIC_URL}/Italian_Beef.jpeg`,
+    imgName: 'Italian_Beef.jpeg',
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeeftitle-input',
+    text: "Portillo's Italian beef sandwich",
+    status: ' ',
+    error: false,
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeefdescription-textarea',
+    text: 'Italian beef is made using cuts of beef from the sirloin rear or the top/bottom round wet-roasted in broth with garlic, oregano and spices until cooked throughout.',
+    status: ' ',
+    error: false,
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeefrecipe-textarea',
+    text: "1. Preheat the oven to 400 degrees F.\n\n2. Render the beef fat by chopping it into small bits (about the size of peas) with a food processor. Be sure the fat is very cold--it will chop better. If you don't have a food processor, you can chop the fat by hand. Use a sharp knife and cut it as small as you can. Heat up the fat in a sauté pan over medium heat until the bits are browned. Strain the solids from the fat and measure 1/4 cup of fat for the gravy.\n\n3. Make the beef gravy by combining all of the ingredients, including the beef fat, in a medium saucepan over medium heat. When the mixture begins to boil reduce the heat and simmer for 5 minutes, then turn the heat to low.\n\n4. Make the sandwiches by heating up the rolls in the hot oven for 3 minutes.\n\n5. For each sandwich, drop 1/4 pound of sliced beef (separate the slices) into the gravy for 2 minutes. Make sure the gravy isn't boiling. It should be around 180 degrees F. After the beef has soaked in the gravy, use tongs to arrange the beef on a warmed sandwich roll and top with your choice of hot giardiniera or sweet peppers. Or both. Spoon on some extra gravy just before serving.",
+    status: ' ',
+    error: false,
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeefservings-input',
+    recipeName: 'ItalianBeef',
+    text: 8,
+  },
+
+  {
+    id: 'ItalianBeefservings-toggle',
+    isPerServing: true,
+    recipeName: 'ItalianBeef',
+  },
+
+  {
+    id: 'ItalianBeefphotos-select-input',
+    text: '',
+    recipeName: 'ItalianBeef',
   },
   {
     text: '3 pound chuck roast',
@@ -422,9 +614,7 @@ const getAttributeName = (e) => {
   return e.target.getAttribute('name') || e.currentTarget.getAttribute('name');
 };
 
-const getInput = (state, id) => {
-  return state.filter((input) => input.id === id)[0];
-};
+const getInput = (state, id) => state.filter((input) => input.id === id)[0];
 
 const getPOSTBody = (ingredient) => {
   return {
@@ -434,34 +624,38 @@ const getPOSTBody = (ingredient) => {
   };
 };
 
-const getRecipeInputValues = (inputs) => {
+const getRecipeInputValues = (inputs, recipeName) => {
   return inputs.reduce(
     (accum, input) => {
-      switch (input.id) {
-        case 'image-input':
-          accum.imgSrc = input.imgSrc;
-          return accum;
-        case 'title-input':
-          accum.title = input.text;
-          return accum;
-        case 'description-textarea':
-          accum.description = input.text;
-          return accum;
-        case 'recipe-textarea':
-          accum.instructions = input.text;
-          return accum;
-        case 'servings-input':
-          accum.servings = input.text;
-          return accum;
-        case 'servings-toggle':
-          accum.isUntitledPerServing = input.isUntitledPerServing;
-          return accum;
-        case 'photos-select-input':
-          accum.selectText = input.text;
-          return accum;
-        default:
-          return accum;
+      if (input.recipeName === recipeName) {
+        switch (input.id) {
+          case `${recipeName}image-input`:
+            accum.imgSrc = input.imgSrc;
+            return accum;
+          case `${recipeName}title-input`:
+            accum.title = input.text;
+            return accum;
+          case `${recipeName}description-textarea`:
+            accum.description = input.text;
+            return accum;
+          case `${recipeName}recipe-textarea`:
+            accum.instructions = input.text;
+            return accum;
+          case `${recipeName}servings-input`:
+            accum.servings = input.text;
+            return accum;
+          case `${recipeName}servings-toggle`:
+            accum.isPerServing = input.isPerServing;
+            return accum;
+          case `${recipeName}photos-select-input`:
+            accum.selectText = input.text;
+            return accum;
+          default:
+            return accum;
+        }
       }
+
+      return accum;
     },
     {
       imgSrc: '',
@@ -469,7 +663,7 @@ const getRecipeInputValues = (inputs) => {
       description: '',
       instructions: '',
       servings: 1,
-      isUntitledPerServing: true,
+      isPerServing: true,
       selectText: '',
     }
   );
@@ -500,6 +694,67 @@ const formatNutrients = (nutrients, isPerServing, servings) => {
   return formattedNutrients;
 };
 
+const createRecipeInputs = (recipeName, recipeInputValues) => {
+  return [
+    {
+      id: `${recipeName}ingredient-input`,
+      text: '',
+      isDisabled: false,
+      error: false,
+      status: ' ',
+      recipeName: recipeName,
+    },
+    {
+      id: `${recipeName}image-input`,
+      imgSrc: recipeInputValues.imgSrc,
+      imgName: recipeInputValues.imgName,
+      recipeName: recipeName,
+    },
+
+    {
+      id: `${recipeName}title-input`,
+      text: recipeInputValues.title,
+      status: ' ',
+      error: false,
+      recipeName: recipeName,
+    },
+
+    {
+      id: `${recipeName}description-textarea`,
+      text: recipeInputValues.description,
+      status: ' ',
+      error: false,
+      recipeName: recipeName,
+    },
+
+    {
+      id: `${recipeName}recipe-textarea`,
+      text: recipeInputValues.instructions,
+      status: ' ',
+      error: false,
+      recipeName: recipeName,
+    },
+
+    {
+      id: `${recipeName}servings-input`,
+      recipeName: recipeName,
+      text: recipeInputValues.servings,
+    },
+
+    {
+      id: `${recipeName}servings-toggle`,
+      isPerServing: recipeInputValues.isPerServing,
+      recipeName: recipeName,
+    },
+
+    {
+      id: `${recipeName}photos-select-input`,
+      text: recipeInputValues.selectText,
+      recipeName: recipeName,
+    },
+  ];
+};
+
 export {
   INIT_INGREDIENT_INPUT,
   INIT_INGREDIENTS_TEXTAREA,
@@ -523,6 +778,7 @@ export {
   getInput,
   getPOSTBody,
   getRecipeInputValues,
+  createRecipeInputs,
   getRecipeNames,
   formatNutrients,
   lodashGroupBy,

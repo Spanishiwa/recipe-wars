@@ -20,11 +20,11 @@ export default function MuiStepper(props) {
   const maxSteps = 3;
 
   const noRecipeNameIngredients = recipeStates.filter(
-    (recipe) => recipe.recipeName === 'Untitled'
+    (input) => input.recipeName === 'Untitled' && input.parsed
   );
   const isValidIngredientsList = noRecipeNameIngredients.length > 0;
 
-  const title = getInput(recipeStates, 'title-input').text;
+  const title = getInput(recipeStates, 'Untitledtitle-input').text;
   const isValidTitle = title !== '' && title !== 'Untitled';
   const titleRef = useRef(null);
   const ingredientRef = useRef(null);
@@ -36,15 +36,15 @@ export default function MuiStepper(props) {
     }
 
     const errMsg = getValidationErr();
-    let inputId = 'ingredient-input';
+    let inputId = 'Untitledingredient-input';
     let inputRef = ingredientRef;
 
     if (!isValidTitle) {
-      inputId = 'ingredient-input';
+      inputId = 'Untitledtitle-input';
       inputRef = titleRef;
     }
 
-    dispatch(updateInputError((inputId, errMsg)));
+    dispatch(updateInputError(inputId, errMsg));
     inputRef.current.focus();
     showAlert(errMsg, 'error');
   };
@@ -62,13 +62,25 @@ export default function MuiStepper(props) {
   const stepView = (step) => {
     switch (step) {
       case 0:
-        return <RecipeForm ingredientRef={ingredientRef} titleRef={titleRef} />;
+        return (
+          <RecipeForm
+            ingredientRef={ingredientRef}
+            recipeName="Untitled"
+            titleRef={titleRef}
+          />
+        );
       case 1:
-        return <RecipeFormOptional />;
+        return <RecipeFormOptional recipeName="Untitled" />;
       case 2:
         return <RecipeCard recipeName="Untitled" />;
       default:
-        return <RecipeForm ingredientRef={ingredientRef} titleRef={titleRef} />;
+        return (
+          <RecipeForm
+            ingredientRef={ingredientRef}
+            recipeName="Untitled"
+            titleRef={titleRef}
+          />
+        );
     }
   };
 
