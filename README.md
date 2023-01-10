@@ -4,7 +4,7 @@ Fetch the nutritional content of your favorite ingredient or recipe (multiple in
 
 ## FEATURES
 
-- MUI **Dark Mode** toggle using useMemo and useContext Hooks
+- MUI **Dark Mode** toggle using useContext and useMemo Hooks. Detects dark mode preference with CSS prefers-color-scheme
 - **Form validation error handling & toasts** via MUI snackbars & useRef Hooks focus inputs
 - Responsive single-page application with **React-Router-Dom** useNavigate & useLocation Hooks
 - **RESTful API fetches** and edits ingredient list items in place

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ColorModeContext from './ColorModeContext';
 import PropTypes from 'prop-types';
+import { useMediaQuery } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -50,11 +51,12 @@ const getDesignTokens = (mode) => ({
 });
 
 const Theme = (props) => {
-  const [mode, setMode] = React.useState();
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
 
   const { children } = props;
 
-  const colorMode = React.useMemo(
+  const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
@@ -64,10 +66,7 @@ const Theme = (props) => {
   );
 
   // Update the theme only if the mode changes
-  const currTheme = React.useMemo(
-    () => createTheme(getDesignTokens(mode)),
-    [mode]
-  );
+  const currTheme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
