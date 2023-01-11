@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from '@mui/material';
-import { Close, Done } from '@mui/icons-material';
 import { InputExamplesItem } from './InputExamplesItem';
 import { examplesListSx } from '../RecipeFormStyles';
 import { inputExamples } from '../RecipeFormUtil';
@@ -11,7 +10,7 @@ export const InputExamplesList = () => {
       {inputExamples.examples.map((inputExample, idx) => {
         return (
           <InputExamplesItem
-            CustomIcon={idx % 2 === 0 ? Done : Close}
+            Icon={idx % 2 === 0 ? 'Done' : 'Close'}
             iconColor={idx % 2 === 0 ? 'success' : 'error'}
             inputExample={inputExample}
             key={inputExample}
