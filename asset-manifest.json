@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/recipe-wars/static/css/main.f34dc258.css",
-    "main.js": "/recipe-wars/static/js/main.d6abd145.js",
+    "main.js": "/recipe-wars/static/js/main.bdec1faa.js",
     "static/media/Charcuterie_Board.webp": "/recipe-wars/static/media/Charcuterie_Board.970e7a7ffec988c6d66c.webp",
     "static/media/recipe_icon.png": "/recipe-wars/static/media/recipe_icon.f5391a98839af524fb72.png",
     "static/media/Cocoa_Cookies.jpeg": "/recipe-wars/static/media/Cocoa_Cookies.fc7c67a38eb7993ae34c.jpeg",
     "static/media/Grains.jpeg": "/recipe-wars/static/media/Grains.ddf17c1d1205fb875d59.jpeg",
     "static/media/Default_Img.jpeg": "/recipe-wars/static/media/Default_Img.5aae56b9a2fdf33f1160.jpeg",
     "static/media/Colorful_Vegetables.jpeg": "/recipe-wars/static/media/Colorful_Vegetables.07bbc24cd16230fd3276.jpeg",
+    "static/media/chopsticks.png": "/recipe-wars/static/media/chopsticks.939d94a69e9e32e0354f.png",
     "static/media/Fork_Knife.jpeg": "/recipe-wars/static/media/Fork_Knife.3b3b0c153330661c8d04.jpeg",
     "static/media/Beige_Paper.png": "/recipe-wars/static/media/Beige_Paper.ea4127ea011aae24782c.png",
     "static/media/Debut_Dark.png": "/recipe-wars/static/media/Debut_Dark.57c5360409c52e44faa3.png",
@@ -17,10 +18,10 @@
     "static/media/Protein.svg": "/recipe-wars/static/media/Protein.15d9199bb842b377e14ab9573e0c2318.svg",
     "index.html": "/recipe-wars/index.html",
     "main.f34dc258.css.map": "/recipe-wars/static/css/main.f34dc258.css.map",
-    "main.d6abd145.js.map": "/recipe-wars/static/js/main.d6abd145.js.map"
+    "main.bdec1faa.js.map": "/recipe-wars/static/js/main.bdec1faa.js.map"
   },
   "entrypoints": [
     "static/css/main.f34dc258.css",
-    "static/js/main.d6abd145.js"
+    "static/js/main.bdec1faa.js"
   ]
 }
