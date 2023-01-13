@@ -17,7 +17,7 @@ const editButtonSx = {
   },
 };
 
-const ingredientInputDisabledSx = (isEditable) => {
+const ingredientInputDisabledSx = (isEditable, pathname) => {
   return {
     flex: '1 1 auto',
     '& .MuiInputBase-root.Mui-disabled': { minHeight: '56px' },
@@ -26,9 +26,10 @@ const ingredientInputDisabledSx = (isEditable) => {
       : { display: 'none' },
     '& .MuiInputBase-root.Mui-disabled .submit': { display: 'none' },
     '& .MuiInputBase-root.Mui-disabled .delete': { display: 'none' },
-    '& .MuiInputBase-root.Mui-disabled .edit': isEditable
-      ? { display: 'inline-flex' }
-      : { display: 'none' },
+    '& .MuiInputBase-root.Mui-disabled .edit':
+      isEditable || pathname === '/start'
+        ? { display: 'inline-flex' }
+        : { display: 'none' },
     '& .MuiInputBase-root .edit': { display: 'none' },
     '& .MuiInputBase-adornedEnd.MuiInputBase-adornedStart': {
       paddingLeft: '0px ',

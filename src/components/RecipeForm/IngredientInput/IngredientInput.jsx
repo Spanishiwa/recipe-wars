@@ -27,8 +27,8 @@ const IngredientInput = (props) => {
   const handleKeySubmitThenFocus = (e) => {
     e.stopPropagation();
     const key = e.which || e.keyCode || 0;
-
-    if (key === 13) handleSubmit(e);
+    const isEnterKey = key === 13;
+    if (isEnterKey) handleSubmit(e);
   };
 
   const name = `${recipeName}ingredient-input`;

@@ -15,8 +15,9 @@ export const ServingsSwitch = (props) => {
 
   const handleKeyDown = (e) => {
     const key = e.which || e.keyCode || 0;
+    const isEnterOrLeftOrRight = key === 13 || key === 37 || key === 39;
 
-    if (key === 13 || key === 37 || key === 39) {
+    if (isEnterOrLeftOrRight) {
       e.preventDefault();
       e.stopPropagation();
 

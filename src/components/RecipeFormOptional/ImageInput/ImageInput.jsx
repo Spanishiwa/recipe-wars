@@ -23,9 +23,7 @@ const ImageInput = (props) => {
 
   const imgName = getInput(state, `${recipeName}image-input`).imgName;
 
-  const handleDeleteImage = () => {
-    dispatch(deleteImage(recipeName));
-  };
+  const handleDeleteImage = () => dispatch(deleteImage(recipeName));
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>

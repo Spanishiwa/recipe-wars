@@ -24,14 +24,16 @@ export const CustomFileInput = (props) => {
     if (imgInput?.imgSrc) URL.revokeObjectURL(imgInput.imgSrc);
 
     dispatch(updateImage(e));
+    // reset value so if the same image is uploaded onChange will trigger
     e.target.value = '';
   };
 
   const inputRef = useRef(null);
   const handleKeyEnter = (e) => {
     const key = e.which || e.keyCode || 0;
+    const isEnterKey = key === 13;
 
-    if (key === 13) inputRef.current.click();
+    if (isEnterKey) inputRef.current.click();
   };
 
   return (

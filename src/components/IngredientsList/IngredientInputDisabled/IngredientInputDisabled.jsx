@@ -19,12 +19,14 @@ import {
 import { currentlyRequesting, getPOSTBody } from '../../../Util';
 import { SnackbarContext } from '../../Contexts/SnackbarContext';
 import { CONFIG } from '../../../config';
+import { useLocation } from 'react-router-dom';
 
 const IngredientInputDisabled = (props) => {
   const { ingredient, isEditable } = props;
   const { state, dispatch } = useContext(RecipesContext);
   const { showAlert } = useContext(SnackbarContext);
   const mode = useTheme().palette.mode;
+  const { pathname } = useLocation();
 
   const handleBlur = (e) => dispatch(resetInputError(e));
   const handleChange = (e) => dispatch(updateInput(e));
@@ -75,7 +77,7 @@ const IngredientInputDisabled = (props) => {
         onChange={handleChange}
         onKeyDown={isDisabled ? undefined : handleKeySubmit}
         placeholder={text}
-        sx={ingredientInputDisabledSx(isEditable)}
+        sx={ingredientInputDisabledSx(isEditable, pathname)}
         title="Ingredient parsed through Edamam API"
         type="text"
         value={text}

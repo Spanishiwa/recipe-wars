@@ -15,16 +15,16 @@ export const MuiAccordion = (props) => {
 
   const theme = useTheme();
 
-  const hoverSx = getHoverSx(theme.palette.mode);
-  const expandedSx = getExpandedSx(theme.palette.mode);
+  const themedHoverSx = getHoverSx(theme.palette.mode);
+  const themedExpandedSx = getExpandedSx(theme.palette.mode);
 
   return (
-    <Accordion sx={expandedSx}>
+    <Accordion sx={themedExpandedSx}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: 'primary.main' }} />}
         aria-controls={`panel${idx}a-content`}
         id={`panel${idx}a-header`}
-        sx={hoverSx}
+        sx={themedHoverSx}
       >
         <Typography>{question}</Typography>
       </AccordionSummary>

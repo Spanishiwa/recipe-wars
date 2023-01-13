@@ -1,15 +1,9 @@
 import {
-  INIT_INGREDIENT_INPUT,
-  INIT_INGREDIENTS_TEXTAREA,
-  INIT_IMAGE_INPUT,
-  INIT_TITLE_INPUT,
-  INIT_DESCRIPTION_TEXTAREA,
-  INIT_RECIPE_TEXTAREA,
-  INIT_SERVINGS_INPUT,
-  INIT_SERVINGS_TOGGLE,
-  INIT_PHOTOS_SELECT_INPUT,
   INIT_RECIPE_WARS,
   createRecipeInputs,
+  getRecipeInputValues,
+  DEFAULT_INPUTS,
+  validHtml,
 } from '../Util';
 import { ACTION_TYPES } from './actions';
 const {
@@ -52,8 +46,8 @@ const rootReducer = (state, action) => {
     case CREATE_INGREDIENTS:
       return [
         ...state.map((prevState) => {
-          // clearing input generator / error / status
-          if (prevState.id === action.payload.name) {
+          const isSubmittedInput = prevState.id === action.payload.name;
+          if (isSubmittedInput) {
             return {
               ...prevState,
               text: '',
@@ -111,32 +105,15 @@ const rootReducer = (state, action) => {
           : prevState
       );
     case RESET_RECIPE:
-      // filter out noRecipeName ingredients and reset inputs
       return state.map((prevState) => {
-        if (prevState.parsed && prevState.recipeName === 'Untitled') return;
+        const untitledIngredient =
+          prevState.recipeName === 'Untitled' && prevState.parsed;
 
-        switch (prevState.id) {
-          case 'Untitledingredient-input':
-            return INIT_INGREDIENT_INPUT;
-          case 'Untitledingredients-textarea':
-            return INIT_INGREDIENTS_TEXTAREA;
-          case 'Untitledimage-input':
-            return INIT_IMAGE_INPUT;
-          case 'Untitledtitle-input':
-            return INIT_TITLE_INPUT;
-          case 'Untitleddescription-textarea':
-            return INIT_DESCRIPTION_TEXTAREA;
-          case 'Untitledrecipe-textarea':
-            return INIT_RECIPE_TEXTAREA;
-          case 'Untitledservings-input':
-            return INIT_SERVINGS_INPUT;
-          case 'Untitledservings-toggle':
-            return INIT_SERVINGS_TOGGLE;
-          case 'Untitledphotos-select-input':
-            return INIT_PHOTOS_SELECT_INPUT;
-          default:
-            return prevState;
-        }
+        if (untitledIngredient) return;
+
+        const defaultInputValue = DEFAULT_INPUTS[prevState.id];
+
+        if (defaultInputValue) return defaultInputValue;
       });
     case RESET_ALL:
       return INIT_RECIPE_WARS;
@@ -153,83 +130,20 @@ const rootReducer = (state, action) => {
           : prevState
       );
     case SUBMIT_RECIPE: {
-      const recipeState = state.reduce(
-        (accum, input) => {
-          // get input values
-          switch (input.id) {
-            case 'Untitledimage-input':
-              accum.imgSrc = input.imgSrc;
-              accum.imgName = input.imgName;
-              return accum;
-            case 'Untitledtitle-input':
-              accum.title = input.text;
-              return accum;
-            case 'Untitleddescription-textarea':
-              accum.description = input.text;
-              return accum;
-            case 'Untitledrecipe-textarea':
-              accum.instructions = input.text;
-              return accum;
-            case 'Untitledservings-input':
-              accum.servings = input.text;
-              return accum;
-            case 'Untitledservings-toggle':
-              accum.isPerServing = input.isPerServing;
-              return accum;
-            case 'Untitledphotos-select-input':
-              accum.selectText = input.text;
-              return accum;
-            default:
-              return accum;
-          }
-        },
-        {
-          imgSrc: '',
-          imgName: '',
-          title: '',
-          description: '',
-          instructions: '',
-          servings: 1,
-          isPerServing: true,
-          selectText: '',
-        }
-      );
-
-      const recipeName = recipeState.title
-        .replace(/[^a-zA-Z]+/g, '')
-        .slice(-50);
+      const recipeState = getRecipeInputValues(state, 'Untitled');
+      const recipeName = validHtml(recipeState.title);
 
       const stateWithFormInputsReset = state.map((prevState) => {
-        if (prevState.recipeName === 'Untitled' && prevState.parsed) {
-          //   update recipeName of pending noRecipeName ingredients
-          return { ...prevState, recipeName: recipeName };
-        }
-        switch (prevState.id) {
-          // reset recipe inputs
-          case 'Untitledingredient-input':
-            return INIT_INGREDIENT_INPUT;
-          case 'Untitledingredients-textarea':
-            return INIT_INGREDIENTS_TEXTAREA;
-          case 'Untitledimage-input':
-            return INIT_IMAGE_INPUT;
-          case 'Untitledtitle-input':
-            return INIT_TITLE_INPUT;
-          case 'Untitleddescription-textarea':
-            return INIT_DESCRIPTION_TEXTAREA;
-          case 'Untitledrecipe-textarea':
-            return INIT_RECIPE_TEXTAREA;
-          case 'Untitledservings-input':
-            return INIT_SERVINGS_INPUT;
-          case 'Untitledservings-toggle':
-            return INIT_SERVINGS_TOGGLE;
-          case 'photos-select-input':
-            return INIT_PHOTOS_SELECT_INPUT;
-          default:
-            return prevState;
-        }
+        const defaultInput = DEFAULT_INPUTS[prevState.id];
+        if (defaultInput) return defaultInput;
+
+        const untitledIngredient =
+          prevState.recipeName === 'Untitled' && prevState.parsed;
+        if (untitledIngredient) return { ...prevState, recipeName: recipeName };
+
+        return prevState;
       });
 
-      // preprend created recipe inputs to state with form inputs reset and ingredients recipe names set
       return [
         ...createRecipeInputs(recipeName, recipeState),
         ...stateWithFormInputsReset,
@@ -278,12 +192,11 @@ const rootReducer = (state, action) => {
       });
     case SET_DISABLED_RECIPE_INGREDIENTS:
       return state.map((prevState) => {
-        if (
+        const isRecipeIngredient =
           prevState.recipeName === action.payload.recipeName &&
-          prevState.parsed
-        ) {
-          return { ...prevState, isDisabled: true };
-        }
+          prevState.parsed;
+
+        if (isRecipeIngredient) return { ...prevState, isDisabled: true };
 
         return prevState;
       });

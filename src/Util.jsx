@@ -64,6 +64,18 @@ const INIT_PHOTOS_SELECT_INPUT = {
   recipeName: 'Untitled',
 };
 
+const DEFAULT_INPUTS = {
+  'Untitledingredient-input': INIT_INGREDIENT_INPUT,
+  'Untitledingredients-textarea': INIT_INGREDIENTS_TEXTAREA,
+  'Untitledimage-input': INIT_IMAGE_INPUT,
+  'Untitledtitle-input': INIT_TITLE_INPUT,
+  'Untitleddescription-textarea': INIT_DESCRIPTION_TEXTAREA,
+  'Untitledrecipe-textarea': INIT_RECIPE_TEXTAREA,
+  'Untitledservings-input': INIT_SERVINGS_INPUT,
+  'Untitledservings-toggle': INIT_SERVINGS_TOGGLE,
+  'Untitledphotos-select-input': INIT_PHOTOS_SELECT_INPUT,
+};
+
 const INIT_KEY_LIME_PIE = [
   {
     description:
@@ -570,6 +582,7 @@ const INIT_INPUTS = [
   INIT_DESCRIPTION_TEXTAREA,
   INIT_RECIPE_TEXTAREA,
   INIT_SERVINGS_INPUT,
+  INIT_SERVINGS_TOGGLE,
   INIT_PHOTOS_SELECT_INPUT,
 ];
 
@@ -627,38 +640,38 @@ const getPOSTBody = (ingredient) => {
 const getRecipeInputValues = (inputs, recipeName) => {
   return inputs.reduce(
     (accum, input) => {
-      if (input.recipeName === recipeName) {
-        switch (input.id) {
-          case `${recipeName}image-input`:
-            accum.imgSrc = input.imgSrc;
-            return accum;
-          case `${recipeName}title-input`:
-            accum.title = input.text;
-            return accum;
-          case `${recipeName}description-textarea`:
-            accum.description = input.text;
-            return accum;
-          case `${recipeName}recipe-textarea`:
-            accum.instructions = input.text;
-            return accum;
-          case `${recipeName}servings-input`:
-            accum.servings = input.text;
-            return accum;
-          case `${recipeName}servings-toggle`:
-            accum.isPerServing = input.isPerServing;
-            return accum;
-          case `${recipeName}photos-select-input`:
-            accum.selectText = input.text;
-            return accum;
-          default:
-            return accum;
-        }
-      }
+      if (input.recipeName !== recipeName) return accum;
 
-      return accum;
+      switch (input.id) {
+        case `${recipeName}image-input`:
+          accum.imgSrc = input.imgSrc;
+          accum.imgName = input.imgName;
+          return accum;
+        case `${recipeName}title-input`:
+          accum.title = input.text;
+          return accum;
+        case `${recipeName}description-textarea`:
+          accum.description = input.text;
+          return accum;
+        case `${recipeName}recipe-textarea`:
+          accum.instructions = input.text;
+          return accum;
+        case `${recipeName}servings-input`:
+          accum.servings = input.text;
+          return accum;
+        case `${recipeName}servings-toggle`:
+          accum.isPerServing = input.isPerServing;
+          return accum;
+        case `${recipeName}photos-select-input`:
+          accum.selectText = input.text;
+          return accum;
+        default:
+          return accum;
+      }
     },
     {
       imgSrc: '',
+      imgName: '',
       title: '',
       description: '',
       instructions: '',
@@ -755,6 +768,10 @@ const createRecipeInputs = (recipeName, recipeInputValues) => {
   ];
 };
 
+const validHtml = (title) => {
+  return title.replace(/[^a-zA-Z]+/g, '').slice(-50);
+};
+
 export {
   INIT_INGREDIENT_INPUT,
   INIT_INGREDIENTS_TEXTAREA,
@@ -766,6 +783,7 @@ export {
   INIT_SERVINGS_TOGGLE,
   INIT_PHOTOS_SELECT_INPUT,
   INIT_KEY_LIME_PIE,
+  DEFAULT_INPUTS,
   INIT_CHEESY_CORN,
   INIT_ITALIAN_BEEF,
   INIT_INPUTS,
@@ -782,4 +800,5 @@ export {
   getRecipeNames,
   formatNutrients,
   lodashGroupBy,
+  validHtml,
 };

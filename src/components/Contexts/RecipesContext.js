@@ -6,12 +6,12 @@ export const RecipesContext = createContext();
 export const RecipesContextProvider = (props) => {
   const { children, value } = props;
 
-  const recipesContextValue = useMemo(() => {
+  const memoizedRecipesContextValue = useMemo(() => {
     return value;
   }, [value]);
 
   return (
-    <RecipesContext.Provider value={recipesContextValue}>
+    <RecipesContext.Provider value={memoizedRecipesContextValue}>
       {children}
     </RecipesContext.Provider>
   );

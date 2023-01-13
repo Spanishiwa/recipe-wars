@@ -16,7 +16,7 @@ export const ButtonsCard = () => {
 
   return (
     <Card
-      sx={{ display: 'flex', justifyContent: 'space-between', p: 2, mt: 2 }}
+      sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, p: 2 }}
     >
       <Button
         aria-label="START PAGE"

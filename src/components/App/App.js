@@ -16,10 +16,10 @@ import { Home } from '../../Pages/Home/Home';
 function App() {
   const [state, dispatch] = useReducer(
     rootReducer,
-    JSON.parse(localStorage.getItem('values')) || INIT_RECIPE_WARS
+    JSON.parse(localStorage.getItem('recipeStates')) || INIT_RECIPE_WARS
   );
 
-  const recipesContextValue = useMemo(() => {
+  const memoizedRecipesContextValue = useMemo(() => {
     return { state, dispatch };
   }, [state, dispatch]);
 
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <SnackbarProvider>
-      <RecipesContextProvider value={recipesContextValue}>
+      <RecipesContextProvider value={memoizedRecipesContextValue}>
         <NavBar />
         <Container component="main" maxWidth="lg" sx={mainSx}>
           <Box className="app" sx={appSx}>

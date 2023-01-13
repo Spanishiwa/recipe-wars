@@ -42,7 +42,7 @@ export const CardCollapse = (props) => {
   const collapsibleInstructionsSx = getCollapseInstructionsSx(mode);
 
   const instructions = getInput(state, `${recipeName}recipe-textarea`).text;
-  // const { label, inputRef, name, placeholder, rows, title }
+
   return (
     <Fragment>
       <CardActions disableSpacing sx={cardActionsSx}>
